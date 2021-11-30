@@ -281,7 +281,7 @@ docker container rm nostalgic_payne
 ```
 
 !!!
-nostalgic_payne is the name automatically given to the container, yours will be different. To find out what it is, you can use the before-mentioned **docker container ls -al**.
+nostalgic_payne is the name automatically given to the container, yours will be different. To find out what it is, you can use the before-mentioned **docker container ls -al** command.
 !!!
 
 Now that the underlying container is removed, we can remove the image. The name of the container must also be followed by image tag:
