@@ -4,6 +4,7 @@ tags: [tutorial, docker, ubuntu 20.04]
 author:
   name: Matej
   email: matej.matkuliak@gmail.com
+  avatar:
 date: 2020-11-30
 icon: rocket
 ---

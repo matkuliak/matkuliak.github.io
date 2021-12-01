@@ -1,9 +1,17 @@
 input: .
 output: .retype
-url: # Add your website address here
+url: matkuliak.xyz
+
 branding:
   title: Better Stack guide example
   label: v1
-links:
+
+meta:
+  title: " | Matove Docs"
+
 footer:
   copyright: "&copy; Copyright {{ year }}. All rights reserved."
+
+integrations:
+  gravatar.default: monsterid
+  gravatar.enabled: true
