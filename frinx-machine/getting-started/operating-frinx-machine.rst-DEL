@@ -1,0 +1,111 @@
+Operating FRINX Machine
+=======================
+
+
+Starting a workflow
+-------------------
+
+Initiate **Workflow UI** 
+
+
+#. Open web browser
+#. Type localhost:5000 
+
+Navigate to: 
+
+* Metadata
+
+  * Workflow Defs
+
+There is a list of all available workflow definitions.
+Choose one and switch to tab **Input**:
+
+
+.. image:: image_1.png
+   :target: image_1.png
+   :alt: preview1
+
+
+Input
+-----
+
+Workflows are supplied inputs by client when a new execution is triggered. 
+
+Workflow input is a JSON payload that is available via ``${workflow.input...}``
+expressions.
+
+Each task in the workflow is given input based on the inputParameters template
+configured in workflow definition. 
+
+``inputParameters`` is a JSON fragment with value containing parameters for
+mapping values from input or output of a workflow or another task during the
+execution.
+
+
+Start workflow
+--------------
+
+Fill in JSON generated input fields. Input fields may contain default value or
+description provided in workflow definition. 
+
+Press the button **Execute workflow** in order to start current workflow. 
+
+**Console log** section at the bottom provides status information about workflow
+execution.
+
+
+.. image:: image_2.png
+   :target: image_2.png
+   :alt: preview2
+
+
+Executed workflows can be found at **Executions** tab on top of the column in
+menu on the left.
+
+
+Inspecting executed workflows
+-----------------------------
+
+Navigate to:
+
+
+* Executions
+
+  * All
+
+Then, search and filter for specific workflows.
+
+After clicking on specific workflow, you are able to see its details including
+outputs as well as other information about current workflow.
+
+
+.. image:: image_3.png
+   :target: image_3.png
+   :alt: preview3
+
+
+Workflow actions
+----------------
+
+Workflow actions are available after clicking on specific executed workflow. 
+
+You are able to execute these actions to a specific workflow:
+
+
+* terminate
+* rerun
+* restart
+* retry
+* pause
+* resume
+
+Running previously executed workflow as new workflow with same or edited inputs:
+
+Navigate to **Edit Input** tab, where you are able to edit specific inputs and
+run workflow again.
+
+
+.. image:: image_4.png
+   :target: image_4.png
+   :alt: preview4
+

@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+     contentScriptType="application/ecmascript" contentStyleType="text/css" height="429px" preserveAspectRatio="none"
+     style="width:1120px;height:429px;background:#FFFFFF;" version="1.1" viewBox="0 0 1120 429" width="1120px"
+     zoomAndPan="magnify">
+    <defs>
+        <filter height="300%" id="fbdrele17nt8" width="300%" x="-1" y="-1">
+            <feGaussianBlur result="blurOut" stdDeviation="2.0"/>
+            <feColorMatrix in="blurOut" result="blurOut2" type="matrix"
+                           values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/>
+            <feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/>
+            <feBlend in="SourceGraphic" in2="blurOut3" mode="normal"/>
+        </filter>
+    </defs>
+    <g>
+        <text fill="#000000" font-family="sans-serif" font-size="18" lengthAdjust="spacing" textLength="187" x="468.75"
+              y="28.708">RPC create-snapshot
+        </text>
+        <rect fill="#FFFFFF" filter="url(#fbdrele17nt8)" height="75.3984" style="stroke:#000000;stroke-width:2.0;"
+              width="452" x="211.5" y="184.5156"/>
+        <line style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:5.0,5.0;" x1="48" x2="48" y1="123.25"
+              y2="422.5781"/>
+        <line style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:5.0,5.0;" x1="296.5" x2="296.5" y1="123.25"
+              y2="422.5781"/>
+        <line style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:5.0,5.0;" x1="545.5" x2="545.5" y1="123.25"
+              y2="422.5781"/>
+        <line style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:5.0,5.0;" x1="771.5" x2="771.5" y1="123.25"
+              y2="422.5781"/>
+        <line style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:5.0,5.0;" x1="1004.5" x2="1004.5" y1="123.25"
+              y2="422.5781"/>
+        <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="80" x="5"
+              y="119.9482">Application
+        </text>
+        <ellipse cx="48" cy="49.9531" fill="#FEFECE" filter="url(#fbdrele17nt8)" rx="8" ry="8"
+                 style="stroke:#A80036;stroke-width:2.0;"/>
+        <path d="M48,57.9531 L48,84.9531 M35,65.9531 L61,65.9531 M48,84.9531 L35,99.9531 M48,84.9531 L61,99.9531 "
+              fill="none" filter="url(#fbdrele17nt8)" style="stroke:#A80036;stroke-width:2.0;"/>
+        <rect fill="#FEFECE" filter="url(#fbdrele17nt8)" height="30.2969" style="stroke:#A80036;stroke-width:1.5;"
+              width="147" x="221.5" y="87.9531"/>
+        <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="133" x="228.5"
+              y="107.9482">Snapshot Manager
+        </text>
+        <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="209" x="438.5"
+              y="119.9482">Uniconfig topology (OPER DS)
+        </text>
+        <path d="M528,70.9531 C528,60.9531 546,60.9531 546,60.9531 C546,60.9531 564,60.9531 564,70.9531 L564,96.9531 C564,106.9531 546,106.9531 546,106.9531 C546,106.9531 528,106.9531 528,96.9531 L528,70.9531 "
+              fill="#FEFECE" filter="url(#fbdrele17nt8)" style="stroke:#000000;stroke-width:1.5;"/>
+        <path d="M528,70.9531 C528,80.9531 546,80.9531 546,80.9531 C546,80.9531 564,80.9531 564,70.9531 " fill="none"
+              style="stroke:#000000;stroke-width:1.5;"/>
+        <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="210" x="663.5"
+              y="119.9482">Uniconfig topology (CONF DS)
+        </text>
+        <path d="M753.5,70.9531 C753.5,60.9531 771.5,60.9531 771.5,60.9531 C771.5,60.9531 789.5,60.9531 789.5,70.9531 L789.5,96.9531 C789.5,106.9531 771.5,106.9531 771.5,106.9531 C771.5,106.9531 753.5,106.9531 753.5,96.9531 L753.5,70.9531 "
+              fill="#FEFECE" filter="url(#fbdrele17nt8)" style="stroke:#000000;stroke-width:1.5;"/>
+        <path d="M753.5,70.9531 C753.5,80.9531 771.5,80.9531 771.5,80.9531 C771.5,80.9531 789.5,80.9531 789.5,70.9531 "
+              fill="none" style="stroke:#000000;stroke-width:1.5;"/>
+        <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="224" x="889.5"
+              y="119.9482">Snapshots-metadata (CONF DS)
+        </text>
+        <path d="M986.5,70.9531 C986.5,60.9531 1004.5,60.9531 1004.5,60.9531 C1004.5,60.9531 1022.5,60.9531 1022.5,70.9531 L1022.5,96.9531 C1022.5,106.9531 1004.5,106.9531 1004.5,106.9531 C1004.5,106.9531 986.5,106.9531 986.5,96.9531 L986.5,70.9531 "
+              fill="#FEFECE" filter="url(#fbdrele17nt8)" style="stroke:#000000;stroke-width:1.5;"/>
+        <path d="M986.5,70.9531 C986.5,80.9531 1004.5,80.9531 1004.5,80.9531 C1004.5,80.9531 1022.5,80.9531 1022.5,70.9531 "
+              fill="none" style="stroke:#000000;stroke-width:1.5;"/>
+        <polygon fill="#A80036" points="285,165.5156,295,169.5156,285,173.5156,289,169.5156"
+                 style="stroke:#A80036;stroke-width:1.0;"/>
+        <line style="stroke:#A80036;stroke-width:1.0;" x1="48" x2="291" y1="169.5156" y2="169.5156"/>
+        <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="135" x="55"
+              y="149.3169">RPC create-snapshot
+        </text>
+        <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="221" x="59"
+              y="164.4497">(snapshot name, uniconfig nodes)
+        </text>
+        <path d="M211.5,184.5156 L287.5,184.5156 L287.5,191.5156 L277.5,201.5156 L211.5,201.5156 L211.5,184.5156 "
+              fill="#EEEEEE" style="stroke:#000000;stroke-width:1.0;"/>
+        <rect fill="none" height="75.3984" style="stroke:#000000;stroke-width:2.0;" width="452" x="211.5" y="184.5156"/>
+        <text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing"
+              textLength="31" x="226.5" y="197.5825">loop
+        </text>
+        <text fill="#000000" font-family="sans-serif" font-size="11" font-weight="bold" lengthAdjust="spacing"
+              textLength="160" x="302.5" y="196.7261">[for each uniconfig node]
+        </text>
+        <polygon fill="#A80036" points="534,218.7813,544,222.7813,534,226.7813,538,222.7813"
+                 style="stroke:#A80036;stroke-width:1.0;"/>
+        <line style="stroke:#A80036;stroke-width:1.0;" x1="297" x2="540" y1="222.7813" y2="222.7813"/>
+        <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="225" x="304"
+              y="217.7153">read node from uniconfig topology
+        </text>
+        <line style="stroke:#A80036;stroke-width:1.0;" x1="297" x2="307" y1="251.9141" y2="247.9141"/>
+        <line style="stroke:#A80036;stroke-width:1.0;" x1="297" x2="307" y1="251.9141" y2="255.9141"/>
+        <line style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:2.0,2.0;" x1="297" x2="545" y1="251.9141"
+              y2="251.9141"/>
+        <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="154" x="314"
+              y="246.8481">node with configuration
+        </text>
+        <polygon fill="#A80036" points="759.5,284.0469,769.5,288.0469,759.5,292.0469,763.5,288.0469"
+                 style="stroke:#A80036;stroke-width:1.0;"/>
+        <line style="stroke:#A80036;stroke-width:1.0;" x1="297" x2="765.5" y1="288.0469" y2="288.0469"/>
+        <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="218" x="304"
+              y="282.981">write snapshot topology topology
+        </text>
+        <line style="stroke:#A80036;stroke-width:1.0;" x1="297" x2="307" y1="317.1797" y2="313.1797"/>
+        <line style="stroke:#A80036;stroke-width:1.0;" x1="297" x2="307" y1="317.1797" y2="321.1797"/>
+        <line style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:2.0,2.0;" x1="297" x2="770.5" y1="317.1797"
+              y2="317.1797"/>
+        <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="23" x="314"
+              y="312.1138">ack
+        </text>
+        <polygon fill="#A80036" points="992.5,342.3125,1002.5,346.3125,992.5,350.3125,996.5,346.3125"
+                 style="stroke:#A80036;stroke-width:1.0;"/>
+        <line style="stroke:#A80036;stroke-width:1.0;" x1="297" x2="998.5" y1="346.3125" y2="346.3125"/>
+        <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="192" x="304"
+              y="341.2466">put metadata about snapshot
+        </text>
+        <line style="stroke:#A80036;stroke-width:1.0;" x1="297" x2="307" y1="375.4453" y2="371.4453"/>
+        <line style="stroke:#A80036;stroke-width:1.0;" x1="297" x2="307" y1="375.4453" y2="379.4453"/>
+        <line style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:2.0,2.0;" x1="297" x2="1003.5" y1="375.4453"
+              y2="375.4453"/>
+        <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="23" x="314"
+              y="370.3794">ack
+        </text>
+        <polygon fill="#A80036" points="59,400.5781,49,404.5781,59,408.5781,55,404.5781"
+                 style="stroke:#A80036;stroke-width:1.0;"/>
+        <line style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:2.0,2.0;" x1="53" x2="296" y1="404.5781"
+              y2="404.5781"/>
+        <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="89" x="65"
+              y="399.5122">RPC response
+        </text><!--MD5=[6c7f47af5148126ae7fbe38b63fb3a15]
+@startuml
+hide footbox
+title RPC create-snapshot
+
+actor Application
+participant "Snapshot Manager"
+database "Uniconfig topology (OPER DS)"
+database "Uniconfig topology (CONF DS)"
+database "Snapshots-metadata (CONF DS)"
+
+Application -> "Snapshot Manager": RPC create-snapshot\n (snapshot name, uniconfig nodes)
+loop for each uniconfig node
+    "Snapshot Manager" -> "Uniconfig topology (OPER DS)": read node from uniconfig topology
+    "Uniconfig topology (OPER DS)" - ->> "Snapshot Manager": node with configuration
+end
+"Snapshot Manager" -> "Uniconfig topology (CONF DS)": write snapshot topology topology
+"Uniconfig topology (CONF DS)" - ->> "Snapshot Manager": ack
+"Snapshot Manager" -> "Snapshots-metadata (CONF DS)": put metadata about snapshot
+"Snapshots-metadata (CONF DS)" - ->> "Snapshot Manager": ack
+"Snapshot Manager" - -> Application: RPC response
+@enduml
+
+PlantUML version 1.2021.11(Sat Oct 02 15:26:11 CEST 2021)
+(GPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Default Encoding: UTF-8
+Language: en
+Country: GB
+-->
+    </g>
+</svg>

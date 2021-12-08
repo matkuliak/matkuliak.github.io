@@ -1,0 +1,2650 @@
+<head><title> network-topology netconf-node-topology 
+</title>
+<style type="text/css" media="all">
+
+body, h1, h2, h3, h4, h5, h6, p, td, table td, input, select {
+        font-family: Verdana, Helvetica, Arial, sans-serif;
+        font-size: 10pt;
+}
+
+body, ol, li, h2 {padding:0; margin: 0;}
+
+ol#root  {padding-left: 5px; margin-top: 2px; margin-bottom: 1px;
+          list-style: none;}
+
+#root ol {padding-left: 5px; margin-top: 2px; margin-bottom: 1px;
+          list-style: none;}
+
+#root li {margin-bottom: 1px; padding-left: 5px;  margin-top: 2px;
+          font-size: x-small;}
+
+.panel   {border-bottom: 1px solid #999; margin-bottom: 2px; margin-top: 2px;
+          background: #eee;}
+
+#root ul {margin-bottom: 1px; margin-top: 2px; list-style-position: inside;}
+
+#root a {text-decoration: none;}
+
+.folder {
+   
+background:url(data:image/gif;base64,R0lGODlhGgAOALMLAJmZmYuLi3p6ev///+zs7MzMzGZmZqqqqrS0tLq6uuHh4f///wAAAAAAAAAAAAAAACH5BAEAAAsALAAAAAAaAA4AAASJcMlJq714qgROKUtxAABBgJkUFMQwFEhyFoFAKini7idSHwGDQXAYYAADxQdBOjiBQqGgYKx4AomCYoYAHqLRVVUCKCBdSthhCgYDKIDuTpnoGgptgxged3FHBgpgU2MTASsmdCM1gkNFGDVaHx91QQQ3KZGSZocHBCEpEgIrCYdxn6EVAnoIGREAOw==)  no-repeat; float: left; padding-right: 30px;margin-left: 3px;
+          
+}
+
+.doc {
+   
+background:url(data:image/gif;base64,R0lGODlhDAAOALMJAMzMzODg4P///+np6a+vr+7u7jMzM5mZmYmJif///wAAAAAAAAAAAAAAAAAAAAAAACH5BAEAAAkALAAAAAAMAA4AAARFEEhyCAEjackPCESwBRxwCKD4BSSACCgxrKyJ3B42sK2FSINgsAa4AApI4W5yFCCTywts+txJp9TC4IrFcruwi2FMLgMiADs=)
+no-repeat; float: left; padding-right: 10px; margin-left: 3px;
+cursor: pointer;
+          
+}
+
+.leaf {
+   
+background:url(data:image/gif;base64,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)
+no-repeat; float: left; padding-right: 10px;margin-left: 3px;
+          
+}
+
+.leaf-list {
+   
+background:url(data:image/gif;base64,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)
+no-repeat; float: left; padding-right: 10px; margin-left: 3px;
+          
+}
+
+.action {
+   
+background:url(data:image/gif;base64,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)
+no-repeat; float: left; height: 14px; width: 12px; padding-right: 10px; margin-left: 3px;
+          
+}
+
+.tier1  {margin-left: 0;     }
+.tier2  {margin-left: 1.5em; }
+.tier3  {margin-left: 3em;   }
+.tier4  {margin-left: 4.5em; }
+.tier5  {margin-left: 6em;   }
+.tier6  {margin-left: 7.5em; }
+.tier7  {margin-left: 9em;   }
+.tier8  {margin-left: 10.5em;}
+.tier9  {margin-left: 12em;  }
+.tier10 {margin-left: 13.5em;}
+.tier11 {margin-left: 15em;  }
+.tier12 {margin-left: 16.5em;}
+
+.level1 {padding-left: 0;    }
+.level2 {padding-left: 1em;  }
+.level3 {padding-left: 2em;  }
+.level4 {padding-left: 3em;  }
+</style>
+
+<script language="javascript1.2">
+function toggleRows(elm) {
+ var rows = document.getElementsByTagName("TR");
+ elm.style.backgroundImage = "url(data:image/gif;base64,R0lGODlhGgAOALMLAJmZmYuLi3p6ev///+zs7MzMzGZmZqqqqrS0tLq6uuHh4f///wAAAAAAAAAAAAAAACH5BAEAAAsALAAAAAAaAA4AAASJcMlJq714qgROKUtxAABBgJkUFMQwFEhyFoFAKini7idSHwGDQXAYYAADxQdBOjiBQqGgYKx4AomCYoYAHqLRVVUCKCBdSthhCgYDKIDuTpnoGgptgxged3FHBgpgU2MTASsmdCM1gkNFGDVaHx91QQQ3KZGSZocHBCEpEgIrCYdxn6EVAnoIGREAOw==)";
+ var newDisplay = "none";
+ var thisID = elm.parentNode.parentNode.parentNode.id + "-";
+ // Are we expanding or contracting? If the first child is hidden, we expand
+  for (var i = 0; i < rows.length; i++) {
+   var r = rows[i];
+   if (matchStart(r.id, thisID, true)) {
+    if (r.style.display == "none") {
+     if (document.all) newDisplay = "block"; //IE4+ specific code
+     else newDisplay = "table-row"; //Netscape and Mozilla
+     elm.style.backgroundImage = "url(data:image/gif;base64,R0lGODlhGgAOALMLAJmZmYqKiv///+zs7MzMzGZmZrOzs7q6uqqqqnZ2duHh4f///wAAAAAAAAAAAAAAACH5BAEAAAsALAAAAAAaAA4AAASScMlJq714qgMMIQuBAMAwZBRADIJAGMfwBQE6GW0uGzRS2wuAQPHhABAIAyBAABSe0IJKgiAEDgSF7OVDBKNQwEQlbBG5CZAiAA4oxsoc8WBAFEALe9SQ6rS2dU5vCwJsTwECKUwmcyMBCYMhUHgTj1kfRTwFJxKFBYgVlpdNNCUVBHcWCUwHpQacFgJCqp98GBEAOw==)";
+    }
+    break;
+   }
+ }
+
+ // When expanding, only expand one level.  Collapse all desendants.
+ var matchDirectChildrenOnly = (newDisplay != "none");
+
+ for (var j = 0; j < rows.length; j++) {
+   var s = rows[j];
+   if (matchStart(s.id, thisID, matchDirectChildrenOnly)) {
+     s.style.display = newDisplay;
+     var cell = s.getElementsByTagName("TD")[0];
+     var tier = cell.getElementsByTagName("DIV")[0];
+     var folder = tier.getElementsByTagName("A")[0];
+     if (folder.getAttribute("onclick") != null) {
+     folder.style.backgroundImage = "url(data:image/gif;base64,R0lGODlhGgAOALMLAJmZmYuLi3p6ev///+zs7MzMzGZmZqqqqrS0tLq6uuHh4f///wAAAAAAAAAAAAAAACH5BAEAAAsALAAAAAAaAA4AAASJcMlJq714qgROKUtxAABBgJkUFMQwFEhyFoFAKini7idSHwGDQXAYYAADxQdBOjiBQqGgYKx4AomCYoYAHqLRVVUCKCBdSthhCgYDKIDuTpnoGgptgxged3FHBgpgU2MTASsmdCM1gkNFGDVaHx91QQQ3KZGSZocHBCEpEgIrCYdxn6EVAnoIGREAOw==)";
+     }
+   }
+ }
+}
+
+function matchStart(target, pattern, matchDirectChildrenOnly) {
+ var pos = target.indexOf(pattern);
+ if (pos != 0)
+    return false;
+ if (!matchDirectChildrenOnly)
+    return true;
+ if (target.slice(pos + pattern.length, target.length).indexOf("-") >= 0)
+    return false;
+ return true;
+}
+
+function collapseAllRows() {
+ var rows = document.getElementsByTagName("TR");
+ for (var i = 0; i < rows.length; i++) {
+   var r = rows[i];
+   if (r.id.indexOf("-") >= 0) {
+     r.style.display = "none";
+   }
+ }
+}
+
+function expandAllRows() {
+  var rows = document.getElementsByTagName("TR");
+  for (var i = 0; i < rows.length; i ++) {
+    var r = rows[i];
+    if (r.id.indexOf("-") >= 0) {
+      r.style.display = "table-row";
+    }
+  }
+}
+</script>
+
+<body onload="collapseAllRows();">
+<div class="app">
+<div style="background: #eee; border: dashed 1px #000;">
+<h1> Module: <font color=blue>network-topology</font>, Namespace:
+                    <font color=blue>urn:TBD:params:xml:ns:yang:network-topology</font>, Prefix:
+                    <font color=blue>nt</font></h1> 
+<h1> Module: <font color=blue>netconf-node-topology</font>, Namespace:
+                    <font color=blue>urn:opendaylight:netconf-node-topology</font>, Prefix:
+                    <font color=blue>nettop</font></h1> 
+
+ <table width="100%">
+
+ <tr>
+  <!-- specifing one or more widths keeps columns
+       constant despite changes in visible content -->
+  <th align=left>
+     Element
+     <a href='#' onclick='expandAllRows();'>[+]Expand all</a>
+     <a href='#' onclick='collapseAllRows();'>[-]Collapse all</a>
+  </th>
+  <th align=left>Schema</th>
+  <th align=left>Type</th>
+  <th align=left>Flags</th>
+  <th align=left>Opts</th>
+  <th align=left>Status</th>
+  <th align=left>Path</th>
+</tr>
+<tr id="1" class="a">
+                         <td id="p1">
+                            <div id="p2" class="tier1">
+                               <a href="#" id="p3"
+                                  onclick="toggleRows(this);return false;"
+                                  class="folder">&nbsp;
+                               </a>
+                               <font color=blue>network-topology</font>
+                            </div>
+                         </td> 
+<td>module</td><td></td><td></td><td></td><td>
+                        </td></tr>
+<tr id="1-1" class="a">
+                       <td nowrap id="p4000">
+                          <div id="p5000" class="tier2">
+                             <a href="#" id="p6000"
+                                onclick="toggleRows(this);return false"
+                                class="folder">&nbsp;
+                             </a>
+                             <abbr title="No description">network-topology</abbr>
+                          </div>
+                       </td> 
+<td nowrap>container</td>
+                    <td nowrap></td>
+                    <td nowrap>config</td>
+                    <td></td>
+                    <td>current</td>
+                    <td nowrap>/nt:network-topology</td>
+                    </tr> 
+<tr id="1-1-1" class="a">
+                       <td nowrap id="p4000">
+                          <div id="p5000" class="tier3">
+                             <a href="#" id="p6000"
+                                onclick="toggleRows(this);return false"
+                                class="folder">&nbsp;
+                             </a>
+                             <abbr title="
+This is the model of an abstract topology.
+A topology contains nodes and links.
+Each topology MUST be identified by
+unique topology-id for reason that a network could contain many
+topologies.
+">topology[topology-id]</abbr>
+                          </div>
+                       </td> 
+<td nowrap>list</td>
+                    <td nowrap></td>
+                    <td nowrap>config</td>
+                    <td></td>
+                    <td>current</td>
+                    <td nowrap>/nt:network-topology/nt:topology</td>
+                    </tr> 
+<tr id="1-1-1-1" class="a">
+                       <td nowrap>
+                          <div id=9999 class=tier4>
+                             <a class="leaf">&nbsp;</a>
+                             <abbr title="
+It is presumed that a datastore will contain many topologies. To
+distinguish between topologies it is vital to have UNIQUE
+topology identifiers.
+">  topology-id </abbr>
+                          </div>
+                       </td>
+                       <td>leaf</td>
+                       <td nowrap><abbr title="topology-id
+inet:uri
+">topology-id</abbr></td>
+                       <td nowrap>config</td>
+                       <td></td>
+                       <td>current</td>
+                       <td nowrap>/nt:network-topology/nt:topology/nt:topology-id</td</tr> 
+<tr id="1-1-1-2" class="a">
+                       <td nowrap>
+                          <div id=9999 class=tier4>
+                             <a class="leaf">&nbsp;</a>
+                             <abbr title="
+Indicates whether the topology is configurable by clients,
+or whether it is provided by the server.  This leaf is
+
+populated by the server implementing the model.
+It is set to false for topologies that are created by a client;
+it is set to true otherwise.  If it is set to true, any
+attempt to edit the topology MUST be rejected.
+"> <em> server-provided </em></abbr>
+                          </div>
+                       </td>
+                       <td>leaf</td>
+                       <td nowrap><abbr title="boolean
+">boolean</abbr></td>
+                       <td nowrap>no config</td>
+                       <td>?</td>
+                       <td>current</td>
+                       <td nowrap>/nt:network-topology/nt:topology/nt:server-provided</td</tr> 
+<tr id="1-1-1-3" class="a">
+                       <td nowrap id="p4000">
+                          <div id="p5000" class="tier4">
+                             <a href="#" id="p6000"
+                                onclick="toggleRows(this);return false"
+                                class="folder">&nbsp;
+                             </a>
+                             <abbr title="This container is used to identify the type, or types
+(as a topology can support several types simultaneously),
+of the topology.
+Topology types are the subject of several integrity constraints
+that an implementing server can validate in order to
+maintain integrity of the datastore.
+Topology types are indicated through separate data nodes;
+the set of topology types is expected to increase over time.
+To add support for a new topology, an augmenting module
+needs to augment this container with a new empty optional
+container to indicate the new topology type.
+The use of a container allows to indicate a subcategorization
+of topology types.
+The container SHALL NOT be augmented with any data nodes
+that serve a purpose other than identifying a particular
+topology type.
+">topology-types</abbr>
+                          </div>
+                       </td> 
+<td nowrap>container</td>
+                    <td nowrap></td>
+                    <td nowrap>config</td>
+                    <td></td>
+                    <td>current</td>
+                    <td nowrap>/nt:network-topology/nt:topology/nt:topology-types</td>
+                    </tr> 
+<tr id="1-1-1-3-1" class="a">
+                       <td nowrap id="p4000">
+                          <div id="p5000" class="tier5">
+                             <a href="#" id="p6000"
+                                onclick="toggleRows(this);return false"
+                                class="folder">&nbsp;
+                             </a>
+                             <abbr title="No description">nettop:topology-netconf</abbr>
+                          </div>
+                       </td> 
+<td nowrap>container</td>
+                    <td nowrap></td>
+                    <td nowrap>config</td>
+                    <td></td>
+                    <td>current</td>
+                    <td nowrap>/nt:network-topology/nt:topology/nt:topology-types/nettop:topology-netconf</td>
+                    </tr> 
+<tr id="1-1-1-4" class="a">
+                       <td nowrap id="p4000">
+                          <div id="p5000" class="tier4">
+                             <a href="#" id="p6000"
+                                onclick="toggleRows(this);return false"
+                                class="folder">&nbsp;
+                             </a>
+                             <abbr title="Identifies the topology, or topologies, that this topology
+is dependent on.">underlay-topology[topology-ref]</abbr>
+                          </div>
+                       </td> 
+<td nowrap>list</td>
+                    <td nowrap></td>
+                    <td nowrap>config</td>
+                    <td></td>
+                    <td>current</td>
+                    <td nowrap>/nt:network-topology/nt:topology/nt:underlay-topology</td>
+                    </tr> 
+<tr id="1-1-1-4-2" class="a">
+                       <td nowrap>
+                          <div id=9999 class=tier5>
+                             <a class="leaf">&nbsp;</a>
+                             <abbr title="No description">  topology-ref </abbr>
+                          </div>
+                       </td>
+                       <td>leaf</td>
+                       <td nowrap><abbr title="topology-ref
+leafref
+ : /network-topology/topology/topology-id">topology-ref</abbr></td>
+                       <td nowrap>config</td>
+                       <td></td>
+                       <td>current</td>
+                       <td nowrap>/nt:network-topology/nt:topology/nt:underlay-topology/nt:topology-ref</td</tr> 
+<tr id="1-1-1-5" class="a">
+                       <td nowrap id="p4000">
+                          <div id="p5000" class="tier4">
+                             <a href="#" id="p6000"
+                                onclick="toggleRows(this);return false"
+                                class="folder">&nbsp;
+                             </a>
+                             <abbr title="The list of network nodes defined for the topology.">node[node-id]</abbr>
+                          </div>
+                       </td> 
+<td nowrap>list</td>
+                    <td nowrap></td>
+                    <td nowrap>config</td>
+                    <td></td>
+                    <td>current</td>
+                    <td nowrap>/nt:network-topology/nt:topology/nt:node</td>
+                    </tr> 
+<tr id="1-1-1-5-3" class="a">
+                       <td nowrap>
+                          <div id=9999 class=tier5>
+                             <a class="leaf">&nbsp;</a>
+                             <abbr title="The identifier of a node in the topology.
+A node is specific to a topology to which it belongs.">  node-id </abbr>
+                          </div>
+                       </td>
+                       <td>leaf</td>
+                       <td nowrap><abbr title="node-id
+inet:uri
+">node-id</abbr></td>
+                       <td nowrap>config</td>
+                       <td></td>
+                       <td>current</td>
+                       <td nowrap>/nt:network-topology/nt:topology/nt:node/nt:node-id</td</tr> 
+<tr id="1-1-1-5-4" class="a">
+                       <td nowrap id="p4000">
+                          <div id="p5000" class="tier5">
+                             <a href="#" id="p6000"
+                                onclick="toggleRows(this);return false"
+                                class="folder">&nbsp;
+                             </a>
+                             <abbr title="This list defines vertical layering information for nodes.
+It allows to capture for any given node, which node (or nodes)
+in the corresponding underlay topology it maps onto.
+A node can map to zero, one, or more nodes below it;
+accordingly there can be zero, one, or more elements in the list.
+If there are specific layering requirements, for example
+specific to a particular type of topology that only allows
+for certain layering relationships, the choice
+below can be augmented with additional cases.
+A list has been chosen rather than a leaf-list in order
+to provide room for augmentations, e.g. for
+statistics or priorization information associated with
+supporting nodes.">supporting-node[topology-ref node-ref]</abbr>
+                          </div>
+                       </td> 
+<td nowrap>list</td>
+                    <td nowrap></td>
+                    <td nowrap>config</td>
+                    <td></td>
+                    <td>current</td>
+                    <td nowrap>/nt:network-topology/nt:topology/nt:node/nt:supporting-node</td>
+                    </tr> 
+<tr id="1-1-1-5-4-1" class="a">
+                       <td nowrap>
+                          <div id=9999 class=tier6>
+                             <a class="leaf">&nbsp;</a>
+                             <abbr title="No description">  topology-ref </abbr>
+                          </div>
+                       </td>
+                       <td>leaf</td>
+                       <td nowrap><abbr title="topology-ref
+leafref
+ : /network-topology/topology/topology-id">topology-ref</abbr></td>
+                       <td nowrap>config</td>
+                       <td></td>
+                       <td>current</td>
+                       <td nowrap>/nt:network-topology/nt:topology/nt:node/nt:supporting-node/nt:topology-ref</td</tr> 
+<tr id="1-1-1-5-4-2" class="a">
+                       <td nowrap>
+                          <div id=9999 class=tier6>
+                             <a class="leaf">&nbsp;</a>
+                             <abbr title="No description">  node-ref </abbr>
+                          </div>
+                       </td>
+                       <td>leaf</td>
+                       <td nowrap><abbr title="node-ref
+leafref
+ : /network-topology/topology/node/node-id">node-ref</abbr></td>
+                       <td nowrap>config</td>
+                       <td></td>
+                       <td>current</td>
+                       <td nowrap>/nt:network-topology/nt:topology/nt:node/nt:supporting-node/nt:node-ref</td</tr> 
+<tr id="1-1-1-5-5" class="a">
+                       <td nowrap id="p4000">
+                          <div id="p5000" class="tier5">
+                             <a href="#" id="p6000"
+                                onclick="toggleRows(this);return false"
+                                class="folder">&nbsp;
+                             </a>
+                             <abbr title="A termination point can terminate a link.
+Depending on the type of topology, a termination point could,
+for example, refer to a port or an interface.">termination-point[tp-id]</abbr>
+                          </div>
+                       </td> 
+<td nowrap>list</td>
+                    <td nowrap></td>
+                    <td nowrap>config</td>
+                    <td></td>
+                    <td>current</td>
+                    <td nowrap>/nt:network-topology/nt:topology/nt:node/nt:termination-point</td>
+                    </tr> 
+<tr id="1-1-1-5-5-3" class="a">
+                       <td nowrap>
+                          <div id=9999 class=tier6>
+                             <a class="leaf">&nbsp;</a>
+                             <abbr title="No description">  tp-id </abbr>
+                          </div>
+                       </td>
+                       <td>leaf</td>
+                       <td nowrap><abbr title="tp-id
+inet:uri
+">tp-id</abbr></td>
+                       <td nowrap>config</td>
+                       <td></td>
+                       <td>current</td>
+                       <td nowrap>/nt:network-topology/nt:topology/nt:node/nt:termination-point/nt:tp-id</td</tr> 
+<tr id="1-1-1-5-5-4" class="a">
+                       <td nowrap>
+                          <div id=9999 class=tier6>
+                             <a class="leaf-list">&nbsp;</a>
+                             <abbr title="The leaf list identifies any termination points that the
+termination point is dependent on, or maps onto.
+Those termination points will themselves be contained
+in a supporting node.
+This dependency information can be inferred from
+the dependencies between links.  For this reason,
+this item is not separately configurable.  Hence no
+corresponding constraint needs to be articulated.
+The corresponding information is simply provided by the
+implementing system.">  tp-ref </abbr>
+                          </div>
+                       </td>
+                       <td>leaf-list</td>
+                       <td nowrap><abbr title="tp-ref
+leafref
+ : /network-topology/topology/node/termination-point/tp-id">tp-ref</abbr></td>
+                       <td nowrap>no config</td>
+                       <td>*</td>
+                       <td>current</td>
+                       <td nowrap>/nt:network-topology/nt:topology/nt:node/nt:termination-point/nt:tp-ref</td</tr> 
+<tr id="1-1-1-5-6" class="a">
+                       <td nowrap id="p4000">
+                          <div id="p5000" class="tier5">
+                             <a href="#" id="p6000"
+                                onclick="toggleRows(this);return false"
+                                class="folder">&nbsp;
+                             </a>
+                             <abbr title="No description">(credentials)</abbr>
+                          </div>
+                       </td> 
+<td nowrap>choice</td>
+                    <td nowrap></td>
+                    <td nowrap>config</td>
+                    <td>Choice</td>
+                    <td>current</td>
+                    <td nowrap>/nt:network-topology/nt:topology/nt:node</td>
+                    </tr> 
+<tr id="1-1-1-5-6-5" class="a">
+                       <td nowrap id="p4000">
+                          <div id="p5000" class="tier6">
+                             <a href="#" id="p6000"
+                                onclick="toggleRows(this);return false"
+                                class="folder">&nbsp;
+                             </a>
+                             <abbr title="Deprecated way of storing credentials, unencrypted.">:(login-password)</abbr>
+                          </div>
+                       </td> 
+<td nowrap>case</td>
+                    <td nowrap></td>
+                    <td nowrap>config</td>
+                    <td></td>
+                    <td>status deprecated</td>
+                    <td nowrap>/nt:network-topology/nt:topology/nt:node</td>
+                    </tr> 
+<tr id="1-1-1-5-6-5-1" class="a">
+                       <td nowrap>
+                          <div id=9999 class=tier7>
+                             <a class="leaf">&nbsp;</a>
+                             <abbr title="No description"> <em> nettop:username </em></abbr>
+                          </div>
+                       </td>
+                       <td>leaf</td>
+                       <td nowrap><abbr title="string
+">string</abbr></td>
+                       <td nowrap>config</td>
+                       <td>?</td>
+                       <td>current</td>
+                       <td nowrap>/nt:network-topology/nt:topology/nt:node/nettop:username</td</tr> 
+<tr id="1-1-1-5-6-5-2" class="a">
+                       <td nowrap>
+                          <div id=9999 class=tier7>
+                             <a class="leaf">&nbsp;</a>
+                             <abbr title="No description"> <em> nettop:password </em></abbr>
+                          </div>
+                       </td>
+                       <td>leaf</td>
+                       <td nowrap><abbr title="string
+">string</abbr></td>
+                       <td nowrap>config</td>
+                       <td>?</td>
+                       <td>current</td>
+                       <td nowrap>/nt:network-topology/nt:topology/nt:node/nettop:password</td</tr> 
+<tr id="1-1-1-5-6-6" class="a">
+                       <td nowrap id="p4000">
+                          <div id="p5000" class="tier6">
+                             <a href="#" id="p6000"
+                                onclick="toggleRows(this);return false"
+                                class="folder">&nbsp;
+                             </a>
+                             <abbr title="login-password credentials, encrypted.">:(login-pw)</abbr>
+                          </div>
+                       </td> 
+<td nowrap>case</td>
+                    <td nowrap></td>
+                    <td nowrap>config</td>
+                    <td></td>
+                    <td>current</td>
+                    <td nowrap>/nt:network-topology/nt:topology/nt:node</td>
+                    </tr> 
+<tr id="1-1-1-5-6-6-3" class="a">
+                       <td nowrap id="p4000">
+                          <div id="p5000" class="tier7">
+                             <a href="#" id="p6000"
+                                onclick="toggleRows(this);return false"
+                                class="folder">&nbsp;
+                             </a>
+                             <abbr title="No description">nettop:login-password</abbr>
+                          </div>
+                       </td> 
+<td nowrap>container</td>
+                    <td nowrap></td>
+                    <td nowrap>config</td>
+                    <td></td>
+                    <td>current</td>
+                    <td nowrap>/nt:network-topology/nt:topology/nt:node/nettop:login-password</td>
+                    </tr> 
+<tr id="1-1-1-5-6-6-3-1" class="a">
+                       <td nowrap>
+                          <div id=9999 class=tier8>
+                             <a class="leaf">&nbsp;</a>
+                             <abbr title="No description"> <em> nettop:username </em></abbr>
+                          </div>
+                       </td>
+                       <td>leaf</td>
+                       <td nowrap><abbr title="string
+">string</abbr></td>
+                       <td nowrap>config</td>
+                       <td>?</td>
+                       <td>current</td>
+                       <td nowrap>/nt:network-topology/nt:topology/nt:node/nettop:login-password/nettop:username</td</tr> 
+<tr id="1-1-1-5-6-6-3-2" class="a">
+                       <td nowrap>
+                          <div id=9999 class=tier8>
+                             <a class="leaf">&nbsp;</a>
+                             <abbr title="No description"> <em> nettop:password </em></abbr>
+                          </div>
+                       </td>
+                       <td>leaf</td>
+                       <td nowrap><abbr title="string
+">string</abbr></td>
+                       <td nowrap>config</td>
+                       <td>?</td>
+                       <td>current</td>
+                       <td nowrap>/nt:network-topology/nt:topology/nt:node/nettop:login-password/nettop:password</td</tr> 
+<tr id="1-1-1-5-6-7" class="a">
+                       <td nowrap id="p4000">
+                          <div id="p5000" class="tier6">
+                             <a href="#" id="p6000"
+                                onclick="toggleRows(this);return false"
+                                class="folder">&nbsp;
+                             </a>
+                             <abbr title="login-password credentials, not encrypted.">:(login-pw-unencrypted)</abbr>
+                          </div>
+                       </td> 
+<td nowrap>case</td>
+                    <td nowrap></td>
+                    <td nowrap>config</td>
+                    <td></td>
+                    <td>current</td>
+                    <td nowrap>/nt:network-topology/nt:topology/nt:node</td>
+                    </tr> 
+<tr id="1-1-1-5-6-7-4" class="a">
+                       <td nowrap id="p4000">
+                          <div id="p5000" class="tier7">
+                             <a href="#" id="p6000"
+                                onclick="toggleRows(this);return false"
+                                class="folder">&nbsp;
+                             </a>
+                             <abbr title="No description">nettop:login-password-unencrypted</abbr>
+                          </div>
+                       </td> 
+<td nowrap>container</td>
+                    <td nowrap></td>
+                    <td nowrap>config</td>
+                    <td></td>
+                    <td>current</td>
+                    <td nowrap>/nt:network-topology/nt:topology/nt:node/nettop:login-password-unencrypted</td>
+                    </tr> 
+<tr id="1-1-1-5-6-7-4-3" class="a">
+                       <td nowrap>
+                          <div id=9999 class=tier8>
+                             <a class="leaf">&nbsp;</a>
+                             <abbr title="No description"> <em> nettop:username </em></abbr>
+                          </div>
+                       </td>
+                       <td>leaf</td>
+                       <td nowrap><abbr title="string
+">string</abbr></td>
+                       <td nowrap>config</td>
+                       <td>?</td>
+                       <td>current</td>
+                       <td nowrap>/nt:network-topology/nt:topology/nt:node/nettop:login-password-unencrypted/nettop:username</td</tr> 
+<tr id="1-1-1-5-6-7-4-4" class="a">
+                       <td nowrap>
+                          <div id=9999 class=tier8>
+                             <a class="leaf">&nbsp;</a>
+                             <abbr title="No description"> <em> nettop:password </em></abbr>
+                          </div>
+                       </td>
+                       <td>leaf</td>
+                       <td nowrap><abbr title="string
+">string</abbr></td>
+                       <td nowrap>config</td>
+                       <td>?</td>
+                       <td>current</td>
+                       <td nowrap>/nt:network-topology/nt:topology/nt:node/nettop:login-password-unencrypted/nettop:password</td</tr> 
+<tr id="1-1-1-5-6-8" class="a">
+                       <td nowrap id="p4000">
+                          <div id="p5000" class="tier6">
+                             <a href="#" id="p6000"
+                                onclick="toggleRows(this);return false"
+                                class="folder">&nbsp;
+                             </a>
+                             <abbr title="key-based authentication, use the id for the pair thats stored in the keystore.">:(key-auth)</abbr>
+                          </div>
+                       </td> 
+<td nowrap>case</td>
+                    <td nowrap></td>
+                    <td nowrap>config</td>
+                    <td></td>
+                    <td>current</td>
+                    <td nowrap>/nt:network-topology/nt:topology/nt:node</td>
+                    </tr> 
+<tr id="1-1-1-5-6-8-5" class="a">
+                       <td nowrap id="p4000">
+                          <div id="p5000" class="tier7">
+                             <a href="#" id="p6000"
+                                onclick="toggleRows(this);return false"
+                                class="folder">&nbsp;
+                             </a>
+                             <abbr title="No description">nettop:key-based</abbr>
+                          </div>
+                       </td> 
+<td nowrap>container</td>
+                    <td nowrap></td>
+                    <td nowrap>config</td>
+                    <td></td>
+                    <td>current</td>
+                    <td nowrap>/nt:network-topology/nt:topology/nt:node/nettop:key-based</td>
+                    </tr> 
+<tr id="1-1-1-5-6-8-5-5" class="a">
+                       <td nowrap>
+                          <div id=9999 class=tier8>
+                             <a class="leaf">&nbsp;</a>
+                             <abbr title="No description"> <em> nettop:key-id </em></abbr>
+                          </div>
+                       </td>
+                       <td>leaf</td>
+                       <td nowrap><abbr title="string
+">string</abbr></td>
+                       <td nowrap>config</td>
+                       <td>?</td>
+                       <td>current</td>
+                       <td nowrap>/nt:network-topology/nt:topology/nt:node/nettop:key-based/nettop:key-id</td</tr> 
+<tr id="1-1-1-5-6-8-5-6" class="a">
+                       <td nowrap>
+                          <div id=9999 class=tier8>
+                             <a class="leaf">&nbsp;</a>
+                             <abbr title="No description"> <em> nettop:username </em></abbr>
+                          </div>
+                       </td>
+                       <td>leaf</td>
+                       <td nowrap><abbr title="string
+">string</abbr></td>
+                       <td nowrap>config</td>
+                       <td>?</td>
+                       <td>current</td>
+                       <td nowrap>/nt:network-topology/nt:topology/nt:node/nettop:key-based/nettop:username</td</tr> 
+<tr id="1-1-1-5-7" class="a">
+                       <td nowrap>
+                          <div id=9999 class=tier5>
+                             <a class="leaf">&nbsp;</a>
+                             <abbr title="No description"> <em> nettop:host </em></abbr>
+                          </div>
+                       </td>
+                       <td>leaf</td>
+                       <td nowrap><abbr title="inet:host
+union
+{inet:ip-address, inet:domain-name}">inet:host</abbr></td>
+                       <td nowrap>config</td>
+                       <td>?</td>
+                       <td>current</td>
+                       <td nowrap>/nt:network-topology/nt:topology/nt:node/nettop:host</td</tr> 
+<tr id="1-1-1-5-8" class="a">
+                       <td nowrap>
+                          <div id=9999 class=tier5>
+                             <a class="leaf">&nbsp;</a>
+                             <abbr title="No description"> <em> nettop:port </em></abbr>
+                          </div>
+                       </td>
+                       <td>leaf</td>
+                       <td nowrap><abbr title="inet:port-number
+uint16
+ [0..65535]">inet:port-number</abbr></td>
+                       <td nowrap>config</td>
+                       <td>?</td>
+                       <td>current</td>
+                       <td nowrap>/nt:network-topology/nt:topology/nt:node/nettop:port</td</tr> 
+<tr id="1-1-1-5-9" class="a">
+                       <td nowrap>
+                          <div id=9999 class=tier5>
+                             <a class="leaf">&nbsp;</a>
+                             <abbr title="No description"> <em> nettop:tcp-only </em></abbr>
+                          </div>
+                       </td>
+                       <td>leaf</td>
+                       <td nowrap><abbr title="boolean
+">boolean</abbr></td>
+                       <td nowrap>config</td>
+                       <td>?</td>
+                       <td>current</td>
+                       <td nowrap>/nt:network-topology/nt:topology/nt:node/nettop:tcp-only</td</tr> 
+<tr id="1-1-1-5-10" class="a">
+                       <td nowrap>
+                          <div id=9999 class=tier5>
+                             <a class="leaf">&nbsp;</a>
+                             <abbr title="No description"> <em> nettop:schemaless </em></abbr>
+                          </div>
+                       </td>
+                       <td>leaf</td>
+                       <td nowrap><abbr title="boolean
+">boolean</abbr></td>
+                       <td nowrap>config</td>
+                       <td>?</td>
+                       <td>current</td>
+                       <td nowrap>/nt:network-topology/nt:topology/nt:node/nettop:schemaless</td</tr> 
+<tr id="1-1-1-5-11" class="a">
+                       <td nowrap id="p4000">
+                          <div id="p5000" class="tier5">
+                             <a href="#" id="p6000"
+                                onclick="toggleRows(this);return false"
+                                class="folder">&nbsp;
+                             </a>
+                             <abbr title="No description">nettop:yang-module-capabilities</abbr>
+                          </div>
+                       </td> 
+<td nowrap>container</td>
+                    <td nowrap></td>
+                    <td nowrap>config</td>
+                    <td></td>
+                    <td>current</td>
+                    <td nowrap>/nt:network-topology/nt:topology/nt:node/nettop:yang-module-capabilities</td>
+                    </tr> 
+<tr id="1-1-1-5-11-9" class="a">
+                       <td nowrap>
+                          <div id=9999 class=tier6>
+                             <a class="leaf">&nbsp;</a>
+                             <abbr title="Whether to override or merge this list of capabilities with capabilities from device"> <em> nettop:override </em></abbr>
+                          </div>
+                       </td>
+                       <td>leaf</td>
+                       <td nowrap><abbr title="boolean
+">boolean</abbr></td>
+                       <td nowrap>config</td>
+                       <td>?</td>
+                       <td>current</td>
+                       <td nowrap>/nt:network-topology/nt:topology/nt:node/nettop:yang-module-capabilities/nettop:override</td</tr> 
+<tr id="1-1-1-5-11-10" class="a">
+                       <td nowrap>
+                          <div id=9999 class=tier6>
+                             <a class="leaf-list">&nbsp;</a>
+                             <abbr title="Set a list of capabilities to override capabilities provided in device's hello message.
+Can be used for devices that do not report any yang modules in their hello message">  nettop:capability </abbr>
+                          </div>
+                       </td>
+                       <td>leaf-list</td>
+                       <td nowrap><abbr title="string
+">string</abbr></td>
+                       <td nowrap>config</td>
+                       <td>*</td>
+                       <td>current</td>
+                       <td nowrap>/nt:network-topology/nt:topology/nt:node/nettop:yang-module-capabilities/nettop:capability</td</tr> 
+<tr id="1-1-1-5-12" class="a">
+                       <td nowrap id="p4000">
+                          <div id="p5000" class="tier5">
+                             <a href="#" id="p6000"
+                                onclick="toggleRows(this);return false"
+                                class="folder">&nbsp;
+                             </a>
+                             <abbr title="No description">nettop:non-module-capabilities</abbr>
+                          </div>
+                       </td> 
+<td nowrap>container</td>
+                    <td nowrap></td>
+                    <td nowrap>config</td>
+                    <td></td>
+                    <td>current</td>
+                    <td nowrap>/nt:network-topology/nt:topology/nt:node/nettop:non-module-capabilities</td>
+                    </tr> 
+<tr id="1-1-1-5-12-11" class="a">
+                       <td nowrap>
+                          <div id=9999 class=tier6>
+                             <a class="leaf">&nbsp;</a>
+                             <abbr title="Whether to override or merge this list of non-module based capabilities with non-module
+based capabilities from device"> <em> nettop:override </em></abbr>
+                          </div>
+                       </td>
+                       <td>leaf</td>
+                       <td nowrap><abbr title="boolean
+">boolean</abbr></td>
+                       <td nowrap>config</td>
+                       <td>?</td>
+                       <td>current</td>
+                       <td nowrap>/nt:network-topology/nt:topology/nt:node/nettop:non-module-capabilities/nettop:override</td</tr> 
+<tr id="1-1-1-5-12-12" class="a">
+                       <td nowrap>
+                          <div id=9999 class=tier6>
+                             <a class="leaf-list">&nbsp;</a>
+                             <abbr title="Set a list of non-module based capabilities to override or merge non-module capabilities
+provided in device's hello message. Can be used for devices that do not report or
+incorrectly report non-module based capabilities in their hello message">  nettop:capability </abbr>
+                          </div>
+                       </td>
+                       <td>leaf-list</td>
+                       <td nowrap><abbr title="string
+">string</abbr></td>
+                       <td nowrap>config</td>
+                       <td>*</td>
+                       <td>current</td>
+                       <td nowrap>/nt:network-topology/nt:topology/nt:node/nettop:non-module-capabilities/nettop:capability</td</tr> 
+<tr id="1-1-1-5-13" class="a">
+                       <td nowrap>
+                          <div id=9999 class=tier5>
+                             <a class="leaf">&nbsp;</a>
+                             <abbr title="If true, the connector would auto disconnect/reconnect when schemas are changed in the remote device.
+The connector subscribes (right after connect) to base netconf notifications and listens for netconf-capability-change notification"> <em> nettop:reconnect-on-changed-schema </em></abbr>
+                          </div>
+                       </td>
+                       <td>leaf</td>
+                       <td nowrap><abbr title="boolean
+">boolean</abbr></td>
+                       <td nowrap>config</td>
+                       <td>?</td>
+                       <td>current</td>
+                       <td nowrap>/nt:network-topology/nt:topology/nt:node/nettop:reconnect-on-changed-schema</td</tr> 
+<tr id="1-1-1-5-14" class="a">
+                       <td nowrap>
+                          <div id=9999 class=tier5>
+                             <a class="leaf">&nbsp;</a>
+                             <abbr title="Specifies timeout in milliseconds after which connection must be established."> <em> nettop:connection-timeout-millis </em></abbr>
+                          </div>
+                       </td>
+                       <td>leaf</td>
+                       <td nowrap><abbr title="uint32
+">uint32</abbr></td>
+                       <td nowrap>config</td>
+                       <td>?</td>
+                       <td>current</td>
+                       <td nowrap>/nt:network-topology/nt:topology/nt:node/nettop:connection-timeout-millis</td</tr> 
+<tr id="1-1-1-5-15" class="a">
+                       <td nowrap>
+                          <div id=9999 class=tier5>
+                             <a class="leaf">&nbsp;</a>
+                             <abbr title="Timeout for blocking operations within transactions."> <em> nettop:default-request-timeout-millis </em></abbr>
+                          </div>
+                       </td>
+                       <td>leaf</td>
+                       <td nowrap><abbr title="uint32
+">uint32</abbr></td>
+                       <td nowrap>config</td>
+                       <td>?</td>
+                       <td>current</td>
+                       <td nowrap>/nt:network-topology/nt:topology/nt:node/nettop:default-request-timeout-millis</td</tr> 
+<tr id="1-1-1-5-16" class="a">
+                       <td nowrap>
+                          <div id=9999 class=tier5>
+                             <a class="leaf">&nbsp;</a>
+                             <abbr title="Maximum number of connection retries. Non positive value or null is interpreted as infinity."> <em> nettop:max-connection-attempts </em></abbr>
+                          </div>
+                       </td>
+                       <td>leaf</td>
+                       <td nowrap><abbr title="uint32
+">uint32</abbr></td>
+                       <td nowrap>config</td>
+                       <td>?</td>
+                       <td>current</td>
+                       <td nowrap>/nt:network-topology/nt:topology/nt:node/nettop:max-connection-attempts</td</tr> 
+<tr id="1-1-1-5-17" class="a">
+                       <td nowrap>
+                          <div id=9999 class=tier5>
+                             <a class="leaf">&nbsp;</a>
+                             <abbr title="Initial timeout in milliseconds to wait between connection attempts. Will be multiplied by sleep-factor with every additional attempt"> <em> nettop:between-attempts-timeout-millis </em></abbr>
+                          </div>
+                       </td>
+                       <td>leaf</td>
+                       <td nowrap><abbr title="uint16
+">uint16</abbr></td>
+                       <td nowrap>config</td>
+                       <td>?</td>
+                       <td>current</td>
+                       <td nowrap>/nt:network-topology/nt:topology/nt:node/nettop:between-attempts-timeout-millis</td</tr> 
+<tr id="1-1-1-5-18" class="a">
+                       <td nowrap>
+                          <div id=9999 class=tier5>
+                             <a class="leaf">&nbsp;</a>
+                             <abbr title="No description"> <em> nettop:sleep-factor </em></abbr>
+                          </div>
+                       </td>
+                       <td>leaf</td>
+                       <td nowrap><abbr title="decimal64
+">decimal64</abbr></td>
+                       <td nowrap>config</td>
+                       <td>?</td>
+                       <td>current</td>
+                       <td nowrap>/nt:network-topology/nt:topology/nt:node/nettop:sleep-factor</td</tr> 
+<tr id="1-1-1-5-19" class="a">
+                       <td nowrap>
+                          <div id=9999 class=tier5>
+                             <a class="leaf">&nbsp;</a>
+                             <abbr title="Netconf connector sends keepalive RPCs while the session is idle, this delay specifies the delay between keepalive RPC in seconds
+If a value <1 is provided, no keepalives will be sent"> <em> nettop:keepalive-delay </em></abbr>
+                          </div>
+                       </td>
+                       <td>leaf</td>
+                       <td nowrap><abbr title="uint32
+">uint32</abbr></td>
+                       <td nowrap>config</td>
+                       <td>?</td>
+                       <td>current</td>
+                       <td nowrap>/nt:network-topology/nt:topology/nt:node/nettop:keepalive-delay</td</tr> 
+<tr id="1-1-1-5-20" class="a">
+                       <td nowrap>
+                          <div id=9999 class=tier5>
+                             <a class="leaf">&nbsp;</a>
+                             <abbr title="Limit of concurrent messages that can be send before reply messages are received.
+If value <1 is provided, no limit will be enforced"> <em> nettop:concurrent-rpc-limit </em></abbr>
+                          </div>
+                       </td>
+                       <td>leaf</td>
+                       <td nowrap><abbr title="uint16
+">uint16</abbr></td>
+                       <td nowrap>config</td>
+                       <td>?</td>
+                       <td>current</td>
+                       <td nowrap>/nt:network-topology/nt:topology/nt:node/nettop:concurrent-rpc-limit</td</tr> 
+<tr id="1-1-1-5-21" class="a">
+                       <td nowrap>
+                          <div id=9999 class=tier5>
+                             <a class="leaf">&nbsp;</a>
+                             <abbr title="Time that slave actor will wait for response from master."> <em> nettop:actor-response-wait-time </em></abbr>
+                          </div>
+                       </td>
+                       <td>leaf</td>
+                       <td nowrap><abbr title="uint16
+ [1..max]">uint16</abbr></td>
+                       <td nowrap>config</td>
+                       <td>?</td>
+                       <td>current</td>
+                       <td nowrap>/nt:network-topology/nt:topology/nt:node/nettop:actor-response-wait-time</td</tr> 
+<tr id="1-1-1-5-22" class="a">
+                       <td nowrap id="p4000">
+                          <div id="p5000" class="tier5">
+                             <a href="#" id="p6000"
+                                onclick="toggleRows(this);return false"
+                                class="folder">&nbsp;
+                             </a>
+                             <abbr title="No description">nettop:odl-hello-message-capabilities</abbr>
+                          </div>
+                       </td> 
+<td nowrap>container</td>
+                    <td nowrap></td>
+                    <td nowrap>config</td>
+                    <td></td>
+                    <td>current</td>
+                    <td nowrap>/nt:network-topology/nt:topology/nt:node/nettop:odl-hello-message-capabilities</td>
+                    </tr> 
+<tr id="1-1-1-5-22-13" class="a">
+                       <td nowrap>
+                          <div id=9999 class=tier6>
+                             <a class="leaf-list">&nbsp;</a>
+                             <abbr title="Certain devices are non-accepting of ODL's hello message.  This allows specification of
+a custom ODL hello message based on a list of supported capabilities.">  nettop:capability </abbr>
+                          </div>
+                       </td>
+                       <td>leaf-list</td>
+                       <td nowrap><abbr title="inet:uri
+string
+">inet:uri</abbr></td>
+                       <td nowrap>config</td>
+                       <td>*</td>
+                       <td>current</td>
+                       <td nowrap>/nt:network-topology/nt:topology/nt:node/nettop:odl-hello-message-capabilities/nettop:capability</td</tr> 
+<tr id="1-1-1-5-23" class="a">
+                       <td nowrap>
+                          <div id=9999 class=tier5>
+                             <a class="leaf">&nbsp;</a>
+                             <abbr title="No description"> <em> nettop:connection-status </em></abbr>
+                          </div>
+                       </td>
+                       <td>leaf</td>
+                       <td nowrap><abbr title="enumeration
+ : {connecting,connected,unable-to-connect,}">enumeration</abbr></td>
+                       <td nowrap>no config</td>
+                       <td>?</td>
+                       <td>current</td>
+                       <td nowrap>/nt:network-topology/nt:topology/nt:node/nettop:connection-status</td</tr> 
+<tr id="1-1-1-5-24" class="a">
+                       <td nowrap id="p4000">
+                          <div id="p5000" class="tier5">
+                             <a href="#" id="p6000"
+                                onclick="toggleRows(this);return false"
+                                class="folder">&nbsp;
+                             </a>
+                             <abbr title="No description">nettop:clustered-connection-status</abbr>
+                          </div>
+                       </td> 
+<td nowrap>container</td>
+                    <td nowrap></td>
+                    <td nowrap>no config</td>
+                    <td></td>
+                    <td>current</td>
+                    <td nowrap>/nt:network-topology/nt:topology/nt:node/nettop:clustered-connection-status</td>
+                    </tr> 
+<tr id="1-1-1-5-24-14" class="a">
+                       <td nowrap id="p4000">
+                          <div id="p5000" class="tier6">
+                             <a href="#" id="p6000"
+                                onclick="toggleRows(this);return false"
+                                class="folder">&nbsp;
+                             </a>
+                             <abbr title="No description">nettop:node-status</abbr>
+                          </div>
+                       </td> 
+<td nowrap>list</td>
+                    <td nowrap></td>
+                    <td nowrap>no config</td>
+                    <td></td>
+                    <td>current</td>
+                    <td nowrap>/nt:network-topology/nt:topology/nt:node/nettop:clustered-connection-status/nettop:node-status</td>
+                    </tr> 
+<tr id="1-1-1-5-24-14-6" class="a">
+                       <td nowrap>
+                          <div id=9999 class=tier7>
+                             <a class="leaf">&nbsp;</a>
+                             <abbr title="No description"> <em> nettop:node </em></abbr>
+                          </div>
+                       </td>
+                       <td>leaf</td>
+                       <td nowrap><abbr title="string
+">string</abbr></td>
+                       <td nowrap>no config</td>
+                       <td>?</td>
+                       <td>current</td>
+                       <td nowrap>/nt:network-topology/nt:topology/nt:node/nettop:clustered-connection-status/nettop:node-status/nettop:node</td</tr> 
+<tr id="1-1-1-5-24-14-7" class="a">
+                       <td nowrap>
+                          <div id=9999 class=tier7>
+                             <a class="leaf">&nbsp;</a>
+                             <abbr title="No description"> <em> nettop:status </em></abbr>
+                          </div>
+                       </td>
+                       <td>leaf</td>
+                       <td nowrap><abbr title="enumeration
+ : {connected,unavailable,failed,}">enumeration</abbr></td>
+                       <td nowrap>no config</td>
+                       <td>?</td>
+                       <td>current</td>
+                       <td nowrap>/nt:network-topology/nt:topology/nt:node/nettop:clustered-connection-status/nettop:node-status/nettop:status</td</tr> 
+<tr id="1-1-1-5-24-15" class="a">
+                       <td nowrap>
+                          <div id=9999 class=tier6>
+                             <a class="leaf">&nbsp;</a>
+                             <abbr title="No description"> <em> nettop:netconf-master-node </em></abbr>
+                          </div>
+                       </td>
+                       <td>leaf</td>
+                       <td nowrap><abbr title="string
+">string</abbr></td>
+                       <td nowrap>no config</td>
+                       <td>?</td>
+                       <td>current</td>
+                       <td nowrap>/nt:network-topology/nt:topology/nt:node/nettop:clustered-connection-status/nettop:netconf-master-node</td</tr> 
+<tr id="1-1-1-5-25" class="a">
+                       <td nowrap>
+                          <div id=9999 class=tier5>
+                             <a class="leaf">&nbsp;</a>
+                             <abbr title="No description"> <em> nettop:connected-message </em></abbr>
+                          </div>
+                       </td>
+                       <td>leaf</td>
+                       <td nowrap><abbr title="string
+">string</abbr></td>
+                       <td nowrap>no config</td>
+                       <td>?</td>
+                       <td>current</td>
+                       <td nowrap>/nt:network-topology/nt:topology/nt:node/nettop:connected-message</td</tr> 
+<tr id="1-1-1-5-26" class="a">
+                       <td nowrap id="p4000">
+                          <div id="p5000" class="tier5">
+                             <a href="#" id="p6000"
+                                onclick="toggleRows(this);return false"
+                                class="folder">&nbsp;
+                             </a>
+                             <abbr title="No description">nettop:available-capabilities</abbr>
+                          </div>
+                       </td> 
+<td nowrap>container</td>
+                    <td nowrap></td>
+                    <td nowrap>no config</td>
+                    <td></td>
+                    <td>current</td>
+                    <td nowrap>/nt:network-topology/nt:topology/nt:node/nettop:available-capabilities</td>
+                    </tr> 
+<tr id="1-1-1-5-26-16" class="a">
+                       <td nowrap id="p4000">
+                          <div id="p5000" class="tier6">
+                             <a href="#" id="p6000"
+                                onclick="toggleRows(this);return false"
+                                class="folder">&nbsp;
+                             </a>
+                             <abbr title="No description">nettop:available-capability</abbr>
+                          </div>
+                       </td> 
+<td nowrap>list</td>
+                    <td nowrap></td>
+                    <td nowrap>no config</td>
+                    <td></td>
+                    <td>current</td>
+                    <td nowrap>/nt:network-topology/nt:topology/nt:node/nettop:available-capabilities/nettop:available-capability</td>
+                    </tr> 
+<tr id="1-1-1-5-26-16-8" class="a">
+                       <td nowrap>
+                          <div id=9999 class=tier7>
+                             <a class="leaf">&nbsp;</a>
+                             <abbr title="No description"> <em> nettop:capability </em></abbr>
+                          </div>
+                       </td>
+                       <td>leaf</td>
+                       <td nowrap><abbr title="string
+">string</abbr></td>
+                       <td nowrap>no config</td>
+                       <td>?</td>
+                       <td>current</td>
+                       <td nowrap>/nt:network-topology/nt:topology/nt:node/nettop:available-capabilities/nettop:available-capability/nettop:capability</td</tr> 
+<tr id="1-1-1-5-26-16-9" class="a">
+                       <td nowrap>
+                          <div id=9999 class=tier7>
+                             <a class="leaf">&nbsp;</a>
+                             <abbr title="No description"> <em> nettop:capability-origin </em></abbr>
+                          </div>
+                       </td>
+                       <td>leaf</td>
+                       <td nowrap><abbr title="enumeration
+ : {user-defined,device-advertised,}">enumeration</abbr></td>
+                       <td nowrap>no config</td>
+                       <td>?</td>
+                       <td>current</td>
+                       <td nowrap>/nt:network-topology/nt:topology/nt:node/nettop:available-capabilities/nettop:available-capability/nettop:capability-origin</td</tr> 
+<tr id="1-1-1-5-27" class="a">
+                       <td nowrap id="p4000">
+                          <div id="p5000" class="tier5">
+                             <a href="#" id="p6000"
+                                onclick="toggleRows(this);return false"
+                                class="folder">&nbsp;
+                             </a>
+                             <abbr title="No description">nettop:unavailable-capabilities</abbr>
+                          </div>
+                       </td> 
+<td nowrap>container</td>
+                    <td nowrap></td>
+                    <td nowrap>no config</td>
+                    <td></td>
+                    <td>current</td>
+                    <td nowrap>/nt:network-topology/nt:topology/nt:node/nettop:unavailable-capabilities</td>
+                    </tr> 
+<tr id="1-1-1-5-27-17" class="a">
+                       <td nowrap id="p4000">
+                          <div id="p5000" class="tier6">
+                             <a href="#" id="p6000"
+                                onclick="toggleRows(this);return false"
+                                class="folder">&nbsp;
+                             </a>
+                             <abbr title="No description">nettop:unavailable-capability</abbr>
+                          </div>
+                       </td> 
+<td nowrap>list</td>
+                    <td nowrap></td>
+                    <td nowrap>no config</td>
+                    <td></td>
+                    <td>current</td>
+                    <td nowrap>/nt:network-topology/nt:topology/nt:node/nettop:unavailable-capabilities/nettop:unavailable-capability</td>
+                    </tr> 
+<tr id="1-1-1-5-27-17-10" class="a">
+                       <td nowrap>
+                          <div id=9999 class=tier7>
+                             <a class="leaf">&nbsp;</a>
+                             <abbr title="No description"> <em> nettop:capability </em></abbr>
+                          </div>
+                       </td>
+                       <td>leaf</td>
+                       <td nowrap><abbr title="string
+">string</abbr></td>
+                       <td nowrap>no config</td>
+                       <td>?</td>
+                       <td>current</td>
+                       <td nowrap>/nt:network-topology/nt:topology/nt:node/nettop:unavailable-capabilities/nettop:unavailable-capability/nettop:capability</td</tr> 
+<tr id="1-1-1-5-27-17-11" class="a">
+                       <td nowrap>
+                          <div id=9999 class=tier7>
+                             <a class="leaf">&nbsp;</a>
+                             <abbr title="No description"> <em> nettop:failure-reason </em></abbr>
+                          </div>
+                       </td>
+                       <td>leaf</td>
+                       <td nowrap><abbr title="enumeration
+ : {missing-source,unable-to-resolve,}">enumeration</abbr></td>
+                       <td nowrap>no config</td>
+                       <td>?</td>
+                       <td>current</td>
+                       <td nowrap>/nt:network-topology/nt:topology/nt:node/nettop:unavailable-capabilities/nettop:unavailable-capability/nettop:failure-reason</td</tr> 
+<tr id="1-1-1-5-28" class="a">
+                       <td nowrap id="p4000">
+                          <div id="p5000" class="tier5">
+                             <a href="#" id="p6000"
+                                onclick="toggleRows(this);return false"
+                                class="folder">&nbsp;
+                             </a>
+                             <abbr title="When the underlying node is connected, its NETCONF context
+is available verbatim under this container through the
+mount extension.">nettop:pass-through</abbr>
+                          </div>
+                       </td> 
+<td nowrap>container</td>
+                    <td nowrap></td>
+                    <td nowrap>config</td>
+                    <td></td>
+                    <td>current</td>
+                    <td nowrap>/nt:network-topology/nt:topology/nt:node/nettop:pass-through</td>
+                    </tr> 
+<tr id="1-1-1-5-29" class="a">
+                       <td nowrap>
+                          <div id=9999 class=tier5>
+                             <a class="leaf">&nbsp;</a>
+                             <abbr title="The destination schema repository for yang files relative to the cache directory.  This may be specified per netconf mount
+so that the loaded yang files are stored to a distinct directory to avoid potential conflict."> <em> nettop:schema-cache-directory </em></abbr>
+                          </div>
+                       </td>
+                       <td>leaf</td>
+                       <td nowrap><abbr title="string
+">string</abbr></td>
+                       <td nowrap>config</td>
+                       <td>?</td>
+                       <td>current</td>
+                       <td nowrap>/nt:network-topology/nt:topology/nt:node/nettop:schema-cache-directory</td</tr> 
+<tr id="1-1-1-5-30" class="a">
+                       <td nowrap id="p4000">
+                          <div id="p5000" class="tier5">
+                             <a href="#" id="p6000"
+                                onclick="toggleRows(this);return false"
+                                class="folder">&nbsp;
+                             </a>
+                             <abbr title="No description">nettop:yang-library</abbr>
+                          </div>
+                       </td> 
+<td nowrap>container</td>
+                    <td nowrap></td>
+                    <td nowrap>config</td>
+                    <td></td>
+                    <td>current</td>
+                    <td nowrap>/nt:network-topology/nt:topology/nt:node/nettop:yang-library</td>
+                    </tr> 
+<tr id="1-1-1-5-30-18" class="a">
+                       <td nowrap>
+                          <div id=9999 class=tier6>
+                             <a class="leaf">&nbsp;</a>
+                             <abbr title="Yang library to be plugged as additional source provider into the shared schema repository"> <em> nettop:yang-library-url </em></abbr>
+                          </div>
+                       </td>
+                       <td>leaf</td>
+                       <td nowrap><abbr title="inet:uri
+string
+">inet:uri</abbr></td>
+                       <td nowrap>config</td>
+                       <td>?</td>
+                       <td>current</td>
+                       <td nowrap>/nt:network-topology/nt:topology/nt:node/nettop:yang-library/nettop:yang-library-url</td</tr> 
+<tr id="1-1-1-5-30-19" class="a">
+                       <td nowrap>
+                          <div id=9999 class=tier6>
+                             <a class="leaf">&nbsp;</a>
+                             <abbr title="No description"> <em> nettop:username </em></abbr>
+                          </div>
+                       </td>
+                       <td>leaf</td>
+                       <td nowrap><abbr title="string
+">string</abbr></td>
+                       <td nowrap>config</td>
+                       <td>?</td>
+                       <td>current</td>
+                       <td nowrap>/nt:network-topology/nt:topology/nt:node/nettop:yang-library/nettop:username</td</tr> 
+<tr id="1-1-1-5-30-20" class="a">
+                       <td nowrap>
+                          <div id=9999 class=tier6>
+                             <a class="leaf">&nbsp;</a>
+                             <abbr title="No description"> <em> nettop:password </em></abbr>
+                          </div>
+                       </td>
+                       <td>leaf</td>
+                       <td nowrap><abbr title="string
+">string</abbr></td>
+                       <td nowrap>config</td>
+                       <td>?</td>
+                       <td>current</td>
+                       <td nowrap>/nt:network-topology/nt:topology/nt:node/nettop:yang-library/nettop:password</td</tr> 
+<tr id="1-1-1-5-31" class="a">
+                       <td nowrap>
+                          <div id=9999 class=tier5>
+                             <a class="leaf">&nbsp;</a>
+                             <abbr title="No description"> <em> nettop:customization-factory </em></abbr>
+                          </div>
+                       </td>
+                       <td>leaf</td>
+                       <td nowrap><abbr title="string
+">string</abbr></td>
+                       <td nowrap>config</td>
+                       <td>?</td>
+                       <td>current</td>
+                       <td nowrap>/nt:network-topology/nt:topology/nt:node/nettop:customization-factory</td</tr> 
+<tr id="1-1-1-5-32" class="a">
+                       <td nowrap>
+                          <div id=9999 class=tier5>
+                             <a class="leaf">&nbsp;</a>
+                             <abbr title="Size of the DRY RUN netconf mountpoint jounral. DRY RUN journal captures netconf RPCs that
+would be executed when reading/writing some configuration. However the RPCs are not actually
+sent to the device"> <em> nettop:dry-run-journal-size </em></abbr>
+                          </div>
+                       </td>
+                       <td>leaf</td>
+                       <td nowrap><abbr title="uint16
+">uint16</abbr></td>
+                       <td nowrap>config</td>
+                       <td>?</td>
+                       <td>current</td>
+                       <td nowrap>/nt:network-topology/nt:topology/nt:node/nettop:dry-run-journal-size</td</tr> 
+<tr id="1-1-1-6" class="a">
+                       <td nowrap id="p4000">
+                          <div id="p5000" class="tier4">
+                             <a href="#" id="p6000"
+                                onclick="toggleRows(this);return false"
+                                class="folder">&nbsp;
+                             </a>
+                             <abbr title="
+A Network Link connects a by Local (Source) node and
+a Remote (Destination) Network Nodes via a set of the
+nodes' termination points.
+As it is possible to have several links between the same
+source and destination nodes, and as a link could potentially
+be re-homed between termination points, to ensure that we
+would always know to distinguish between links, every link
+is identified by a dedicated link identifier.
+Note that a link models a point-to-point link, not a multipoint
+link.
+Layering dependencies on links in underlay topologies are
+not represented as the layering information of nodes and of
+termination points is sufficient.
+">link[link-id]</abbr>
+                          </div>
+                       </td> 
+<td nowrap>list</td>
+                    <td nowrap></td>
+                    <td nowrap>config</td>
+                    <td></td>
+                    <td>current</td>
+                    <td nowrap>/nt:network-topology/nt:topology/nt:link</td>
+                    </tr> 
+<tr id="1-1-1-6-33" class="a">
+                       <td nowrap>
+                          <div id=9999 class=tier5>
+                             <a class="leaf">&nbsp;</a>
+                             <abbr title="The identifier of a link in the topology.
+A link is specific to a topology to which it belongs.">  link-id </abbr>
+                          </div>
+                       </td>
+                       <td>leaf</td>
+                       <td nowrap><abbr title="link-id
+inet:uri
+">link-id</abbr></td>
+                       <td nowrap>config</td>
+                       <td></td>
+                       <td>current</td>
+                       <td nowrap>/nt:network-topology/nt:topology/nt:link/nt:link-id</td</tr> 
+<tr id="1-1-1-6-34" class="a">
+                       <td nowrap id="p4000">
+                          <div id="p5000" class="tier5">
+                             <a href="#" id="p6000"
+                                onclick="toggleRows(this);return false"
+                                class="folder">&nbsp;
+                             </a>
+                             <abbr title="No description">source</abbr>
+                          </div>
+                       </td> 
+<td nowrap>container</td>
+                    <td nowrap></td>
+                    <td nowrap>config</td>
+                    <td></td>
+                    <td>current</td>
+                    <td nowrap>/nt:network-topology/nt:topology/nt:link/nt:source</td>
+                    </tr> 
+<tr id="1-1-1-6-34-21" class="a">
+                       <td nowrap>
+                          <div id=9999 class=tier6>
+                             <a class="leaf">&nbsp;</a>
+                             <abbr title="Source node identifier, must be in same topology.">  source-node </abbr>
+                          </div>
+                       </td>
+                       <td>leaf</td>
+                       <td nowrap><abbr title="node-ref
+leafref
+ : /network-topology/topology/node/node-id">node-ref</abbr></td>
+                       <td nowrap>config</td>
+                       <td></td>
+                       <td>current</td>
+                       <td nowrap>/nt:network-topology/nt:topology/nt:link/nt:source/nt:source-node</td</tr> 
+<tr id="1-1-1-6-34-22" class="a">
+                       <td nowrap>
+                          <div id=9999 class=tier6>
+                             <a class="leaf">&nbsp;</a>
+                             <abbr title="Termination point within source node that terminates the link."> <em> source-tp </em></abbr>
+                          </div>
+                       </td>
+                       <td>leaf</td>
+                       <td nowrap><abbr title="tp-ref
+leafref
+ : /network-topology/topology/node/termination-point/tp-id">tp-ref</abbr></td>
+                       <td nowrap>config</td>
+                       <td>?</td>
+                       <td>current</td>
+                       <td nowrap>/nt:network-topology/nt:topology/nt:link/nt:source/nt:source-tp</td</tr> 
+<tr id="1-1-1-6-35" class="a">
+                       <td nowrap id="p4000">
+                          <div id="p5000" class="tier5">
+                             <a href="#" id="p6000"
+                                onclick="toggleRows(this);return false"
+                                class="folder">&nbsp;
+                             </a>
+                             <abbr title="No description">destination</abbr>
+                          </div>
+                       </td> 
+<td nowrap>container</td>
+                    <td nowrap></td>
+                    <td nowrap>config</td>
+                    <td></td>
+                    <td>current</td>
+                    <td nowrap>/nt:network-topology/nt:topology/nt:link/nt:destination</td>
+                    </tr> 
+<tr id="1-1-1-6-35-23" class="a">
+                       <td nowrap>
+                          <div id=9999 class=tier6>
+                             <a class="leaf">&nbsp;</a>
+                             <abbr title="Destination node identifier, must be in same topology.">  dest-node </abbr>
+                          </div>
+                       </td>
+                       <td>leaf</td>
+                       <td nowrap><abbr title="node-ref
+leafref
+ : /network-topology/topology/node/node-id">node-ref</abbr></td>
+                       <td nowrap>config</td>
+                       <td></td>
+                       <td>current</td>
+                       <td nowrap>/nt:network-topology/nt:topology/nt:link/nt:destination/nt:dest-node</td</tr> 
+<tr id="1-1-1-6-35-24" class="a">
+                       <td nowrap>
+                          <div id=9999 class=tier6>
+                             <a class="leaf">&nbsp;</a>
+                             <abbr title="Termination point within destination node that terminates the link."> <em> dest-tp </em></abbr>
+                          </div>
+                       </td>
+                       <td>leaf</td>
+                       <td nowrap><abbr title="tp-ref
+leafref
+ : /network-topology/topology/node/termination-point/tp-id">tp-ref</abbr></td>
+                       <td nowrap>config</td>
+                       <td>?</td>
+                       <td>current</td>
+                       <td nowrap>/nt:network-topology/nt:topology/nt:link/nt:destination/nt:dest-tp</td</tr> 
+<tr id="1-1-1-6-36" class="a">
+                       <td nowrap id="p4000">
+                          <div id="p5000" class="tier5">
+                             <a href="#" id="p6000"
+                                onclick="toggleRows(this);return false"
+                                class="folder">&nbsp;
+                             </a>
+                             <abbr title="No description">supporting-link[link-ref]</abbr>
+                          </div>
+                       </td> 
+<td nowrap>list</td>
+                    <td nowrap></td>
+                    <td nowrap>config</td>
+                    <td></td>
+                    <td>current</td>
+                    <td nowrap>/nt:network-topology/nt:topology/nt:link/nt:supporting-link</td>
+                    </tr> 
+<tr id="1-1-1-6-36-25" class="a">
+                       <td nowrap>
+                          <div id=9999 class=tier6>
+                             <a class="leaf">&nbsp;</a>
+                             <abbr title="No description">  link-ref </abbr>
+                          </div>
+                       </td>
+                       <td>leaf</td>
+                       <td nowrap><abbr title="link-ref
+leafref
+ : /network-topology/topology/link/link-id">link-ref</abbr></td>
+                       <td nowrap>config</td>
+                       <td></td>
+                       <td>current</td>
+                       <td nowrap>/nt:network-topology/nt:topology/nt:link/nt:supporting-link/nt:link-ref</td</tr> 
+<tr id="5" class="a">
+                         <td nowrap id="p1000">
+                            <div id="p2000" class="tier1">
+                               <a href="#" id="p3000"
+                                  onclick="toggleRows(this);
+                                  return false;" class="folder">&nbsp;
+                               </a>
+                               nettop:rpcs
+                            </div>
+                         </td> 
+<td></td><td></td><td></td><td></td><td></td></tr>
+<tr id="5-2" class="a">
+                       <td nowrap id="p4000">
+                          <div id="p5000" class="tier2">
+                             <a href="#" id="p6000"
+                                onclick="toggleRows(this);return false"
+                                class="folder">&nbsp;
+                             </a>
+                             <abbr title="No description">create-device</abbr>
+                          </div>
+                       </td> 
+<td nowrap>rpc</td>
+                    <td nowrap></td>
+                    <td nowrap></td>
+                    <td></td>
+                    <td>current</td>
+                    <td nowrap>/nettop:create-device</td>
+                    </tr> 
+<tr id="5-2-2" class="a">
+                       <td nowrap id="p4000">
+                          <div id="p5000" class="tier3">
+                             <a href="#" id="p6000"
+                                onclick="toggleRows(this);return false"
+                                class="folder">&nbsp;
+                             </a>
+                             <abbr title="No description">output</abbr>
+                          </div>
+                       </td> 
+<td nowrap>output</td>
+                    <td nowrap></td>
+                    <td nowrap>no config</td>
+                    <td></td>
+                    <td>current</td>
+                    <td nowrap>/nettop:create-device</td>
+                    </tr> 
+<tr id="5-2-3" class="a">
+                       <td nowrap id="p4000">
+                          <div id="p5000" class="tier3">
+                             <a href="#" id="p6000"
+                                onclick="toggleRows(this);return false"
+                                class="folder">&nbsp;
+                             </a>
+                             <abbr title="No description">input</abbr>
+                          </div>
+                       </td> 
+<td nowrap>input</td>
+                    <td nowrap></td>
+                    <td nowrap>no config</td>
+                    <td></td>
+                    <td>current</td>
+                    <td nowrap>/nettop:create-device</td>
+                    </tr> 
+<tr id="5-2-3-7" class="a">
+                       <td nowrap id="p4000">
+                          <div id="p5000" class="tier4">
+                             <a href="#" id="p6000"
+                                onclick="toggleRows(this);return false"
+                                class="folder">&nbsp;
+                             </a>
+                             <abbr title="No description">(credentials)</abbr>
+                          </div>
+                       </td> 
+<td nowrap>choice</td>
+                    <td nowrap></td>
+                    <td nowrap>config</td>
+                    <td>Choice</td>
+                    <td>current</td>
+                    <td nowrap>/nettop:create-device</td>
+                    </tr> 
+<tr id="5-2-3-7-37" class="a">
+                       <td nowrap id="p4000">
+                          <div id="p5000" class="tier5">
+                             <a href="#" id="p6000"
+                                onclick="toggleRows(this);return false"
+                                class="folder">&nbsp;
+                             </a>
+                             <abbr title="Deprecated way of storing credentials, unencrypted.">:(login-password)</abbr>
+                          </div>
+                       </td> 
+<td nowrap>case</td>
+                    <td nowrap></td>
+                    <td nowrap>config</td>
+                    <td></td>
+                    <td>status deprecated</td>
+                    <td nowrap>/nettop:create-device</td>
+                    </tr> 
+<tr id="5-2-3-7-37-26" class="a">
+                       <td nowrap>
+                          <div id=9999 class=tier6>
+                             <a class="leaf">&nbsp;</a>
+                             <abbr title="No description"> <em> username </em></abbr>
+                          </div>
+                       </td>
+                       <td>leaf</td>
+                       <td nowrap><abbr title="string
+">string</abbr></td>
+                       <td nowrap>config</td>
+                       <td>?</td>
+                       <td>current</td>
+                       <td nowrap>/nettop:create-device/nettop:username</td</tr> 
+<tr id="5-2-3-7-37-27" class="a">
+                       <td nowrap>
+                          <div id=9999 class=tier6>
+                             <a class="leaf">&nbsp;</a>
+                             <abbr title="No description"> <em> password </em></abbr>
+                          </div>
+                       </td>
+                       <td>leaf</td>
+                       <td nowrap><abbr title="string
+">string</abbr></td>
+                       <td nowrap>config</td>
+                       <td>?</td>
+                       <td>current</td>
+                       <td nowrap>/nettop:create-device/nettop:password</td</tr> 
+<tr id="5-2-3-7-38" class="a">
+                       <td nowrap id="p4000">
+                          <div id="p5000" class="tier5">
+                             <a href="#" id="p6000"
+                                onclick="toggleRows(this);return false"
+                                class="folder">&nbsp;
+                             </a>
+                             <abbr title="login-password credentials, encrypted.">:(login-pw)</abbr>
+                          </div>
+                       </td> 
+<td nowrap>case</td>
+                    <td nowrap></td>
+                    <td nowrap>config</td>
+                    <td></td>
+                    <td>current</td>
+                    <td nowrap>/nettop:create-device</td>
+                    </tr> 
+<tr id="5-2-3-7-38-28" class="a">
+                       <td nowrap id="p4000">
+                          <div id="p5000" class="tier6">
+                             <a href="#" id="p6000"
+                                onclick="toggleRows(this);return false"
+                                class="folder">&nbsp;
+                             </a>
+                             <abbr title="No description">login-password</abbr>
+                          </div>
+                       </td> 
+<td nowrap>container</td>
+                    <td nowrap></td>
+                    <td nowrap>config</td>
+                    <td></td>
+                    <td>current</td>
+                    <td nowrap>/nettop:create-device/nettop:login-password</td>
+                    </tr> 
+<tr id="5-2-3-7-38-28-12" class="a">
+                       <td nowrap>
+                          <div id=9999 class=tier7>
+                             <a class="leaf">&nbsp;</a>
+                             <abbr title="No description"> <em> username </em></abbr>
+                          </div>
+                       </td>
+                       <td>leaf</td>
+                       <td nowrap><abbr title="string
+">string</abbr></td>
+                       <td nowrap>config</td>
+                       <td>?</td>
+                       <td>current</td>
+                       <td nowrap>/nettop:create-device/nettop:login-password/nettop:username</td</tr> 
+<tr id="5-2-3-7-38-28-13" class="a">
+                       <td nowrap>
+                          <div id=9999 class=tier7>
+                             <a class="leaf">&nbsp;</a>
+                             <abbr title="No description"> <em> password </em></abbr>
+                          </div>
+                       </td>
+                       <td>leaf</td>
+                       <td nowrap><abbr title="string
+">string</abbr></td>
+                       <td nowrap>config</td>
+                       <td>?</td>
+                       <td>current</td>
+                       <td nowrap>/nettop:create-device/nettop:login-password/nettop:password</td</tr> 
+<tr id="5-2-3-7-39" class="a">
+                       <td nowrap id="p4000">
+                          <div id="p5000" class="tier5">
+                             <a href="#" id="p6000"
+                                onclick="toggleRows(this);return false"
+                                class="folder">&nbsp;
+                             </a>
+                             <abbr title="login-password credentials, not encrypted.">:(login-pw-unencrypted)</abbr>
+                          </div>
+                       </td> 
+<td nowrap>case</td>
+                    <td nowrap></td>
+                    <td nowrap>config</td>
+                    <td></td>
+                    <td>current</td>
+                    <td nowrap>/nettop:create-device</td>
+                    </tr> 
+<tr id="5-2-3-7-39-29" class="a">
+                       <td nowrap id="p4000">
+                          <div id="p5000" class="tier6">
+                             <a href="#" id="p6000"
+                                onclick="toggleRows(this);return false"
+                                class="folder">&nbsp;
+                             </a>
+                             <abbr title="No description">login-password-unencrypted</abbr>
+                          </div>
+                       </td> 
+<td nowrap>container</td>
+                    <td nowrap></td>
+                    <td nowrap>config</td>
+                    <td></td>
+                    <td>current</td>
+                    <td nowrap>/nettop:create-device/nettop:login-password-unencrypted</td>
+                    </tr> 
+<tr id="5-2-3-7-39-29-14" class="a">
+                       <td nowrap>
+                          <div id=9999 class=tier7>
+                             <a class="leaf">&nbsp;</a>
+                             <abbr title="No description"> <em> username </em></abbr>
+                          </div>
+                       </td>
+                       <td>leaf</td>
+                       <td nowrap><abbr title="string
+">string</abbr></td>
+                       <td nowrap>config</td>
+                       <td>?</td>
+                       <td>current</td>
+                       <td nowrap>/nettop:create-device/nettop:login-password-unencrypted/nettop:username</td</tr> 
+<tr id="5-2-3-7-39-29-15" class="a">
+                       <td nowrap>
+                          <div id=9999 class=tier7>
+                             <a class="leaf">&nbsp;</a>
+                             <abbr title="No description"> <em> password </em></abbr>
+                          </div>
+                       </td>
+                       <td>leaf</td>
+                       <td nowrap><abbr title="string
+">string</abbr></td>
+                       <td nowrap>config</td>
+                       <td>?</td>
+                       <td>current</td>
+                       <td nowrap>/nettop:create-device/nettop:login-password-unencrypted/nettop:password</td</tr> 
+<tr id="5-2-3-7-40" class="a">
+                       <td nowrap id="p4000">
+                          <div id="p5000" class="tier5">
+                             <a href="#" id="p6000"
+                                onclick="toggleRows(this);return false"
+                                class="folder">&nbsp;
+                             </a>
+                             <abbr title="key-based authentication, use the id for the pair thats stored in the keystore.">:(key-auth)</abbr>
+                          </div>
+                       </td> 
+<td nowrap>case</td>
+                    <td nowrap></td>
+                    <td nowrap>config</td>
+                    <td></td>
+                    <td>current</td>
+                    <td nowrap>/nettop:create-device</td>
+                    </tr> 
+<tr id="5-2-3-7-40-30" class="a">
+                       <td nowrap id="p4000">
+                          <div id="p5000" class="tier6">
+                             <a href="#" id="p6000"
+                                onclick="toggleRows(this);return false"
+                                class="folder">&nbsp;
+                             </a>
+                             <abbr title="No description">key-based</abbr>
+                          </div>
+                       </td> 
+<td nowrap>container</td>
+                    <td nowrap></td>
+                    <td nowrap>config</td>
+                    <td></td>
+                    <td>current</td>
+                    <td nowrap>/nettop:create-device/nettop:key-based</td>
+                    </tr> 
+<tr id="5-2-3-7-40-30-16" class="a">
+                       <td nowrap>
+                          <div id=9999 class=tier7>
+                             <a class="leaf">&nbsp;</a>
+                             <abbr title="No description"> <em> key-id </em></abbr>
+                          </div>
+                       </td>
+                       <td>leaf</td>
+                       <td nowrap><abbr title="string
+">string</abbr></td>
+                       <td nowrap>config</td>
+                       <td>?</td>
+                       <td>current</td>
+                       <td nowrap>/nettop:create-device/nettop:key-based/nettop:key-id</td</tr> 
+<tr id="5-2-3-7-40-30-17" class="a">
+                       <td nowrap>
+                          <div id=9999 class=tier7>
+                             <a class="leaf">&nbsp;</a>
+                             <abbr title="No description"> <em> username </em></abbr>
+                          </div>
+                       </td>
+                       <td>leaf</td>
+                       <td nowrap><abbr title="string
+">string</abbr></td>
+                       <td nowrap>config</td>
+                       <td>?</td>
+                       <td>current</td>
+                       <td nowrap>/nettop:create-device/nettop:key-based/nettop:username</td</tr> 
+<tr id="5-2-3-8" class="a">
+                       <td nowrap>
+                          <div id=9999 class=tier4>
+                             <a class="leaf">&nbsp;</a>
+                             <abbr title="No description"> <em> host </em></abbr>
+                          </div>
+                       </td>
+                       <td>leaf</td>
+                       <td nowrap><abbr title="inet:host
+union
+{inet:ip-address, inet:domain-name}">inet:host</abbr></td>
+                       <td nowrap>no config</td>
+                       <td>?</td>
+                       <td>current</td>
+                       <td nowrap>/nettop:create-device/nettop:host</td</tr> 
+<tr id="5-2-3-9" class="a">
+                       <td nowrap>
+                          <div id=9999 class=tier4>
+                             <a class="leaf">&nbsp;</a>
+                             <abbr title="No description"> <em> port </em></abbr>
+                          </div>
+                       </td>
+                       <td>leaf</td>
+                       <td nowrap><abbr title="inet:port-number
+uint16
+ [0..65535]">inet:port-number</abbr></td>
+                       <td nowrap>no config</td>
+                       <td>?</td>
+                       <td>current</td>
+                       <td nowrap>/nettop:create-device/nettop:port</td</tr> 
+<tr id="5-2-3-10" class="a">
+                       <td nowrap>
+                          <div id=9999 class=tier4>
+                             <a class="leaf">&nbsp;</a>
+                             <abbr title="No description"> <em> tcp-only </em></abbr>
+                          </div>
+                       </td>
+                       <td>leaf</td>
+                       <td nowrap><abbr title="boolean
+">boolean</abbr></td>
+                       <td nowrap>config</td>
+                       <td>?</td>
+                       <td>current</td>
+                       <td nowrap>/nettop:create-device/nettop:tcp-only</td</tr> 
+<tr id="5-2-3-11" class="a">
+                       <td nowrap>
+                          <div id=9999 class=tier4>
+                             <a class="leaf">&nbsp;</a>
+                             <abbr title="No description"> <em> schemaless </em></abbr>
+                          </div>
+                       </td>
+                       <td>leaf</td>
+                       <td nowrap><abbr title="boolean
+">boolean</abbr></td>
+                       <td nowrap>no config</td>
+                       <td>?</td>
+                       <td>current</td>
+                       <td nowrap>/nettop:create-device/nettop:schemaless</td</tr> 
+<tr id="5-2-3-12" class="a">
+                       <td nowrap id="p4000">
+                          <div id="p5000" class="tier4">
+                             <a href="#" id="p6000"
+                                onclick="toggleRows(this);return false"
+                                class="folder">&nbsp;
+                             </a>
+                             <abbr title="No description">yang-module-capabilities</abbr>
+                          </div>
+                       </td> 
+<td nowrap>container</td>
+                    <td nowrap></td>
+                    <td nowrap>config</td>
+                    <td></td>
+                    <td>current</td>
+                    <td nowrap>/nettop:create-device/nettop:yang-module-capabilities</td>
+                    </tr> 
+<tr id="5-2-3-12-41" class="a">
+                       <td nowrap>
+                          <div id=9999 class=tier5>
+                             <a class="leaf">&nbsp;</a>
+                             <abbr title="Whether to override or merge this list of capabilities with capabilities from device"> <em> override </em></abbr>
+                          </div>
+                       </td>
+                       <td>leaf</td>
+                       <td nowrap><abbr title="boolean
+">boolean</abbr></td>
+                       <td nowrap>config</td>
+                       <td>?</td>
+                       <td>current</td>
+                       <td nowrap>/nettop:create-device/nettop:yang-module-capabilities/nettop:override</td</tr> 
+<tr id="5-2-3-12-42" class="a">
+                       <td nowrap>
+                          <div id=9999 class=tier5>
+                             <a class="leaf-list">&nbsp;</a>
+                             <abbr title="Set a list of capabilities to override capabilities provided in device's hello message.
+Can be used for devices that do not report any yang modules in their hello message">  capability </abbr>
+                          </div>
+                       </td>
+                       <td>leaf-list</td>
+                       <td nowrap><abbr title="string
+">string</abbr></td>
+                       <td nowrap>config</td>
+                       <td>*</td>
+                       <td>current</td>
+                       <td nowrap>/nettop:create-device/nettop:yang-module-capabilities/nettop:capability</td</tr> 
+<tr id="5-2-3-13" class="a">
+                       <td nowrap id="p4000">
+                          <div id="p5000" class="tier4">
+                             <a href="#" id="p6000"
+                                onclick="toggleRows(this);return false"
+                                class="folder">&nbsp;
+                             </a>
+                             <abbr title="No description">non-module-capabilities</abbr>
+                          </div>
+                       </td> 
+<td nowrap>container</td>
+                    <td nowrap></td>
+                    <td nowrap>config</td>
+                    <td></td>
+                    <td>current</td>
+                    <td nowrap>/nettop:create-device/nettop:non-module-capabilities</td>
+                    </tr> 
+<tr id="5-2-3-13-43" class="a">
+                       <td nowrap>
+                          <div id=9999 class=tier5>
+                             <a class="leaf">&nbsp;</a>
+                             <abbr title="Whether to override or merge this list of non-module based capabilities with non-module
+based capabilities from device"> <em> override </em></abbr>
+                          </div>
+                       </td>
+                       <td>leaf</td>
+                       <td nowrap><abbr title="boolean
+">boolean</abbr></td>
+                       <td nowrap>config</td>
+                       <td>?</td>
+                       <td>current</td>
+                       <td nowrap>/nettop:create-device/nettop:non-module-capabilities/nettop:override</td</tr> 
+<tr id="5-2-3-13-44" class="a">
+                       <td nowrap>
+                          <div id=9999 class=tier5>
+                             <a class="leaf-list">&nbsp;</a>
+                             <abbr title="Set a list of non-module based capabilities to override or merge non-module capabilities
+provided in device's hello message. Can be used for devices that do not report or
+incorrectly report non-module based capabilities in their hello message">  capability </abbr>
+                          </div>
+                       </td>
+                       <td>leaf-list</td>
+                       <td nowrap><abbr title="string
+">string</abbr></td>
+                       <td nowrap>config</td>
+                       <td>*</td>
+                       <td>current</td>
+                       <td nowrap>/nettop:create-device/nettop:non-module-capabilities/nettop:capability</td</tr> 
+<tr id="5-2-3-14" class="a">
+                       <td nowrap>
+                          <div id=9999 class=tier4>
+                             <a class="leaf">&nbsp;</a>
+                             <abbr title="If true, the connector would auto disconnect/reconnect when schemas are changed in the remote device.
+The connector subscribes (right after connect) to base netconf notifications and listens for netconf-capability-change notification"> <em> reconnect-on-changed-schema </em></abbr>
+                          </div>
+                       </td>
+                       <td>leaf</td>
+                       <td nowrap><abbr title="boolean
+">boolean</abbr></td>
+                       <td nowrap>config</td>
+                       <td>?</td>
+                       <td>current</td>
+                       <td nowrap>/nettop:create-device/nettop:reconnect-on-changed-schema</td</tr> 
+<tr id="5-2-3-15" class="a">
+                       <td nowrap>
+                          <div id=9999 class=tier4>
+                             <a class="leaf">&nbsp;</a>
+                             <abbr title="Specifies timeout in milliseconds after which connection must be established."> <em> connection-timeout-millis </em></abbr>
+                          </div>
+                       </td>
+                       <td>leaf</td>
+                       <td nowrap><abbr title="uint32
+">uint32</abbr></td>
+                       <td nowrap>config</td>
+                       <td>?</td>
+                       <td>current</td>
+                       <td nowrap>/nettop:create-device/nettop:connection-timeout-millis</td</tr> 
+<tr id="5-2-3-16" class="a">
+                       <td nowrap>
+                          <div id=9999 class=tier4>
+                             <a class="leaf">&nbsp;</a>
+                             <abbr title="Timeout for blocking operations within transactions."> <em> default-request-timeout-millis </em></abbr>
+                          </div>
+                       </td>
+                       <td>leaf</td>
+                       <td nowrap><abbr title="uint32
+">uint32</abbr></td>
+                       <td nowrap>config</td>
+                       <td>?</td>
+                       <td>current</td>
+                       <td nowrap>/nettop:create-device/nettop:default-request-timeout-millis</td</tr> 
+<tr id="5-2-3-17" class="a">
+                       <td nowrap>
+                          <div id=9999 class=tier4>
+                             <a class="leaf">&nbsp;</a>
+                             <abbr title="Maximum number of connection retries. Non positive value or null is interpreted as infinity."> <em> max-connection-attempts </em></abbr>
+                          </div>
+                       </td>
+                       <td>leaf</td>
+                       <td nowrap><abbr title="uint32
+">uint32</abbr></td>
+                       <td nowrap>config</td>
+                       <td>?</td>
+                       <td>current</td>
+                       <td nowrap>/nettop:create-device/nettop:max-connection-attempts</td</tr> 
+<tr id="5-2-3-18" class="a">
+                       <td nowrap>
+                          <div id=9999 class=tier4>
+                             <a class="leaf">&nbsp;</a>
+                             <abbr title="Initial timeout in milliseconds to wait between connection attempts. Will be multiplied by sleep-factor with every additional attempt"> <em> between-attempts-timeout-millis </em></abbr>
+                          </div>
+                       </td>
+                       <td>leaf</td>
+                       <td nowrap><abbr title="uint16
+">uint16</abbr></td>
+                       <td nowrap>config</td>
+                       <td>?</td>
+                       <td>current</td>
+                       <td nowrap>/nettop:create-device/nettop:between-attempts-timeout-millis</td</tr> 
+<tr id="5-2-3-19" class="a">
+                       <td nowrap>
+                          <div id=9999 class=tier4>
+                             <a class="leaf">&nbsp;</a>
+                             <abbr title="No description"> <em> sleep-factor </em></abbr>
+                          </div>
+                       </td>
+                       <td>leaf</td>
+                       <td nowrap><abbr title="decimal64
+">decimal64</abbr></td>
+                       <td nowrap>config</td>
+                       <td>?</td>
+                       <td>current</td>
+                       <td nowrap>/nettop:create-device/nettop:sleep-factor</td</tr> 
+<tr id="5-2-3-20" class="a">
+                       <td nowrap>
+                          <div id=9999 class=tier4>
+                             <a class="leaf">&nbsp;</a>
+                             <abbr title="Netconf connector sends keepalive RPCs while the session is idle, this delay specifies the delay between keepalive RPC in seconds
+If a value <1 is provided, no keepalives will be sent"> <em> keepalive-delay </em></abbr>
+                          </div>
+                       </td>
+                       <td>leaf</td>
+                       <td nowrap><abbr title="uint32
+">uint32</abbr></td>
+                       <td nowrap>config</td>
+                       <td>?</td>
+                       <td>current</td>
+                       <td nowrap>/nettop:create-device/nettop:keepalive-delay</td</tr> 
+<tr id="5-2-3-21" class="a">
+                       <td nowrap>
+                          <div id=9999 class=tier4>
+                             <a class="leaf">&nbsp;</a>
+                             <abbr title="Limit of concurrent messages that can be send before reply messages are received.
+If value <1 is provided, no limit will be enforced"> <em> concurrent-rpc-limit </em></abbr>
+                          </div>
+                       </td>
+                       <td>leaf</td>
+                       <td nowrap><abbr title="uint16
+">uint16</abbr></td>
+                       <td nowrap>config</td>
+                       <td>?</td>
+                       <td>current</td>
+                       <td nowrap>/nettop:create-device/nettop:concurrent-rpc-limit</td</tr> 
+<tr id="5-2-3-22" class="a">
+                       <td nowrap>
+                          <div id=9999 class=tier4>
+                             <a class="leaf">&nbsp;</a>
+                             <abbr title="Time that slave actor will wait for response from master."> <em> actor-response-wait-time </em></abbr>
+                          </div>
+                       </td>
+                       <td>leaf</td>
+                       <td nowrap><abbr title="uint16
+ [1..max]">uint16</abbr></td>
+                       <td nowrap>config</td>
+                       <td>?</td>
+                       <td>current</td>
+                       <td nowrap>/nettop:create-device/nettop:actor-response-wait-time</td</tr> 
+<tr id="5-2-3-23" class="a">
+                       <td nowrap id="p4000">
+                          <div id="p5000" class="tier4">
+                             <a href="#" id="p6000"
+                                onclick="toggleRows(this);return false"
+                                class="folder">&nbsp;
+                             </a>
+                             <abbr title="No description">odl-hello-message-capabilities</abbr>
+                          </div>
+                       </td> 
+<td nowrap>container</td>
+                    <td nowrap></td>
+                    <td nowrap>config</td>
+                    <td></td>
+                    <td>current</td>
+                    <td nowrap>/nettop:create-device/nettop:odl-hello-message-capabilities</td>
+                    </tr> 
+<tr id="5-2-3-23-45" class="a">
+                       <td nowrap>
+                          <div id=9999 class=tier5>
+                             <a class="leaf-list">&nbsp;</a>
+                             <abbr title="Certain devices are non-accepting of ODL's hello message.  This allows specification of
+a custom ODL hello message based on a list of supported capabilities.">  capability </abbr>
+                          </div>
+                       </td>
+                       <td>leaf-list</td>
+                       <td nowrap><abbr title="inet:uri
+string
+">inet:uri</abbr></td>
+                       <td nowrap>config</td>
+                       <td>*</td>
+                       <td>current</td>
+                       <td nowrap>/nettop:create-device/nettop:odl-hello-message-capabilities/nettop:capability</td</tr> 
+<tr id="5-2-3-24" class="a">
+                       <td nowrap>
+                          <div id=9999 class=tier4>
+                             <a class="leaf">&nbsp;</a>
+                             <abbr title="No description"> <em> connection-status </em></abbr>
+                          </div>
+                       </td>
+                       <td>leaf</td>
+                       <td nowrap><abbr title="enumeration
+ : {connecting,connected,unable-to-connect,}">enumeration</abbr></td>
+                       <td nowrap>no config</td>
+                       <td>?</td>
+                       <td>current</td>
+                       <td nowrap>/nettop:create-device/nettop:connection-status</td</tr> 
+<tr id="5-2-3-25" class="a">
+                       <td nowrap id="p4000">
+                          <div id="p5000" class="tier4">
+                             <a href="#" id="p6000"
+                                onclick="toggleRows(this);return false"
+                                class="folder">&nbsp;
+                             </a>
+                             <abbr title="No description">clustered-connection-status</abbr>
+                          </div>
+                       </td> 
+<td nowrap>container</td>
+                    <td nowrap></td>
+                    <td nowrap>no config</td>
+                    <td></td>
+                    <td>current</td>
+                    <td nowrap>/nettop:create-device/nettop:clustered-connection-status</td>
+                    </tr> 
+<tr id="5-2-3-25-46" class="a">
+                       <td nowrap id="p4000">
+                          <div id="p5000" class="tier5">
+                             <a href="#" id="p6000"
+                                onclick="toggleRows(this);return false"
+                                class="folder">&nbsp;
+                             </a>
+                             <abbr title="No description">node-status</abbr>
+                          </div>
+                       </td> 
+<td nowrap>list</td>
+                    <td nowrap></td>
+                    <td nowrap>no config</td>
+                    <td></td>
+                    <td>current</td>
+                    <td nowrap>/nettop:create-device/nettop:clustered-connection-status/nettop:node-status</td>
+                    </tr> 
+<tr id="5-2-3-25-46-31" class="a">
+                       <td nowrap>
+                          <div id=9999 class=tier6>
+                             <a class="leaf">&nbsp;</a>
+                             <abbr title="No description"> <em> node </em></abbr>
+                          </div>
+                       </td>
+                       <td>leaf</td>
+                       <td nowrap><abbr title="string
+">string</abbr></td>
+                       <td nowrap>no config</td>
+                       <td>?</td>
+                       <td>current</td>
+                       <td nowrap>/nettop:create-device/nettop:clustered-connection-status/nettop:node-status/nettop:node</td</tr> 
+<tr id="5-2-3-25-46-32" class="a">
+                       <td nowrap>
+                          <div id=9999 class=tier6>
+                             <a class="leaf">&nbsp;</a>
+                             <abbr title="No description"> <em> status </em></abbr>
+                          </div>
+                       </td>
+                       <td>leaf</td>
+                       <td nowrap><abbr title="enumeration
+ : {connected,unavailable,failed,}">enumeration</abbr></td>
+                       <td nowrap>no config</td>
+                       <td>?</td>
+                       <td>current</td>
+                       <td nowrap>/nettop:create-device/nettop:clustered-connection-status/nettop:node-status/nettop:status</td</tr> 
+<tr id="5-2-3-25-47" class="a">
+                       <td nowrap>
+                          <div id=9999 class=tier5>
+                             <a class="leaf">&nbsp;</a>
+                             <abbr title="No description"> <em> netconf-master-node </em></abbr>
+                          </div>
+                       </td>
+                       <td>leaf</td>
+                       <td nowrap><abbr title="string
+">string</abbr></td>
+                       <td nowrap>no config</td>
+                       <td>?</td>
+                       <td>current</td>
+                       <td nowrap>/nettop:create-device/nettop:clustered-connection-status/nettop:netconf-master-node</td</tr> 
+<tr id="5-2-3-26" class="a">
+                       <td nowrap>
+                          <div id=9999 class=tier4>
+                             <a class="leaf">&nbsp;</a>
+                             <abbr title="No description"> <em> connected-message </em></abbr>
+                          </div>
+                       </td>
+                       <td>leaf</td>
+                       <td nowrap><abbr title="string
+">string</abbr></td>
+                       <td nowrap>no config</td>
+                       <td>?</td>
+                       <td>current</td>
+                       <td nowrap>/nettop:create-device/nettop:connected-message</td</tr> 
+<tr id="5-2-3-27" class="a">
+                       <td nowrap id="p4000">
+                          <div id="p5000" class="tier4">
+                             <a href="#" id="p6000"
+                                onclick="toggleRows(this);return false"
+                                class="folder">&nbsp;
+                             </a>
+                             <abbr title="No description">available-capabilities</abbr>
+                          </div>
+                       </td> 
+<td nowrap>container</td>
+                    <td nowrap></td>
+                    <td nowrap>no config</td>
+                    <td></td>
+                    <td>current</td>
+                    <td nowrap>/nettop:create-device/nettop:available-capabilities</td>
+                    </tr> 
+<tr id="5-2-3-27-48" class="a">
+                       <td nowrap id="p4000">
+                          <div id="p5000" class="tier5">
+                             <a href="#" id="p6000"
+                                onclick="toggleRows(this);return false"
+                                class="folder">&nbsp;
+                             </a>
+                             <abbr title="No description">available-capability</abbr>
+                          </div>
+                       </td> 
+<td nowrap>list</td>
+                    <td nowrap></td>
+                    <td nowrap>no config</td>
+                    <td></td>
+                    <td>current</td>
+                    <td nowrap>/nettop:create-device/nettop:available-capabilities/nettop:available-capability</td>
+                    </tr> 
+<tr id="5-2-3-27-48-33" class="a">
+                       <td nowrap>
+                          <div id=9999 class=tier6>
+                             <a class="leaf">&nbsp;</a>
+                             <abbr title="No description"> <em> capability </em></abbr>
+                          </div>
+                       </td>
+                       <td>leaf</td>
+                       <td nowrap><abbr title="string
+">string</abbr></td>
+                       <td nowrap>no config</td>
+                       <td>?</td>
+                       <td>current</td>
+                       <td nowrap>/nettop:create-device/nettop:available-capabilities/nettop:available-capability/nettop:capability</td</tr> 
+<tr id="5-2-3-27-48-34" class="a">
+                       <td nowrap>
+                          <div id=9999 class=tier6>
+                             <a class="leaf">&nbsp;</a>
+                             <abbr title="No description"> <em> capability-origin </em></abbr>
+                          </div>
+                       </td>
+                       <td>leaf</td>
+                       <td nowrap><abbr title="enumeration
+ : {user-defined,device-advertised,}">enumeration</abbr></td>
+                       <td nowrap>no config</td>
+                       <td>?</td>
+                       <td>current</td>
+                       <td nowrap>/nettop:create-device/nettop:available-capabilities/nettop:available-capability/nettop:capability-origin</td</tr> 
+<tr id="5-2-3-28" class="a">
+                       <td nowrap id="p4000">
+                          <div id="p5000" class="tier4">
+                             <a href="#" id="p6000"
+                                onclick="toggleRows(this);return false"
+                                class="folder">&nbsp;
+                             </a>
+                             <abbr title="No description">unavailable-capabilities</abbr>
+                          </div>
+                       </td> 
+<td nowrap>container</td>
+                    <td nowrap></td>
+                    <td nowrap>no config</td>
+                    <td></td>
+                    <td>current</td>
+                    <td nowrap>/nettop:create-device/nettop:unavailable-capabilities</td>
+                    </tr> 
+<tr id="5-2-3-28-49" class="a">
+                       <td nowrap id="p4000">
+                          <div id="p5000" class="tier5">
+                             <a href="#" id="p6000"
+                                onclick="toggleRows(this);return false"
+                                class="folder">&nbsp;
+                             </a>
+                             <abbr title="No description">unavailable-capability</abbr>
+                          </div>
+                       </td> 
+<td nowrap>list</td>
+                    <td nowrap></td>
+                    <td nowrap>no config</td>
+                    <td></td>
+                    <td>current</td>
+                    <td nowrap>/nettop:create-device/nettop:unavailable-capabilities/nettop:unavailable-capability</td>
+                    </tr> 
+<tr id="5-2-3-28-49-35" class="a">
+                       <td nowrap>
+                          <div id=9999 class=tier6>
+                             <a class="leaf">&nbsp;</a>
+                             <abbr title="No description"> <em> capability </em></abbr>
+                          </div>
+                       </td>
+                       <td>leaf</td>
+                       <td nowrap><abbr title="string
+">string</abbr></td>
+                       <td nowrap>no config</td>
+                       <td>?</td>
+                       <td>current</td>
+                       <td nowrap>/nettop:create-device/nettop:unavailable-capabilities/nettop:unavailable-capability/nettop:capability</td</tr> 
+<tr id="5-2-3-28-49-36" class="a">
+                       <td nowrap>
+                          <div id=9999 class=tier6>
+                             <a class="leaf">&nbsp;</a>
+                             <abbr title="No description"> <em> failure-reason </em></abbr>
+                          </div>
+                       </td>
+                       <td>leaf</td>
+                       <td nowrap><abbr title="enumeration
+ : {missing-source,unable-to-resolve,}">enumeration</abbr></td>
+                       <td nowrap>no config</td>
+                       <td>?</td>
+                       <td>current</td>
+                       <td nowrap>/nettop:create-device/nettop:unavailable-capabilities/nettop:unavailable-capability/nettop:failure-reason</td</tr> 
+<tr id="5-2-3-29" class="a">
+                       <td nowrap id="p4000">
+                          <div id="p5000" class="tier4">
+                             <a href="#" id="p6000"
+                                onclick="toggleRows(this);return false"
+                                class="folder">&nbsp;
+                             </a>
+                             <abbr title="When the underlying node is connected, its NETCONF context
+is available verbatim under this container through the
+mount extension.">pass-through</abbr>
+                          </div>
+                       </td> 
+<td nowrap>container</td>
+                    <td nowrap></td>
+                    <td nowrap>no config</td>
+                    <td></td>
+                    <td>current</td>
+                    <td nowrap>/nettop:create-device/nettop:pass-through</td>
+                    </tr> 
+<tr id="5-2-3-30" class="a">
+                       <td nowrap>
+                          <div id=9999 class=tier4>
+                             <a class="leaf">&nbsp;</a>
+                             <abbr title="The destination schema repository for yang files relative to the cache directory.  This may be specified per netconf mount
+so that the loaded yang files are stored to a distinct directory to avoid potential conflict."> <em> schema-cache-directory </em></abbr>
+                          </div>
+                       </td>
+                       <td>leaf</td>
+                       <td nowrap><abbr title="string
+">string</abbr></td>
+                       <td nowrap>config</td>
+                       <td>?</td>
+                       <td>current</td>
+                       <td nowrap>/nettop:create-device/nettop:schema-cache-directory</td</tr> 
+<tr id="5-2-3-31" class="a">
+                       <td nowrap id="p4000">
+                          <div id="p5000" class="tier4">
+                             <a href="#" id="p6000"
+                                onclick="toggleRows(this);return false"
+                                class="folder">&nbsp;
+                             </a>
+                             <abbr title="No description">yang-library</abbr>
+                          </div>
+                       </td> 
+<td nowrap>container</td>
+                    <td nowrap></td>
+                    <td nowrap>no config</td>
+                    <td></td>
+                    <td>current</td>
+                    <td nowrap>/nettop:create-device/nettop:yang-library</td>
+                    </tr> 
+<tr id="5-2-3-31-50" class="a">
+                       <td nowrap>
+                          <div id=9999 class=tier5>
+                             <a class="leaf">&nbsp;</a>
+                             <abbr title="Yang library to be plugged as additional source provider into the shared schema repository"> <em> yang-library-url </em></abbr>
+                          </div>
+                       </td>
+                       <td>leaf</td>
+                       <td nowrap><abbr title="inet:uri
+string
+">inet:uri</abbr></td>
+                       <td nowrap>config</td>
+                       <td>?</td>
+                       <td>current</td>
+                       <td nowrap>/nettop:create-device/nettop:yang-library/nettop:yang-library-url</td</tr> 
+<tr id="5-2-3-31-51" class="a">
+                       <td nowrap>
+                          <div id=9999 class=tier5>
+                             <a class="leaf">&nbsp;</a>
+                             <abbr title="No description"> <em> username </em></abbr>
+                          </div>
+                       </td>
+                       <td>leaf</td>
+                       <td nowrap><abbr title="string
+">string</abbr></td>
+                       <td nowrap>config</td>
+                       <td>?</td>
+                       <td>current</td>
+                       <td nowrap>/nettop:create-device/nettop:yang-library/nettop:username</td</tr> 
+<tr id="5-2-3-31-52" class="a">
+                       <td nowrap>
+                          <div id=9999 class=tier5>
+                             <a class="leaf">&nbsp;</a>
+                             <abbr title="No description"> <em> password </em></abbr>
+                          </div>
+                       </td>
+                       <td>leaf</td>
+                       <td nowrap><abbr title="string
+">string</abbr></td>
+                       <td nowrap>config</td>
+                       <td>?</td>
+                       <td>current</td>
+                       <td nowrap>/nettop:create-device/nettop:yang-library/nettop:password</td</tr> 
+<tr id="5-2-3-32" class="a">
+                       <td nowrap>
+                          <div id=9999 class=tier4>
+                             <a class="leaf">&nbsp;</a>
+                             <abbr title="No description"> <em> customization-factory </em></abbr>
+                          </div>
+                       </td>
+                       <td>leaf</td>
+                       <td nowrap><abbr title="string
+">string</abbr></td>
+                       <td nowrap>config</td>
+                       <td>?</td>
+                       <td>current</td>
+                       <td nowrap>/nettop:create-device/nettop:customization-factory</td</tr> 
+<tr id="5-2-3-33" class="a">
+                       <td nowrap>
+                          <div id=9999 class=tier4>
+                             <a class="leaf">&nbsp;</a>
+                             <abbr title="Size of the DRY RUN netconf mountpoint jounral. DRY RUN journal captures netconf RPCs that
+would be executed when reading/writing some configuration. However the RPCs are not actually
+sent to the device"> <em> dry-run-journal-size </em></abbr>
+                          </div>
+                       </td>
+                       <td>leaf</td>
+                       <td nowrap><abbr title="uint16
+">uint16</abbr></td>
+                       <td nowrap>no config</td>
+                       <td>?</td>
+                       <td>current</td>
+                       <td nowrap>/nettop:create-device/nettop:dry-run-journal-size</td</tr> 
+<tr id="5-2-3-34" class="a">
+                       <td nowrap>
+                          <div id=9999 class=tier4>
+                             <a class="leaf">&nbsp;</a>
+                             <abbr title="No description"> <em> node-id </em></abbr>
+                          </div>
+                       </td>
+                       <td>leaf</td>
+                       <td nowrap><abbr title="string
+">string</abbr></td>
+                       <td nowrap>no config</td>
+                       <td>?</td>
+                       <td>current</td>
+                       <td nowrap>/nettop:create-device/nettop:node-id</td</tr> 
+<tr id="5-3" class="a">
+                       <td nowrap id="p4000">
+                          <div id="p5000" class="tier2">
+                             <a href="#" id="p6000"
+                                onclick="toggleRows(this);return false"
+                                class="folder">&nbsp;
+                             </a>
+                             <abbr title="No description">delete-device</abbr>
+                          </div>
+                       </td> 
+<td nowrap>rpc</td>
+                    <td nowrap></td>
+                    <td nowrap></td>
+                    <td></td>
+                    <td>current</td>
+                    <td nowrap>/nettop:delete-device</td>
+                    </tr> 
+<tr id="5-3-4" class="a">
+                       <td nowrap id="p4000">
+                          <div id="p5000" class="tier3">
+                             <a href="#" id="p6000"
+                                onclick="toggleRows(this);return false"
+                                class="folder">&nbsp;
+                             </a>
+                             <abbr title="No description">output</abbr>
+                          </div>
+                       </td> 
+<td nowrap>output</td>
+                    <td nowrap></td>
+                    <td nowrap>no config</td>
+                    <td></td>
+                    <td>current</td>
+                    <td nowrap>/nettop:delete-device</td>
+                    </tr> 
+<tr id="5-3-5" class="a">
+                       <td nowrap id="p4000">
+                          <div id="p5000" class="tier3">
+                             <a href="#" id="p6000"
+                                onclick="toggleRows(this);return false"
+                                class="folder">&nbsp;
+                             </a>
+                             <abbr title="No description">input</abbr>
+                          </div>
+                       </td> 
+<td nowrap>input</td>
+                    <td nowrap></td>
+                    <td nowrap>no config</td>
+                    <td></td>
+                    <td>current</td>
+                    <td nowrap>/nettop:delete-device</td>
+                    </tr> 
+<tr id="5-3-5-35" class="a">
+                       <td nowrap>
+                          <div id=9999 class=tier4>
+                             <a class="leaf">&nbsp;</a>
+                             <abbr title="No description"> <em> node-id </em></abbr>
+                          </div>
+                       </td>
+                       <td>leaf</td>
+                       <td nowrap><abbr title="string
+">string</abbr></td>
+                       <td nowrap>no config</td>
+                       <td>?</td>
+                       <td>current</td>
+                       <td nowrap>/nettop:delete-device/nettop:node-id</td</tr> 
+
+</table>
+</div>
+</body>
+</html>
+

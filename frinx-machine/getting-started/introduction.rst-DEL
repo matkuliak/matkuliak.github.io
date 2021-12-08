@@ -1,0 +1,102 @@
+Introduction
+============
+
+
+FRINX Opendaylight (network automation solution)
+------------------------------------------------
+
+* Connects to the devices in network
+
+* Keeps connections between devices alive
+
+* Pushes configuration data to devices
+
+* Pulls configuration and operational data from devices
+
+
+Netflix Conductor (workflow engine)
+-----------------------------------
+
+* Chains atomic tasks into complex workflows
+
+* Defines, executes and monitors workflows (via REST or UI)
+
+
+Elasticsearch (inventory and log data)
+--------------------------------------
+
+* Storing inventory data
+
+* Storing log data
+
+**The goal is to provide a platform enabling easy definition, execution and 
+monitoring of complex workflows using FRINX Opendaylight.**
+
+An example workflow could consist of:
+
+#. Pulling device IP and mgmt credentials from an external IPAM system
+
+#. Mounting a device
+
+#. Verifying the device is connected
+
+#. Executing a configuration template
+
+#. Unmounting a device
+
+We chose Netflix’s conductor workflow engine since it has been proven to be
+highly scalable open-source technology that integrates very well with FRINX
+Opendaylight. Further information about conductor can be found at:
+
+
+* **Github:** `https://github.com/Netflix/conductor <https://github.com/Netflix/conductor>`_
+
+* **Docs:** `https://netflix.github.io/conductor <https://netflix.github.io/conductor/>`_
+
+
+High Level Architecture
+-----------------------
+
+Following diagram outlines main functional components in the FRINX Machine solution:
+
+ 
+.. image:: image_0.png
+   :target: image_0.png
+   :alt: preview1
+
+
+The following diagram outlines the container components of the FRINX Machine solution:
+
+ 
+.. image:: image_1_0.png
+   :target: image_1_0.png
+   :alt: preview
+
+
+FRINX Machine repository is available at:
+`https://github.com/FRINXio/FRINX-machine
+<https://github.com/FRINXio/FRINX-machine>`_
+
+Frinx-conductor repository is available at:
+`https://github.com/FRINXio/frinx-conductor
+<https://github.com/FRINXio/frinx-conductor>`_
+
+Specialized ODL tasks are available at:
+`https://github.com/FRINXio/FRINX-machine/tree/master/microservices/netinfra_utils
+<https://github.com/FRINXio/FRINX-machine/tree/master/microservices/netinfra_utils>`_
+
+
+Defining a workflow
+-------------------
+
+Workflows are defined using a JSON based domain specific language (DSL) by
+wiring a set of tasks together. The tasks are either control tasks (fork,
+conditional etc) or application tasks (e.g. encode a file) that are executed on
+a remote machine.
+
+FRINX Machine distribution comes in with number of pre-packaged workflows.
+
+Detailed description of workflow and task definitions along with examples can be
+found at official `Netflix Conductor documentation
+<https://netflix.github.io/conductor/metadata/#workflow-definition>`_
+

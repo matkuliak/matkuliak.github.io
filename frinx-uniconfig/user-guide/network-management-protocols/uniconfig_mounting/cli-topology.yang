@@ -1,0 +1,208 @@
+module cli-topology {
+
+    yang-version 1;
+    namespace "urn:opendaylight:params:xml:ns:yang:cli:topology";
+    prefix "cli-topo";
+
+    import network-topology { prefix nt; revision-date 2013-10-21; }
+    import yang-ext { prefix ext; revision-date "2013-07-09";}
+    import ietf-inet-types { prefix inet; revision-date "2013-07-15"; }
+    import cli-translate-registry { prefix trans-reg; revision-date "2017-05-20"; }
+
+    revision "2017-05-20" {
+        description "Initial revision";
+    }
+
+    grouping cli-node-keepalive {
+        choice keepalive-strategy {
+
+            default keepalive;
+
+            case keepalive {
+
+                description "Use these parameters to configure an \"always on\" connection with the device";
+
+                leaf keepalive-delay {
+                    type uint16;
+                    default 60;
+                }
+
+                leaf keepalive-timeout {
+                    type uint16;
+                    default 60;
+                }
+
+                leaf keepalive-initial-delay {
+                    type uint16;
+                    default 120;
+                }
+            }
+
+            case lazy {
+
+                description "Use these parameters to configure a \"lazy\" connection with the device. The actual session
+                             can be disconnected if lazy-timeout runs out and will be reconnected on demand";
+
+                leaf command-timeout {
+                    type uint16;
+                    default 60;
+                    description "Maximal time (in seconds) for command execution, if a command cannot be executed on
+                                 a device in this time, the execution is considered a failure";
+                }
+
+                leaf connection-establish-timeout {
+                    type uint16;
+                    default 60;
+                    description "Maximal time (in seconds) for connection establishment, if a connection attempt does
+                                 not succeed in this time, the attempt is considered a failure";
+                }
+
+                leaf connection-lazy-timeout {
+                    type uint16;
+                    default 60;
+                    description "Maximal time (in seconds) for connection to keep alive, if no activity was detected
+                                 in the session and the timeout has been reached, connection will be stopped";
+                }
+            }
+        }
+    }
+
+    grouping cli-node-credentials {
+
+        choice credentials {
+            config true;
+            case login-password {
+                leaf username {
+                    type string;
+                }
+
+                leaf password {
+                    type string;
+                }
+            }
+        }
+
+        choice privileged-mode-credentials {
+            config true;
+            case ios-enable-password {
+                leaf secret {
+                    type string;
+                    description
+                        "Privileged EXEC mode password for Cisco IOS devices. If not set credentials
+                        password will be used";
+                }
+            }
+        }
+    }
+
+    grouping cli-node-connection-parameters {
+
+        leaf host {
+            type inet:host;
+        }
+
+        leaf port {
+            type inet:port-number;
+        }
+
+        leaf transport-type {
+            type enumeration {
+                enum ssh;
+                enum telnet;
+            }
+        }
+
+        uses trans-reg:device;
+    }
+
+    grouping cli-node-tracing-parameters {
+
+        leaf journal-size {
+            type uint16;
+            default 0;
+            description "Size of the cli mountpoint jounral. Journal keeps track of executed commands and makes
+                         them available for users/apps for debugging purposes. Value 0 disables journaling";
+        }
+
+        leaf dry-run-journal-size {
+            type uint16;
+            default 0;
+            description "Size of the DRY RUN cli mountpoint jounral. DRY RUN journal captures commands that would be
+                         executed when reading/writing some configuration. However the commands are not actually sent
+                         to the device";
+        }
+
+        leaf journal-level {
+            type enumeration {
+                enum command-only;
+                enum extended;
+            }
+            default command-only;
+            description "Sets how much information should be stored in the journal. Command-only stores only the actual
+                         commands executed on device. Extended records additional information such as: transaction
+                         life-cycle, which handlers were invoked etc.";
+        }
+    }
+
+    grouping cli-node-connection-status {
+
+        leaf connection-status {
+            config false;
+            type enumeration {
+                enum connecting;
+                enum connected;
+                enum unable-to-connect;
+            }
+        }
+
+        leaf connected-message {
+            config false;
+            type string;
+        }
+
+        container available-capabilities {
+            config false;
+            leaf-list available-capability {
+                type string;
+            }
+        }
+
+        container pass-through {
+            when "../connection-status = connected";
+            description
+                "When the underlying node is connected, its cli context
+                is available verbatim under this container through the
+                mount extension.";
+        }
+
+    }
+
+    grouping cli-node-available-patterns {
+
+        uses trans-reg:error-commit-patterns;
+
+        uses trans-reg:error-patterns;
+    }
+
+    grouping cli-node-fields {
+
+      uses cli-node-credentials;
+
+      uses cli-node-connection-parameters;
+
+      uses cli-node-keepalive;
+
+      uses cli-node-tracing-parameters;
+
+      uses cli-node-connection-status;
+
+      uses cli-node-available-patterns;
+    }
+
+    augment "/nt:network-topology/nt:topology/nt:node" {
+      when "../../nt:topology-types/cli";
+      ext:augment-identifier "cli-node";
+
+      uses cli-node-fields;
+    }
+}

@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+     contentScriptType="application/ecmascript" contentStyleType="text/css" height="356px" preserveAspectRatio="none"
+     style="width:918px;height:356px;background:#FFFFFF;" version="1.1" viewBox="0 0 918 356" width="918px"
+     zoomAndPan="magnify">
+    <defs>
+        <filter height="300%" id="fzg7y9whc18z9" width="300%" x="-1" y="-1">
+            <feGaussianBlur result="blurOut" stdDeviation="2.0"/>
+            <feColorMatrix in="blurOut" result="blurOut2" type="matrix"
+                           values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/>
+            <feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/>
+            <feBlend in="SourceGraphic" in2="blurOut3" mode="normal"/>
+        </filter>
+    </defs>
+    <g>
+        <text fill="#000000" font-family="sans-serif" font-size="18" lengthAdjust="spacing" textLength="255" x="329.5"
+              y="28.708">RPC show-connection-status
+        </text>
+        <rect fill="#FFFFFF" filter="url(#fzg7y9whc18z9)" height="133.6641" style="stroke:#000000;stroke-width:2.0;"
+              width="662" x="242" y="169.3828"/>
+        <line style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:5.0,5.0;" x1="47" x2="47" y1="123.25"
+              y2="349.1797"/>
+        <line style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:5.0,5.0;" x1="348" x2="348" y1="123.25"
+              y2="349.1797"/>
+        <line style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:5.0,5.0;" x1="553" x2="553" y1="123.25"
+              y2="349.1797"/>
+        <line style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:5.0,5.0;" x1="778" x2="778" y1="123.25"
+              y2="349.1797"/>
+        <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="79" x="5"
+              y="119.9482">application
+        </text>
+        <ellipse cx="47.5" cy="49.9531" fill="#FEFECE" filter="url(#fzg7y9whc18z9)" rx="8" ry="8"
+                 style="stroke:#A80036;stroke-width:2.0;"/>
+        <path d="M47.5,57.9531 L47.5,84.9531 M34.5,65.9531 L60.5,65.9531 M47.5,84.9531 L34.5,99.9531 M47.5,84.9531 L60.5,99.9531 "
+              fill="none" filter="url(#fzg7y9whc18z9)" style="stroke:#A80036;stroke-width:2.0;"/>
+        <rect fill="#FEFECE" filter="url(#fzg7y9whc18z9)" height="30.2969" style="stroke:#A80036;stroke-width:1.5;"
+              width="189" x="252" y="87.9531"/>
+        <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="175" x="259"
+              y="107.9482">Uniconfig Node Manager
+        </text>
+        <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="191" x="455"
+              y="119.9482">unified topology (OPER DS)
+        </text>
+        <path d="M535.5,70.9531 C535.5,60.9531 553.5,60.9531 553.5,60.9531 C553.5,60.9531 571.5,60.9531 571.5,70.9531 L571.5,96.9531 C571.5,106.9531 553.5,106.9531 553.5,106.9531 C553.5,106.9531 535.5,106.9531 535.5,96.9531 L535.5,70.9531 "
+              fill="#FEFECE" filter="url(#fzg7y9whc18z9)" style="stroke:#000000;stroke-width:1.5;"/>
+        <path d="M535.5,70.9531 C535.5,80.9531 553.5,80.9531 553.5,80.9531 C553.5,80.9531 571.5,80.9531 571.5,70.9531 "
+              fill="none" style="stroke:#000000;stroke-width:1.5;"/>
+        <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="226" x="662"
+              y="119.9482">southbound topology (OPER DS)
+        </text>
+        <path d="M760,70.9531 C760,60.9531 778,60.9531 778,60.9531 C778,60.9531 796,60.9531 796,70.9531 L796,96.9531 C796,106.9531 778,106.9531 778,106.9531 C778,106.9531 760,106.9531 760,96.9531 L760,70.9531 "
+              fill="#FEFECE" filter="url(#fzg7y9whc18z9)" style="stroke:#000000;stroke-width:1.5;"/>
+        <path d="M760,70.9531 C760,80.9531 778,80.9531 778,80.9531 C778,80.9531 796,80.9531 796,70.9531 " fill="none"
+              style="stroke:#000000;stroke-width:1.5;"/>
+        <polygon fill="#A80036" points="336.5,150.3828,346.5,154.3828,336.5,158.3828,340.5,154.3828"
+                 style="stroke:#A80036;stroke-width:1.0;"/>
+        <line style="stroke:#A80036;stroke-width:1.0;" x1="47.5" x2="342.5" y1="154.3828" y2="154.3828"/>
+        <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="277" x="54.5"
+              y="149.3169">RPC show-connection-status(target nodes)
+        </text>
+        <path d="M242,169.3828 L318,169.3828 L318,176.3828 L308,186.3828 L242,186.3828 L242,169.3828 " fill="#EEEEEE"
+              style="stroke:#000000;stroke-width:1.0;"/>
+        <rect fill="none" height="133.6641" style="stroke:#000000;stroke-width:2.0;" width="662" x="242" y="169.3828"/>
+        <text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing"
+              textLength="31" x="257" y="182.4497">loop
+        </text>
+        <text fill="#000000" font-family="sans-serif" font-size="11" font-weight="bold" lengthAdjust="spacing"
+              textLength="90" x="333" y="181.5933">[target-nodes]
+        </text>
+        <polygon fill="#A80036" points="541.5,203.6484,551.5,207.6484,541.5,211.6484,545.5,207.6484"
+                 style="stroke:#A80036;stroke-width:1.0;"/>
+        <line style="stroke:#A80036;stroke-width:1.0;" x1="348.5" x2="547.5" y1="207.6484" y2="207.6484"/>
+        <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="109" x="355.5"
+              y="202.5825">read node status
+        </text>
+        <polygon fill="#A80036" points="359.5,232.7813,349.5,236.7813,359.5,240.7813,355.5,236.7813"
+                 style="stroke:#A80036;stroke-width:1.0;"/>
+        <line style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:2.0,2.0;" x1="353.5" x2="552.5" y1="236.7813"
+              y2="236.7813"/>
+        <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="143" x="365.5"
+              y="231.7153">node operational data
+        </text>
+        <polygon fill="#A80036" points="766,261.9141,776,265.9141,766,269.9141,770,265.9141"
+                 style="stroke:#A80036;stroke-width:1.0;"/>
+        <line style="stroke:#A80036;stroke-width:1.0;" x1="348.5" x2="772" y1="265.9141" y2="265.9141"/>
+        <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="109" x="355.5"
+              y="260.8481">read node status
+        </text>
+        <polygon fill="#A80036" points="359.5,291.0469,349.5,295.0469,359.5,299.0469,355.5,295.0469"
+                 style="stroke:#A80036;stroke-width:1.0;"/>
+        <line style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:2.0,2.0;" x1="353.5" x2="777" y1="295.0469"
+              y2="295.0469"/>
+        <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="143" x="365.5"
+              y="289.981">node operational data
+        </text>
+        <polygon fill="#A80036" points="58.5,327.1797,48.5,331.1797,58.5,335.1797,54.5,331.1797"
+                 style="stroke:#A80036;stroke-width:1.0;"/>
+        <line style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:2.0,2.0;" x1="52.5" x2="347.5" y1="331.1797"
+              y2="331.1797"/>
+        <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="19" x="64.5"
+              y="326.1138">OK
+        </text><!--MD5=[dc308829d4fcb37633192fd84085764d]
+@startuml
+hide footbox
+title RPC show-connection-status
+
+actor application
+participant "Uniconfig Node Manager"
+database "unified topology (OPER DS)"
+database "southbound topology (OPER DS)"
+
+application -> "Uniconfig Node Manager": RPC show-connection-status(target nodes)
+loop target-nodes
+"Uniconfig Node Manager" -> "unified topology (OPER DS)": read node status
+"unified topology (OPER DS)" - -> "Uniconfig Node Manager": node operational data
+"Uniconfig Node Manager" -> "southbound topology (OPER DS)": read node status
+"southbound topology (OPER DS)" - -> "Uniconfig Node Manager": node operational data
+end
+"Uniconfig Node Manager" - -> application: OK
+@enduml
+
+PlantUML version 1.2021.11(Sat Oct 02 15:26:11 CEST 2021)
+(GPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Default Encoding: UTF-8
+Language: en
+Country: GB
+-->
+    </g>
+</svg>

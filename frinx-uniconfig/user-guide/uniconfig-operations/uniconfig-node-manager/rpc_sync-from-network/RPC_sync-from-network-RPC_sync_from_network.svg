@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+     contentScriptType="application/ecmascript" contentStyleType="text/css" height="558px" preserveAspectRatio="none"
+     style="width:1056px;height:558px;background:#FFFFFF;" version="1.1" viewBox="0 0 1056 558" width="1056px"
+     zoomAndPan="magnify">
+    <defs>
+        <filter height="300%" id="f11wsvhk68r926" width="300%" x="-1" y="-1">
+            <feGaussianBlur result="blurOut" stdDeviation="2.0"/>
+            <feColorMatrix in="blurOut" result="blurOut2" type="matrix"
+                           values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/>
+            <feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/>
+            <feBlend in="SourceGraphic" in2="blurOut3" mode="normal"/>
+        </filter>
+    </defs>
+    <g>
+        <text fill="#000000" font-family="sans-serif" font-size="18" lengthAdjust="spacing" textLength="212" x="420.25"
+              y="28.708">RPC sync-from-network
+        </text>
+        <rect fill="#FFFFFF" filter="url(#f11wsvhk68r926)" height="335.5938" style="stroke:#000000;stroke-width:2.0;"
+              width="841.5" x="201" y="169.3828"/>
+        <rect fill="#FFFFFF" filter="url(#f11wsvhk68r926)" height="133.6641" style="stroke:#000000;stroke-width:2.0;"
+              width="821.5" x="211" y="364.3125"/>
+        <line style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:5.0,5.0;" x1="47" x2="47" y1="123.25"
+              y2="551.1094"/>
+        <line style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:5.0,5.0;" x1="317" x2="317" y1="123.25"
+              y2="551.1094"/>
+        <line style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:5.0,5.0;" x1="720.5" x2="720.5" y1="123.25"
+              y2="551.1094"/>
+        <line style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:5.0,5.0;" x1="914.5" x2="914.5" y1="123.25"
+              y2="551.1094"/>
+        <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="79" x="5"
+              y="119.9482">application
+        </text>
+        <ellipse cx="47.5" cy="49.9531" fill="#FEFECE" filter="url(#f11wsvhk68r926)" rx="8" ry="8"
+                 style="stroke:#A80036;stroke-width:2.0;"/>
+        <path d="M47.5,57.9531 L47.5,84.9531 M34.5,65.9531 L60.5,65.9531 M47.5,84.9531 L34.5,99.9531 M47.5,84.9531 L60.5,99.9531 "
+              fill="none" filter="url(#f11wsvhk68r926)" style="stroke:#A80036;stroke-width:2.0;"/>
+        <rect fill="#FEFECE" filter="url(#f11wsvhk68r926)" height="30.2969" style="stroke:#A80036;stroke-width:1.5;"
+              width="189" x="221" y="87.9531"/>
+        <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="175" x="228"
+              y="107.9482">Uniconfig Node Manager
+        </text>
+        <rect fill="#FEFECE" filter="url(#f11wsvhk68r926)" height="30.2969" style="stroke:#A80036;stroke-width:1.5;"
+              width="150" x="643.5" y="87.9531"/>
+        <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="136" x="650.5"
+              y="107.9482">Unified mountpoint
+        </text>
+        <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="209" x="807.5"
+              y="119.9482">Uniconfig topology (OPER DS)
+        </text>
+        <path d="M897,70.9531 C897,60.9531 915,60.9531 915,60.9531 C915,60.9531 933,60.9531 933,70.9531 L933,96.9531 C933,106.9531 915,106.9531 915,106.9531 C915,106.9531 897,106.9531 897,96.9531 L897,70.9531 "
+              fill="#FEFECE" filter="url(#f11wsvhk68r926)" style="stroke:#000000;stroke-width:1.5;"/>
+        <path d="M897,70.9531 C897,80.9531 915,80.9531 915,80.9531 C915,80.9531 933,80.9531 933,70.9531 " fill="none"
+              style="stroke:#000000;stroke-width:1.5;"/>
+        <polygon fill="#A80036" points="305.5,150.3828,315.5,154.3828,305.5,158.3828,309.5,154.3828"
+                 style="stroke:#A80036;stroke-width:1.0;"/>
+        <line style="stroke:#A80036;stroke-width:1.0;" x1="47.5" x2="311.5" y1="154.3828" y2="154.3828"/>
+        <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="246" x="54.5"
+              y="149.3169">RPC sync-from-network(target nodes)
+        </text>
+        <path d="M201,169.3828 L277,169.3828 L277,176.3828 L267,186.3828 L201,186.3828 L201,169.3828 " fill="#EEEEEE"
+              style="stroke:#000000;stroke-width:1.0;"/>
+        <rect fill="none" height="335.5938" style="stroke:#000000;stroke-width:2.0;" width="841.5" x="201"
+              y="169.3828"/>
+        <text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing"
+              textLength="31" x="216" y="182.4497">loop
+        </text>
+        <text fill="#000000" font-family="sans-serif" font-size="11" font-weight="bold" lengthAdjust="spacing"
+              textLength="89" x="292" y="181.5933">[target nodes]
+        </text>
+        <path d="M322,191.5156 L322,231.5156 L797,231.5156 L797,201.5156 L787,191.5156 L322,191.5156 " fill="#FBFB77"
+              filter="url(#f11wsvhk68r926)" style="stroke:#A80036;stroke-width:1.0;"/>
+        <path d="M787,191.5156 L787,201.5156 L797,201.5156 L787,191.5156 " fill="#FBFB77"
+              style="stroke:#A80036;stroke-width:1.0;"/>
+        <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="450" x="328"
+              y="208.5825">read config-metadata which contains fingerprint of network element.
+        </text>
+        <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="282" x="328"
+              y="223.7153">Fingerprint is last configuration timestamp.
+        </text>
+        <polygon fill="#A80036" points="708.5,257.9141,718.5,261.9141,708.5,265.9141,712.5,261.9141"
+                 style="stroke:#A80036;stroke-width:1.0;"/>
+        <line style="stroke:#A80036;stroke-width:1.0;" x1="317.5" x2="714.5" y1="261.9141" y2="261.9141"/>
+        <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="205" x="324.5"
+              y="256.8481">read(config-metadata node IID)
+        </text>
+        <polygon fill="#A80036" points="328.5,287.0469,318.5,291.0469,328.5,295.0469,324.5,291.0469"
+                 style="stroke:#A80036;stroke-width:1.0;"/>
+        <line style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:2.0,2.0;" x1="322.5" x2="719.5" y1="291.0469"
+              y2="291.0469"/>
+        <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="379" x="334.5"
+              y="285.981">config-metadata (includes device fingerprint - timestamp)
+        </text>
+        <polygon fill="#A80036" points="903,316.1797,913,320.1797,903,324.1797,907,320.1797"
+                 style="stroke:#A80036;stroke-width:1.0;"/>
+        <line style="stroke:#A80036;stroke-width:1.0;" x1="317.5" x2="909" y1="320.1797" y2="320.1797"/>
+        <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="205" x="324.5"
+              y="315.1138">read(config-metadata node IID)
+        </text>
+        <polygon fill="#A80036" points="328.5,345.3125,318.5,349.3125,328.5,353.3125,324.5,349.3125"
+                 style="stroke:#A80036;stroke-width:1.0;"/>
+        <line style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:2.0,2.0;" x1="322.5" x2="914" y1="349.3125"
+              y2="349.3125"/>
+        <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="379" x="334.5"
+              y="344.2466">config-metadata (includes device fingerprint - timestamp)
+        </text>
+        <path d="M211,364.3125 L280,364.3125 L280,371.3125 L270,381.3125 L211,381.3125 L211,364.3125 " fill="#EEEEEE"
+              style="stroke:#000000;stroke-width:1.0;"/>
+        <rect fill="none" height="133.6641" style="stroke:#000000;stroke-width:2.0;" width="821.5" x="211"
+              y="364.3125"/>
+        <text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing"
+              textLength="24" x="226" y="377.3794">opt
+        </text>
+        <text fill="#000000" font-family="sans-serif" font-size="11" font-weight="bold" lengthAdjust="spacing"
+              textLength="615" x="295" y="376.5229">[if fingerprint from unified mountpoint is different from
+            fingerprint from uniconfig node OPER DS]
+        </text>
+        <polygon fill="#A80036" points="708.5,398.5781,718.5,402.5781,708.5,406.5781,712.5,402.5781"
+                 style="stroke:#A80036;stroke-width:1.0;"/>
+        <line style="stroke:#A80036;stroke-width:1.0;" x1="317.5" x2="714.5" y1="402.5781" y2="402.5781"/>
+        <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="155" x="324.5"
+              y="397.5122">read node configuration
+        </text>
+        <polygon fill="#A80036" points="328.5,427.7109,318.5,431.7109,328.5,435.7109,324.5,431.7109"
+                 style="stroke:#A80036;stroke-width:1.0;"/>
+        <line style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:2.0,2.0;" x1="322.5" x2="719.5" y1="431.7109"
+              y2="431.7109"/>
+        <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="86" x="334.5"
+              y="426.645">configuration
+        </text>
+        <polygon fill="#A80036" points="903,456.8438,913,460.8438,903,464.8438,907,460.8438"
+                 style="stroke:#A80036;stroke-width:1.0;"/>
+        <line style="stroke:#A80036;stroke-width:1.0;" x1="317.5" x2="909" y1="460.8438" y2="460.8438"/>
+        <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="314" x="324.5"
+              y="455.7778">put node with configuation and config-metadata
+        </text>
+        <polygon fill="#A80036" points="328.5,485.9766,318.5,489.9766,328.5,493.9766,324.5,489.9766"
+                 style="stroke:#A80036;stroke-width:1.0;"/>
+        <line style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:2.0,2.0;" x1="322.5" x2="914" y1="489.9766"
+              y2="489.9766"/>
+        <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="23" x="334.5"
+              y="484.9106">ack
+        </text>
+        <polygon fill="#A80036" points="58.5,529.1094,48.5,533.1094,58.5,537.1094,54.5,533.1094"
+                 style="stroke:#A80036;stroke-width:1.0;"/>
+        <line style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:2.0,2.0;" x1="52.5" x2="316.5" y1="533.1094"
+              y2="533.1094"/>
+        <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="89" x="64.5"
+              y="528.0435">RPC response
+        </text><!--MD5=[d76366af3bc807f89bcbeba2237ced0f]
+@startuml
+hide footbox
+title RPC sync-from-network
+
+actor application
+participant "Uniconfig Node Manager"
+participant "Unified mountpoint"
+database "Uniconfig topology (OPER DS)"
+
+application -> "Uniconfig Node Manager": RPC sync-from-network(target nodes)
+loop target nodes
+    note right "Uniconfig Node Manager"
+        read config-metadata which contains fingerprint of network element. 
+        Fingerprint is last configuration timestamp.
+    end note
+    "Uniconfig Node Manager" -> "Unified mountpoint": read(config-metadata node IID)
+    "Unified mountpoint" - -> "Uniconfig Node Manager": config-metadata (includes device fingerprint - timestamp)
+
+    "Uniconfig Node Manager" -> "Uniconfig topology (OPER DS)": read(config-metadata node IID)
+    "Uniconfig topology (OPER DS)" - -> "Uniconfig Node Manager": config-metadata (includes device fingerprint - timestamp)
+
+    opt if fingerprint from unified mountpoint is different from fingerprint from uniconfig node OPER DS
+        "Uniconfig Node Manager" -> "Unified mountpoint": read node configuration
+        "Unified mountpoint" - -> "Uniconfig Node Manager": configuration
+        "Uniconfig Node Manager" -> "Uniconfig topology (OPER DS)": put node with configuation and config-metadata
+        "Uniconfig topology (OPER DS)" - -> "Uniconfig Node Manager": ack
+    end
+end
+"Uniconfig Node Manager" - -> application: RPC response
+
+@enduml
+
+PlantUML version 1.2021.11(Sat Oct 02 15:26:11 CEST 2021)
+(GPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Default Encoding: UTF-8
+Language: en
+Country: GB
+-->
+    </g>
+</svg>
