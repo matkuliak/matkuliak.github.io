@@ -7,7 +7,6 @@ branding:
   logo: /static/FRINX_logo.png
   logoDark: /static/FRINX_logo.png
   logoAlign: right
-  label: v4.2.9
 
 meta:
   title: " | Frinx Docs"
@@ -16,6 +15,10 @@ links:
   - text: Home
     link: /README.md
     icon: home
+  
+  - text: Webpage
+    link: https://frinx.io/
+    icon: browser
     target: blank
 
   - text: GitHub
