@@ -1,0 +1,1170 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="turbo-cache-control" content="no-cache">
+
+    <!-- Primary Meta Tags -->
+    <title>Logging FrameworkExample | Frinx Docs</title>
+    <meta name="title" content="Logging FrameworkExample | Frinx Docs">
+    <meta name="description" content="UniConfig distribution uses Logback as the implementation of the logging framework. Logback is the successor to to the log4j framework with many" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://matkuliak.xyz/frinx-uniconfig/user-guide/operational-procedures/logging/">
+    <meta property="og:title" content="Logging FrameworkExample | Frinx Docs">
+    <meta property="og:description" content="UniConfig distribution uses Logback as the implementation of the logging framework. Logback is the successor to to the log4j framework with many">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://matkuliak.xyz/frinx-uniconfig/user-guide/operational-procedures/logging/">
+    <meta property="twitter:title" content="Logging FrameworkExample | Frinx Docs">
+    <meta property="twitter:description" content="UniConfig distribution uses Logback as the implementation of the logging framework. Logback is the successor to to the log4j framework with many">
+    
+    <script>(function () { var el = document.documentElement, m = localStorage.getItem("doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
+
+    <link href="/resources/css/retype.css?v=1.11.2.697130698115" rel="stylesheet" data-turbo-track="reload" />
+
+    <script type="text/javascript" src="/resources/js/config.js?v=1.11.2.697130698115" defer data-turbo-track="reload"></script>
+    <script type="text/javascript" src="/resources/js/retype.js?v=1.11.2" defer data-turbo-track="reload"></script>
+    <script id="lunr-js" type="text/javascript" src="/resources/js/lunr.js?v=1.11.2.697130698115" defer></script>
+    <script id="prism-js" type="text/javascript" src="/resources/js/prism.js?v=1.11.2.697130698115" defer></script>
+</head>
+    <body>
+        <div id="docs-app" class="relative text-base antialiased text-gray-700 bg-white font-body dark:bg-dark-850 dark:text-dark-300">
+    <div class="absolute bottom-0 left-0 bg-gray-100 dark:bg-dark-800" style="top: 5rem; right: 50%"></div>
+
+    <header id="docs-site-header" class="sticky top-0 z-30 flex w-full h-16 bg-white border-b border-gray-200 md:h-20 dark:bg-dark-850 dark:border-dark-650">
+    <div class="container relative flex items-center justify-between flex-grow pr-6 md:justify-start">
+        <!-- Mobile menu button skeleton -->
+        <button v-cloak class="skeleton docs-mobile-menu-button flex items-center justify-center flex-shrink-0 overflow-hidden dark:text-white focus:outline-none rounded-full w-10 h-10 ml-3.5 md:hidden"><svg xmlns="http://www.w3.org/2000/svg" class="mb-px flex-shrink-0" width="24" height="24" viewBox="0 0 24 24" role="presentation" style="margin-bottom: 0px;"><g fill="currentColor"><path d="M2 4h20v2H2zM2 11h20v2H2zM2 18h20v2H2z"></path></g></svg></button>
+        <div v-cloak id="docs-sidebar-toggle"></div>
+
+        <!-- Logo -->
+        <div class="flex items-center justify-between h-full py-2 md:w-75">
+            <div class="flex items-center px-2 md:px-6">
+                <a id="docs-site-logo" href="/" class="flex items-center leading-snug text-2xl">
+                    <span class="dark:text-white font-semibold line-clamp-1 md:line-clamp-2">Example docs</span>
+                </a>
+            </div>
+
+            <span class="hidden h-8 border-r md:inline-block dark:border-dark-650"></span>
+        </div>
+
+        <div class="flex justify-between md:flex-grow">
+            <!-- Top Nav -->
+            <nav class="hidden md:flex">
+    <ul class="flex flex-col mb-4 md:pl-16 md:mb-0 md:flex-row md:items-center">
+        <li class="md:mr-6">
+            <a class="inline-flex items-center py-2 md:mb-0 text-sm text-gray-400 whitespace-nowrap transition-colors duration-200 ease-linear md:text-blue-500 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-200" href="/">
+                <svg xmlns="http://www.w3.org/2000/svg" class="mb-px mr-1" width="18" height="18" viewBox="0 0 24 24" role="presentation">
+                    <g fill="currentColor">
+                        <path fill-rule="evenodd" d="M11.03 2.59a1.5 1.5 0 011.94 0l7.5 6.363a1.5 1.5 0 01.53 1.144V19.5a1.5 1.5 0 01-1.5 1.5h-5.75a.75.75 0 01-.75-.75V14h-2v6.25a.75.75 0 01-.75.75H4.5A1.5 1.5 0 013 19.5v-9.403c0-.44.194-.859.53-1.144l7.5-6.363zM12 3.734l-7.5 6.363V19.5h5v-6.25a.75.75 0 01.75-.75h3.5a.75.75 0 01.75.75v6.25h5v-9.403L12 3.734z"/>
+                    </g>
+                </svg>
+                <span>Home</span>
+            </a>
+        </li>
+        <li class="md:mr-6">
+            <a class="inline-flex items-center py-2 md:mb-0 text-sm text-gray-400 whitespace-nowrap transition-colors duration-200 ease-linear md:text-blue-500 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-200" href="https://github.com/matkuliak" target="_blank">
+                <svg xmlns="http://www.w3.org/2000/svg" class="mb-px mr-1" width="18" height="18" viewBox="0 0 24 24" role="presentation">
+                    <g fill="currentColor">
+                        <symbol id="mark-github-icon-symbol" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></symbol><use xlink:href="#mark-github-icon-symbol" />
+                    </g>
+                </svg>
+                <span>GitHub</span>
+            </a>
+        </li>
+        <li class="md:mr-6">
+            <a class="inline-flex items-center py-2 md:mb-0 text-sm text-gray-400 whitespace-nowrap transition-colors duration-200 ease-linear md:text-blue-500 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-200" href="https://www.linkedin.com/in/matej-ma%C5%A5kuliak-248369184/" target="_blank">
+                <svg xmlns="http://www.w3.org/2000/svg" class="mb-px mr-1" width="18" height="18" viewBox="0 0 24 24" role="presentation">
+                    <g fill="currentColor">
+                        <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-.139 9.237c.209 4.617-3.234 9.765-9.33 9.765-1.854 0-3.579-.543-5.032-1.475 1.742.205 3.48-.278 4.86-1.359-1.437-.027-2.649-.976-3.066-2.28.515.098 1.021.069 1.482-.056-1.579-.317-2.668-1.739-2.633-3.26.442.246.949.394 1.486.411-1.461-.977-1.875-2.907-1.016-4.383 1.619 1.986 4.038 3.293 6.766 3.43-.479-2.053 1.08-4.03 3.199-4.03.943 0 1.797.398 2.395 1.037.748-.147 1.451-.42 2.086-.796-.246.767-.766 1.41-1.443 1.816.664-.08 1.297-.256 1.885-.517-.439.656-.996 1.234-1.639 1.697z"/>
+                    </g>
+                </svg>
+                <span>LinkedIn</span>
+            </a>
+        </li>
+    </ul>
+</nav>
+
+            <!-- Header Right Skeleton -->
+            <div v-cloak class="flex justify-end flex-grow skeleton">
+
+                <!-- Search input mock -->
+                <div class="relative hidden w-40 lg:block lg:max-w-sm lg:ml-auto">
+                    <div class="absolute flex items-center justify-center h-full pl-3 dark:text-dark-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon-base" width="16" height="16" viewBox="0 0 24 24" aria-labelledby="icon" role="presentation"  style="margin-bottom: 1px;"><g fill="currentColor" ><path d="M21.71 20.29l-3.68-3.68A8.963 8.963 0 0020 11c0-4.96-4.04-9-9-9s-9 4.04-9 9 4.04 9 9 9c2.12 0 4.07-.74 5.61-1.97l3.68 3.68c.2.19.45.29.71.29s.51-.1.71-.29c.39-.39.39-1.03 0-1.42zM4 11c0-3.86 3.14-7 7-7s7 3.14 7 7c0 1.92-.78 3.66-2.04 4.93-.01.01-.02.01-.02.01-.01.01-.01.01-.01.02A6.98 6.98 0 0111 18c-3.86 0-7-3.14-7-7z" ></path></g></svg>
+                    </div>
+
+                    <input class="w-full h-10 transition-colors duration-200 ease-in bg-gray-200 border border-transparent rounded md:text-sm hover:bg-white hover:border-gray-300 focus:outline-none focus:bg-white focus:border-gray-500 dark:bg-dark-600 dark:border-dark-600 placeholder-gray-400 dark:placeholder-dark-400"
+                    style="padding: 0.625rem 0.75rem 0.625rem 2rem" type="text" placeholder="Search" />
+                </div>
+
+                <!-- Mobile search button mock -->
+                <div class="flex items-center justify-center w-10 h-10 lg:hidden">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="flex-shrink-0 icon-base" width="20" height="20" viewBox="0 0 24 24" aria-labelledby="icon" role="presentation"  style="margin-bottom: 0px;"><g fill="currentColor" ><path d="M21.71 20.29l-3.68-3.68A8.963 8.963 0 0020 11c0-4.96-4.04-9-9-9s-9 4.04-9 9 4.04 9 9 9c2.12 0 4.07-.74 5.61-1.97l3.68 3.68c.2.19.45.29.71.29s.51-.1.71-.29c.39-.39.39-1.03 0-1.42zM4 11c0-3.86 3.14-7 7-7s7 3.14 7 7c0 1.92-.78 3.66-2.04 4.93-.01.01-.02.01-.02.01-.01.01-.01.01-.01.02A6.98 6.98 0 0111 18c-3.86 0-7-3.14-7-7z" ></path></g></svg>
+                </div>
+
+                <!-- Dark mode switch placehokder -->
+                <div class="w-10 h-10 lg:ml-2"></div>
+
+                <!-- History button mock -->
+                <div class="flex items-center justify-center w-10 h-10" style="margin-right: -0.625rem;">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="flex-shrink-0 icon-base" width="22" height="22" viewBox="0 0 24 24" aria-labelledby="icon" role="presentation"  style="margin-bottom: 0px;"><g fill="currentColor" ><g ><path d="M12.01 6.01c-.55 0-1 .45-1 1V12a1 1 0 00.4.8l3 2.22a.985.985 0 001.39-.2.996.996 0 00-.21-1.4l-2.6-1.92V7.01c.02-.55-.43-1-.98-1z"></path><path d="M12.01 1.91c-5.33 0-9.69 4.16-10.05 9.4l-.29-.26a.997.997 0 10-1.34 1.48l1.97 1.79c.19.17.43.26.67.26s.48-.09.67-.26l1.97-1.79a.997.997 0 10-1.34-1.48l-.31.28c.34-4.14 3.82-7.41 8.05-7.41 4.46 0 8.08 3.63 8.08 8.09s-3.63 8.08-8.08 8.08c-2.18 0-4.22-.85-5.75-2.4a.996.996 0 10-1.42 1.4 10.02 10.02 0 007.17 2.99c5.56 0 10.08-4.52 10.08-10.08.01-5.56-4.52-10.09-10.08-10.09z"></path></g></g></svg>
+                </div>
+            </div>
+
+            <div v-cloak class="flex items-center justify-end flex-grow">
+                <div id="docs-mobile-search-button"></div>
+                <doc-search-desktop></doc-search-desktop>
+
+                <doc-theme-switch class="lg:ml-2"></doc-theme-switch>
+                <doc-history></doc-history>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+    <div class="container relative flex bg-white">
+        <!-- Sidebar Skeleton -->
+<div v-cloak class="fixed flex flex-col flex-shrink-0 duration-300 ease-in-out bg-gray-100 border-gray-200 sidebar top-20 w-75 border-r h-screen md:sticky transition-transform skeleton dark:bg-dark-800 dark:border-dark-650">
+
+    <!-- Render this div, if config.showSidebarFilter is `true` -->
+    <div class="flex items-center h-16 px-6">
+        <input class="w-full h-8 px-3 py-2 transition-colors duration-200 ease-linear bg-white border border-gray-200 rounded shadow-none text-sm focus:outline-none focus:border-gray-600 dark:bg-dark-600 dark:border-dark-600" type="text" placeholder="Filter" />
+    </div>
+
+    <div class="pl-6 mb-4 mt-1">
+        <div class="w-32 h-3 mb-4 bg-gray-200 rounded-full loading dark:bg-dark-600"></div>
+        <div class="w-48 h-3 mb-4 bg-gray-200 rounded-full loading dark:bg-dark-600"></div>
+        <div class="w-40 h-3 mb-4 bg-gray-200 rounded-full loading dark:bg-dark-600"></div>
+        <div class="w-32 h-3 mb-4 bg-gray-200 rounded-full loading dark:bg-dark-600"></div>
+        <div class="w-48 h-3 mb-4 bg-gray-200 rounded-full loading dark:bg-dark-600"></div>
+        <div class="w-40 h-3 mb-4 bg-gray-200 rounded-full loading dark:bg-dark-600"></div>
+    </div>
+
+
+    <div class="flex-shrink-0 mt-auto bg-transparent dark:border-dark-650">
+        <a
+    class="flex items-center justify-center flex-nowrap h-16 text-gray-400 dark:text-dark-400 hover:text-gray-700 dark:hover:text-dark-300 transition-colors duration-150 ease-in docs-powered-by"
+    target="_blank"
+    href="https://retype.com/"
+    rel="noopener"
+>
+    <span class="text-xs whitespace-nowrap">Powered by</span>
+    <svg xmlns="http://www.w3.org/2000/svg" class="ml-2" fill="currentColor" width="96" height="20" overflow="visible"><path d="M0 0v20h13.59V0H0zm11.15 17.54H2.44V2.46h8.71v15.08zM15.8 20h2.44V4.67L15.8 2.22zM20.45 6.89V20h2.44V9.34z"/><g><path d="M40.16 8.44c0 1.49-.59 2.45-1.75 2.88l2.34 3.32h-2.53l-2.04-2.96h-1.43v2.96h-2.06V5.36h3.5c1.43 0 2.46.24 3.07.73s.9 1.27.9 2.35zm-2.48 1.1c.26-.23.38-.59.38-1.09 0-.5-.13-.84-.4-1.03s-.73-.28-1.39-.28h-1.54v2.75h1.5c.72 0 1.2-.12 1.45-.35zM51.56 5.36V7.2h-4.59v1.91h4.13v1.76h-4.13v1.92h4.74v1.83h-6.79V5.36h6.64zM60.09 7.15v7.48h-2.06V7.15h-2.61V5.36h7.28v1.79h-2.61zM70.81 14.64h-2.06v-3.66l-3.19-5.61h2.23l1.99 3.45 1.99-3.45H74l-3.19 5.61v3.66zM83.99 6.19c.65.55.97 1.4.97 2.55s-.33 1.98-1 2.51-1.68.8-3.04.8h-1.23v2.59h-2.06V5.36h3.26c1.42 0 2.45.28 3.1.83zm-1.51 3.65c.25-.28.37-.69.37-1.22s-.16-.92-.48-1.14c-.32-.23-.82-.34-1.5-.34H79.7v3.12h1.38c.68 0 1.15-.14 1.4-.42zM95.85 5.36V7.2h-4.59v1.91h4.13v1.76h-4.13v1.92H96v1.83h-6.79V5.36h6.64z"/></g></svg>
+</a>
+
+    </div>
+</div>
+
+<!-- Sidebar component -->
+<doc-sidebar v-cloak>
+    <template #sidebar-footer>
+        <div
+            class="flex-shrink-0 mt-auto border-t md:bg-transparent md:border-none dark:border-dark-650"
+        >
+
+            <div class="py-3 px-6 md:hidden border-b dark:border-dark-650">
+                <nav>
+                    <ul class="flex flex-wrap justify-center items-center">
+                        <li class="mr-6">
+                            <a class="block py-1 text-sm whitespace-nowrap transition-colors duration-200 ease-linear text-blue-500 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-200" href="/README.md">Home</a>
+                        </li>
+                        <li class="mr-6">
+                            <a class="block py-1 text-sm whitespace-nowrap transition-colors duration-200 ease-linear text-blue-500 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-200" href="https://github.com/matkuliak">GitHub</a>
+                        </li>
+                        <li class="mr-6">
+                            <a class="block py-1 text-sm whitespace-nowrap transition-colors duration-200 ease-linear text-blue-500 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-200" href="https://www.linkedin.com/in/matej-ma%C5%A5kuliak-248369184/">LinkedIn</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+
+
+            <a
+    class="flex items-center justify-center flex-nowrap h-16 text-gray-400 dark:text-dark-400 hover:text-gray-700 dark:hover:text-dark-300 transition-colors duration-150 ease-in docs-powered-by"
+    target="_blank"
+    href="https://retype.com/"
+    rel="noopener"
+>
+    <span class="text-xs whitespace-nowrap">Powered by</span>
+    <svg xmlns="http://www.w3.org/2000/svg" class="ml-2" fill="currentColor" width="96" height="20" overflow="visible"><path d="M0 0v20h13.59V0H0zm11.15 17.54H2.44V2.46h8.71v15.08zM15.8 20h2.44V4.67L15.8 2.22zM20.45 6.89V20h2.44V9.34z"/><g><path d="M40.16 8.44c0 1.49-.59 2.45-1.75 2.88l2.34 3.32h-2.53l-2.04-2.96h-1.43v2.96h-2.06V5.36h3.5c1.43 0 2.46.24 3.07.73s.9 1.27.9 2.35zm-2.48 1.1c.26-.23.38-.59.38-1.09 0-.5-.13-.84-.4-1.03s-.73-.28-1.39-.28h-1.54v2.75h1.5c.72 0 1.2-.12 1.45-.35zM51.56 5.36V7.2h-4.59v1.91h4.13v1.76h-4.13v1.92h4.74v1.83h-6.79V5.36h6.64zM60.09 7.15v7.48h-2.06V7.15h-2.61V5.36h7.28v1.79h-2.61zM70.81 14.64h-2.06v-3.66l-3.19-5.61h2.23l1.99 3.45 1.99-3.45H74l-3.19 5.61v3.66zM83.99 6.19c.65.55.97 1.4.97 2.55s-.33 1.98-1 2.51-1.68.8-3.04.8h-1.23v2.59h-2.06V5.36h3.26c1.42 0 2.45.28 3.1.83zm-1.51 3.65c.25-.28.37-.69.37-1.22s-.16-.92-.48-1.14c-.32-.23-.82-.34-1.5-.34H79.7v3.12h1.38c.68 0 1.15-.14 1.4-.42zM95.85 5.36V7.2h-4.59v1.91h4.13v1.76h-4.13v1.92H96v1.83h-6.79V5.36h6.64z"/></g></svg>
+</a>
+
+        </div>
+    </template>
+</doc-sidebar>
+
+
+        <div class="flex-grow min-w-0 dark:bg-dark-850">
+            <!-- Render "toolbar" template here on api pages --><!-- Render page content -->
+            <div class="flex">
+    <div class="flex-grow min-w-0 px-6 md:px-16">
+        <main class="relative pt-6 pb-16">
+            <div class="docs-markdown" id="docs-content">
+                <!-- Rendered if sidebar right is enabled -->
+                <div id="docs-sidebar-right-toggle"></div>
+               
+                <!-- Page content  -->
+<doc-anchor-target id="logging-framework" class="break-words">
+    <h1>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#logging-framework">#</doc-anchor-trigger>
+        <span>Logging Framework</span>
+    </h1>
+</doc-anchor-target>
+<doc-anchor-target id="logback-configuration">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#logback-configuration">#</doc-anchor-trigger>
+        <span>Logback Configuration</span>
+    </h2>
+</doc-anchor-target>
+<p>UniConfig distribution uses Logback as the implementation of the logging
+framework. Logback is the successor to to the log4j framework with many
+improvements such as; more options for configuration, better
+performance, and context-based separation of logs. Context-based
+separation of logs is used widely in UniConfig to achieve per-device
+logging based on the set marker in the logs.</p>
+<p>Logback configuration is placed in &#x27;config/logback.xml&#x27; file under
+UniConfig distribution. For more information about formatting of logback
+configuration, look at the
+<a href="http://logback.qos.ch/manual/configuration.html">http://logback.qos.ch/manual/configuration.html</a> site. This section
+describes parts of the configuration in the context of UniConfig
+application.</p>
+<doc-anchor-target id="appenders">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#appenders">#</doc-anchor-trigger>
+        <span>Appenders</span>
+    </h3>
+</doc-anchor-target>
+<p>The following appenders are used:</p>
+<ol>
+<li>&#x27;STDOUT&#x27;: Prints logs into the console.</li>
+<li>&#x27;logs&#x27;: Used for writing all logs to the output file on path
+&#x27;log/logs.log&#x27;. The rolling file appender is applied.</li>
+<li>&#x27;netconf-notifications&#x27;, &#x27;netconf-messages&#x27;, &#x27;netconf-events&#x27;, and
+&#x27;cli-messages&#x27;: Sifting appenders that split logs per node ID that
+is set in the marker of the logs. Logs are written to different
+subdirectories under &#x27;log&#x27; directory and they are identified by
+their node ID. The rolling file appender is applied.</li>
+<li>&#x27;restconf&#x27;: Appender used for writing of RESTCONF messages into
+&#x27;log/restconf.log&#x27; file. The rolling file appender is applied.</li>
+</ol>
+<doc-anchor-target id="loggers">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#loggers">#</doc-anchor-trigger>
+        <span>Loggers</span>
+    </h3>
+</doc-anchor-target>
+<p>There are 2 groups of loggers:</p>
+<ol>
+<li>Package-level logging brokers: Loggers that are used for writing
+general messages into the console and a single output file. Logging
+level is set by default to &#x27;INFO&#x27;. For debugging purposes it is
+handy to change logging threshold to &#x27;TRACE&#x27; or &#x27;DEBUG&#x27; level.
+Covered layers: UniConfig, Unified, Controller, RESTCONF, CLI,
+NETCONF. Used appenders: &#x27;STDOUT&#x27; and &#x27;logs&#x27;.</li>
+<li>Loggers used for logging brokers: These loggers should not be
+changed since the state of logging can be changed using RPC calls.
+Classpaths point to specific classes that represent implementations
+of logging brokers, the logging level is set to &#x27;TRACE&#x27;. Used
+appenders: &#x27;netconf-notifications&#x27;, &#x27;netconf-messages&#x27;,
+&#x27;netconf-events&#x27;, &#x27;cli-messages&#x27;, and &#x27;restconf&#x27;.</li>
+</ol>
+<doc-anchor-target id="updating-configuration">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#updating-configuration">#</doc-anchor-trigger>
+        <span>Updating Configuration</span>
+    </h3>
+</doc-anchor-target>
+<ul>
+<li>Logback is configured to scan for changes in its configuration file
+and automatically reconfigure itself when the configuration file
+changes.</li>
+<li>Scanning period is set by default to 5 seconds.</li>
+</ul>
+<doc-anchor-target id="example-configuration">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#example-configuration">#</doc-anchor-trigger>
+        <span>Example configuration</span>
+    </h3>
+</doc-anchor-target>
+<p>In the logback.xml file you can edit level of logging for each component
+of UniConfig:</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-none"><code v-pre class="language-none">&lt;!-- root logger --&gt;
+&lt;root level=&quot;INFO&quot;&gt;
+    &lt;appender-ref ref=&quot;STDOUT&quot;/&gt;
+    &lt;appender-ref ref=&quot;logs&quot;/&gt;
+&lt;/root&gt;
+
+&lt;!-- UniConfig layer part --&gt;
+&lt;logger name=&quot;io.frinx.uniconfig&quot; level=&quot;DEBUG&quot;/&gt;
+
+&lt;!-- Unified layer part --&gt;
+&lt;logger name=&quot;io.frinx.unitopo&quot; level=&quot;INFO&quot;/&gt;
+
+&lt;!-- NETCONF part --&gt;
+&lt;logger name=&quot;org.opendaylight.netconf&quot; level=&quot;INFO&quot;/&gt;
+
+&lt;!-- CLI part --&gt;
+&lt;logger name=&quot;io.frinx.cli&quot; level=&quot;TRACE&quot;/&gt;
+
+&lt;!-- translation unit framework part --&gt;
+&lt;logger name=&quot;io.frinx.translate.unit.commons&quot; level=&quot;INFO&quot;/&gt;
+&lt;logger name=&quot;io.fd.honeycomb&quot; level=&quot;INFO&quot;/&gt;
+
+&lt;!-- RESTCONF part --&gt;
+&lt;logger name=&quot;org.opendaylight.restconf&quot; level=&quot;DEBUG&quot;/&gt;
+&lt;logger name=&quot;org.opendaylight.aaa&quot; level=&quot;INFO&quot;/&gt;
+
+
+&lt;!-- controller part --&gt;
+&lt;logger name=&quot;org.opendaylight.daexim&quot; level=&quot;INFO&quot;/&gt;
+&lt;logger name=&quot;org.opendaylight.controller&quot; level=&quot;INFO&quot;/&gt;
+&lt;logger name=&quot;org.opendaylight.yangtools&quot; level=&quot;INFO&quot;/&gt;</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="info">
+    <h4>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#info">#</doc-anchor-trigger>
+        <span>INFO</span>
+    </h4>
+</doc-anchor-target>
+<p><strong>This is recommended level for production environments.</strong> INFO messages
+display behavior of applications. They state what happened. For example,
+if a particular service stopped or started or you added something to the
+database. These entries are nothing to worry about during usual
+operations. The information logged using the INFO log is usually
+informative, and it does not necessarily require you to follow up on it.</p>
+<doc-anchor-target id="debug">
+    <h4>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#debug">#</doc-anchor-trigger>
+        <span>DEBUG</span>
+    </h4>
+</doc-anchor-target>
+<p>With DEBUG, you are giving diagnostic information in a detailed manner.
+It is verbose and has more information than you would need when using
+the application. DEBUG logging level is used to fetch information needed
+to diagnose, troubleshoot, or test an application. This ensures a smooth
+running application.</p>
+<doc-anchor-target id="trace">
+    <h4>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#trace">#</doc-anchor-trigger>
+        <span>TRACE</span>
+    </h4>
+</doc-anchor-target>
+<p>The TRACE log level captures all the details about the behavior of the
+application. It is mostly diagnostic and is more granular and finer than
+DEBUG log level. This log level is used in situations where you need to
+see what happened in your application.</p>
+<doc-anchor-target id="logging-brokers">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#logging-brokers">#</doc-anchor-trigger>
+        <span>Logging Brokers</span>
+    </h2>
+</doc-anchor-target>
+<p>The logging broker represents a configurable controller that logs one
+logical group of messages from a single classpath. Logging of multiple
+messages from the same classpath simplifies configuration of loggers in
+Logback since only one logger per broker must be specified. The logging
+broker can be controlled using RESTCONF RPCs; there are multiple
+operations where it is possible to trigger logging for the whole broker,
+or just for specified node IDs. Configuration of the logger in the
+logback file that is assigned to the logging broker should not be
+changed at all.</p>
+<doc-anchor-target id="implemented-logging-brokers">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#implemented-logging-brokers">#</doc-anchor-trigger>
+        <span>Implemented Logging Brokers</span>
+    </h3>
+</doc-anchor-target>
+<p>The following subsections describe currently implemented logging
+brokers.</p>
+<doc-anchor-target id="restconf">
+    <h4>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#restconf">#</doc-anchor-trigger>
+        <span>RESTCONF</span>
+    </h4>
+</doc-anchor-target>
+<ul>
+<li>It is used for logging authenticated HTTP requests and responses;
+information about URI, source, HTTP method, query parameters, HTTP
+headers, and body.</li>
+<li>Per-device logging cannot be enabled for this broker; all logs are
+saved to &#x27;log/restconf.log&#x27; file.</li>
+<li>It is possible to configure HTTP headers in which the content must
+be masked in logs (using asterisk characters). This is useful
+especially if there are some headers which contain private data
+(such as Authorization or a Cookie header). Hidden HTTP headers are
+marked using header identifiers.</li>
+<li>It is also possible to configure HTTP methods for which the
+communication (requests and responses) should not be logged to a
+file.</li>
+<li>Requests and responses are paired using a unique message-id. This
+message-id is not part of the HTTP request, it is generated on the
+RESTCONF server.</li>
+</ul>
+<p><strong>Example: - Request and corresponding response with the same message-id</strong></p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-none"><code v-pre class="language-none">08:51:21.508 TRACE org.opendaylight.restconf.nb.rfc8040.jersey.providers.logging.RestconfLoggingBroker - HTTP request:
+Message ID: 3
+HTTP method: POST
+URI: http://localhost:8181/rests/operations/logging:enable-device-logging
+Source address: 0:0:0:0:0:0:0:1
+Source port: 37472
+User ID: admin@sdn
+HTTP headers:
+    User-Agent: [curl/7.69.1]
+    Authorization: ***
+    Host: [localhost:8181]
+    Accept: [*/*]
+    Content-Length: [116]
+    Content-Type: [application/json]
+Request body:
+{
+  &quot;input&quot;: {
+    &quot;broker-identifier&quot;: &quot;netconf_notifications&quot;,
+    &quot;device-list&quot;: [
+      &quot;xr6&quot;,
+      &quot;xr7&quot;
+    ]
+  }
+}
+
+08:51:21.518 TRACE org.opendaylight.restconf.nb.rfc8040.jersey.providers.logging.RestconfLoggingBroker - HTTP response:
+Request message ID: 3
+Status code: 200
+HTTP headers:
+    Content-Type: [application/yang-data+json]
+Response body:
+{
+  &quot;output&quot;: {
+    &quot;message&quot;: &quot;Successfully updated logging broker [netconf_notifications]&quot;,
+    &quot;status&quot;: &quot;complete&quot;
+  }
+}</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="cli-messages">
+    <h4>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#cli-messages">#</doc-anchor-trigger>
+        <span>CLI messages</span>
+    </h4>
+</doc-anchor-target>
+<ul>
+<li>Broker used for logging of all CLI requests and responses.</li>
+<li>These CLI requests and responses are paired with unique message-id
+attribute, which is generated.</li>
+<li>Per-device logging is supported - logs for CLI messages are stored
+under &#x27;log/cli-messages&#x27; directory and named by &#x27;[node-id].log&#x27;
+pattern.</li>
+</ul>
+<p>Example - sending POST RPC for installing CLI device, and getting
+requests with corresponding responses paired with same Message-ID:</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-none"><code v-pre class="language-none">15:11:33.119 TRACE io.frinx.cli.io.impl.cli.CliLoggingBroker -
+Message-ID:1 - Sending CLI command: show configuration commit list |
+utility egrep &quot;\^1 &quot; 15:11:33.697 TRACE
+io.frinx.cli.io.impl.cli.CliLoggingBroker - Message-ID:1 - Received CLI
+response: Wed Sep 22 13:11:29.776 UTC 1 1000005360 cisco
+vty0:node0\_0\_CPU0 CLI Mon Sep 6 07:53:03 2021 15:11:33.724 TRACE
+io.frinx.cli.io.impl.cli.CliLoggingBroker - Message-ID:2 - Sending CLI
+command: show running-config 15:11:34.459 TRACE
+io.frinx.cli.io.impl.cli.CliLoggingBroker - Message-ID:2 - Received CLI
+response: Wed Sep 22 13:11:30.116 UTC Building configuration... !! IOS
+XR Configuration 5.3.4 !! Last configuration change at Mon Sep 6
+07:53:03 2021 by cisco ! hostname XR5 interface MgmtEth0/0/CPU0/0 ipv4
+address 192.168.1.214 255.255.255.0 ! interface GigabitEthernet0/0/0/0
+shutdown ! interface GigabitEthernet0/0/0/1 description init description
+shutdown ! interface GigabitEthernet0/0/0/2 ! ssh server v2 ssh server
+netconf port 830 netconf-yang agent ssh ! end</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="netconf-messages">
+    <h4>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#netconf-messages">#</doc-anchor-trigger>
+        <span>NETCONF Messages</span>
+    </h4>
+</doc-anchor-target>
+<ul>
+<li>A broker is used for logging of all NETCONF messages incoming or
+outgoing, except the NETCONF notifications (a distinct broker has
+been introduced for notifications).</li>
+<li>NETCONF RPC&#x27;s and responses can be matched using the &#x27;message-id&#x27;
+attribute that is placed in the RPC header.</li>
+<li>Per-device logging is supported, logs for NETCONF messages are
+stored under the directory &#x27;log/netconf-messages&#x27; and named by the
+&#x27;[node-id].log&#x27; pattern.</li>
+</ul>
+<p><strong>Example: - Sending NETCONF GET RPC and receiving response</strong></p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-none"><code v-pre class="language-none">11:10:15.038 TRACE org.opendaylight.netconf.logging.brokers.NetconfMessagesLoggingBroker - b1b2b9c1: Sending NETCONF message:
+&lt;rpc xmlns=&quot;urn:ietf:params:xml:ns:netconf:base:1.0&quot; message-id=&quot;m-179&quot;&gt;
+    &lt;get&gt;
+        &lt;filter xmlns:ns0=&quot;urn:ietf:params:xml:ns:netconf:base:1.0&quot; ns0:type=&quot;subtree&quot;&gt;
+            &lt;netconf xmlns=&quot;urn:ietf:params:xml:ns:netmod:notification&quot;/&gt;
+        &lt;/filter&gt;
+    &lt;/get&gt;
+&lt;/rpc&gt;
+
+11:10:15.055 TRACE org.opendaylight.netconf.logging.brokers.NetconfMessagesLoggingBroker - b1b2b9c1: Received NETCONF message:
+&lt;rpc-reply xmlns=&quot;urn:ietf:params:xml:ns:netconf:base:1.0&quot; message-id=&quot;m-179&quot;&gt;
+    &lt;data&gt;
+        &lt;netconf xmlns=&quot;urn:ietf:params:xml:ns:netmod:notification&quot;&gt;
+            &lt;streams&gt;
+                &lt;stream&gt;
+                    &lt;name&gt;NETCONF&lt;/name&gt;
+                    &lt;description&gt;default NETCONF event stream&lt;/description&gt;
+                    &lt;replaySupport&gt;true&lt;/replaySupport&gt;
+                    &lt;replayLogCreationTime&gt;2020-09-29T09:49:54+00:00&lt;/replayLogCreationTime&gt;
+                &lt;/stream&gt;
+                &lt;stream&gt;
+                    &lt;name&gt;oam&lt;/name&gt;
+                    &lt;description&gt;Vendor notifications&lt;/description&gt;
+                    &lt;replaySupport&gt;true&lt;/replaySupport&gt;
+                    &lt;replayLogCreationTime&gt;2020-11-09T13:20:01+00:00&lt;/replayLogCreationTime&gt;
+                &lt;/stream&gt;
+            &lt;/streams&gt;
+        &lt;/netconf&gt;
+    &lt;/data&gt;
+&lt;/rpc-reply&gt;</code></pre>
+</doc-codeblock></div>
+<div class="flex mb-6">
+    <div class="flex-shrink-0 w-1 rounded-tl rounded-bl bg-blue-500 dark:bg-blue-400"></div>
+    <div class="flex w-full py-4 border border-l-0 border-gray-300 rounded-tr rounded-br doc-alert bg-white dark:bg-dark-700 dark:border-dark-700" role="alert">
+        <div class="flex items-center ml-4 h-7">
+            <svg xmlns="http://www.w3.org/2000/svg" class="mb-px text-blue-500 dark:text-blue-400" width="22" height="22" viewBox="0 0 24 24" role="presentation">
+                <g fill="currentColor"><g>
+                    <path d="M12 1C5.93 1 1 5.93 1 12s4.93 11 11 11 11-4.93 11-11S18.07 1 12 1zm0 20c-4.96 0-9-4.04-9-9s4.04-9 9-9 9 4.04 9 9-4.04 9-9 9z"></path>
+                    <path d="M12 11c-.55 0-1 .45-1 1v4c0 .55.45 1 1 1s1-.45 1-1v-4c0-.55-.45-1-1-1zM12.01 7c-.56 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1z"></path>
+                    <path fill="none" d="M0 0h24v24H0z"></path>
+                </g></g>
+            </svg>
+        </div>
+        <div class="pr-5 ml-3">
+<p>String &#x27;b1b2b9c1&#x27; represents the session ID. If multiple sessions are
+created between the NETCONF server and NETCONF client and are
+logically grouped by the same node ID, then logs from multiple
+sessions are stored to the same logging file (this is needed to
+distinguish between the sessions). Multiple NETCONF sessions between
+the UniConfig and NETCONF server are created for each subscription to
+the NETCONF stream.</p>
+        </div>
+    </div>
+</div>
+<doc-anchor-target id="netconf-notifications">
+    <h4>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#netconf-notifications">#</doc-anchor-trigger>
+        <span>NETCONF Notifications</span>
+    </h4>
+</doc-anchor-target>
+<ul>
+<li>A broker is used for logging of incoming NETCONF notifications.</li>
+<li>Per-device logging is supported, logs for NETCONF notifications are
+stored under the directory &#x27;log/netconf-notifications&#x27; and named by
+the &#x27;[node-id].log&#x27; pattern.</li>
+</ul>
+<p><strong>Example: - Received two notifications</strong></p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-none"><code v-pre class="language-none">11:37:03.907 TRACE org.opendaylight.netconf.logging.brokers.NotificationsLoggingBroker - 117123a1: Received NETCONF notification:
+&lt;notification xmlns=&quot;urn:ietf:params:xml:ns:netconf:notification:1.0&quot;&gt;
+    &lt;eventTime&gt;2020-11-11T02:36:54.484233-08:00&lt;/eventTime&gt;
+    &lt;netconf-session-start xmlns=&quot;urn:ietf:params:xml:ns:yang:ietf-netconf-notifications&quot;&gt;
+        &lt;username&gt;admin&lt;/username&gt;
+        &lt;session-id&gt;35&lt;/session-id&gt;
+        &lt;source-host&gt;10.255.246.31&lt;/source-host&gt;
+    &lt;/netconf-session-start&gt;
+&lt;/notification&gt;
+
+11:37:04.515 TRACE org.opendaylight.netconf.logging.brokers.NotificationsLoggingBroker - 117123a1: Received NETCONF notification:
+&lt;notification xmlns=&quot;urn:ietf:params:xml:ns:netconf:notification:1.0&quot;&gt;
+    &lt;eventTime&gt;2020-11-11T02:36:55.098119-08:00&lt;/eventTime&gt;
+    &lt;netconf-session-end xmlns=&quot;urn:ietf:params:xml:ns:yang:ietf-netconf-notifications&quot;&gt;
+        &lt;username&gt;admin&lt;/username&gt;
+        &lt;session-id&gt;35&lt;/session-id&gt;
+        &lt;source-host&gt;10.255.246.31&lt;/source-host&gt;
+        &lt;termination-reason&gt;dropped&lt;/termination-reason&gt;
+    &lt;/netconf-session-end&gt;
+&lt;/notification&gt;</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="netconf-events">
+    <h4>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#netconf-events">#</doc-anchor-trigger>
+        <span>NETCONF Events</span>
+    </h4>
+</doc-anchor-target>
+<ul>
+<li>Logs generated by this broker contain session-related information
+about the establishment or closing of a NETCONF session from the
+view of the NETCONF client placed in UniConfig.</li>
+<li>These logs don&#x27;t contain full printouts of sent or received NETCONF
+messages.</li>
+<li>Per-device logging is supported, logs for NETCONF events are stored
+under the directory &#x27;log/netconf-events&#x27; and named by the
+&#x27;[node-id].log&#x27; pattern.</li>
+</ul>
+<p><strong>Example:</strong></p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-none"><code v-pre class="language-none">11:08:59.407 INFO org.opendaylight.netconf.logging.brokers.NetconfEventsLoggingBroker - node1: Connecting remote device with config: Node{getNodeId=Uri [_value=node1], augmentations={interface org.opendaylight.yang.gen.v1.urn.opendaylight.netconf.node.topology.rev150114.NetconfNode=NetconfNode{getActorResponseWaitTime=5, getBetweenAttemptsTimeoutMillis=2000, getConcurrentRpcLimit=0, getConnectionTimeoutMillis=60000, getCredentials=LoginPassword{getPassword=versa123, getUsername=admin, augmentations={}}, getCustomizationFactory=default, getDefaultRequestTimeoutMillis=60000, getDryRunJournalSize=0, getEditConfigTestOption=Set, getHost=Host [_ipAddress=IpAddress [_ipv4Address=Ipv4Address [_value=10.103.5.202]]], getKeepaliveDelay=5, getMaxConnectionAttempts=100, getPort=PortNumber [_value=2022], getSleepFactor=1.0, getYangModuleCapabilities=YangModuleCapabilities{getCapability=[http://tail-f.com/ns/docgen/experimental1?module=docgen&amp;amp;revision=2019-11-01], isOverride=false, augmentations={}}, isEnabledNotifications=true, isReconnectOnChangedSchema=false, isSchemaless=false, isTcpOnly=false}, interface org.opendaylight.yang.gen.v1.http.frinx.io.yang.uniconfig.config.rev180703.UniconfigConfigNode=UniconfigConfigNode{getBlacklist=Blacklist{getExtension=[tailf:display-when false], augmentations={}}, isUniconfigNativeEnabled=true}}}
+11:09:00.554 DEBUG org.opendaylight.netconf.logging.brokers.NetconfEventsLoggingBroker - node1: Session established
+11:09:00.558 DEBUG org.opendaylight.netconf.logging.brokers.NetconfEventsLoggingBroker - node1: Session advertised capabilities: ...
+11:09:00.832 DEBUG org.opendaylight.netconf.logging.brokers.NetconfEventsLoggingBroker - node1: Connector for node created successfully</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="supported-logging-settings">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#supported-logging-settings">#</doc-anchor-trigger>
+        <span>Supported Logging Settings</span>
+    </h3>
+</doc-anchor-target>
+<p>Current logging broker settings are stored in the Operational datastore
+under the &#x27;logging-status&#x27; root container. The following example shows a
+GET query that displays the logging broker settings:</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-bash"><code v-pre class="language-bash">curl --location --request GET 'http://127.0.0.1:8181/rests/data/logging-status?content=nonconfig' \
+--header 'Accept: application/json'</code></pre>
+</doc-codeblock></div>
+<p><strong>Response:</strong></p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-json"><code v-pre class="language-json">{
+    &quot;logging-status&quot;: {
+        &quot;broker&quot;: [
+            {
+                &quot;broker-identifier&quot;: &quot;netconf_messages&quot;,
+                &quot;is-logging-broker-enabled&quot;: true,
+                &quot;is-logging-enabled-on-all-devices&quot;: true,
+                &quot;enabled-devices&quot;: [
+                    &quot;xr6&quot;,
+                    &quot;xr7&quot;
+                ]
+            },
+            {
+                &quot;broker-identifier&quot;: &quot;restconf&quot;,
+                &quot;is-logging-broker-enabled&quot;: true,
+                &quot;restconf-logging:hidden-http-methods&quot;: [
+                    &quot;GET&quot;
+                ],
+                &quot;restconf-logging:hidden-http-headers&quot;: [
+                    &quot;Authorization&quot;,
+                    &quot;Cookie&quot;
+                ]
+            },
+            {
+                &quot;broker-identifier&quot;: &quot;netconf_notifications&quot;,
+                &quot;is-logging-broker-enabled&quot;: true,
+                &quot;is-logging-enabled-on-all-devices&quot;: true
+            },
+            {
+                &quot;broker-identifier&quot;: &quot;netconf_events&quot;,
+                &quot;is-logging-broker-enabled&quot;: true,
+                &quot;is-logging-enabled-on-all-devices&quot;: true
+            }
+        ],
+        &quot;global&quot;: {
+            &quot;hidden-types&quot;: [
+                &quot;password&quot;,
+                &quot;encrypted&quot;
+            ]
+        }
+    }
+}</code></pre>
+</doc-codeblock></div>
+<p>Logging settings are encapsulated inside multiple list entries (&#x27;broker&#x27;
+list) where each list entry contains settings for one logging broker.
+Description of the settings that are placed under a single logging
+entry:</p>
+<ul>
+<li><strong>broker-identifier</strong>: Unique identifier of the logging broker.
+Currently, 5 brokers are supported: &#x27;netconf_messages&#x27;, &#x27;restconf&#x27;,
+&#x27;netconf_notifications&#x27;, &#x27;netconf_events&#x27;, and cli_messages.</li>
+<li><strong>is-logging-broker-enabled</strong>: Flag that specifies whether the
+logging broker is enabled. If the logging broker is disabled, then
+no logging messages are generated.</li>
+<li><strong>is-logging-enabled-on-all-devices</strong>: If this flag is set to
+&#x27;true&#x27;, then logs are separated to distinct files in the scope of
+all devices. If it is set to &#x27;false&#x27;, then logging is enabled only
+for devices that are listed in the &#x27;enabled-devices&#x27; leaf-list /
+array. This setting is unsupported in the &#x27;restconf&#x27; logging broker
+since RESTCONF currently doesn&#x27;t differentiate the node ID in the
+requests or responses.</li>
+<li><strong>enabled-devices</strong>: If &#x27;is-logging-enabled-on-all-devices&#x27; is set
+to &#x27;false&#x27;, then logs are generated only for devices that are
+specified in this list, it acts as a simple filtering mechanism
+based on the whitelist. Blacklist approach is not supported, it is
+not possible to set &#x27;is-logging-enabled-on-all-devices&#x27; to &#x27;true&#x27;
+and specify devices for which logging feature is disabled. This
+field is not supported in the &#x27;restconf&#x27; logging broker.</li>
+</ul>
+<p>RESTCONF-specific settings:</p>
+<ul>
+<li><strong>restconf-logging:hidden-http-methods</strong> - HTTP requests (and
+associated HTTP responses) are not logged if request&#x27;s HTTP method
+is set to one of the methods in this list. Names of the HTTP methods
+must be specified using upper-case format.</li>
+<li><strong>restconf-logging:hidden-http-headers</strong> - List of HTTP headers
+(names of the headers) which content is hidden in the logs. Names of
+the HTTP headers are not case-sensitive.</li>
+</ul>
+<p>Global settings that are common in all logging brokers:</p>
+<ul>
+<li><strong>hidden-types</strong> - Value of leaf or leaf-list that uses one of these
+types is hidden in the logs using asterisk characters. It can be
+used for masking of passwords or other confidential data from logs.</li>
+</ul>
+<doc-anchor-target id="initial-configuration">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#initial-configuration">#</doc-anchor-trigger>
+        <span>Initial Configuration</span>
+    </h3>
+</doc-anchor-target>
+<p>By default, all logging brokers are disabled and logging is disabled on
+all devices, the user must explicitly specify a list of devices for
+which per-device logging is enabled. Also, RESTCONF-specific filtering
+is not configured, all HTTP requests and responses are fully logged, no
+content is dismissed.</p>
+<p>Initial logging configuration can be adjusted by adding the
+&#x27;loggingController&#x27; configuration into the
+&#x27;config/lighty-uniconfig-config.json&#x27; file. The structure of this
+configuration section conforms YANG structure that is described by the
+&#x27;logging&#x27; and &#x27;restconf-logging&#x27; modules, it is possible to copy the
+state of the Operational datastore under &#x27;logging-status&#x27; into the
+&#x27;loggingController&#x27; root JSON node.</p>
+<p>The next JSON snippet shows the sample configuration
+&#x27;loggingController&#x27;, logging brokers &#x27;netconf_messages&#x27; and
+&#x27;netconf_notifications&#x27; are enabled; the &#x27;netconf_messages&#x27; broker is
+enabled for all devices while &#x27;netconf_notifications&#x27; is enabled only
+for &#x27;xr6&#x27; and &#x27;xr7&#x27; devices.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-json"><code v-pre class="language-json">{
+  &quot;loggingController&quot;: {
+    &quot;broker&quot;: [
+      {
+        &quot;broker-identifier&quot;: &quot;netconf_messages&quot;,
+        &quot;is-logging-broker-enabled&quot;: true,
+        &quot;is-logging-enabled-on-all-devices&quot;: true
+      },
+      {
+        &quot;broker-identifier&quot;: &quot;netconf_notifications&quot;,
+        &quot;is-logging-broker-enabled&quot;: true,
+        &quot;is-logging-enabled-on-all-devices&quot;: false,
+        &quot;enabled-devices&quot;: [
+          &quot;xr7&quot;,
+          &quot;xr6&quot;
+        ]
+      }
+    ]
+  }
+}</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="controlling-of-logging-using-rpc-calls">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#controlling-of-logging-using-rpc-calls">#</doc-anchor-trigger>
+        <span>Controlling of Logging Using RPC Calls</span>
+    </h3>
+</doc-anchor-target>
+<p>Since logging settings are stored in the Operational datastore, it is
+possible to adjust these settings on runtime only using RPC calls. The
+following subsections describe available RPCs.</p>
+<doc-anchor-target id="enable-logging-broker">
+    <h4>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#enable-logging-broker">#</doc-anchor-trigger>
+        <span>Enable Logging Broker</span>
+    </h4>
+</doc-anchor-target>
+<ul>
+<li>An RPC is used for enabling the logging broker. The enabled logging
+broker is available to write logs.</li>
+<li>The input contains only the name of the the logging broker,
+&#x27;broker-identifier&#x27;.</li>
+</ul>
+<p><strong>Example: - Enable logging broker with the identifier &#x27;restconf&#x27;</strong></p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-bash"><code v-pre class="language-bash">curl --location --request POST 'http://localhost:8181/rests/operations/logging:enable-logging' \
+--header 'Accept: application/json' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    &quot;input&quot;: {
+        &quot;broker-identifier&quot;: &quot;restconf&quot;
+    }
+}'</code></pre>
+</doc-codeblock></div>
+<p>The output shows a positive response given the broker was previously in
+a disabled state:</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-json"><code v-pre class="language-json">{
+    &quot;output&quot;: {
+        &quot;message&quot;: &quot;Successfully updated logging broker [restconf]&quot;,
+        &quot;status&quot;: &quot;complete&quot;
+    }
+}</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="disable-logging-broker">
+    <h4>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#disable-logging-broker">#</doc-anchor-trigger>
+        <span>Disable Logging Broker</span>
+    </h4>
+</doc-anchor-target>
+<ul>
+<li>An RPC is used for turning off the logging broker. A disabled
+logging broker doesn&#x27;t write any logs despite other settings.</li>
+<li>The input contains only the name of the the logging broker,
+&#x27;broker-identifier&#x27;.</li>
+</ul>
+<p><strong>Example: - Disabling the logging broker with the identifier &#x27;restconf&#x27;</strong></p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-bash"><code v-pre class="language-bash">curl --location --request POST 'http://localhost:8181/rests/operations/logging:disable-logging' \
+--header 'Accept: application/json' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    &quot;input&quot;: {
+        &quot;broker-identifier&quot;: &quot;restconf&quot;
+    }
+}'</code></pre>
+</doc-codeblock></div>
+<p>The output shows a positive response given the broker was previously in
+an enabled state:</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-json"><code v-pre class="language-json">{
+    &quot;output&quot;: {
+        &quot;message&quot;: &quot;Successfully updated logging broker [restconf]&quot;,
+        &quot;status&quot;: &quot;complete&quot;
+    }
+}</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="enable-default-device-logging">
+    <h4>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#enable-default-device-logging">#</doc-anchor-trigger>
+        <span>Enable Default Device Logging</span>
+    </h4>
+</doc-anchor-target>
+<ul>
+<li>An RPC is used for setting the default device logging to &#x27;true&#x27;,
+logs will be written for all devices without filtering any logs
+based on their node ID.</li>
+<li>The input contains only the name of the the logging broker,
+&#x27;broker-identifier&#x27;.</li>
+<li>Invocation of this RPC causes clearing of the leaf-lest
+&#x27;enabled-devices&#x27;.</li>
+</ul>
+<p><strong>Example: - Enable default device logging in the &#x27;netconf_messages&#x27;
+logging broker</strong></p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-bash"><code v-pre class="language-bash">curl --location --request POST 'http://localhost:8181/rests/operations/logging:enable-default-device-logging' \
+--header 'Accept: application/json' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    &quot;input&quot;: {
+        &quot;broker-identifier&quot;: &quot;netconf_messages&quot;
+    }
+}'</code></pre>
+</doc-codeblock></div>
+<p>The output shows a positive response given the broker was previously in
+a disabled state:</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-json"><code v-pre class="language-json">{
+    &quot;output&quot;: {
+        &quot;message&quot;: &quot;Successfully updated logging broker [netconf_messages] default logging behaviour&quot;,
+        &quot;status&quot;: &quot;complete&quot;
+    }
+}</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="disable-default-device-logging">
+    <h4>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#disable-default-device-logging">#</doc-anchor-trigger>
+        <span>Disable Default Device Logging</span>
+    </h4>
+</doc-anchor-target>
+<ul>
+<li>An RPC is used for setting default device logging to &#x27;false&#x27;, logs
+will be written only for devices that are named in the leaf-list
+&#x27;enabled-devices&#x27;. If the leaf-list &#x27;enabled-devices&#x27; doesn&#x27;t
+contain a node ID, then logging in the corresponding logging broker
+is effectively turned off.</li>
+<li>The input contains only the name of the the logging broker,
+&#x27;broker-identifier&#x27;.</li>
+</ul>
+<p><strong>Example: - Disable default device logging in &#x27;netconf_messages&#x27; logging
+broker</strong></p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-bash"><code v-pre class="language-bash">curl --location --request POST 'http://localhost:8181/rests/operations/logging:disable-default-device-logging' \
+--header 'Accept: application/json' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    &quot;input&quot;: {
+        &quot;broker-identifier&quot;: &quot;netconf_messages&quot;
+    }
+}'</code></pre>
+</doc-codeblock></div>
+<p>The output shows a positive response given the broker was previously in
+an enabled state:</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-json"><code v-pre class="language-json">{
+    &quot;output&quot;: {
+        &quot;message&quot;: &quot;Successfully updated logging broker [netconf_messages] default logging behaviour&quot;,
+        &quot;status&quot;: &quot;complete&quot;
+    }
+}</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="enable-device-logging">
+    <h4>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#enable-device-logging">#</doc-anchor-trigger>
+        <span>Enable Device Logging</span>
+    </h4>
+</doc-anchor-target>
+<ul>
+<li>An RPC is used for enabling logging of specified devices that are
+identified by node IDs.</li>
+<li>The input contains the name of the the logging broker
+&#x27;broker-identifier&#x27; and a list of node IDs called &#x27;device-list&#x27;.</li>
+</ul>
+<p><strong>Example: - Enable logging for devices with node IDs: &#x27;node1&#x27;, &#x27;node2&#x27;,
+and &#x27;node3&#x27; in the &#x27;netconf_events&#x27; logging broker</strong></p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-bash"><code v-pre class="language-bash">curl --location --request POST 'http://localhost:8181/rests/operations/logging:enable-device-logging' \
+--header 'Accept: application/json' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    &quot;input&quot;: {
+        &quot;broker-identifier&quot;: &quot;netconf_events&quot;,
+        &quot;device-list&quot;: [
+            &quot;node1&quot;,
+            &quot;node2&quot;,
+            &quot;node2&quot;
+        ]
+    }
+}'</code></pre>
+</doc-codeblock></div>
+<p>The output shows a positive response:</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-json"><code v-pre class="language-json">{
+    &quot;output&quot;: {
+        &quot;message&quot;: &quot;Successfully updated logging broker [netconf_events]&quot;,
+        &quot;status&quot;: &quot;complete&quot;
+    }
+}</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="disable-device-logging">
+    <h4>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#disable-device-logging">#</doc-anchor-trigger>
+        <span>Disable Device Logging</span>
+    </h4>
+</doc-anchor-target>
+<ul>
+<li>An RPC is used for turning off logging of specified devices that are
+identified by node IDs.</li>
+<li>The input contains the name of the the logging broker
+&#x27;broker-identifier&#x27; and a list of node IDs called &#x27;device-list&#x27;.</li>
+</ul>
+<p><strong>Example: - Disable logging for device with node ID &#x27;node1&#x27; in the
+&#x27;netconf_events&#x27; logging broker</strong></p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-bash"><code v-pre class="language-bash">curl --location --request POST 'http://localhost:8181/rests/operations/logging:disable-device-logging' \
+--header 'Accept: application/json' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    &quot;input&quot;: {
+        &quot;broker-identifier&quot;: &quot;netconf_events&quot;,
+        &quot;device-list&quot;: [
+            &quot;node1&quot;
+        ]
+    }
+}'</code></pre>
+</doc-codeblock></div>
+<p>The output shows a positive response:</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-json"><code v-pre class="language-json">{
+    &quot;output&quot;: {
+        &quot;message&quot;: &quot;Successfully updated logging broker [netconf_events]&quot;,
+        &quot;status&quot;: &quot;complete&quot;
+    }
+}</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="setting-global-hidden-types">
+    <h4>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#setting-global-hidden-types">#</doc-anchor-trigger>
+        <span>Setting Global Hidden Types</span>
+    </h4>
+</doc-anchor-target>
+<ul>
+<li>An RPC is used for setting identifiers of hidden YANG type
+definitions. Values of leaves and leaf-lists that are described by
+these types are masked in the output logs.</li>
+<li>This RPC overwrites all already configured hidden types. An empty
+list of hidden types disables filtering of data values.</li>
+<li>Filtering of values applies to all logs, including RESTCONF logs.</li>
+</ul>
+<p><strong>Example: - Setting 3 hidden types</strong></p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-bash"><code v-pre class="language-bash">curl --location --request POST 'http://localhost:8181/rests/operations/logging:set-global-hidden-types' \
+--header 'Accept: application/json' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    &quot;input&quot;: {
+        &quot;hidden-types&quot;: [
+            &quot;types:password&quot;,
+            &quot;types:encrypted&quot;,
+            &quot;types:hash&quot;
+        ]
+    }
+}'</code></pre>
+</doc-codeblock></div>
+<p>The output shows a positive response:</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-bash"><code v-pre class="language-bash">{
+    &quot;output&quot;: {
+        &quot;message&quot;: &quot;Global logging controller configuration has been successfully updated&quot;,
+        &quot;status&quot;: &quot;complete&quot;
+    }
+}</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="setting-hidden-http-headers">
+    <h4>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#setting-hidden-http-headers">#</doc-anchor-trigger>
+        <span>Setting Hidden HTTP Headers</span>
+    </h4>
+</doc-anchor-target>
+<ul>
+<li>An RPC is used for overwriting the list of HTTP headers which
+content is masked in the output of the RESTCONF logs.</li>
+<li>This RPC modifies behavior of only the &#x27;restconf&#x27; logging broker.</li>
+<li>HTTP headers in both requests and responses are masked.</li>
+<li>The list of hidden HTTP headers denotes header identifiers.</li>
+<li>The identifier of &#x27;hidden&#x27; HTTP header still shows in the output
+logs, however, the content of such header is replaced by asterisk
+characters.</li>
+</ul>
+<p><strong>Example: - Hiding content of &#x27;Authorization&#x27; and &#x27;Cookie&#x27; HTTP headers</strong></p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-bash"><code v-pre class="language-bash">curl --location --request POST 'http://localhost:8181/rests/operations/restconf-logging:set-hidden-http-headers' \
+--header 'Accept: application/json' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    &quot;input&quot;: {
+        &quot;hidden-http-headers&quot;: [
+            &quot;Authorization&quot;,
+            &quot;Cookie&quot;
+        ]
+    }
+}'</code></pre>
+</doc-codeblock></div>
+<p>A positive response is shown in the output:</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-json"><code v-pre class="language-json">{
+    &quot;output&quot;: {
+        &quot;message&quot;: &quot;List of hidden HTTP headers have been successfully updated&quot;,
+        &quot;status&quot;: &quot;complete&quot;
+    }
+}</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="setting-hidden-http-methods">
+    <h4>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#setting-hidden-http-methods">#</doc-anchor-trigger>
+        <span>Setting Hidden HTTP Methods</span>
+    </h4>
+</doc-anchor-target>
+<ul>
+<li>An RPC is used for overwriting the list of HTTP methods. RESTCONF
+communication, that may include invocation of hidden HTTP methods,
+is not displayed in the output logs.</li>
+<li>Both requests and responses with hidden HTTP methods are not written
+to the log files.</li>
+<li>This RPC modifies behavior of only &#x27;restconf&#x27; logging behaviour.</li>
+</ul>
+<p><strong>Example: - Hiding GET and PATCH communication in the RESTCONF logs</strong></p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-bash"><code v-pre class="language-bash">curl --location --request POST 'http://localhost:8181/rests/operations/restconf-logging:set-hidden-http-methods' \
+--header 'Accept: application/json' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    &quot;input&quot;: {
+        &quot;hidden-http-methods&quot;: [
+            &quot;GET&quot;,
+            &quot;PATCH&quot;
+        ]
+    }
+}'</code></pre>
+</doc-codeblock></div>
+<p>A positive response is shown in the output:</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-json"><code v-pre class="language-json">{
+    &quot;output&quot;: {
+        &quot;message&quot;: &quot;List of hidden HTTP methods have been successfully updated&quot;,
+        &quot;status&quot;: &quot;complete&quot;
+    }
+}</code></pre>
+</doc-codeblock></div>
+
+
+
+
+                <!-- Required only on API pages -->
+                <doc-toolbar-member-filter-no-results />
+            </div>
+
+            
+<nav class="flex mt-14">
+    <div class="w-1/2">
+        <a class="px-5 py-4 h-full flex items-center break-all md:break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-l-lg transition-colors duration-150 relative hover:z-5" href="/frinx-uniconfig/user-guide/operational-procedures/data-security-models/">
+            <svg xmlns="http://www.w3.org/2000/svg" class="mr-3" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" overflow="visible"><path d="M19 11H7.41l5.29-5.29a.996.996 0 10-1.41-1.41l-7 7a1 1 0 000 1.42l7 7a1.024 1.024 0 001.42-.01.996.996 0 000-1.41L7.41 13H19c.55 0 1-.45 1-1s-.45-1-1-1z" /><path fill="none" d="M0 0h24v24H0z" /></svg>
+            <span>
+                <span class="block text-xs font-normal text-gray-400 dark:text-dark-400">Previous</span>
+                <span class="block mt-1">Data Security Models</span>
+            </span>
+        </a>
+    </div>
+
+    <div class="w-1/2">
+        <a class="px-5 py-4 -mx-px h-full flex items-center justify-end break-all md:break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-r-lg transition-colors duration-150 relative hover:z-5" href="/frinx-uniconfig/user-guide/operational-procedures/openapi/">
+            <span>
+                <span class="block text-xs font-normal text-right text-gray-400 dark:text-dark-400">Next</span>
+                <span class="block mt-1">OpenAPI</span>
+            </span>
+            <svg xmlns="http://www.w3.org/2000/svg" class="ml-3" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" overflow="visible"><path d="M19.92 12.38a1 1 0 00-.22-1.09l-7-7a.996.996 0 10-1.41 1.41l5.3 5.3H5c-.55 0-1 .45-1 1s.45 1 1 1h11.59l-5.29 5.29a.996.996 0 000 1.41c.19.2.44.3.7.3s.51-.1.71-.29l7-7c.09-.09.16-.21.21-.33z" /><path fill="none" d="M0 0h24v24H0z" /></svg>
+        </a>
+    </div>
+</nav>
+
+
+        </main>
+
+        <div class="border-t dark:border-dark-650 pt-6 mb-8">
+            <footer class="flex flex-wrap items-center justify-between">
+    <div>
+        <ul class="flex flex-wrap items-center text-sm">
+</ul>
+
+    </div>
+    <div class="docs-copyright py-2 text-gray-500 dark:text-dark-350 text-sm leading-relaxed"><p>© Copyright 2022.</p>
+</div>
+</footer>
+
+        </div>
+    </div>
+    
+    <!-- Rendered if sidebar right is enabled -->
+    <!-- Sidebar right skeleton-->
+    <div v-cloak class="fixed top-0 bottom-0 right-0 transform translate-x-full bg-white border-gray-200 lg:sticky lg:border-l lg:flex-shrink-0 lg:pt-6 lg:transform-none lg:w-56 lg:z-0 md:w-72 sidebar-right skeleton dark:bg-dark-850 dark:border-dark-650">
+        <div class="pl-5">
+            <div class="w-32 h-3 mb-4 bg-gray-200 dark:bg-dark-600 rounded-full loading"></div>
+            <div class="w-48 h-3 mb-4 bg-gray-200 dark:bg-dark-600 rounded-full loading"></div>
+            <div class="w-40 h-3 mb-4 bg-gray-200 dark:bg-dark-600 rounded-full loading"></div>
+        </div>
+    </div>
+    
+    <!-- User should be able to hide sidebar right -->
+    <doc-sidebar-right v-cloak></doc-sidebar-right>
+</div>
+
+        </div>
+    </div>
+
+    <doc-search-mobile></doc-search-mobile>
+    <doc-back-to-top></doc-back-to-top>
+</div>
+
+
+        <div id="docs-overlay-target"></div>
+
+        <script>window.__DOCS__ = { "title": "Logging Framework", icon: "file", hasPrism: true, hasMermaid: false, hasMath: false }</script>
+    </body>
+</html>

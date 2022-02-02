@@ -1,0 +1,1383 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="turbo-cache-control" content="no-cache">
+
+    <!-- Primary Meta Tags -->
+    <title>UniConfig High Availability ClusterExample | Frinx Docs</title>
+    <meta name="title" content="UniConfig High Availability ClusterExample | Frinx Docs">
+    <meta name="description" content="In order to make this work, the following three components will be needed:" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://matkuliak.xyz/frinx-uniconfig/user-guide/operational-procedures/high-availability-cluster/">
+    <meta property="og:title" content="UniConfig High Availability ClusterExample | Frinx Docs">
+    <meta property="og:description" content="In order to make this work, the following three components will be needed:">
+    <meta property="og:image" content="https://matkuliak.xyz/frinx-uniconfig/user-guide/operational-procedures/high-availability-cluster/1-haproxy.png">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://matkuliak.xyz/frinx-uniconfig/user-guide/operational-procedures/high-availability-cluster/">
+    <meta property="twitter:title" content="UniConfig High Availability ClusterExample | Frinx Docs">
+    <meta property="twitter:description" content="In order to make this work, the following three components will be needed:">
+    <meta property="twitter:image" content="https://matkuliak.xyz/frinx-uniconfig/user-guide/operational-procedures/high-availability-cluster/1-haproxy.png">
+    
+    <script>(function () { var el = document.documentElement, m = localStorage.getItem("doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
+
+    <link href="/resources/css/retype.css?v=1.11.2.697130698115" rel="stylesheet" data-turbo-track="reload" />
+
+    <script type="text/javascript" src="/resources/js/config.js?v=1.11.2.697130698115" defer data-turbo-track="reload"></script>
+    <script type="text/javascript" src="/resources/js/retype.js?v=1.11.2" defer data-turbo-track="reload"></script>
+    <script id="lunr-js" type="text/javascript" src="/resources/js/lunr.js?v=1.11.2.697130698115" defer></script>
+</head>
+    <body>
+        <div id="docs-app" class="relative text-base antialiased text-gray-700 bg-white font-body dark:bg-dark-850 dark:text-dark-300">
+    <div class="absolute bottom-0 left-0 bg-gray-100 dark:bg-dark-800" style="top: 5rem; right: 50%"></div>
+
+    <header id="docs-site-header" class="sticky top-0 z-30 flex w-full h-16 bg-white border-b border-gray-200 md:h-20 dark:bg-dark-850 dark:border-dark-650">
+    <div class="container relative flex items-center justify-between flex-grow pr-6 md:justify-start">
+        <!-- Mobile menu button skeleton -->
+        <button v-cloak class="skeleton docs-mobile-menu-button flex items-center justify-center flex-shrink-0 overflow-hidden dark:text-white focus:outline-none rounded-full w-10 h-10 ml-3.5 md:hidden"><svg xmlns="http://www.w3.org/2000/svg" class="mb-px flex-shrink-0" width="24" height="24" viewBox="0 0 24 24" role="presentation" style="margin-bottom: 0px;"><g fill="currentColor"><path d="M2 4h20v2H2zM2 11h20v2H2zM2 18h20v2H2z"></path></g></svg></button>
+        <div v-cloak id="docs-sidebar-toggle"></div>
+
+        <!-- Logo -->
+        <div class="flex items-center justify-between h-full py-2 md:w-75">
+            <div class="flex items-center px-2 md:px-6">
+                <a id="docs-site-logo" href="/" class="flex items-center leading-snug text-2xl">
+                    <span class="dark:text-white font-semibold line-clamp-1 md:line-clamp-2">Example docs</span>
+                </a>
+            </div>
+
+            <span class="hidden h-8 border-r md:inline-block dark:border-dark-650"></span>
+        </div>
+
+        <div class="flex justify-between md:flex-grow">
+            <!-- Top Nav -->
+            <nav class="hidden md:flex">
+    <ul class="flex flex-col mb-4 md:pl-16 md:mb-0 md:flex-row md:items-center">
+        <li class="md:mr-6">
+            <a class="inline-flex items-center py-2 md:mb-0 text-sm text-gray-400 whitespace-nowrap transition-colors duration-200 ease-linear md:text-blue-500 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-200" href="/">
+                <svg xmlns="http://www.w3.org/2000/svg" class="mb-px mr-1" width="18" height="18" viewBox="0 0 24 24" role="presentation">
+                    <g fill="currentColor">
+                        <path fill-rule="evenodd" d="M11.03 2.59a1.5 1.5 0 011.94 0l7.5 6.363a1.5 1.5 0 01.53 1.144V19.5a1.5 1.5 0 01-1.5 1.5h-5.75a.75.75 0 01-.75-.75V14h-2v6.25a.75.75 0 01-.75.75H4.5A1.5 1.5 0 013 19.5v-9.403c0-.44.194-.859.53-1.144l7.5-6.363zM12 3.734l-7.5 6.363V19.5h5v-6.25a.75.75 0 01.75-.75h3.5a.75.75 0 01.75.75v6.25h5v-9.403L12 3.734z"/>
+                    </g>
+                </svg>
+                <span>Home</span>
+            </a>
+        </li>
+        <li class="md:mr-6">
+            <a class="inline-flex items-center py-2 md:mb-0 text-sm text-gray-400 whitespace-nowrap transition-colors duration-200 ease-linear md:text-blue-500 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-200" href="https://github.com/matkuliak" target="_blank">
+                <svg xmlns="http://www.w3.org/2000/svg" class="mb-px mr-1" width="18" height="18" viewBox="0 0 24 24" role="presentation">
+                    <g fill="currentColor">
+                        <symbol id="mark-github-icon-symbol" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></symbol><use xlink:href="#mark-github-icon-symbol" />
+                    </g>
+                </svg>
+                <span>GitHub</span>
+            </a>
+        </li>
+        <li class="md:mr-6">
+            <a class="inline-flex items-center py-2 md:mb-0 text-sm text-gray-400 whitespace-nowrap transition-colors duration-200 ease-linear md:text-blue-500 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-200" href="https://www.linkedin.com/in/matej-ma%C5%A5kuliak-248369184/" target="_blank">
+                <svg xmlns="http://www.w3.org/2000/svg" class="mb-px mr-1" width="18" height="18" viewBox="0 0 24 24" role="presentation">
+                    <g fill="currentColor">
+                        <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-.139 9.237c.209 4.617-3.234 9.765-9.33 9.765-1.854 0-3.579-.543-5.032-1.475 1.742.205 3.48-.278 4.86-1.359-1.437-.027-2.649-.976-3.066-2.28.515.098 1.021.069 1.482-.056-1.579-.317-2.668-1.739-2.633-3.26.442.246.949.394 1.486.411-1.461-.977-1.875-2.907-1.016-4.383 1.619 1.986 4.038 3.293 6.766 3.43-.479-2.053 1.08-4.03 3.199-4.03.943 0 1.797.398 2.395 1.037.748-.147 1.451-.42 2.086-.796-.246.767-.766 1.41-1.443 1.816.664-.08 1.297-.256 1.885-.517-.439.656-.996 1.234-1.639 1.697z"/>
+                    </g>
+                </svg>
+                <span>LinkedIn</span>
+            </a>
+        </li>
+    </ul>
+</nav>
+
+            <!-- Header Right Skeleton -->
+            <div v-cloak class="flex justify-end flex-grow skeleton">
+
+                <!-- Search input mock -->
+                <div class="relative hidden w-40 lg:block lg:max-w-sm lg:ml-auto">
+                    <div class="absolute flex items-center justify-center h-full pl-3 dark:text-dark-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon-base" width="16" height="16" viewBox="0 0 24 24" aria-labelledby="icon" role="presentation"  style="margin-bottom: 1px;"><g fill="currentColor" ><path d="M21.71 20.29l-3.68-3.68A8.963 8.963 0 0020 11c0-4.96-4.04-9-9-9s-9 4.04-9 9 4.04 9 9 9c2.12 0 4.07-.74 5.61-1.97l3.68 3.68c.2.19.45.29.71.29s.51-.1.71-.29c.39-.39.39-1.03 0-1.42zM4 11c0-3.86 3.14-7 7-7s7 3.14 7 7c0 1.92-.78 3.66-2.04 4.93-.01.01-.02.01-.02.01-.01.01-.01.01-.01.02A6.98 6.98 0 0111 18c-3.86 0-7-3.14-7-7z" ></path></g></svg>
+                    </div>
+
+                    <input class="w-full h-10 transition-colors duration-200 ease-in bg-gray-200 border border-transparent rounded md:text-sm hover:bg-white hover:border-gray-300 focus:outline-none focus:bg-white focus:border-gray-500 dark:bg-dark-600 dark:border-dark-600 placeholder-gray-400 dark:placeholder-dark-400"
+                    style="padding: 0.625rem 0.75rem 0.625rem 2rem" type="text" placeholder="Search" />
+                </div>
+
+                <!-- Mobile search button mock -->
+                <div class="flex items-center justify-center w-10 h-10 lg:hidden">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="flex-shrink-0 icon-base" width="20" height="20" viewBox="0 0 24 24" aria-labelledby="icon" role="presentation"  style="margin-bottom: 0px;"><g fill="currentColor" ><path d="M21.71 20.29l-3.68-3.68A8.963 8.963 0 0020 11c0-4.96-4.04-9-9-9s-9 4.04-9 9 4.04 9 9 9c2.12 0 4.07-.74 5.61-1.97l3.68 3.68c.2.19.45.29.71.29s.51-.1.71-.29c.39-.39.39-1.03 0-1.42zM4 11c0-3.86 3.14-7 7-7s7 3.14 7 7c0 1.92-.78 3.66-2.04 4.93-.01.01-.02.01-.02.01-.01.01-.01.01-.01.02A6.98 6.98 0 0111 18c-3.86 0-7-3.14-7-7z" ></path></g></svg>
+                </div>
+
+                <!-- Dark mode switch placehokder -->
+                <div class="w-10 h-10 lg:ml-2"></div>
+
+                <!-- History button mock -->
+                <div class="flex items-center justify-center w-10 h-10" style="margin-right: -0.625rem;">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="flex-shrink-0 icon-base" width="22" height="22" viewBox="0 0 24 24" aria-labelledby="icon" role="presentation"  style="margin-bottom: 0px;"><g fill="currentColor" ><g ><path d="M12.01 6.01c-.55 0-1 .45-1 1V12a1 1 0 00.4.8l3 2.22a.985.985 0 001.39-.2.996.996 0 00-.21-1.4l-2.6-1.92V7.01c.02-.55-.43-1-.98-1z"></path><path d="M12.01 1.91c-5.33 0-9.69 4.16-10.05 9.4l-.29-.26a.997.997 0 10-1.34 1.48l1.97 1.79c.19.17.43.26.67.26s.48-.09.67-.26l1.97-1.79a.997.997 0 10-1.34-1.48l-.31.28c.34-4.14 3.82-7.41 8.05-7.41 4.46 0 8.08 3.63 8.08 8.09s-3.63 8.08-8.08 8.08c-2.18 0-4.22-.85-5.75-2.4a.996.996 0 10-1.42 1.4 10.02 10.02 0 007.17 2.99c5.56 0 10.08-4.52 10.08-10.08.01-5.56-4.52-10.09-10.08-10.09z"></path></g></g></svg>
+                </div>
+            </div>
+
+            <div v-cloak class="flex items-center justify-end flex-grow">
+                <div id="docs-mobile-search-button"></div>
+                <doc-search-desktop></doc-search-desktop>
+
+                <doc-theme-switch class="lg:ml-2"></doc-theme-switch>
+                <doc-history></doc-history>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+    <div class="container relative flex bg-white">
+        <!-- Sidebar Skeleton -->
+<div v-cloak class="fixed flex flex-col flex-shrink-0 duration-300 ease-in-out bg-gray-100 border-gray-200 sidebar top-20 w-75 border-r h-screen md:sticky transition-transform skeleton dark:bg-dark-800 dark:border-dark-650">
+
+    <!-- Render this div, if config.showSidebarFilter is `true` -->
+    <div class="flex items-center h-16 px-6">
+        <input class="w-full h-8 px-3 py-2 transition-colors duration-200 ease-linear bg-white border border-gray-200 rounded shadow-none text-sm focus:outline-none focus:border-gray-600 dark:bg-dark-600 dark:border-dark-600" type="text" placeholder="Filter" />
+    </div>
+
+    <div class="pl-6 mb-4 mt-1">
+        <div class="w-32 h-3 mb-4 bg-gray-200 rounded-full loading dark:bg-dark-600"></div>
+        <div class="w-48 h-3 mb-4 bg-gray-200 rounded-full loading dark:bg-dark-600"></div>
+        <div class="w-40 h-3 mb-4 bg-gray-200 rounded-full loading dark:bg-dark-600"></div>
+        <div class="w-32 h-3 mb-4 bg-gray-200 rounded-full loading dark:bg-dark-600"></div>
+        <div class="w-48 h-3 mb-4 bg-gray-200 rounded-full loading dark:bg-dark-600"></div>
+        <div class="w-40 h-3 mb-4 bg-gray-200 rounded-full loading dark:bg-dark-600"></div>
+    </div>
+
+
+    <div class="flex-shrink-0 mt-auto bg-transparent dark:border-dark-650">
+        <a
+    class="flex items-center justify-center flex-nowrap h-16 text-gray-400 dark:text-dark-400 hover:text-gray-700 dark:hover:text-dark-300 transition-colors duration-150 ease-in docs-powered-by"
+    target="_blank"
+    href="https://retype.com/"
+    rel="noopener"
+>
+    <span class="text-xs whitespace-nowrap">Powered by</span>
+    <svg xmlns="http://www.w3.org/2000/svg" class="ml-2" fill="currentColor" width="96" height="20" overflow="visible"><path d="M0 0v20h13.59V0H0zm11.15 17.54H2.44V2.46h8.71v15.08zM15.8 20h2.44V4.67L15.8 2.22zM20.45 6.89V20h2.44V9.34z"/><g><path d="M40.16 8.44c0 1.49-.59 2.45-1.75 2.88l2.34 3.32h-2.53l-2.04-2.96h-1.43v2.96h-2.06V5.36h3.5c1.43 0 2.46.24 3.07.73s.9 1.27.9 2.35zm-2.48 1.1c.26-.23.38-.59.38-1.09 0-.5-.13-.84-.4-1.03s-.73-.28-1.39-.28h-1.54v2.75h1.5c.72 0 1.2-.12 1.45-.35zM51.56 5.36V7.2h-4.59v1.91h4.13v1.76h-4.13v1.92h4.74v1.83h-6.79V5.36h6.64zM60.09 7.15v7.48h-2.06V7.15h-2.61V5.36h7.28v1.79h-2.61zM70.81 14.64h-2.06v-3.66l-3.19-5.61h2.23l1.99 3.45 1.99-3.45H74l-3.19 5.61v3.66zM83.99 6.19c.65.55.97 1.4.97 2.55s-.33 1.98-1 2.51-1.68.8-3.04.8h-1.23v2.59h-2.06V5.36h3.26c1.42 0 2.45.28 3.1.83zm-1.51 3.65c.25-.28.37-.69.37-1.22s-.16-.92-.48-1.14c-.32-.23-.82-.34-1.5-.34H79.7v3.12h1.38c.68 0 1.15-.14 1.4-.42zM95.85 5.36V7.2h-4.59v1.91h4.13v1.76h-4.13v1.92H96v1.83h-6.79V5.36h6.64z"/></g></svg>
+</a>
+
+    </div>
+</div>
+
+<!-- Sidebar component -->
+<doc-sidebar v-cloak>
+    <template #sidebar-footer>
+        <div
+            class="flex-shrink-0 mt-auto border-t md:bg-transparent md:border-none dark:border-dark-650"
+        >
+
+            <div class="py-3 px-6 md:hidden border-b dark:border-dark-650">
+                <nav>
+                    <ul class="flex flex-wrap justify-center items-center">
+                        <li class="mr-6">
+                            <a class="block py-1 text-sm whitespace-nowrap transition-colors duration-200 ease-linear text-blue-500 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-200" href="/README.md">Home</a>
+                        </li>
+                        <li class="mr-6">
+                            <a class="block py-1 text-sm whitespace-nowrap transition-colors duration-200 ease-linear text-blue-500 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-200" href="https://github.com/matkuliak">GitHub</a>
+                        </li>
+                        <li class="mr-6">
+                            <a class="block py-1 text-sm whitespace-nowrap transition-colors duration-200 ease-linear text-blue-500 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-200" href="https://www.linkedin.com/in/matej-ma%C5%A5kuliak-248369184/">LinkedIn</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+
+
+            <a
+    class="flex items-center justify-center flex-nowrap h-16 text-gray-400 dark:text-dark-400 hover:text-gray-700 dark:hover:text-dark-300 transition-colors duration-150 ease-in docs-powered-by"
+    target="_blank"
+    href="https://retype.com/"
+    rel="noopener"
+>
+    <span class="text-xs whitespace-nowrap">Powered by</span>
+    <svg xmlns="http://www.w3.org/2000/svg" class="ml-2" fill="currentColor" width="96" height="20" overflow="visible"><path d="M0 0v20h13.59V0H0zm11.15 17.54H2.44V2.46h8.71v15.08zM15.8 20h2.44V4.67L15.8 2.22zM20.45 6.89V20h2.44V9.34z"/><g><path d="M40.16 8.44c0 1.49-.59 2.45-1.75 2.88l2.34 3.32h-2.53l-2.04-2.96h-1.43v2.96h-2.06V5.36h3.5c1.43 0 2.46.24 3.07.73s.9 1.27.9 2.35zm-2.48 1.1c.26-.23.38-.59.38-1.09 0-.5-.13-.84-.4-1.03s-.73-.28-1.39-.28h-1.54v2.75h1.5c.72 0 1.2-.12 1.45-.35zM51.56 5.36V7.2h-4.59v1.91h4.13v1.76h-4.13v1.92h4.74v1.83h-6.79V5.36h6.64zM60.09 7.15v7.48h-2.06V7.15h-2.61V5.36h7.28v1.79h-2.61zM70.81 14.64h-2.06v-3.66l-3.19-5.61h2.23l1.99 3.45 1.99-3.45H74l-3.19 5.61v3.66zM83.99 6.19c.65.55.97 1.4.97 2.55s-.33 1.98-1 2.51-1.68.8-3.04.8h-1.23v2.59h-2.06V5.36h3.26c1.42 0 2.45.28 3.1.83zm-1.51 3.65c.25-.28.37-.69.37-1.22s-.16-.92-.48-1.14c-.32-.23-.82-.34-1.5-.34H79.7v3.12h1.38c.68 0 1.15-.14 1.4-.42zM95.85 5.36V7.2h-4.59v1.91h4.13v1.76h-4.13v1.92H96v1.83h-6.79V5.36h6.64z"/></g></svg>
+</a>
+
+        </div>
+    </template>
+</doc-sidebar>
+
+
+        <div class="flex-grow min-w-0 dark:bg-dark-850">
+            <!-- Render "toolbar" template here on api pages --><!-- Render page content -->
+            <div class="flex">
+    <div class="flex-grow min-w-0 px-6 md:px-16">
+        <main class="relative pt-6 pb-16">
+            <div class="docs-markdown" id="docs-content">
+                <!-- Rendered if sidebar right is enabled -->
+                <div id="docs-sidebar-right-toggle"></div>
+               
+                <!-- Page content  -->
+<doc-anchor-target id="uniconfig-high-availability-cluster" class="break-words">
+    <h1>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#uniconfig-high-availability-cluster">#</doc-anchor-trigger>
+        <span>UniConfig High Availability Cluster</span>
+    </h1>
+</doc-anchor-target>
+<div class="{.toctree"></div>
+<doc-anchor-target id="clustering-with-haproxy-and-keepalived">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#clustering-with-haproxy-and-keepalived">#</doc-anchor-trigger>
+        <span>Clustering with HAProxy and Keepalived</span>
+    </h2>
+</doc-anchor-target>
+<p>In order to make this work, the following three components will be
+needed:</p>
+<ul>
+<li>[Haproxy]{.title-ref}</li>
+<li>[Keepalived]{.title-ref}</li>
+<li>[UniConfig]{.title-ref}</li>
+</ul>
+<div class="{.note}">
+<div class="{.title}"><p>Note</p>
+</div>
+</div>
+<p>You should be able to find the first two in the package manager of you
+Linux distribution. This setup was tested on Ubuntu 18.04. If you use an
+older distribution, you might find that some of the features that are
+required are not available in the package managers version of
+<em>Keepalived</em> and/or <em>Haproxy</em>. In that case, you might need to build
+these from source. In such cases, make sure that you use the latests
+version.</p>
+<div><p>To see how to download, install and run <em>UniConfig</em>, follow <a href="https://docs.frinx.io/frinx-odl-distribution/oxygen/getting-started.html#system-requirements">these
+inscructions</a>.</p>
+<p>There will be two scenarios we&#x27;ll talk about.</p>
+<ul>
+<li><doc-anchor-trigger to="#haproxy-and-2-uniconfig-nodes-scenario">1 Haproxy and 2 UniConfig nodes
+scenario</doc-anchor-trigger></li>
+<li><doc-anchor-trigger to="#haproxy-with-floating-ip-and-2-uniconfig-nodes-scenario">2 Haproxy with floating IP and 2 UniConfig nodes
+scenario</doc-anchor-trigger></li>
+</ul>
+<p>For both cases, the assumpotion will be that each <em>Haproxy</em> instance and
+each <em>UniConfig</em> node is running in a separate VM, meaning that we&#x27;ll
+have 3 VMs in the first and 4 VMs in the second scenario.</p>
+<doc-anchor-target id="1-haproxy-and-2-uniconfig-nodes-scenario">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#1-haproxy-and-2-uniconfig-nodes-scenario">#</doc-anchor-trigger>
+        <span>1 Haproxy and 2 UniConfig nodes scenario</span>
+    </h3>
+</doc-anchor-target>
+<p>In this first scenario, we&#x27;ll have one <em>Haproxy</em> instance connected to
+two UniConfig nodes. The <em>Haproxy</em> instance will continuously check the
+availability of the <em>UniConfig</em> nodes and in case one of them isn&#x27;t
+responding, it will start sending the reqests to the other <em>UniConfig</em>
+node.</p>
+<p><figure class="content-center">
+    <a href="1-haproxy.png">
+        <img src="1-haproxy.png" alt="1 Haproxy" />
+    </a>
+    <figcaption class="caption">1 Haproxy</figcaption>
+</figure>
+</p>
+<p>The configuration in <em>Haproxy</em> is going to be the following:</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<div class="codeblock-title">{.text}</div>
+<pre class="language-none"><code v-pre class="language-none">defaults
+ mode http
+ option http-server-close
+ timeout client 20s
+ timeout server 20s
+ timeout connect 4s
+
+frontend frontend_app
+ bind HAPROXY_IP:HAPROXY_PORT name app
+ default_backend backend_app
+
+backend backend_app
+ stick-table type ip size 1
+ stick on src
+ server s1 UNICONFIG_1_IP:8181 check
+ server s2 UNICONFIG_2_IP:8181 check backup</code></pre>
+</doc-codeblock></div>
+<p>Populate the fields <code v-pre>HAPROXY_IP</code>, <code v-pre>HAPROXY_PORT</code>, <code v-pre>UNICONFIG_1_IP</code>,
+<code v-pre>UNICONFIG_2_IP</code> with appropriate values in your infrastructre. Save
+this to a file called <code v-pre>/etc/haproxy/haproxy.cfg</code>.</p>
+<p>After that, when both of your <em>UniConfig</em> nodes are running, start
+<em>Haproxy</em> with <code v-pre>service haproxy start</code> or
+<code v-pre>systemctl start haproxy.service</code>, depending on what your service
+manager is.</p>
+<p>Now, by default all request will be forwarerd to <code v-pre>server s1</code> which is
+the <em>UniConfig</em> at the <code v-pre>UNICONFIG_1_IP</code> address. If you stop it or block
+the connection to this node by other means, the <em>Haproxy</em> will start
+forwarding all requests to <code v-pre>UNICONFIG_2_IP</code> address and will stick to
+sending request to this <em>UniConfig</em> node even if <em>UniConfig</em> on the
+<code v-pre>UNICONFIG_1_IP</code> comes back to life again.</p>
+<doc-anchor-target id="2-haproxy-with-floating-ip-and-2-uniconfig-nodes-scenario">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#2-haproxy-with-floating-ip-and-2-uniconfig-nodes-scenario">#</doc-anchor-trigger>
+        <span>2 Haproxy with floating IP and 2 UniConfig nodes scenario</span>
+    </h3>
+</doc-anchor-target>
+<p>In this second scenario, we&#x27;ll have an additional <em>Haproxy</em> instance.
+Both of the <em>Haproxy</em> instances are going to be connected to both
+<em>UniConfig</em> instances. The information about which <em>UniConfig</em> node is
+in active use is going to be shared among the <em>Haproxy</em> instances via
+stick tables. There will always be only one active <em>Haproxy</em> instance
+and in case it fails, the other one will take over. This is going to be
+managed by <em>Keepalived</em> which uses the <strong>VRRP</strong> protocol for failover
+managment.</p>
+<p><figure class="content-center">
+    <a href="2-haproxy.png">
+        <img src="2-haproxy.png" alt="2 Haproxy" />
+    </a>
+    <figcaption class="caption">2 Haproxy</figcaption>
+</figure>
+</p>
+<p>The steps are going to be similar as in the first scenario, however the
+two <em>Haproxy</em> instances will have a slightly modified configuration,
+plus we&#x27;ll need to configure <em>Keepalived</em> on the VMs that run
+<em>Haproxy</em>. Also, the <em>Haproxy</em> will be reachable through a virtual IP
+address. In case of a failover, when for example the <em>Haproxy</em> instance
+1 becomes unavailable, the <em>Haproxy</em> instance 2 assigns to itself the
+virtual IP address and announces this information via a Gratuitous ARP
+reply.</p>
+<p>First, the <em>Haproxy</em> configuration:</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<div class="codeblock-title">{.text}</div>
+<pre class="language-none"><code v-pre class="language-none">peers LB
+ peer LB1 HAPROXY_1_IP:10001
+ peer LB2 HAPROXY_2_IP:10002
+
+defaults
+ mode http
+ option http-server-close
+ timeout client 20s
+ timeout server 20s
+ timeout connect 4s
+
+frontend frontend_app
+ bind HAPROXY_{1|2}_IP:HAPROXY_PORT name app
+ default_backend backend_app
+
+backend backend_app
+ stick-table type ip size 1 peers LB
+ stick on src
+ server s1 UNICONFIG_1_IP:8181 check
+ server s2 UNICONFIG_2_IP:8181 check backup</code></pre>
+</doc-codeblock></div>
+<p>The <code v-pre>HAPROXY_1_IP</code> and <code v-pre>HAPROXY_2_IP</code> addresses should be populated with
+the private IP addresses of these two VMs. The <code v-pre>UNICONFIG_1_IP</code> and the
+<code v-pre>UNICONFIG_2_IP</code> should be populated as in the first scenario, with the
+IP addresses of the VMs that run <em>UniConfig</em>.</p>
+<p>The <code v-pre>HAPROXY_{1|2}_IP</code> field should be populated with <code v-pre>HAPROXY_1_IP</code> on
+the VM where the first instance of <em>Haproxy</em> is running and
+<code v-pre>HAPROXY_2_IP</code> on the VM where the second one is running. The
+<code v-pre>HAPROXY_PORT</code> can be any port of your choosing, where <em>Haproxy</em> will be
+reachable.</p>
+<p>Here, the IP address should be populated with the virtual IP address, on
+which the active <em>Haproxy</em> instance is going to be reachable. This IP
+address will also be present in the <em>Keepalived</em> configuration, because
+this IP is the one that the BACKUP <em>Haproxy</em> instance assigns to itself
+in case of a failover. The <code v-pre>HAPROXY_PORT</code> is the port can be chosen
+arbitrarily, it&#x27;s simply a port where <em>Haproxy</em> is going to be
+reachable.</p>
+<p>Let&#x27;s move in to <em>Keepalived</em>. There will be two slightly different
+configuration files, one used for the MASTER <em>Haproxy</em> instance and the
+other one for BACKUP.</p>
+<p>This is how the MASTER <em>Haproxy</em> instance configuration file looks like:</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<div class="codeblock-title">{.text}</div>
+<pre class="language-none"><code v-pre class="language-none">global_defs {
+    script_user root
+    enable_script_security
+}
+
+vrrp_script check_haproxy {
+    script &quot;killall -0 haproxy&quot;
+    interval 2
+    weight 2
+}
+
+vrrp_instance VI_1 {
+    interface eth0
+    state MASTER
+    virtual_router_id 51
+    priority 101
+
+    virtual_ipaddress {
+        HAPROXY_PUB_IP
+    }
+
+    track_script {
+        check_haproxy
+    }
+
+    notify /run-on-status-change.sh
+
+}</code></pre>
+</doc-codeblock></div>
+<p>The BACKUP <em>Haproxy</em> instance configuration file looks like this:</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<div class="codeblock-title">{.text}</div>
+<pre class="language-none"><code v-pre class="language-none">global_defs {
+    script_user root
+    enable_script_security
+}
+
+vrrp_script check_haproxy {
+    script &quot;killall -0 haproxy&quot;
+    interval 2
+    weight 2
+}
+
+vrrp_instance VI_1 {
+    interface eth0
+    state BACKUP
+    virtual_router_id 51
+    priority 100
+
+    virtual_ipaddress {
+        HAPROXY_PUB_IP
+    }
+
+    track_script {
+        check_haproxy
+    }
+
+    notify /run-on-status-change.sh
+
+}</code></pre>
+</doc-codeblock></div>
+<p>As you can see, the only difference are the <code v-pre>state</code> and the <code v-pre>priority</code>
+fields values. The [notify]{.title-ref} field is optional, we&#x27;ll see
+how it can be used a <doc-anchor-trigger to="#notify-script">little later</doc-anchor-trigger>.</p>
+<p>These config files should be save as <code v-pre>/etc/keepalived/keepalived.conf</code>
+on both VMs which will run <em>Haproxy</em>.</p>
+<p>Then, <em>Haproxy</em> needs to be executed with an additional parameter on
+both VMs. On the VM with the <em>Haproxy</em> instance one, execute
+<code v-pre>haproxy -L LB1</code> and on the other one, execute <code v-pre>haproxy -L LB2</code></p>
+<p>Now, to run <em>Keepalived</em>, execute <code v-pre>/etc/init.d/keepalived start</code> on both
+the MASTER and the BACKUP machine.</p>
+<doc-anchor-target id="recap">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#recap">#</doc-anchor-trigger>
+        <span>Recap</span>
+    </h3>
+</doc-anchor-target>
+<p>Now all should be working. The two VMs exchange stick table information
+for keeping in sync regarding which <em>UniConfig</em> node to send request to.
+The MASTER <em>Keepalive</em> checks if <em>Haproxy</em> is running and informs the
+BACKUP instance about the status. So long as the connection between the
+<em>Keepalive</em> instances is in tact and <em>Haproxy</em> is running fine, the
+BACKUP instances does nothing. Should there be a problem with either the
+connection or the <em>Haproxy</em> process itself on the MASTER instance, the
+BACKUP instance kicks in, assigns to itself the virtual IP address and
+notifies the rest of the network about this fact via a Gratuitous ARP
+reply, which will cause all requests to be forwarerd to this BACKUP
+instance. Now if the MASTER instances connection and/or <em>Haproxy</em>
+process comes back to life and the BACKUP nodes starts receiving status
+information from the MASTER instance again, it&#x27;s going to unassign the
+virtual IP from itself and let the MASTER take over. This works through
+the election process between the two instances and is resolved via
+<strong>VRRP</strong> through the [priority]{.title-ref} fields value in the config
+file. The instance with the higher value in the [priority]{.title-ref}
+field takes presedence.</p>
+<doc-anchor-target id="notify-script">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#notify-script">#</doc-anchor-trigger>
+        <span>Notify script</span>
+    </h3>
+</doc-anchor-target>
+<p>Now for the [notify]{.title-ref} field. <em>Keepalived</em> allows you to take
+action on a status change and lets you run an arbitrary script. As a
+simple example, you could define the script as follows:</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<div class="codeblock-title">{.bash}</div>
+<pre class="language-none"><code v-pre class="language-none">#!/bin/bash
+
+TIMESTAMP=$(date)
+TRANSITION=$3
+
+echo &quot;I'm $TRANSITION : $TIMESTAMP&quot; &gt; /status-change.txt</code></pre>
+</doc-codeblock></div>
+<p>According to the documentation the script defined in
+[notify]{.title-ref} is executed with four <strong>additional</strong> arguments:</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<div class="codeblock-title">{.text}</div>
+<pre class="language-none"><code v-pre class="language-none"># arguments provided by Keepalived:
+#   $(n-3) = &quot;GROUP&quot;|&quot;INSTANCE&quot;
+#   $(n-2) = name of the group or instance
+#   $(n-1) = target state of transition (stop only applies to instances)
+#            (&quot;MASTER&quot;|&quot;BACKUP&quot;|&quot;FAULT&quot;|&quot;STOP&quot;)
+#   $(n)   = priority value
+#   $(n-3) and $(n-1) are ALWAYS sent in uppercase, and the possible</code></pre>
+</doc-codeblock></div>
+<p>By this logic, you can save the above script as
+<code v-pre>/run-on-status-change.sh</code> and see how the status changes between the
+MASTER and BACKUP node. Any time a status change occurs, you&#x27;ll be able
+to see that information in the <code v-pre>status-change.txt</code> file.</p>
+<p>The script <code v-pre>/run-on-status-change.sh</code> is placed in the root directory in
+this example, because <em>Keepalived</em> expects the scripts whole path to
+only be writable by the root user.</p>
+<div class="{.note}">
+<div class="{.title}"><p>Note</p>
+</div>
+</div>
+</div>
+<p>If you do not want to use such a script, delete the whole line from the
+config files.</p>
+<p>To verify that the failover is working correctly without using the
+example script, you can take a look at the logs produced by
+<em>Keepalived</em>.</p>
+<div><doc-anchor-target id="clustering-with-relational-database">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#clustering-with-relational-database">#</doc-anchor-trigger>
+        <span>Clustering with relational database</span>
+    </h2>
+</doc-anchor-target>
+<doc-anchor-target id="introduction">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#introduction">#</doc-anchor-trigger>
+        <span>Introduction</span>
+    </h3>
+</doc-anchor-target>
+<p>UniConfig clustering is based on introduction of database layer with one
+or multiple database systems that represent persistent storage for
+loaded devices configuration, information about UniConfig instances, and
+used YANG schemas grouped in NETCONF repositories. Above the database
+layer there could be one or multiple UniConfig instances with running
+UniConfig distribution and available active-standby high availability
+profile - selected UniConfig instance can back up another UniConfig
+instance in the cluster.</p>
+<p>Summarized features of database clustering in UniConfig:</p>
+<ul>
+<li><strong>active-standby high-availability profile</strong> - One UniConfig
+instance backs up another UniConfig instance by monitoring of its
+state. If the monitored instance fails, then another UniConfig
+instance take over nodes that have been installed on failed
+instance. However, a new UniConfig instance must proceed with the
+whole installation process at the recovery - from this reason the
+UniConfig currently doesn&#x27;t support active-active deployment.</li>
+<li><strong>separation of data from other logic</strong> - Data is not bound tightly
+to UniConfig instance but extracted to distinct layer. This approach
+brings multiple advantages - easier debugging, possibility to use
+UniConfig data also by external application, or deployment of custom
+clustering models for database systems. On the other side, database
+clustering increases the delay between data accessors and data
+itself (it can vary depending on network configuration and selected
+deployment model).</li>
+<li><strong>visibility of the persistent data</strong> - UniConfig configuration is
+stored safely in database system in the readable JSON format that
+can be traversed by external application (in case of datastore
+persitence, data is represented by serialized Java objects).</li>
+<li><strong>UniConfig-specific solution</strong> - Database design and configuration
+are tuned for UniConfig services without bloated datastore and akka
+services.</li>
+</ul>
+<doc-anchor-target id="architecture">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#architecture">#</doc-anchor-trigger>
+        <span>Architecture</span>
+    </h3>
+</doc-anchor-target>
+<doc-anchor-target id="physical-architecture">
+    <h4>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#physical-architecture">#</doc-anchor-trigger>
+        <span>Physical architecture</span>
+    </h4>
+</doc-anchor-target>
+<p>The following diagram shows the physical architecture as a layered
+system with 4 layers - database systems, UniConfig instances with
+datastores, optional proxy layer, and applications.</p>
+<p><figure class="content-center">
+    <img src="physical_topology.svg" alt="Physical topology" />
+    <figcaption class="caption">Physical topology</figcaption>
+</figure>
+</p>
+<p>Description of the layers:</p>
+<ul>
+<li><strong>Database systems</strong> - Database system is used for persistence of
+UniConfig configuration, persistence of NETCONF schemas, and as a
+communication medium between UniConfig instances (information about
+UniConfig instances is stored here). Currently, database layer
+represents the only way, how UniConfig instances can communicate
+with each other. There could be multiple database systems deployed
+in the cluster - high availability principle can freely be applied
+for databases. Then, UniConfig instance on higher layer connects to
+one or multiple database systems and use multiple databases with
+failover mechanism - if the communication with the first database
+fails, UniConfig will try to use the next connection (JDBC failover
+mechanism). If the target database system provides orchestrator
+component, then the failover mechanism doesn&#x27;t have to be applied -
+instead, UniConfig would keep just the single connection do database
+orchestrator. Currently 2 database systems are supported: PostgreSQL
+and CockroachDB.</li>
+<li><strong>UniConfig instances with datastores</strong> - UniConfig instance
+represents running UniConfig distribution with enabled database
+clustering feature. In the database deployment datastores are used
+just in runtime - they are not persisted to disk using
+journal/snapshots mechanism. The communication with one or more
+database systems is handled using JDBC and corresponding database
+drivers. In this layer, there could be one (single-node deployment)
+or more instances. The instances don&#x27;t communicate with each other
+directly, only through the database.</li>
+<li><strong>HA proxy / Load balancer</strong> - Optional component that is
+responsible for routing of HTTP requests to correct UniConfig
+instance. It can, for example, hide logic around provisioning of
+mounted nodes to different UniConfig instances and detect what
+UniConfig instance is still alive. The detail operation of this
+component is out-of-scope of this documentation. If this proxy layer
+is not deployed, then the end application in higher layer must be
+responsible for managing of communication with multiple UniConfig
+instances.</li>
+<li><strong>Control / automation application</strong> - Application that uses
+UniConfig backend services - for example FRINX machine.</li>
+</ul>
+<doc-anchor-target id="software-architecture">
+    <h4>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#software-architecture">#</doc-anchor-trigger>
+        <span>Software architecture</span>
+    </h4>
+</doc-anchor-target>
+<p>Multiple software components on UniConfig and controller layers have
+been introduced for achieving database clustering. The following diagram
+shows these components and basic relations between them.</p>
+<p><figure class="content-center">
+    <img src="software_architecture.svg" alt="Software architecture" />
+    <figcaption class="caption">Software architecture</figcaption>
+</figure>
+</p>
+<p>Description of the software components:</p>
+<ul>
+<li><strong>Database access layer</strong> - It consists of connection pool, database
+access objects, database transaction manager, and business services.
+Connection pool is responsible for providing of JDBC connections to
+database access objects while limiting number of connections that
+can be active at one time. The approach one thread - one connection
+is applied. After borrowed connection is releases from thread, it is
+returned back to connection pool, so it can be reused (connection
+pool also checks aliveness of released connections after they are
+released). Database access objects implements basic CRUD operations
+for all necessary relations. Transaction manager hides
+initialization and closing logic around database connections into
+read-only, read-write, and write-only transactions. At last,
+business services implement more complex database operations by
+composition of operations provided by database access objects. The
+next diagram breaks down this layer in detail.</li>
+<li><strong>Uniconfig instance registration</strong> - This component is responsible
+for registration of UniConfig instance using local instance name and
+backup instance name into database system at initialization of
+UniConfig. Afterwards, it also provides cached information about
+local instance to other components.</li>
+<li><strong>Database-aware DOM broker</strong> - Extended DOM data broker that adds
+database hooks to datastore paths that also must be persisted in the
+database system. This way, write-only or read-write transaction
+stays atomic from the view of datastore and database - either
+changes are applied in both datastore and database or they are not
+applied at all and datastore stays consistent with database. Phase
+&#x27;do-database-commit&#x27; is injected between &#x27;can-commit&#x27; and
+&#x27;pre-commit&#x27; datastore phases - this way, modifications are
+written into database only after data is validated against datastore
+constraints (the bottom part of the last diagram). This is the
+default DOM data broker that replaces implementation of original DOM
+data broker.</li>
+<li><strong>Heartbeat system</strong> - Heartbeat system keeps local UniConfig
+instance alive in the cluster by updating &#x27;heartbeat_timestamp&#x27;
+field to the actual time. Afterwards, other instances in the cluster
+can verify the aliveness of the UniConfig instance using the value
+of this field. This component is started as the last one with backup
+monitoring system.</li>
+<li><strong>Backup monitoring system</strong> - This component is responsible for
+monitoring of another UniConfig instance for aliveness in the
+periodic manner. Currently, only &#x27;heartbeat_timestamp&#x27; is checked
+against maximum allowed age of the UniConfig instance. If UniConfig
+instance is marked as failed, the recovery process starts - mounting
+of UniConfig nodes into local instance. One instance can actively
+monitor only one another UniConfig instance (however, it is possible
+to recover chain of UniConfig instances that failed at the same
+time).</li>
+<li><strong>Legacy DOM broker</strong> - Unmodified datastore broker without any
+database hooks. Especially, backup monitoring system uses this
+component, so the modifications done into datastore during recovery
+process are not needlessly applied back to database.</li>
+</ul>
+<p>The next diagram shows components which the database access layer is
+built from. Currently, UniConfig is compatible with two database systems</p>
+<ul>
+<li>PostgreSQL and CockroachDB. Extending support for next database
+systems doesn&#x27;t require much effort because of the clearly separated
+database access objects from business logic.</li>
+</ul>
+<p><figure class="content-center">
+    <img src="database_access_layer.svg" alt="Database access layer" />
+    <figcaption class="caption">Database access layer</figcaption>
+</figure>
+</p>
+<doc-anchor-target id="configuration">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#configuration">#</doc-anchor-trigger>
+        <span>Configuration</span>
+    </h3>
+</doc-anchor-target>
+<doc-anchor-target id="default-configuration">
+    <h4>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#default-configuration">#</doc-anchor-trigger>
+        <span>Default configuration</span>
+    </h4>
+</doc-anchor-target>
+<p>By default, database clustering is disabled in UniConfig distribution.
+To enable it, &#x27;enabled&#x27; flag under &#x27;dbPersitence&#x27; configuration must
+be set to &#x27;true&#x27; and other configuration subsections must be adjusted
+for specific environment. Whole database-related configuration is placed
+under &#x27;dbPersistence&#x27; JSON object under root JSON object of global
+configuration file &#x27;lighty-uniconfig-config.json&#x27; (it is placed in the
+directory &#x27;config&#x27;).</p>
+<p>The following JSON shows the default configuration in the UniConfig
+distribution:</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<div class="codeblock-title">{.json}</div>
+<pre class="language-none"><code v-pre class="language-none">{
+    &quot;dbPersistence&quot;: {
+        &quot;enabled&quot;: false,
+        &quot;monitoring&quot;: {
+            &quot;heartbeatInterval&quot;: 1000,
+            &quot;initialMonitoringDelay&quot;: 5000,
+            &quot;backupMonitoringInterval&quot;: 10000,
+            &quot;maxInstanceAge&quot;: 5000
+        },
+        &quot;uniconfigInstance&quot;: {
+            &quot;instanceName&quot;: &quot;uc-0&quot;,
+            &quot;backupInstanceName&quot;: null
+        },
+        &quot;connection&quot;: {
+            &quot;dbName&quot;: &quot;uniconfig&quot;,
+            &quot;username&quot;: &quot;uniremote&quot;,
+            &quot;password&quot;: &quot;unipass&quot;,
+            &quot;initialDbPoolSize&quot;: 5,
+            &quot;maxDbPoolSize&quot;: 10,
+            &quot;maxIdleConnections&quot;: 5,
+            &quot;maxWaitTime&quot;: 30000,
+            &quot;enabledTls&quot;: false,
+            &quot;tlsClientCert&quot;: &quot;./client.pks&quot;,
+            &quot;tlsClientKey&quot;: &quot;./client.key&quot;,
+            &quot;tlsCaCert&quot;: &quot;./ca.pks&quot;,
+            &quot;databaseLocations&quot;: [
+                {
+                    &quot;host&quot;: &quot;127.0.0.1&quot;,
+                    &quot;port&quot;: 26257
+                }
+            ]
+        }
+    }
+}</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="description-of-the-settings">
+    <h4>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#description-of-the-settings">#</doc-anchor-trigger>
+        <span>Description of the settings</span>
+    </h4>
+</doc-anchor-target>
+<ul>
+<li><p><strong>enabled</strong> - If it is set to &#x27;true&#x27;, database clustering is
+enabled. Otherwise, all other &#x27;dbPersistence&#x27; settings are
+ignored.</p>
+</li>
+<li><p><strong>monitoring</strong> - Settings related to UniConfig monitoring module
+that is responsible for keeping local instance alive and monitoring
+other instance.</p>
+<blockquote>
+<ul>
+<li><strong>heartbeatInterval</strong> - Interval in milliseconds between
+updating &#x27;heartbeat_timestamp&#x27; value of local UniConfig
+instance. This duration doesn&#x27;t include updating process -
+the next &#x27;heartbeatInterval&#x27; starts to count down only after
+the &#x27;heartbeat_timestamp&#x27; is updated.</li>
+<li><strong>initialMonitoringDelay</strong> - Initial delay before monitoring
+system is launched (after UniConfig was started). It is useful
+in scenarios in which multiple UniConfig instances are started
+at once - immediate spinning of monitoring system can cause
+starting of recovery process because other instance is marked
+as down since it has not been booted yet and
+&#x27;heartbeat_timestamp&#x27; contains an old value. Value is
+expressed in milliseconds and it doesn&#x27;t apply for heartbeat
+system (it is started immediately after other UniConfig
+components become active).</li>
+<li><strong>backupMonitoringInterval</strong> - Interval in milliseconds
+between verifications of UniConfig instance that is backed by
+local instance. Interval duration doesn&#x27;t include
+verification process and potentially executed recovery
+process.</li>
+<li><strong>maxInstanceAge</strong> - Maximum age of the UniConfig instance
+before local instance assumes that the other instance is down
+and start recovery process. Value is expressed in
+milliseconds.</li>
+</ul>
+</blockquote>
+</li>
+<li><p><strong>uniconfigInstance</strong> - Information about local UniConfig instance -
+how is the UniConfig instance registered in the database system.</p>
+<blockquote>
+<ul>
+<li><strong>instanceName</strong> - Name of the local UniConfig instance. It
+must be unique in the cluster.</li>
+<li><strong>backupInstanceName</strong> - Name of the backup UniConfig instance
+which should be responsible for recovering of nodes attached
+to local instance. Backup instance name must also be unique in
+the cluster - every UniConfig instance can be responsible only
+for recovering of single instance.</li>
+</ul>
+</blockquote>
+</li>
+<li><p><strong>connection</strong> - Settings related to database connection.</p>
+<blockquote>
+<ul>
+<li><p><strong>dbName</strong> - Name of the database that contains all relations.</p>
+</li>
+<li><p><strong>username</strong> - Name of the user who is authorized to do
+read-write operations in the selected database. Username is
+used within both TLS and basic authentication schemes.</p>
+</li>
+<li><p><strong>password</strong> - User password. Password is used only within
+basic authentication scheme.</p>
+</li>
+<li><p><strong>initialDbPoolSize</strong> - Initial size of the database
+connection pool. These connections are pre-initialized at
+startup of the UniConfig, so they can be immediately used. The
+total number of active + free connections can never be less
+then this value.</p>
+</li>
+<li><p><strong>maxDbPoolSize</strong> - Maximum size of the database connection
+pool. If next connection is requested from the pool, the
+request is blocked until some connection is released.</p>
+</li>
+<li><p><strong>maxIdleConnections</strong> - Maximum number of idle connections
+that has been previously allocated but then they were released
+by carrying threads. If this number is reached, next idle
+connections are also released from the connection pool, so
+they must be recreated from scratch when they will be
+necessary again.</p>
+</li>
+<li><p><strong>maxWaitTime</strong> - Maximum wait time for the allocation of
+connection from the database connection pool. If the
+connection is failed to be allocated for requested thread in
+this time, the failed asynchronous completion token is
+returned. The failure can happen because of multiple reasons -
+connection pool is exhausted for long time or there is I/O
+issue.</p>
+</li>
+<li><p><strong>enabledTls</strong> - Flag using which it is possible to enable TLS
+authentication scheme. When it is set to &#x27;true&#x27;,
+&#x27;password&#x27; field is ignored; however &#x27;tlsClientCert&#x27;,
+&#x27;tlsClientKey&#x27;, and &#x27;tlsCaCert&#x27; fields are required
+(&#x27;username&#x27; is still required for TLS authentication
+scheme).</p>
+</li>
+<li><p><strong>tlsClientCert</strong> - Path to the certificate assigned to user
+who is connecting to database. It must have &#x27;PKS&#x27; format.
+Database system uses this certificate for verification of the
+user (UniConfig represents the user).</p>
+</li>
+<li><p><strong>tlsClientKey</strong> - Client certificate key.</p>
+</li>
+<li><p><strong>tlsCaCert</strong> - Path to the certificate of certification
+authority that singed database system certificate (it could be
+self-signed certificate - in that case certification authority
+and the database system are the same entities). UniConfig uses
+this certificate for verification of database system.</p>
+</li>
+<li><p><strong>databaseLocations</strong> - List of target database systems. All
+database systems must have the same configuration - database
+name, authentication / authorization system, and database
+model (data model should be shared too as part of the deployed
+failover system). If the connection cannot be established with
+the first database location, the next one in the list is
+tried.</p>
+<blockquote>
+<ul>
+<li><strong>host</strong> - Hostname or IP address of the target database
+system.</li>
+<li><strong>port</strong> - TCP port on which the database system listens
+to incoming connections.</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+<doc-anchor-target id="deployment-example">
+    <h4>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#deployment-example">#</doc-anchor-trigger>
+        <span>Deployment example</span>
+    </h4>
+</doc-anchor-target>
+<p>Example of the 3-nodes deployment from the view of configuration files -
+monitoring and database settings are kept with default values.</p>
+<p>Instance &quot;uc-1&quot;:</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<div class="codeblock-title">{.json}</div>
+<pre class="language-none"><code v-pre class="language-none">{
+    &quot;dbPersistence&quot;: {
+        &quot;enabled&quot;: true,
+        &quot;uniconfigInstance&quot;: {
+            &quot;instanceName&quot;: &quot;uc-1&quot;,
+            &quot;backupInstanceName&quot;: &quot;uc-2&quot;
+        }
+    }
+}</code></pre>
+</doc-codeblock></div>
+<p>Instance &quot;uc-2&quot;:</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<div class="codeblock-title">{.json}</div>
+<pre class="language-none"><code v-pre class="language-none">{
+    &quot;dbPersistence&quot;: {
+        &quot;enabled&quot;: true,
+        &quot;uniconfigInstance&quot;: {
+            &quot;instanceName&quot;: &quot;uc-2&quot;,
+            &quot;backupInstanceName&quot;: &quot;uc-3&quot;
+        }
+    }
+}</code></pre>
+</doc-codeblock></div>
+<p>Instance &quot;uc-3&quot;:</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<div class="codeblock-title">{.json}</div>
+<pre class="language-none"><code v-pre class="language-none">{
+    &quot;dbPersistence&quot;: {
+        &quot;enabled&quot;: true,
+        &quot;uniconfigInstance&quot;: {
+            &quot;instanceName&quot;: &quot;uc-3&quot;,
+            &quot;backupInstanceName&quot;: &quot;uc-1&quot;
+        }
+    }
+}</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="physical-data-model">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#physical-data-model">#</doc-anchor-trigger>
+        <span>Physical data model</span>
+    </h3>
+</doc-anchor-target>
+<doc-anchor-target id="uml-class-diagram">
+    <h4>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#uml-class-diagram">#</doc-anchor-trigger>
+        <span>UML class diagram</span>
+    </h4>
+</doc-anchor-target>
+<p>The following UML class diagram shows physical database model which is
+required to be deployed on target database system.</p>
+<p><figure class="content-center">
+    <img src="db_model.svg" alt="Physical data model" />
+    <figcaption class="caption">Physical data model</figcaption>
+</figure>
+</p>
+<div class="{.note}">
+<div class="{.title}"><p>Note</p>
+</div>
+</div>
+</div>
+<p>All unique fields are also indexed - unique constraint automatically
+creates index for the same field in the PostgreSQL and CockroachDB
+database systems.</p>
+<div><doc-anchor-target id="description-of-entities-and-fields">
+    <h4>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#description-of-entities-and-fields">#</doc-anchor-trigger>
+        <span>Description of entities and fields</span>
+    </h4>
+</doc-anchor-target>
+<ul>
+<li><p><strong>node</strong>: Node in database represents mounted node in UniConfig.
+Description of fields:</p>
+<blockquote>
+<ul>
+<li><strong>node_id</strong>: Unique node identifier that is used for mounting
+of this device.</li>
+<li><strong>mount_request</strong>: JSON representation of original mount
+request used for mounting of this device. After device is
+mounted in the UniConfig distribution, a new node entry with
+filled-in mount request is created. From this reason, this
+field is always non-null.</li>
+<li><strong>config</strong>: Serialized UniConfig configuration in the JSON
+format. This configuration reflects Uniconfig configuration
+container in the Operational datastore. Any change to this
+container in the Operational datastore (for example, after
+commit or sync-from-network operations) is automatically saved
+to database.</li>
+<li><strong>is_native</strong>: Boolean flag that identifies whether this node
+is mounted as translation-based node or uniconfig-native node.
+Information about nativeness of node is extracted from
+&#x27;mount_request&#x27;.</li>
+<li><strong>config_fingerprint</strong>: Configuration fingerprint (usually,
+the configuration timestamp or transaction identifier on a
+target device) that corresponds to loaded fingerprint under
+UniConfig node in the Operation datastore. The metadata
+OpenConfig translation unit is responsible for reading and
+parsing of this information. Updated &#x27;config_fingerprint&#x27;
+(after sync-from-network operation) is automatically reflected
+in value change of this field in the database.</li>
+<li><strong>management_protocol_id</strong>: This field is used as the
+foreign key to &#x27;protocol&#x27; relation. Every node can be
+mounted using &#x27;cli&#x27; or &#x27;netconf&#x27; management protocol.</li>
+<li><strong>netconf_repository_id</strong>: This field is used as the foreign
+key to &#x27;netconf_repository&#x27; relation. If node is not
+mounted using NETCONF protocol, the value of this field is
+null. Otherwise, this fields points to used NETCONF cache
+repository - directory with all YANG schemas for specific
+device type.</li>
+<li><strong>uniconfig_instance_id</strong>: This field is used as the foreign
+key to &#x27;uniconfig_instance&#x27; relation. It represents
+UniConfig instance on which the node has been mounted. If the
+node is mounted on multiple UniConfig instances in the
+cluster, the first UniConfig instance is preserved.</li>
+</ul>
+</blockquote>
+</li>
+<li><p><strong>uniconfig_instance</strong>: Instance of this entity represents one
+running UniConfig distribution in the network. After UniConfig
+instance is started, it is registered to the database. Description
+of fields:</p>
+<blockquote>
+<ul>
+<li><strong>instance_name</strong>: Name of the UniConfig instance that is
+obtained from the configuration file. It must be unique in the
+cluster.</li>
+<li><strong>backup_instance_name</strong>: Name of the UniConfig instance
+that backs up local UniConfig instance. In case of failure,
+backup UniConfig instance takes over nodes that are assigned
+to local UniConfig instance. Value of this field is also
+obtained from the configuration file. If the UniConfig
+instance doesn&#x27;t have any backup, null value can be assigned
+to this field (for example, in the single instance
+deployment). Backup instance name must be unique in the
+relation too.</li>
+<li><strong>host</strong>: Host on which the UniConfig instance web server
+listens to (IP address or hostname). This setting is extracted
+from RESTCONF configuration.</li>
+<li><strong>port</strong>: TCP port number on which the UniConfig instance web
+server listens to. This setting is extracted from RESTCONF
+configuration.</li>
+<li><strong>heartbeat_timestamp</strong>: This timestamp identifies the last
+heartbeat probe of the UniConfig instance. Local instance is
+responsible for updating of this field periodically. At the
+initialization of the UniConfig instance the value of this
+field is set to null, so the booting process (which can last
+longer then configured maximum age) doesn&#x27;t trigger recovery
+process on other instance.</li>
+</ul>
+</blockquote>
+</li>
+<li><p><strong>yang_schema</strong>: Single YANG schema descriptor. YANG schema cannot
+exist without assigned &#x27;netconf_repository&#x27; - if the
+&#x27;netconf_repository&#x27; is removed, also all assigned YANG schemas
+are removed from data model. Description of fields:</p>
+<blockquote>
+<ul>
+<li><strong>module_name</strong>: Name of the YANG module, possibly
+sub-module. It must be specified.</li>
+<li><strong>revision</strong>: Optional revision of the YANG module (date
+formatting).</li>
+<li><strong>yang_data</strong>: Unmodified contents of the YANG file. It is
+represented by a byte array.</li>
+<li><strong>netconf_repository_id</strong>: This fields is used as the
+foreign key to &#x27;netconf_repository&#x27; relation. It represents
+assigned NETCONF repository which this YANG schema belongs to.
+One YANG schema can belong only to single NETCONF repository
+even if there could be 2 YANG schemas with the same revision
+and module name (there could be some vendor-specific
+modifications in the YANG files that make them different by
+content).</li>
+</ul>
+</blockquote>
+</li>
+<li><p><strong>netconf_repository</strong>: NETCONF repository represents NETCONF cache
+directory with downloaded / manually provided device YANG schema
+files. NETCONF repository is created during mounting of device on
+NETCONF layer.</p>
+<blockquote>
+<ul>
+<li><strong>repository-name</strong>: Unique name of the NETCONF repository
+that also corresponds to name of the cache directory.</li>
+</ul>
+</blockquote>
+</li>
+<li><p><strong>protocol</strong>: Network management protocol used for mounting of
+device. It contains only constants.</p>
+<blockquote>
+<ul>
+<li><strong>name</strong>: Identifier of the network management protocol.
+Currently there are only 2 options: &#x27;cli&#x27; or &#x27;netconf&#x27;.</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+<doc-anchor-target id="sql-script">
+    <h4>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#sql-script">#</doc-anchor-trigger>
+        <span>SQL script</span>
+    </h4>
+</doc-anchor-target>
+<p>Described data model can be loaded into PostgreSQL or CockroachDB
+database using following SQL script:</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<div class="codeblock-title">{.sql}</div>
+<pre class="language-none"><code v-pre class="language-none">/* Create tables */
+
+CREATE TABLE protocol
+(
+    id   serial NOT NULL PRIMARY KEY,
+    name text   NOT NULL
+);
+
+CREATE TABLE uniconfig_instance
+(
+    id                   serial    NOT NULL PRIMARY KEY,
+    instance_name        text      NOT NULL,
+    backup_instance_name text      NULL,
+    host                 text      NOT NULL,
+    port                 integer   NOT NULL,
+    heartbeat_timestamp  timestamp NULL
+);
+
+CREATE TABLE node
+(
+    id                     serial  NOT NULL PRIMARY KEY,
+    uniconfig_instance_id  integer NOT NULL,
+    management_protocol_id integer NOT NULL,
+    netconf_repository_id  integer NULL,
+    node_id                text    NOT NULL,
+    is_native              boolean NOT NULL,
+    mount_request          jsonb   NOT NULL,
+    config                 jsonb   NULL,
+    config_fingerprint     text    NULL
+);
+
+CREATE TABLE netconf_repository
+(
+    id              serial NOT NULL PRIMARY KEY,
+    repository_name text   NOT NULL
+);
+
+CREATE TABLE yang_schema
+(
+    id                    serial  NOT NULL PRIMARY KEY,
+    netconf_repository_id integer NOT NULL,
+    module_name           text    NOT NULL,
+    revision              date    NULL,
+    yang_data             bytea   NOT NULL
+);
+
+/* Create foreign key, check, and unique constraints (indexes are automatically created with unique constraints) */
+
+ALTER TABLE protocol
+    ADD CONSTRAINT &quot;UNIQUE_name&quot;
+        UNIQUE (name);
+
+ALTER TABLE uniconfig_instance
+    ADD CONSTRAINT &quot;UNIQUE_instance_name&quot;
+        UNIQUE (instance_name);
+
+ALTER TABLE uniconfig_instance
+    ADD CONSTRAINT &quot;UNIQUE_backup_instance_name&quot;
+        UNIQUE (backup_instance_name);
+
+ALTER TABLE uniconfig_instance
+    ADD CONSTRAINT &quot;CHECK_port&quot;
+        CHECK (port &gt; 0 AND port &lt; 65536);
+
+ALTER TABLE node
+    ADD CONSTRAINT &quot;UNIQUE_node_id&quot;
+        UNIQUE (node_id);
+
+ALTER TABLE node
+    ADD CONSTRAINT &quot;FK_node_uniconfig_instance&quot;
+        FOREIGN KEY (uniconfig_instance_id)
+            REFERENCES uniconfig_instance (id) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+ALTER TABLE node
+    ADD CONSTRAINT &quot;FK_node_protocol&quot;
+        FOREIGN KEY (management_protocol_id)
+            REFERENCES protocol (id) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+ALTER TABLE node
+    ADD CONSTRAINT &quot;FK_node_netconf_repository&quot;
+        FOREIGN KEY (netconf_repository_id)
+            REFERENCES netconf_repository (id) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+ALTER TABLE yang_schema
+    ADD CONSTRAINT &quot;FK_yang_schema_netconf_repository&quot;
+        FOREIGN KEY (netconf_repository_id)
+            REFERENCES netconf_repository (id) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+ALTER TABLE netconf_repository
+    ADD CONSTRAINT &quot;UNIQUE_repository_name&quot;
+        UNIQUE (repository_name);
+
+/* Inserting of constant values */
+
+INSERT INTO protocol (id, name)
+VALUES (1, 'cli'),
+       (2, 'netconf');
+SELECT SETVAL('protocol_id_seq', (SELECT MAX(id) from &quot;protocol&quot;));</code></pre>
+</doc-codeblock></div>
+<p>In the PostgreSQL deployment it is possible to directly install this
+script to database, so it will be automatically deployed only during the
+first start of the database. The following example shows dockerfile that
+is derived from &#x27;postgres:alpine&#x27; docker image and that copies initial
+SQL script into &#x27;docker-entrypoint-initdb.d&#x27; directory (all SQL
+scripts in this directory are deployed at first boot of the PostgreSQL
+database system).</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<div class="codeblock-title">{.unknown}</div>
+<pre class="language-none"><code v-pre class="language-none">FROM postgres:alpine
+COPY init_schema.sql /docker-entrypoint-initdb.d/001_data.sql</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="deployment-strategies">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#deployment-strategies">#</doc-anchor-trigger>
+        <span>Deployment strategies</span>
+    </h3>
+</doc-anchor-target>
+<p>Deployment strategies are constrained by design of the
+&#x27;uniconfig_instance&#x27; entity - both &#x27;instance_name&#x27; and
+&#x27;backup_instance_name&#x27; fields are marked as unique. Because of this
+design, it is possible construct only chain topologies in which these
+chains are connected to loop or ends of the chain have only single-side
+connection.</p>
+<p>Connection patterns from the view of local UniConfig instance:</p>
+<ol>
+<li>UniConfig instance is not connected to any other instance - Single
+node deployment without backup.</li>
+<li>UniConfig instance is connected to single UniConfig instance - In
+this deployment, local instance is backed by another instance but
+local instance doesn&#x27;t back any instance (it doesn&#x27;t monitor
+another instance).</li>
+<li>UniConfig instance has two connections - Local instance is backed by
+another instance that monitors local instance and local UniConfig
+instance also monitors another instance (the most common deployment
+strategy).</li>
+</ol>
+<p>The following image shows sample valid topologies. Tables contain
+database information - &#x27;instance_name&#x27; and &#x27;backup_instance_name&#x27;
+from the &#x27;uniconfig_instance&#x27; relation. Circles refer to named
+UniConfig instances and arrowed association lines between circles
+describe direction of the backup process (target UniConfig instance
+represents a backup for source UniConfig instance).</p>
+<p><figure class="content-center">
+    <img src="uc_instance_deployments.svg" alt="Deployment strategies" />
+    <figcaption class="caption">Deployment strategies</figcaption>
+</figure>
+</p>
+<doc-anchor-target id="recovery-process">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#recovery-process">#</doc-anchor-trigger>
+        <span>Recovery process</span>
+    </h3>
+</doc-anchor-target>
+<p>UniConfig instance can monitor up to one other UniConfig instance using
+stored &#x27;heartbeat_timestamp&#x27; (in the &#x27;uniconfig_instance&#x27; entity).
+If the &#x27;heartbeat_timestamp&#x27; of monitored UniConfig instance is older
+than configured maximum age, then local UniConfig instance assumes that
+neighbor instance is dead and it starts recovery procedure:</p>
+<ol>
+<li>Looking for nodes that are assigned to failed UniConfig instance
+(through relation between &#x27;uniconfig_instance&#x27; and &#x27;node&#x27;
+entities).</li>
+<li>Loading of necessary NETCONF repositories that haven&#x27;t been loaded
+locally yet - copying YANG schemas to local directories and creation
+of NETCONF repositories from these cache directories (identification
+of required NETCONF repositories can be done using relation between
+&#x27;node&#x27; and &#x27;netconf_repository&#x27; entities).</li>
+<li>Loading UniConfig configuration container from database into
+Configuration datastore for each node of failed UniConfig instance.</li>
+<li>Loading mount requests of collected nodes into corresponding network
+topologies (Configuration datastore).</li>
+<li>Changing leader of recovered nodes to local UniConfig instance by
+updating field &#x27;uniconfig_instance_id&#x27; in the &#x27;node&#x27; entity.</li>
+<li>Verification if the instance that is backed by failed instance is
+alive (if there is such instance) - if it also failed, continue
+process recursively by returning to step [1].</li>
+<li>Marking failed instance as processed, so the recovery process won&#x27;t
+be launched again at the next monitoring interval.</li>
+</ol>
+<div class="{.note}">
+<div class="{.title}"><p>Note</p>
+</div>
+</div>
+</div>
+<p>UniConfig instance that was previously marked as down can wake up
+(heartbeat timestamp is updated). In that case local instance that
+recovered nodes attached to failed instance registers this change and is
+prepared to start recovery procedure again. However, transferred nodes
+are not returned back to woken instance.</p>
+<div><p>The next diagram with 3-nodes cluster shows scenario in which recovery
+process is execute on different nodes in time.</p>
+<p><figure class="content-center">
+    <img src="recovery_process.svg" alt="Recovery process" />
+    <figcaption class="caption">Recovery process</figcaption>
+</figure>
+</p>
+<p>Description of executed operations in 6 steps which correspond to
+numbers in the image:</p>
+<ol>
+<li>All 3 UniConfig instances works with running monitoring threads.</li>
+<li>&#x27;UC 01&#x27; fails - &#x27;UC 02&#x27; automatically installs &#x27;node1&#x27; that
+was assigned to &#x27;UC 01&#x27; instance.</li>
+<li>&#x27;UC 02&#x27; fails (&#x27;UC 01&#x27; is dead too) - &#x27;UC 03&#x27; automatically
+installs all 3 nodes.</li>
+<li>All 3 UniConfig instances are crashed - Assigned UniConfig instance
+doesn&#x27;t change on any node. However, data is kept in safe in
+database system.</li>
+<li>All 3 UniConfig instances are brought up - Assigned UniConfig
+instance doesn&#x27;t change again - the last state is preserved.</li>
+<li>&#x27;UC 01&#x27; and &#x27;UC 03&#x27; fails at the same time - &#x27;UC 02&#x27;
+automatically installs nodes that were assigned to &#x27;UC 01&#x27; and
+&#x27;UC 02&#x27;.</li>
+</ol>
+</div>
+
+
+
+
+                <!-- Required only on API pages -->
+                <doc-toolbar-member-filter-no-results />
+            </div>
+
+            
+
+
+        </main>
+
+        <div class="border-t dark:border-dark-650 pt-6 mb-8">
+            <footer class="flex flex-wrap items-center justify-between">
+    <div>
+        <ul class="flex flex-wrap items-center text-sm">
+</ul>
+
+    </div>
+    <div class="docs-copyright py-2 text-gray-500 dark:text-dark-350 text-sm leading-relaxed"><p>© Copyright 2022.</p>
+</div>
+</footer>
+
+        </div>
+    </div>
+    
+    <!-- Rendered if sidebar right is enabled -->
+    <!-- Sidebar right skeleton-->
+    <div v-cloak class="fixed top-0 bottom-0 right-0 transform translate-x-full bg-white border-gray-200 lg:sticky lg:border-l lg:flex-shrink-0 lg:pt-6 lg:transform-none lg:w-56 lg:z-0 md:w-72 sidebar-right skeleton dark:bg-dark-850 dark:border-dark-650">
+        <div class="pl-5">
+            <div class="w-32 h-3 mb-4 bg-gray-200 dark:bg-dark-600 rounded-full loading"></div>
+            <div class="w-48 h-3 mb-4 bg-gray-200 dark:bg-dark-600 rounded-full loading"></div>
+            <div class="w-40 h-3 mb-4 bg-gray-200 dark:bg-dark-600 rounded-full loading"></div>
+        </div>
+    </div>
+    
+    <!-- User should be able to hide sidebar right -->
+    <doc-sidebar-right v-cloak></doc-sidebar-right>
+</div>
+
+        </div>
+    </div>
+
+    <doc-search-mobile></doc-search-mobile>
+    <doc-back-to-top></doc-back-to-top>
+</div>
+
+
+        <div id="docs-overlay-target"></div>
+
+        <script>window.__DOCS__ = { "title": "UniConfig High Availability Cluster", icon: "file", hasPrism: false, hasMermaid: false, hasMath: false }</script>
+    </body>
+</html>

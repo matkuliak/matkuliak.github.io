@@ -1,0 +1,1153 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="turbo-cache-control" content="no-cache">
+
+    <!-- Primary Meta Tags -->
+    <title>Authentication, Authorization and Accounting (AAA) ServicesExample | Frinx Docs</title>
+    <meta name="title" content="Authentication, Authorization and Accounting (AAA) ServicesExample | Frinx Docs">
+    <meta name="description" content="Authentication, Authorization and Accounting (AAA) is a term for a framework controlling access to resources, enforcing policies to use" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://matkuliak.xyz/frinx-uniconfig/user-guide/operational-procedures/aaa/">
+    <meta property="og:title" content="Authentication, Authorization and Accounting (AAA) ServicesExample | Frinx Docs">
+    <meta property="og:description" content="Authentication, Authorization and Accounting (AAA) is a term for a framework controlling access to resources, enforcing policies to use">
+    <meta property="og:image" content="https://matkuliak.xyz/frinx-uniconfig/user-guide/operational-procedures/aaa/direct-authentication.png">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://matkuliak.xyz/frinx-uniconfig/user-guide/operational-procedures/aaa/">
+    <meta property="twitter:title" content="Authentication, Authorization and Accounting (AAA) ServicesExample | Frinx Docs">
+    <meta property="twitter:description" content="Authentication, Authorization and Accounting (AAA) is a term for a framework controlling access to resources, enforcing policies to use">
+    <meta property="twitter:image" content="https://matkuliak.xyz/frinx-uniconfig/user-guide/operational-procedures/aaa/direct-authentication.png">
+    
+    <script>(function () { var el = document.documentElement, m = localStorage.getItem("doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
+
+    <link href="/resources/css/retype.css?v=1.11.2.697130698115" rel="stylesheet" data-turbo-track="reload" />
+
+    <script type="text/javascript" src="/resources/js/config.js?v=1.11.2.697130698115" defer data-turbo-track="reload"></script>
+    <script type="text/javascript" src="/resources/js/retype.js?v=1.11.2" defer data-turbo-track="reload"></script>
+    <script id="lunr-js" type="text/javascript" src="/resources/js/lunr.js?v=1.11.2.697130698115" defer></script>
+    <script id="prism-js" type="text/javascript" src="/resources/js/prism.js?v=1.11.2.697130698115" defer></script>
+</head>
+    <body>
+        <div id="docs-app" class="relative text-base antialiased text-gray-700 bg-white font-body dark:bg-dark-850 dark:text-dark-300">
+    <div class="absolute bottom-0 left-0 bg-gray-100 dark:bg-dark-800" style="top: 5rem; right: 50%"></div>
+
+    <header id="docs-site-header" class="sticky top-0 z-30 flex w-full h-16 bg-white border-b border-gray-200 md:h-20 dark:bg-dark-850 dark:border-dark-650">
+    <div class="container relative flex items-center justify-between flex-grow pr-6 md:justify-start">
+        <!-- Mobile menu button skeleton -->
+        <button v-cloak class="skeleton docs-mobile-menu-button flex items-center justify-center flex-shrink-0 overflow-hidden dark:text-white focus:outline-none rounded-full w-10 h-10 ml-3.5 md:hidden"><svg xmlns="http://www.w3.org/2000/svg" class="mb-px flex-shrink-0" width="24" height="24" viewBox="0 0 24 24" role="presentation" style="margin-bottom: 0px;"><g fill="currentColor"><path d="M2 4h20v2H2zM2 11h20v2H2zM2 18h20v2H2z"></path></g></svg></button>
+        <div v-cloak id="docs-sidebar-toggle"></div>
+
+        <!-- Logo -->
+        <div class="flex items-center justify-between h-full py-2 md:w-75">
+            <div class="flex items-center px-2 md:px-6">
+                <a id="docs-site-logo" href="/" class="flex items-center leading-snug text-2xl">
+                    <span class="dark:text-white font-semibold line-clamp-1 md:line-clamp-2">Example docs</span>
+                </a>
+            </div>
+
+            <span class="hidden h-8 border-r md:inline-block dark:border-dark-650"></span>
+        </div>
+
+        <div class="flex justify-between md:flex-grow">
+            <!-- Top Nav -->
+            <nav class="hidden md:flex">
+    <ul class="flex flex-col mb-4 md:pl-16 md:mb-0 md:flex-row md:items-center">
+        <li class="md:mr-6">
+            <a class="inline-flex items-center py-2 md:mb-0 text-sm text-gray-400 whitespace-nowrap transition-colors duration-200 ease-linear md:text-blue-500 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-200" href="/">
+                <svg xmlns="http://www.w3.org/2000/svg" class="mb-px mr-1" width="18" height="18" viewBox="0 0 24 24" role="presentation">
+                    <g fill="currentColor">
+                        <path fill-rule="evenodd" d="M11.03 2.59a1.5 1.5 0 011.94 0l7.5 6.363a1.5 1.5 0 01.53 1.144V19.5a1.5 1.5 0 01-1.5 1.5h-5.75a.75.75 0 01-.75-.75V14h-2v6.25a.75.75 0 01-.75.75H4.5A1.5 1.5 0 013 19.5v-9.403c0-.44.194-.859.53-1.144l7.5-6.363zM12 3.734l-7.5 6.363V19.5h5v-6.25a.75.75 0 01.75-.75h3.5a.75.75 0 01.75.75v6.25h5v-9.403L12 3.734z"/>
+                    </g>
+                </svg>
+                <span>Home</span>
+            </a>
+        </li>
+        <li class="md:mr-6">
+            <a class="inline-flex items-center py-2 md:mb-0 text-sm text-gray-400 whitespace-nowrap transition-colors duration-200 ease-linear md:text-blue-500 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-200" href="https://github.com/matkuliak" target="_blank">
+                <svg xmlns="http://www.w3.org/2000/svg" class="mb-px mr-1" width="18" height="18" viewBox="0 0 24 24" role="presentation">
+                    <g fill="currentColor">
+                        <symbol id="mark-github-icon-symbol" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></symbol><use xlink:href="#mark-github-icon-symbol" />
+                    </g>
+                </svg>
+                <span>GitHub</span>
+            </a>
+        </li>
+        <li class="md:mr-6">
+            <a class="inline-flex items-center py-2 md:mb-0 text-sm text-gray-400 whitespace-nowrap transition-colors duration-200 ease-linear md:text-blue-500 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-200" href="https://www.linkedin.com/in/matej-ma%C5%A5kuliak-248369184/" target="_blank">
+                <svg xmlns="http://www.w3.org/2000/svg" class="mb-px mr-1" width="18" height="18" viewBox="0 0 24 24" role="presentation">
+                    <g fill="currentColor">
+                        <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-.139 9.237c.209 4.617-3.234 9.765-9.33 9.765-1.854 0-3.579-.543-5.032-1.475 1.742.205 3.48-.278 4.86-1.359-1.437-.027-2.649-.976-3.066-2.28.515.098 1.021.069 1.482-.056-1.579-.317-2.668-1.739-2.633-3.26.442.246.949.394 1.486.411-1.461-.977-1.875-2.907-1.016-4.383 1.619 1.986 4.038 3.293 6.766 3.43-.479-2.053 1.08-4.03 3.199-4.03.943 0 1.797.398 2.395 1.037.748-.147 1.451-.42 2.086-.796-.246.767-.766 1.41-1.443 1.816.664-.08 1.297-.256 1.885-.517-.439.656-.996 1.234-1.639 1.697z"/>
+                    </g>
+                </svg>
+                <span>LinkedIn</span>
+            </a>
+        </li>
+    </ul>
+</nav>
+
+            <!-- Header Right Skeleton -->
+            <div v-cloak class="flex justify-end flex-grow skeleton">
+
+                <!-- Search input mock -->
+                <div class="relative hidden w-40 lg:block lg:max-w-sm lg:ml-auto">
+                    <div class="absolute flex items-center justify-center h-full pl-3 dark:text-dark-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon-base" width="16" height="16" viewBox="0 0 24 24" aria-labelledby="icon" role="presentation"  style="margin-bottom: 1px;"><g fill="currentColor" ><path d="M21.71 20.29l-3.68-3.68A8.963 8.963 0 0020 11c0-4.96-4.04-9-9-9s-9 4.04-9 9 4.04 9 9 9c2.12 0 4.07-.74 5.61-1.97l3.68 3.68c.2.19.45.29.71.29s.51-.1.71-.29c.39-.39.39-1.03 0-1.42zM4 11c0-3.86 3.14-7 7-7s7 3.14 7 7c0 1.92-.78 3.66-2.04 4.93-.01.01-.02.01-.02.01-.01.01-.01.01-.01.02A6.98 6.98 0 0111 18c-3.86 0-7-3.14-7-7z" ></path></g></svg>
+                    </div>
+
+                    <input class="w-full h-10 transition-colors duration-200 ease-in bg-gray-200 border border-transparent rounded md:text-sm hover:bg-white hover:border-gray-300 focus:outline-none focus:bg-white focus:border-gray-500 dark:bg-dark-600 dark:border-dark-600 placeholder-gray-400 dark:placeholder-dark-400"
+                    style="padding: 0.625rem 0.75rem 0.625rem 2rem" type="text" placeholder="Search" />
+                </div>
+
+                <!-- Mobile search button mock -->
+                <div class="flex items-center justify-center w-10 h-10 lg:hidden">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="flex-shrink-0 icon-base" width="20" height="20" viewBox="0 0 24 24" aria-labelledby="icon" role="presentation"  style="margin-bottom: 0px;"><g fill="currentColor" ><path d="M21.71 20.29l-3.68-3.68A8.963 8.963 0 0020 11c0-4.96-4.04-9-9-9s-9 4.04-9 9 4.04 9 9 9c2.12 0 4.07-.74 5.61-1.97l3.68 3.68c.2.19.45.29.71.29s.51-.1.71-.29c.39-.39.39-1.03 0-1.42zM4 11c0-3.86 3.14-7 7-7s7 3.14 7 7c0 1.92-.78 3.66-2.04 4.93-.01.01-.02.01-.02.01-.01.01-.01.01-.01.02A6.98 6.98 0 0111 18c-3.86 0-7-3.14-7-7z" ></path></g></svg>
+                </div>
+
+                <!-- Dark mode switch placehokder -->
+                <div class="w-10 h-10 lg:ml-2"></div>
+
+                <!-- History button mock -->
+                <div class="flex items-center justify-center w-10 h-10" style="margin-right: -0.625rem;">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="flex-shrink-0 icon-base" width="22" height="22" viewBox="0 0 24 24" aria-labelledby="icon" role="presentation"  style="margin-bottom: 0px;"><g fill="currentColor" ><g ><path d="M12.01 6.01c-.55 0-1 .45-1 1V12a1 1 0 00.4.8l3 2.22a.985.985 0 001.39-.2.996.996 0 00-.21-1.4l-2.6-1.92V7.01c.02-.55-.43-1-.98-1z"></path><path d="M12.01 1.91c-5.33 0-9.69 4.16-10.05 9.4l-.29-.26a.997.997 0 10-1.34 1.48l1.97 1.79c.19.17.43.26.67.26s.48-.09.67-.26l1.97-1.79a.997.997 0 10-1.34-1.48l-.31.28c.34-4.14 3.82-7.41 8.05-7.41 4.46 0 8.08 3.63 8.08 8.09s-3.63 8.08-8.08 8.08c-2.18 0-4.22-.85-5.75-2.4a.996.996 0 10-1.42 1.4 10.02 10.02 0 007.17 2.99c5.56 0 10.08-4.52 10.08-10.08.01-5.56-4.52-10.09-10.08-10.09z"></path></g></g></svg>
+                </div>
+            </div>
+
+            <div v-cloak class="flex items-center justify-end flex-grow">
+                <div id="docs-mobile-search-button"></div>
+                <doc-search-desktop></doc-search-desktop>
+
+                <doc-theme-switch class="lg:ml-2"></doc-theme-switch>
+                <doc-history></doc-history>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+    <div class="container relative flex bg-white">
+        <!-- Sidebar Skeleton -->
+<div v-cloak class="fixed flex flex-col flex-shrink-0 duration-300 ease-in-out bg-gray-100 border-gray-200 sidebar top-20 w-75 border-r h-screen md:sticky transition-transform skeleton dark:bg-dark-800 dark:border-dark-650">
+
+    <!-- Render this div, if config.showSidebarFilter is `true` -->
+    <div class="flex items-center h-16 px-6">
+        <input class="w-full h-8 px-3 py-2 transition-colors duration-200 ease-linear bg-white border border-gray-200 rounded shadow-none text-sm focus:outline-none focus:border-gray-600 dark:bg-dark-600 dark:border-dark-600" type="text" placeholder="Filter" />
+    </div>
+
+    <div class="pl-6 mb-4 mt-1">
+        <div class="w-32 h-3 mb-4 bg-gray-200 rounded-full loading dark:bg-dark-600"></div>
+        <div class="w-48 h-3 mb-4 bg-gray-200 rounded-full loading dark:bg-dark-600"></div>
+        <div class="w-40 h-3 mb-4 bg-gray-200 rounded-full loading dark:bg-dark-600"></div>
+        <div class="w-32 h-3 mb-4 bg-gray-200 rounded-full loading dark:bg-dark-600"></div>
+        <div class="w-48 h-3 mb-4 bg-gray-200 rounded-full loading dark:bg-dark-600"></div>
+        <div class="w-40 h-3 mb-4 bg-gray-200 rounded-full loading dark:bg-dark-600"></div>
+    </div>
+
+
+    <div class="flex-shrink-0 mt-auto bg-transparent dark:border-dark-650">
+        <a
+    class="flex items-center justify-center flex-nowrap h-16 text-gray-400 dark:text-dark-400 hover:text-gray-700 dark:hover:text-dark-300 transition-colors duration-150 ease-in docs-powered-by"
+    target="_blank"
+    href="https://retype.com/"
+    rel="noopener"
+>
+    <span class="text-xs whitespace-nowrap">Powered by</span>
+    <svg xmlns="http://www.w3.org/2000/svg" class="ml-2" fill="currentColor" width="96" height="20" overflow="visible"><path d="M0 0v20h13.59V0H0zm11.15 17.54H2.44V2.46h8.71v15.08zM15.8 20h2.44V4.67L15.8 2.22zM20.45 6.89V20h2.44V9.34z"/><g><path d="M40.16 8.44c0 1.49-.59 2.45-1.75 2.88l2.34 3.32h-2.53l-2.04-2.96h-1.43v2.96h-2.06V5.36h3.5c1.43 0 2.46.24 3.07.73s.9 1.27.9 2.35zm-2.48 1.1c.26-.23.38-.59.38-1.09 0-.5-.13-.84-.4-1.03s-.73-.28-1.39-.28h-1.54v2.75h1.5c.72 0 1.2-.12 1.45-.35zM51.56 5.36V7.2h-4.59v1.91h4.13v1.76h-4.13v1.92h4.74v1.83h-6.79V5.36h6.64zM60.09 7.15v7.48h-2.06V7.15h-2.61V5.36h7.28v1.79h-2.61zM70.81 14.64h-2.06v-3.66l-3.19-5.61h2.23l1.99 3.45 1.99-3.45H74l-3.19 5.61v3.66zM83.99 6.19c.65.55.97 1.4.97 2.55s-.33 1.98-1 2.51-1.68.8-3.04.8h-1.23v2.59h-2.06V5.36h3.26c1.42 0 2.45.28 3.1.83zm-1.51 3.65c.25-.28.37-.69.37-1.22s-.16-.92-.48-1.14c-.32-.23-.82-.34-1.5-.34H79.7v3.12h1.38c.68 0 1.15-.14 1.4-.42zM95.85 5.36V7.2h-4.59v1.91h4.13v1.76h-4.13v1.92H96v1.83h-6.79V5.36h6.64z"/></g></svg>
+</a>
+
+    </div>
+</div>
+
+<!-- Sidebar component -->
+<doc-sidebar v-cloak>
+    <template #sidebar-footer>
+        <div
+            class="flex-shrink-0 mt-auto border-t md:bg-transparent md:border-none dark:border-dark-650"
+        >
+
+            <div class="py-3 px-6 md:hidden border-b dark:border-dark-650">
+                <nav>
+                    <ul class="flex flex-wrap justify-center items-center">
+                        <li class="mr-6">
+                            <a class="block py-1 text-sm whitespace-nowrap transition-colors duration-200 ease-linear text-blue-500 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-200" href="/README.md">Home</a>
+                        </li>
+                        <li class="mr-6">
+                            <a class="block py-1 text-sm whitespace-nowrap transition-colors duration-200 ease-linear text-blue-500 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-200" href="https://github.com/matkuliak">GitHub</a>
+                        </li>
+                        <li class="mr-6">
+                            <a class="block py-1 text-sm whitespace-nowrap transition-colors duration-200 ease-linear text-blue-500 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-200" href="https://www.linkedin.com/in/matej-ma%C5%A5kuliak-248369184/">LinkedIn</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+
+
+            <a
+    class="flex items-center justify-center flex-nowrap h-16 text-gray-400 dark:text-dark-400 hover:text-gray-700 dark:hover:text-dark-300 transition-colors duration-150 ease-in docs-powered-by"
+    target="_blank"
+    href="https://retype.com/"
+    rel="noopener"
+>
+    <span class="text-xs whitespace-nowrap">Powered by</span>
+    <svg xmlns="http://www.w3.org/2000/svg" class="ml-2" fill="currentColor" width="96" height="20" overflow="visible"><path d="M0 0v20h13.59V0H0zm11.15 17.54H2.44V2.46h8.71v15.08zM15.8 20h2.44V4.67L15.8 2.22zM20.45 6.89V20h2.44V9.34z"/><g><path d="M40.16 8.44c0 1.49-.59 2.45-1.75 2.88l2.34 3.32h-2.53l-2.04-2.96h-1.43v2.96h-2.06V5.36h3.5c1.43 0 2.46.24 3.07.73s.9 1.27.9 2.35zm-2.48 1.1c.26-.23.38-.59.38-1.09 0-.5-.13-.84-.4-1.03s-.73-.28-1.39-.28h-1.54v2.75h1.5c.72 0 1.2-.12 1.45-.35zM51.56 5.36V7.2h-4.59v1.91h4.13v1.76h-4.13v1.92h4.74v1.83h-6.79V5.36h6.64zM60.09 7.15v7.48h-2.06V7.15h-2.61V5.36h7.28v1.79h-2.61zM70.81 14.64h-2.06v-3.66l-3.19-5.61h2.23l1.99 3.45 1.99-3.45H74l-3.19 5.61v3.66zM83.99 6.19c.65.55.97 1.4.97 2.55s-.33 1.98-1 2.51-1.68.8-3.04.8h-1.23v2.59h-2.06V5.36h3.26c1.42 0 2.45.28 3.1.83zm-1.51 3.65c.25-.28.37-.69.37-1.22s-.16-.92-.48-1.14c-.32-.23-.82-.34-1.5-.34H79.7v3.12h1.38c.68 0 1.15-.14 1.4-.42zM95.85 5.36V7.2h-4.59v1.91h4.13v1.76h-4.13v1.92H96v1.83h-6.79V5.36h6.64z"/></g></svg>
+</a>
+
+        </div>
+    </template>
+</doc-sidebar>
+
+
+        <div class="flex-grow min-w-0 dark:bg-dark-850">
+            <!-- Render "toolbar" template here on api pages --><!-- Render page content -->
+            <div class="flex">
+    <div class="flex-grow min-w-0 px-6 md:px-16">
+        <main class="relative pt-6 pb-16">
+            <div class="docs-markdown" id="docs-content">
+                <!-- Rendered if sidebar right is enabled -->
+                <div id="docs-sidebar-right-toggle"></div>
+               
+                <!-- Page content  -->
+<doc-anchor-target id="authentication-authorization-and-accounting-aaa-services" class="break-words">
+    <h1>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#authentication-authorization-and-accounting-aaa-services">#</doc-anchor-trigger>
+        <span>Authentication, Authorization and Accounting (AAA) Services</span>
+    </h1>
+</doc-anchor-target>
+<doc-anchor-target id="overview">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#overview">#</doc-anchor-trigger>
+        <span>Overview</span>
+    </h2>
+</doc-anchor-target>
+<p>Authentication, Authorization and Accounting (AAA) is a term for a
+framework controlling access to resources, enforcing policies to use
+those resources and auditing their usage. These processes are the
+fundamental building blocks for effective network management and
+security.</p>
+<p>Authentication provides a way of identifying a user, typically by having
+the user enter a valid user name and valid password before access is
+granted. The process of authentication is based on each user having a
+unique set of criteria for gaining access. The AAA framework compares a
+user&#x27;s authentication credentials with other user credentials stored in
+a database. If the credentials match, the user is granted access to the
+network. If the credentials don&#x27;t match, authentication fails and access
+is denied.</p>
+<p>Authorization is the process of finding out what an authenticated user
+is allowed to do within the system, which tasks can do, which API can
+call, etc. The authorization process determines whether the user has the
+authority to perform such actions.</p>
+<p>Accounting is the process of logging the activity of an authenticated
+user, for example, the amount of data a user has sent and/or received
+during a session, which APIs called, etc.</p>
+<doc-anchor-target id="terms-and-definitions">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#terms-and-definitions">#</doc-anchor-trigger>
+        <span>Terms And Definitions</span>
+    </h3>
+</doc-anchor-target>
+<p><strong>AAA</strong> - Authentication, Authorization and Accounting.</p>
+<p><strong>Token</strong> - A claim of access to a group of resources on the controller.</p>
+<p><strong>Domain</strong> - A group of resources, direct or indirect, physical, logical, or
+virtual, for the purpose of access control.</p>
+<p><strong>User</strong> - A person who either owns or has access to a resource or group of
+resources on the controller.</p>
+<p><strong>Role</strong> - Opaque representation of a set of permissions, which is merely a
+unique string as admin or guest.</p>
+<p><strong>Credential</strong> - Proof of identity such as user name and password, OTP, biometrics,
+or others.</p>
+<p><strong>Client</strong> - A service or application that requires access to the controller.</p>
+<p><strong>Grant</strong> - It is the entity associating a user with his role and domain.</p>
+<p><strong>TLS</strong> - Transport Layer Security</p>
+<p><strong>CLI</strong> - Command Line Interface</p>
+<doc-anchor-target id="security-framework-for-aaa-services">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#security-framework-for-aaa-services">#</doc-anchor-trigger>
+        <span>Security Framework for AAA services</span>
+    </h2>
+</doc-anchor-target>
+<p>AAA services are based on the <a href="https://shiro.apache.org/">Apache Shiro</a>
+Java Security Framework. The main configuration file for AAA is located
+at config/shiro.ini relative to the OpenDaylight Karaf home directory.</p>
+<doc-anchor-target id="how-to-enable-aaa">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#how-to-enable-aaa">#</doc-anchor-trigger>
+        <span>How to enable AAA</span>
+    </h2>
+</doc-anchor-target>
+<p>AAA is enabled through installing the odl-aaa-shiro feature. The vast
+majority of OpenDaylight&#x27;s northbound APIs (and all RESTCONF APIs) are
+protected by AAA by default when installing the odl-restconf feature,
+since the odl-aaa-shiro is automatically installed as part of them. <em>AAA
+features are installed automatically upon starting UniConfig</em>.</p>
+<doc-anchor-target id="how-to-disable-aaa">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#how-to-disable-aaa">#</doc-anchor-trigger>
+        <span>How to disable AAA</span>
+    </h2>
+</doc-anchor-target>
+<p>AAA is enabled by default, use only for disabling.</p>
+<p>Edit the etcshiro.ini file and replace the following:</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-none"><code v-pre class="language-none">    /** = authcBasic</code></pre>
+</doc-codeblock></div>
+<p>with</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-none"><code v-pre class="language-none">    /** = anon</code></pre>
+</doc-codeblock></div>
+<p>Then restart the Karaf process. Using &quot;/** = anon&quot; will disable
+policies functionality.</p>
+<doc-anchor-target id="aaa-realms">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#aaa-realms">#</doc-anchor-trigger>
+        <span>AAA Realms</span>
+    </h2>
+</doc-anchor-target>
+<p><strong>AAA plugin utilizes the Shiro Realms to support pluggable authentication
+&amp; authorization schemes. There are two parent types of realms:</strong></p>
+<ul>
+<li>AuthenticatingRealm
+<ul>
+<li>Provides no Authorization capability.</li>
+<li>Users authenticated through this type of realm are treated
+equally.</li>
+</ul>
+</li>
+<li>AuthorizingRealm
+<ul>
+<li>AuthorizingRealm is a more sophisticated AuthenticatingRealm,
+which provides the additional mechanisms to distinguish users
+based on roles.</li>
+<li>Useful for applications in which roles determine allowed
+capabilities.</li>
+</ul>
+</li>
+</ul>
+<p><strong>OpenDaylight contains five implementations:</strong></p>
+<ul>
+<li>TokenAuthRealm
+<ul>
+<li>An AuthorizingRealm built to bridge the Shiro-based AAA service
+with the h2-based AAA implementation.</li>
+<li>Exposes a RESTful web service to manipulate IdM policy on a
+per-node basis. If identical AAA policy is desired across a
+cluster, the backing data store must be synchronized using an
+out of band method.</li>
+<li>A python script located at libs/<em>*</em>-idmtool.py is included to
+help manipulate data contained in the TokenAuthRealm.</li>
+<li>Enabled out of the box. This is the realm configured by default.</li>
+</ul>
+</li>
+<li>ODLJndiLdapRealm
+<ul>
+<li>An AuthorizingRealm built to extract identity information from
+IdM data contained on an LDAP server.</li>
+<li>Extracts group information from LDAP, which is translated into
+OpenDaylight roles.</li>
+<li>Useful when federating against an existing LDAP server, in which
+only certain types of users should have certain access
+privileges.</li>
+<li>Disabled out of the box.</li>
+</ul>
+</li>
+<li>ODLJndiLdapRealmAuthNOnly
+<ul>
+<li>The same as ODLJndiLdapRealm, except without role extraction.
+Thus, all LDAP users have equal authentication and authorization
+rights.</li>
+<li>Disabled out of the box.</li>
+</ul>
+</li>
+<li>ODLActiveDirectoryRealm
+<ul>
+<li>Wraps the generic ActiveDirectoryRealm provided by Shiro. This
+allows for enhanced logging as well as isolation of all realms
+in a single package, which enables easier import by consuming
+servlets.</li>
+</ul>
+</li>
+<li>KeystoneAuthRealm
+<ul>
+<li>This realm authenticates OpenDaylight users against the
+OpenStack™s Keystone server.</li>
+<li>Disabled out of the box.</li>
+</ul>
+</li>
+</ul>
+<div class="flex mb-6">
+    <div class="flex-shrink-0 w-1 rounded-tl rounded-bl bg-blue-500 dark:bg-blue-400"></div>
+    <div class="flex w-full py-4 border border-l-0 border-gray-300 rounded-tr rounded-br doc-alert bg-white dark:bg-dark-700 dark:border-dark-700" role="alert">
+        <div class="flex items-center ml-4 h-7">
+            <svg xmlns="http://www.w3.org/2000/svg" class="mb-px text-blue-500 dark:text-blue-400" width="22" height="22" viewBox="0 0 24 24" role="presentation">
+                <g fill="currentColor"><g>
+                    <path d="M12 1C5.93 1 1 5.93 1 12s4.93 11 11 11 11-4.93 11-11S18.07 1 12 1zm0 20c-4.96 0-9-4.04-9-9s4.04-9 9-9 9 4.04 9 9-4.04 9-9 9z"></path>
+                    <path d="M12 11c-.55 0-1 .45-1 1v4c0 .55.45 1 1 1s1-.45 1-1v-4c0-.55-.45-1-1-1zM12.01 7c-.56 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1z"></path>
+                    <path fill="none" d="M0 0h24v24H0z"></path>
+                </g></g>
+            </svg>
+        </div>
+        <div class="pr-5 ml-3">
+<p>More than one Realm implementation can be specified. Realms are
+attempted in order until authentication succeeds or all realm sources
+are exhausted. Edit the <strong>securityManager.realms = $tokenAuthRealm</strong>
+property in shiro.ini and add all the realms needed separated by
+commas.</p>
+        </div>
+    </div>
+</div>
+<doc-anchor-target id="tokenauthrealm">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#tokenauthrealm">#</doc-anchor-trigger>
+        <span>TokenAuthRealm</span>
+    </h3>
+</doc-anchor-target>
+<doc-anchor-target id="how-it-works">
+    <h4>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#how-it-works">#</doc-anchor-trigger>
+        <span>How it works</span>
+    </h4>
+</doc-anchor-target>
+<p>The TokenAuthRealm is the default Authorization Realm deployed in
+OpenDaylight. TokenAuthRealm uses a direct authentication mechanism as
+shown in the following picture:</p>
+<p><figure class="content-center">
+    <img src="direct-authentication.png" alt="TokenAuthRealm direct authentication
+mechanism" />
+    <figcaption class="caption">TokenAuthRealm direct authentication
+mechanism</figcaption>
+</figure>
+</p>
+<p>A user presents some credentials (e.g., username/password) directly to
+the OpenDaylight controller token endpoint /oauth2/token and receives an
+access token, which then can be used to access protected resources on
+the controller.</p>
+<doc-anchor-target id="configuring-tokenauthrealm">
+    <h4>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#configuring-tokenauthrealm">#</doc-anchor-trigger>
+        <span>Configuring TokenAuthRealm</span>
+    </h4>
+</doc-anchor-target>
+<p>The TokenAuthRealm stores IdM data in an h2 database on each node. Thus,
+configuration of a cluster currently requires configuring the desired
+IdM policy on each node. There are two supported methods to manipulate
+the TokenAuthRealm IdM configuration:</p>
+<ul>
+<li>idmtool configuration tool</li>
+<li>RESTful Web Service configuration</li>
+</ul>
+<doc-anchor-target id="idmtool">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#idmtool">#</doc-anchor-trigger>
+        <span><strong>Idmtool</strong></span>
+    </h3>
+</doc-anchor-target>
+<p>A utility script located at libs/<em>*</em>-idmtool.py is used to manipulate
+the TokenAuthRealm IdM policy. idmtool assumes a single domain, the
+default one (sdn), since multiple domains are not supported in the Boron
+release. General usage information for idmtool is derived through
+issuing the following command:</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-none"><code v-pre class="language-none">    $ python libs/***-idmtool.py -h
+    usage: idmtool [-h] [--target-host TARGET_HOST]
+                   user
+                   {list-users,add-user,change-password,delete-user,list-domains,list-roles,add-role,delete-role,add-grant,get-grants,delete-grant}
+                   ...
+
+    positional arguments:
+      user                  username for BSC node
+      {list-users,add-user,change-password,delete-user,list-domains,list-roles,add-role,delete-role,add-grant,get-grants,delete-grant}
+                            sub-command help
+        list-users          list all users
+        add-user            add a user
+        change-password     change a password
+        delete-user         delete a user
+        list-domains        list all domains
+        list-roles          list all roles
+        add-role            add a role
+        delete-role         delete a role
+        add-grant           add a grant
+        get-grants          get grants for userid on sdn
+        delete-grant        delete a grant
+
+    optional arguments:
+      -h, --help            show this help message and exit
+      --target-host TARGET_HOST
+                            target host node</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="add-a-user">
+    <h5>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#add-a-user">#</doc-anchor-trigger>
+        <span>Add a user</span>
+    </h5>
+</doc-anchor-target>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-none"><code v-pre class="language-none">    python libs/***-idmtool.py admin add-user newUser
+    Password:
+    Enter new password:
+    Re-enter password:
+    add_user(admin)
+
+    command succeeded!</code></pre>
+</doc-codeblock></div>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-json"><code v-pre class="language-json">    json:
+    {
+        &quot;description&quot;: &quot;&quot;,
+        &quot;domainid&quot;: &quot;sdn&quot;,
+        &quot;email&quot;: &quot;&quot;,
+        &quot;enabled&quot;: true,
+        &quot;name&quot;: &quot;newUser&quot;,
+        &quot;password&quot;: &quot;**********&quot;,
+        &quot;salt&quot;: &quot;**********&quot;,
+        &quot;userid&quot;: &quot;newUser@sdn&quot;
+    }</code></pre>
+</doc-codeblock></div>
+<div class="flex mb-6">
+    <div class="flex-shrink-0 w-1 rounded-tl rounded-bl bg-blue-500 dark:bg-blue-400"></div>
+    <div class="flex w-full py-4 border border-l-0 border-gray-300 rounded-tr rounded-br doc-alert bg-white dark:bg-dark-700 dark:border-dark-700" role="alert">
+        <div class="flex items-center ml-4 h-7">
+            <svg xmlns="http://www.w3.org/2000/svg" class="mb-px text-blue-500 dark:text-blue-400" width="22" height="22" viewBox="0 0 24 24" role="presentation">
+                <g fill="currentColor"><g>
+                    <path d="M12 1C5.93 1 1 5.93 1 12s4.93 11 11 11 11-4.93 11-11S18.07 1 12 1zm0 20c-4.96 0-9-4.04-9-9s4.04-9 9-9 9 4.04 9 9-4.04 9-9 9z"></path>
+                    <path d="M12 11c-.55 0-1 .45-1 1v4c0 .55.45 1 1 1s1-.45 1-1v-4c0-.55-.45-1-1-1zM12.01 7c-.56 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1z"></path>
+                    <path fill="none" d="M0 0h24v24H0z"></path>
+                </g></g>
+            </svg>
+        </div>
+        <div class="pr-5 ml-3">
+<p>AAA redacts the password and salt fields for security purposes.</p>
+        </div>
+    </div>
+</div>
+<doc-anchor-target id="delete-a-user">
+    <h5>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#delete-a-user">#</doc-anchor-trigger>
+        <span>Delete a user</span>
+    </h5>
+</doc-anchor-target>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-none"><code v-pre class="language-none">    $ python libs/***-idmtool.py admin delete-user newUser@sdn
+    Password:
+    delete_user(newUser@sdn)
+
+    command succeeded!</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="list-all-users">
+    <h5>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#list-all-users">#</doc-anchor-trigger>
+        <span>List all users</span>
+    </h5>
+</doc-anchor-target>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-none"><code v-pre class="language-none">    $ python libs/***-idmtool.py admin list-users
+    Password:
+    list_users
+
+    command succeeded!</code></pre>
+</doc-codeblock></div>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-json"><code v-pre class="language-json">    json:
+    {
+        &quot;users&quot;: [
+            {
+                &quot;description&quot;: &quot;user user&quot;,
+                &quot;domainid&quot;: &quot;sdn&quot;,
+                &quot;email&quot;: &quot;&quot;,
+                &quot;enabled&quot;: true,
+                &quot;name&quot;: &quot;user&quot;,
+                &quot;password&quot;: &quot;**********&quot;,
+                &quot;salt&quot;: &quot;**********&quot;,
+                &quot;userid&quot;: &quot;user@sdn&quot;
+            },
+            {
+                &quot;description&quot;: &quot;admin user&quot;,
+                &quot;domainid&quot;: &quot;sdn&quot;,
+                &quot;email&quot;: &quot;&quot;,
+                &quot;enabled&quot;: true,
+                &quot;name&quot;: &quot;admin&quot;,
+                &quot;password&quot;: &quot;**********&quot;,
+                &quot;salt&quot;: &quot;**********&quot;,
+                &quot;userid&quot;: &quot;admin@sdn&quot;
+            }
+        ]
+    }</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="change-a-users-password">
+    <h5>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#change-a-users-password">#</doc-anchor-trigger>
+        <span>Change a user&#x27;s password</span>
+    </h5>
+</doc-anchor-target>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-none"><code v-pre class="language-none">    $ python libs/***-idmtool.py admin change-password admin@sdn
+    Password:
+    Enter new password:
+    Re-enter password:
+    change_password(admin)
+
+    command succeeded!</code></pre>
+</doc-codeblock></div>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-json"><code v-pre class="language-json">    json:
+    {
+        &quot;description&quot;: &quot;admin user&quot;,
+        &quot;domainid&quot;: &quot;sdn&quot;,
+        &quot;email&quot;: &quot;&quot;,
+        &quot;enabled&quot;: true,
+        &quot;name&quot;: &quot;admin&quot;,
+        &quot;password&quot;: &quot;**********&quot;,
+        &quot;salt&quot;: &quot;**********&quot;,
+        &quot;userid&quot;: &quot;admin@sdn&quot;
+    }</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="add-a-role">
+    <h5>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#add-a-role">#</doc-anchor-trigger>
+        <span>Add a role</span>
+    </h5>
+</doc-anchor-target>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-none"><code v-pre class="language-none">    $ python libs/***-idmtool.py admin add-role network-admin
+    Password:
+    add_role(network-admin)
+
+    command succeeded!</code></pre>
+</doc-codeblock></div>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-json"><code v-pre class="language-json">    json:
+    {
+        &quot;description&quot;: &quot;&quot;,
+        &quot;domainid&quot;: &quot;sdn&quot;,
+        &quot;name&quot;: &quot;network-admin&quot;,
+        &quot;roleid&quot;: &quot;network-admin@sdn&quot;
+    }</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="delete-a-role">
+    <h5>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#delete-a-role">#</doc-anchor-trigger>
+        <span>Delete a role</span>
+    </h5>
+</doc-anchor-target>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-none"><code v-pre class="language-none">    $ python libs/***-idmtool.py admin delete-role network-admin@sdn
+    Password:
+    delete_role(network-admin@sdn)
+
+    command succeeded!</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="list-all-roles">
+    <h5>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#list-all-roles">#</doc-anchor-trigger>
+        <span>List all roles</span>
+    </h5>
+</doc-anchor-target>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-none"><code v-pre class="language-none">    $ python libs/***-idmtool.py admin list-roles
+    Password:
+    list_roles
+
+    command succeeded!</code></pre>
+</doc-codeblock></div>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-json"><code v-pre class="language-json">    json:
+    {
+        &quot;roles&quot;: [
+            {
+                &quot;description&quot;: &quot;a role for admins&quot;,
+                &quot;domainid&quot;: &quot;sdn&quot;,
+                &quot;name&quot;: &quot;admin&quot;,
+                &quot;roleid&quot;: &quot;admin@sdn&quot;
+            },
+            {
+                &quot;description&quot;: &quot;a role for users&quot;,
+                &quot;domainid&quot;: &quot;sdn&quot;,
+                &quot;name&quot;: &quot;user&quot;,
+                &quot;roleid&quot;: &quot;user@sdn&quot;
+            }
+        ]
+    }</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="list-all-domains">
+    <h5>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#list-all-domains">#</doc-anchor-trigger>
+        <span>List all domains</span>
+    </h5>
+</doc-anchor-target>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-none"><code v-pre class="language-none">    $ python libs/***-idmtool.py admin list-domains
+    Password:
+    list_domains
+
+    command succeeded!</code></pre>
+</doc-codeblock></div>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-json"><code v-pre class="language-json">    json:
+    {
+        &quot;domains&quot;: [
+            {
+                &quot;description&quot;: &quot;default odl sdn domain&quot;,
+                &quot;domainid&quot;: &quot;sdn&quot;,
+                &quot;enabled&quot;: true,
+                &quot;name&quot;: &quot;sdn&quot;
+            }
+        ]
+    }</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="add-a-grant">
+    <h5>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#add-a-grant">#</doc-anchor-trigger>
+        <span>Add a grant</span>
+    </h5>
+</doc-anchor-target>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-none"><code v-pre class="language-none">    $ python libs/***-idmtool.py admin add-grant user@sdn admin@sdn
+    Password:
+    add_grant(userid=user@sdn,roleid=admin@sdn)
+
+    command succeeded!</code></pre>
+</doc-codeblock></div>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-json"><code v-pre class="language-json">    json:
+    {
+        &quot;domainid&quot;: &quot;sdn&quot;,
+        &quot;grantid&quot;: &quot;user@sdn@admin@sdn@sdn&quot;,
+        &quot;roleid&quot;: &quot;admin@sdn&quot;,
+        &quot;userid&quot;: &quot;user@sdn&quot;
+    }</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="delete-a-grant">
+    <h5>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#delete-a-grant">#</doc-anchor-trigger>
+        <span>Delete a grant</span>
+    </h5>
+</doc-anchor-target>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-none"><code v-pre class="language-none">    $ python libs/***-idmtool.py admin delete-grant user@sdn admin@sdn
+    Password:
+    http://localhost:8181/auth/v1/domains/sdn/users/user@sdn/roles/admin@sdn
+    delete_grant(userid=user@sdn,roleid=admin@sdn)
+
+    command succeeded!</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="get-grants-for-a-user">
+    <h5>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#get-grants-for-a-user">#</doc-anchor-trigger>
+        <span>Get grants for a user</span>
+    </h5>
+</doc-anchor-target>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-none"><code v-pre class="language-none">    python libs/***-idmtool.py admin get-grants admin@sdn
+    Password:
+    get_grants(admin@sdn)
+
+    command succeeded!</code></pre>
+</doc-codeblock></div>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-json"><code v-pre class="language-json">    json:
+    {
+        &quot;roles&quot;: [
+            {
+                &quot;description&quot;: &quot;a role for users&quot;,
+                &quot;domainid&quot;: &quot;sdn&quot;,
+                &quot;name&quot;: &quot;user&quot;,
+                &quot;roleid&quot;: &quot;user@sdn&quot;
+            },
+            {
+                &quot;description&quot;: &quot;a role for admins&quot;,
+                &quot;domainid&quot;: &quot;sdn&quot;,
+                &quot;name&quot;: &quot;admin&quot;,
+                &quot;roleid&quot;: &quot;admin@sdn&quot;
+            }
+        ]
+    }</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="configuration-using-the-restful-web-service">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#configuration-using-the-restful-web-service">#</doc-anchor-trigger>
+        <span><strong>Configuration using the RESTful Web Service</strong></span>
+    </h3>
+</doc-anchor-target>
+<p>The TokenAuthRealm IdM policy is fully configurable through a RESTful
+web service. You can also use our example <a href="https://github.com/FRINXio/Postman/tree/carbon/development/learning_labs/aaa">Postman
+collections</a>.</p>
+<doc-anchor-target id="get-all-users">
+    <h4>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#get-all-users">#</doc-anchor-trigger>
+        <span>Get All Users</span>
+    </h4>
+</doc-anchor-target>
+<div class="codeblock-wrapper"><doc-codeblock>
+<div class="codeblock-title">curl</div>
+<pre class="language-none"><code v-pre class="language-none">curl -u admin:admin http://localhost:8181/auth/v1/users</code></pre>
+</doc-codeblock></div>
+<div class="codeblock-wrapper"><doc-codeblock>
+<div class="codeblock-title">Output:</div>
+<pre class="language-json"><code v-pre class="language-json">    {
+        &quot;users&quot;: [
+            {
+                &quot;description&quot;: &quot;user user&quot;,
+                &quot;domainid&quot;: &quot;sdn&quot;,
+                &quot;email&quot;: &quot;&quot;,
+                &quot;enabled&quot;: true,
+                &quot;name&quot;: &quot;user&quot;,
+                &quot;password&quot;: &quot;**********&quot;,
+                &quot;salt&quot;: &quot;**********&quot;,
+                &quot;userid&quot;: &quot;user@sdn&quot;
+            },
+            {
+                &quot;description&quot;: &quot;admin user&quot;,
+                &quot;domainid&quot;: &quot;sdn&quot;,
+                &quot;email&quot;: &quot;&quot;,
+                &quot;enabled&quot;: true,
+                &quot;name&quot;: &quot;admin&quot;,
+                &quot;password&quot;: &quot;**********&quot;,
+                &quot;salt&quot;: &quot;**********&quot;,
+                &quot;userid&quot;: &quot;admin@sdn&quot;
+            }
+        ]
+    }</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="create-a-user">
+    <h4>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#create-a-user">#</doc-anchor-trigger>
+        <span>Create a User</span>
+    </h4>
+</doc-anchor-target>
+<div class="codeblock-wrapper"><doc-codeblock>
+<div class="codeblock-title">curl</div>
+<pre class="language-none"><code v-pre class="language-none">curl --location --request POST 'http://localhost:8181/auth/v1/users' \
+--header 'Accept: application/json' \
+--header 'Authorization: Basic YWRtaW46YWRtaW4=' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+        &quot;name&quot;: &quot;ryan&quot;,
+        &quot;password&quot;: &quot;ryan&quot;,
+        &quot;domainid&quot;: &quot;sdn&quot;,
+        &quot;description&quot;: &quot;Ryan'\''s User Account&quot;,
+        &quot;email&quot;: &quot;ryandgoulding@gmail.com&quot;
+    }'</code></pre>
+</doc-codeblock></div>
+<div class="codeblock-wrapper"><doc-codeblock>
+<div class="codeblock-title">Output:</div>
+<pre class="language-json"><code v-pre class="language-json">{
+    &quot;userid&quot;:&quot;ryan@sdn&quot;,
+    &quot;name&quot;:&quot;ryan&quot;,
+    &quot;description&quot;:&quot;Ryan's User Account&quot;,
+    &quot;enabled&quot;:true,
+    &quot;email&quot;:&quot;ryandgoulding@gmail.com&quot;,
+    &quot;password&quot;:&quot;**********&quot;,
+    &quot;salt&quot;:&quot;**********&quot;,
+    &quot;domainid&quot;:&quot;sdn&quot;
+}</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="keystoneauthrealm">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#keystoneauthrealm">#</doc-anchor-trigger>
+        <span>KeystoneAuthRealm</span>
+    </h3>
+</doc-anchor-target>
+<doc-anchor-target id="how-it-works-1">
+    <h4>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#how-it-works-1">#</doc-anchor-trigger>
+        <span>How it works</span>
+    </h4>
+</doc-anchor-target>
+<p>This realm authenticates OpenDaylight users against the OpenStack&#x27;s
+Keystone server. This realm uses the <a href="https://developer.openstack.org/api-ref/identity/v3/">Keystone&#x27;s Identity API
+v3</a> or later.</p>
+<p><figure class="content-center">
+    <img src="keystonerealm-authentication.png" alt="KeystoneAuthRealm authentication/authorization
+mechanism" />
+    <figcaption class="caption">KeystoneAuthRealm authentication/authorization
+mechanism</figcaption>
+</figure>
+</p>
+<p>As can shown on the above diagram, once configured, all the RESTCONF
+APIs calls will require sending <strong>user</strong>, <strong>password</strong> and optionally
+<strong>domain</strong> (1). Those credentials are used to authenticate the call
+against the Keystone server (2) and, if the authentication succeeds, the
+call will proceed to the MDSAL (3). The credentials must be provisioned
+in advance within the Keystone Server. The user and password are
+mandatory, while the domain is optional, in case it is not provided
+within the REST call, the realm will default to (<strong>Default</strong>), which is
+hard-coded. The default domain can be also configured through the
+<em>shiro.ini</em> file (see the AAA User Guide &lt;user-guide&gt;).</p>
+<p>The protocol between the Controller and the Keystone Server (2) can be
+either HTTPS or HTTP. In order to use HTTPS the Keystone Server&#x27;s
+certificate must be exported and imported on the Controller (see the
+Certificate Management &lt;certificate-management&gt; section).</p>
+<doc-anchor-target id="configuring-keystoneauthrealm">
+    <h4>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#configuring-keystoneauthrealm">#</doc-anchor-trigger>
+        <span>Configuring KeystoneAuthRealm</span>
+    </h4>
+</doc-anchor-target>
+<p>Edit the &quot;config/shiro.ini&quot; file and modify the following:</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-none"><code v-pre class="language-none"># The KeystoneAuthRealm allows for authentication/authorization against an
+# OpenStack's Keystone server. It uses the Identity's API v3 or later.
+keystoneAuthRealm = org.opendaylight.aaa.shiro.realm.KeystoneAuthRealm
+# The URL where the Keystone server exposes the Identity's API v3 the URL
+# can be either HTTP or HTTPS and it is mandatory for this realm.
+keystoneAuthRealm.url = https://&lt;host&gt;:&lt;port&gt;
+# Optional parameter to make the realm verify the certificates in case of HTTPS
+#keystoneAuthRealm.sslVerification = true
+# Optional parameter to set up a default domain for requests using credentials
+# without domain, uncomment in case you want a different value from the hard-coded
+# one &quot;Default&quot;
+#keystoneAuthRealm.defaultDomain = Default</code></pre>
+</doc-codeblock></div>
+<p>Once configured the realm, the mandatory fields are the fully quallified
+name of the class implementing the realm <em>keystoneAuthRealm</em> and the
+endpoint where the Keystone Server is listening <em>keystoneAuthRealm.url</em>.</p>
+<p>The optional parameter <em>keystoneAuthRealm.sslVerification</em> specifies
+whether the realm has to verify the SSL certificate or not. The optional
+parameter <em>keystoneAuthRealm.defaultDomain</em> allows to use a different
+default domain from the hard-coded one <em>&quot;Default&quot;</em>.</p>
+<doc-anchor-target id="authorization-configuration">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#authorization-configuration">#</doc-anchor-trigger>
+        <span>Authorization Configuration</span>
+    </h2>
+</doc-anchor-target>
+<p>OpenDaylight supports two authorization engines at present, both of
+which are roughly similar in behavior:</p>
+<ul>
+<li>Shiro-Based Authorization</li>
+<li>MDSAL-Based Dynamic Authorization</li>
+</ul>
+<doc-anchor-target id="shiro-based-static-authorization">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#shiro-based-static-authorization">#</doc-anchor-trigger>
+        <span>Shiro-Based Static Authorization</span>
+    </h3>
+</doc-anchor-target>
+<p>OpenDaylight AAA has support for Role Based Access Control (RBAC) based
+on the Apache Shiro permissions system. Configuration of the
+authorization system is done off-line; authorization currently cannot be
+configured after the controller is started. The Authorization provided
+by this mechanism is aimed towards supporting coarse-grained security
+policies, the MDSAL-Based mechanism allows for a more robust
+configuration capabilities. <a href="http://shiro.apache.org/web.html#Web-%7B%7B%5Curls%5C%7D%7D">Shiro-based
+Authorization</a>
+describes how to configure the Authentication feature in detail.</p>
+<div class="flex mb-6">
+    <div class="flex-shrink-0 w-1 rounded-tl rounded-bl bg-blue-500 dark:bg-blue-400"></div>
+    <div class="flex w-full py-4 border border-l-0 border-gray-300 rounded-tr rounded-br doc-alert bg-white dark:bg-dark-700 dark:border-dark-700" role="alert">
+        <div class="flex items-center ml-4 h-7">
+            <svg xmlns="http://www.w3.org/2000/svg" class="mb-px text-blue-500 dark:text-blue-400" width="22" height="22" viewBox="0 0 24 24" role="presentation">
+                <g fill="currentColor"><g>
+                    <path d="M12 1C5.93 1 1 5.93 1 12s4.93 11 11 11 11-4.93 11-11S18.07 1 12 1zm0 20c-4.96 0-9-4.04-9-9s4.04-9 9-9 9 4.04 9 9-4.04 9-9 9z"></path>
+                    <path d="M12 11c-.55 0-1 .45-1 1v4c0 .55.45 1 1 1s1-.45 1-1v-4c0-.55-.45-1-1-1zM12.01 7c-.56 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1z"></path>
+                    <path fill="none" d="M0 0h24v24H0z"></path>
+                </g></g>
+            </svg>
+        </div>
+        <div class="pr-5 ml-3">
+<p>The Shiro-Based Authorization that uses the <em>shiro.ini</em> URLs section
+to define roles requirements is <strong>deprecated</strong> and <strong>discouraged</strong>
+since the changes made to the file are only honored on a controller
+restart.</p>
+<p>Shiro-Based Authorization is not <strong>cluster-aware</strong>, so the changes
+made on the <em>shiro.ini</em> file have to be replicated on every controller
+instance belonging to the cluster.</p>
+<p>The URL patterns are matched relative to the Servlet context leaving
+room for ambiguity, since many endpoints may match (i.e.,
+&quot;/restconf/modules&quot; and &quot;/auth/modules&quot; would both match a
+&quot;/modules/**&quot; rule).</p>
+        </div>
+    </div>
+</div>
+<doc-anchor-target id="enable-admin-role-based-access-to-the-idmlight-restful-web-service">
+    <h4>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#enable-admin-role-based-access-to-the-idmlight-restful-web-service">#</doc-anchor-trigger>
+        <span>Enable admin Role Based Access to the IdMLight RESTful web service</span>
+    </h4>
+</doc-anchor-target>
+<p>Edit the etcshiro.ini configuration file and add /auth/v1/*<em>=
+authcBasic, roles[admin] above the line /*</em> = authcBasic within the
+urls section.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-none"><code v-pre class="language-none">/auth/v1/** = authcBasic, roles[admin]
+/** = authcBasic</code></pre>
+</doc-codeblock></div>
+<p>This will restrict the idmlight rest endpoints so that a grant for admin
+role must be present for the requesting user.</p>
+<div class="flex mb-6">
+    <div class="flex-shrink-0 w-1 rounded-tl rounded-bl bg-blue-500 dark:bg-blue-400"></div>
+    <div class="flex w-full py-4 border border-l-0 border-gray-300 rounded-tr rounded-br doc-alert bg-white dark:bg-dark-700 dark:border-dark-700" role="alert">
+        <div class="flex items-center ml-4 h-7">
+            <svg xmlns="http://www.w3.org/2000/svg" class="mb-px text-blue-500 dark:text-blue-400" width="22" height="22" viewBox="0 0 24 24" role="presentation">
+                <g fill="currentColor"><g>
+                    <path d="M12 1C5.93 1 1 5.93 1 12s4.93 11 11 11 11-4.93 11-11S18.07 1 12 1zm0 20c-4.96 0-9-4.04-9-9s4.04-9 9-9 9 4.04 9 9-4.04 9-9 9z"></path>
+                    <path d="M12 11c-.55 0-1 .45-1 1v4c0 .55.45 1 1 1s1-.45 1-1v-4c0-.55-.45-1-1-1zM12.01 7c-.56 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1z"></path>
+                    <path fill="none" d="M0 0h24v24H0z"></path>
+                </g></g>
+            </svg>
+        </div>
+        <div class="pr-5 ml-3">
+<p>The ordering of the authorization rules above is important! Try to
+keep most specific rules on the top, similar to structure of access
+lists.</p>
+        </div>
+    </div>
+</div>
+<doc-anchor-target id="mdsal-based-dynamic-authorization">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#mdsal-based-dynamic-authorization">#</doc-anchor-trigger>
+        <span>MDSAL-Based Dynamic Authorization</span>
+    </h3>
+</doc-anchor-target>
+<p>The MDSAL-Based Dynamic authorization uses the
+MDSALDynamicAuthorizationFilter engine to restrict access to particular
+URL endpoint patterns. Users may define a list of policies that are
+insertion-ordered. Order matters for that list of policies, since the
+first matching policy is applied. This choice was made to emulate
+behavior of the Shiro-Based Authorization mechanism.</p>
+<p>A <strong>policy</strong> is a key/value pair, where the key is a <strong>resource</strong> (i.e.,
+a &quot;URL pattern&quot;) and the value is a list of <strong>permissions</strong> for the
+resource. The following describes the various elements of a policy:</p>
+<ul>
+<li><strong>Resource</strong>: the resource is a string URL pattern as outlined by
+Apache Shiro. For more information, see
+<a href="http://shiro.apache.org/web.html">http://shiro.apache.org/web.html</a>.</li>
+<li><strong>Description</strong>: an optional description of the URL endpoint and why
+it is being secured.</li>
+<li><strong>Permissions list</strong>: a list of permissions for a particular policy.
+If more than one permission exists in the permissions list they are
+evaluated using logical &quot;OR&quot;. A permission describes the
+prerequisites to perform HTTP operations on a particular endpoint.
+The following describes the various elements of a permission:
+<ul>
+<li><strong>Role</strong>: the role required to access the target URL endpoint.</li>
+<li><strong>Actions list</strong>: a leaf-list of HTTP permissions that are
+allowed for a Subject possessing the required role.</li>
+</ul>
+</li>
+</ul>
+<p>This an example on how to limit access to the modules endpoint:</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<div class="codeblock-title">curl RPC Request</div>
+<pre class="language-none"><code v-pre class="language-none">curl --location --request POST 'http://localhost:8181/restconf/config/aaa:http-authorization/policies' \
+--header 'Accept: application/json' \
+--header 'Authorization: Basic YWRtaW46YWRtaW4=' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    &quot;aaa:policies&quot;:{
+        &quot;aaa:policies&quot;:[
+            {
+                &quot;aaa:resource&quot;:&quot;/restconf/modules/**&quot;,
+                &quot;aaa:permissions&quot;:[
+                    {
+                        &quot;aaa:role&quot;:&quot;admin&quot;,
+                        &quot;aaa:actions&quot;:[
+                            &quot;get&quot;,
+                            &quot;post&quot;,
+                            &quot;put&quot;,
+                            &quot;patch&quot;,
+                            &quot;delete&quot;
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}'</code></pre>
+</doc-codeblock></div>
+<p>The above example locks down access to the modules endpoint (and any
+URLS available past modules) to the &quot;admin&quot; role. Thus, an attempt from
+the OOB <em>admin</em> user will succeed with 2XX HTTP status code, while an
+attempt from the OOB <em>user</em> user will fail with HTTP status code 401, as
+the user <em>user</em> is not granted the &quot;admin&quot; role.</p>
+<p>When using MDSAL-Based Dynamic Authorization, it is crucial to edit one
+more file. In <em>config/aaa-app-config.xml</em> you have to insert every url
+for which you want to create policy into &quot;URLS&quot; section of the file.</p>
+<p>Example:</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-none"><code v-pre class="language-none">&lt;urls&gt;
+    &lt;pair-key&gt;/rests/data/network-topology:network-topology/topology=cli/node=node10&lt;/pair-key&gt;
+    &lt;pair-value&gt;authcBasic, dynamicAuthorization&lt;/pair-value&gt;
+&lt;/urls&gt;</code></pre>
+</doc-codeblock></div>
+<p>After configuring this, you would restart UniConfig, and then you can
+create desired policy for <strong>/rests/data/network-topology:network-topology/topology=cli/node=node10</strong></p>
+<p>Order is important here. Try to keep most specific urls at the top.</p>
+
+
+
+
+                <!-- Required only on API pages -->
+                <doc-toolbar-member-filter-no-results />
+            </div>
+
+            
+<nav class="flex mt-14">
+    <div class="w-1/2">
+        <a class="px-5 py-4 h-full flex items-center break-all md:break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-l-lg transition-colors duration-150 relative hover:z-5" href="/frinx-uniconfig/user-guide/operational-procedures/">
+            <svg xmlns="http://www.w3.org/2000/svg" class="mr-3" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" overflow="visible"><path d="M19 11H7.41l5.29-5.29a.996.996 0 10-1.41-1.41l-7 7a1 1 0 000 1.42l7 7a1.024 1.024 0 001.42-.01.996.996 0 000-1.41L7.41 13H19c.55 0 1-.45 1-1s-.45-1-1-1z" /><path fill="none" d="M0 0h24v24H0z" /></svg>
+            <span>
+                <span class="block text-xs font-normal text-gray-400 dark:text-dark-400">Previous</span>
+                <span class="block mt-1">Operational Procedures</span>
+            </span>
+        </a>
+    </div>
+
+    <div class="w-1/2">
+        <a class="px-5 py-4 -mx-px h-full flex items-center justify-end break-all md:break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-r-lg transition-colors duration-150 relative hover:z-5" href="/frinx-uniconfig/user-guide/operational-procedures/data-security-models/">
+            <span>
+                <span class="block text-xs font-normal text-right text-gray-400 dark:text-dark-400">Next</span>
+                <span class="block mt-1">Data Security Models</span>
+            </span>
+            <svg xmlns="http://www.w3.org/2000/svg" class="ml-3" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" overflow="visible"><path d="M19.92 12.38a1 1 0 00-.22-1.09l-7-7a.996.996 0 10-1.41 1.41l5.3 5.3H5c-.55 0-1 .45-1 1s.45 1 1 1h11.59l-5.29 5.29a.996.996 0 000 1.41c.19.2.44.3.7.3s.51-.1.71-.29l7-7c.09-.09.16-.21.21-.33z" /><path fill="none" d="M0 0h24v24H0z" /></svg>
+        </a>
+    </div>
+</nav>
+
+
+        </main>
+
+        <div class="border-t dark:border-dark-650 pt-6 mb-8">
+            <footer class="flex flex-wrap items-center justify-between">
+    <div>
+        <ul class="flex flex-wrap items-center text-sm">
+</ul>
+
+    </div>
+    <div class="docs-copyright py-2 text-gray-500 dark:text-dark-350 text-sm leading-relaxed"><p>© Copyright 2022.</p>
+</div>
+</footer>
+
+        </div>
+    </div>
+    
+    <!-- Rendered if sidebar right is enabled -->
+    <!-- Sidebar right skeleton-->
+    <div v-cloak class="fixed top-0 bottom-0 right-0 transform translate-x-full bg-white border-gray-200 lg:sticky lg:border-l lg:flex-shrink-0 lg:pt-6 lg:transform-none lg:w-56 lg:z-0 md:w-72 sidebar-right skeleton dark:bg-dark-850 dark:border-dark-650">
+        <div class="pl-5">
+            <div class="w-32 h-3 mb-4 bg-gray-200 dark:bg-dark-600 rounded-full loading"></div>
+            <div class="w-48 h-3 mb-4 bg-gray-200 dark:bg-dark-600 rounded-full loading"></div>
+            <div class="w-40 h-3 mb-4 bg-gray-200 dark:bg-dark-600 rounded-full loading"></div>
+        </div>
+    </div>
+    
+    <!-- User should be able to hide sidebar right -->
+    <doc-sidebar-right v-cloak></doc-sidebar-right>
+</div>
+
+        </div>
+    </div>
+
+    <doc-search-mobile></doc-search-mobile>
+    <doc-back-to-top></doc-back-to-top>
+</div>
+
+
+        <div id="docs-overlay-target"></div>
+
+        <script>window.__DOCS__ = { "title": "Authentication, Authorization and Accounting (AAA) Services", icon: "file", hasPrism: true, hasMermaid: false, hasMath: false }</script>
+    </body>
+</html>

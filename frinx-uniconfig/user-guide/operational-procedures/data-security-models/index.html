@@ -1,0 +1,1280 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="turbo-cache-control" content="no-cache">
+
+    <!-- Primary Meta Tags -->
+    <title>Data Security ModelsExample | Frinx Docs</title>
+    <meta name="title" content="Data Security ModelsExample | Frinx Docs">
+    <meta name="description" content="UniConfig supports encryption and hashing of leaf/leaf-list values on SSH and RESTCONF API. Following sections describe supported security models in..." />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://matkuliak.xyz/frinx-uniconfig/user-guide/operational-procedures/data-security-models/">
+    <meta property="og:title" content="Data Security ModelsExample | Frinx Docs">
+    <meta property="og:description" content="UniConfig supports encryption and hashing of leaf/leaf-list values on SSH and RESTCONF API. Following sections describe supported security models in...">
+    <meta property="og:image" content="https://matkuliak.xyz/frinx-uniconfig/user-guide/operational-procedures/data-security-models/global-device_encryption_model.svg">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://matkuliak.xyz/frinx-uniconfig/user-guide/operational-procedures/data-security-models/">
+    <meta property="twitter:title" content="Data Security ModelsExample | Frinx Docs">
+    <meta property="twitter:description" content="UniConfig supports encryption and hashing of leaf/leaf-list values on SSH and RESTCONF API. Following sections describe supported security models in...">
+    <meta property="twitter:image" content="https://matkuliak.xyz/frinx-uniconfig/user-guide/operational-procedures/data-security-models/global-device_encryption_model.svg">
+    
+    <script>(function () { var el = document.documentElement, m = localStorage.getItem("doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
+
+    <link href="/resources/css/retype.css?v=1.11.2.697130698115" rel="stylesheet" data-turbo-track="reload" />
+
+    <script type="text/javascript" src="/resources/js/config.js?v=1.11.2.697130698115" defer data-turbo-track="reload"></script>
+    <script type="text/javascript" src="/resources/js/retype.js?v=1.11.2" defer data-turbo-track="reload"></script>
+    <script id="lunr-js" type="text/javascript" src="/resources/js/lunr.js?v=1.11.2.697130698115" defer></script>
+    <script id="prism-js" type="text/javascript" src="/resources/js/prism.js?v=1.11.2.697130698115" defer></script>
+</head>
+    <body>
+        <div id="docs-app" class="relative text-base antialiased text-gray-700 bg-white font-body dark:bg-dark-850 dark:text-dark-300">
+    <div class="absolute bottom-0 left-0 bg-gray-100 dark:bg-dark-800" style="top: 5rem; right: 50%"></div>
+
+    <header id="docs-site-header" class="sticky top-0 z-30 flex w-full h-16 bg-white border-b border-gray-200 md:h-20 dark:bg-dark-850 dark:border-dark-650">
+    <div class="container relative flex items-center justify-between flex-grow pr-6 md:justify-start">
+        <!-- Mobile menu button skeleton -->
+        <button v-cloak class="skeleton docs-mobile-menu-button flex items-center justify-center flex-shrink-0 overflow-hidden dark:text-white focus:outline-none rounded-full w-10 h-10 ml-3.5 md:hidden"><svg xmlns="http://www.w3.org/2000/svg" class="mb-px flex-shrink-0" width="24" height="24" viewBox="0 0 24 24" role="presentation" style="margin-bottom: 0px;"><g fill="currentColor"><path d="M2 4h20v2H2zM2 11h20v2H2zM2 18h20v2H2z"></path></g></svg></button>
+        <div v-cloak id="docs-sidebar-toggle"></div>
+
+        <!-- Logo -->
+        <div class="flex items-center justify-between h-full py-2 md:w-75">
+            <div class="flex items-center px-2 md:px-6">
+                <a id="docs-site-logo" href="/" class="flex items-center leading-snug text-2xl">
+                    <span class="dark:text-white font-semibold line-clamp-1 md:line-clamp-2">Example docs</span>
+                </a>
+            </div>
+
+            <span class="hidden h-8 border-r md:inline-block dark:border-dark-650"></span>
+        </div>
+
+        <div class="flex justify-between md:flex-grow">
+            <!-- Top Nav -->
+            <nav class="hidden md:flex">
+    <ul class="flex flex-col mb-4 md:pl-16 md:mb-0 md:flex-row md:items-center">
+        <li class="md:mr-6">
+            <a class="inline-flex items-center py-2 md:mb-0 text-sm text-gray-400 whitespace-nowrap transition-colors duration-200 ease-linear md:text-blue-500 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-200" href="/">
+                <svg xmlns="http://www.w3.org/2000/svg" class="mb-px mr-1" width="18" height="18" viewBox="0 0 24 24" role="presentation">
+                    <g fill="currentColor">
+                        <path fill-rule="evenodd" d="M11.03 2.59a1.5 1.5 0 011.94 0l7.5 6.363a1.5 1.5 0 01.53 1.144V19.5a1.5 1.5 0 01-1.5 1.5h-5.75a.75.75 0 01-.75-.75V14h-2v6.25a.75.75 0 01-.75.75H4.5A1.5 1.5 0 013 19.5v-9.403c0-.44.194-.859.53-1.144l7.5-6.363zM12 3.734l-7.5 6.363V19.5h5v-6.25a.75.75 0 01.75-.75h3.5a.75.75 0 01.75.75v6.25h5v-9.403L12 3.734z"/>
+                    </g>
+                </svg>
+                <span>Home</span>
+            </a>
+        </li>
+        <li class="md:mr-6">
+            <a class="inline-flex items-center py-2 md:mb-0 text-sm text-gray-400 whitespace-nowrap transition-colors duration-200 ease-linear md:text-blue-500 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-200" href="https://github.com/matkuliak" target="_blank">
+                <svg xmlns="http://www.w3.org/2000/svg" class="mb-px mr-1" width="18" height="18" viewBox="0 0 24 24" role="presentation">
+                    <g fill="currentColor">
+                        <symbol id="mark-github-icon-symbol" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></symbol><use xlink:href="#mark-github-icon-symbol" />
+                    </g>
+                </svg>
+                <span>GitHub</span>
+            </a>
+        </li>
+        <li class="md:mr-6">
+            <a class="inline-flex items-center py-2 md:mb-0 text-sm text-gray-400 whitespace-nowrap transition-colors duration-200 ease-linear md:text-blue-500 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-200" href="https://www.linkedin.com/in/matej-ma%C5%A5kuliak-248369184/" target="_blank">
+                <svg xmlns="http://www.w3.org/2000/svg" class="mb-px mr-1" width="18" height="18" viewBox="0 0 24 24" role="presentation">
+                    <g fill="currentColor">
+                        <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-.139 9.237c.209 4.617-3.234 9.765-9.33 9.765-1.854 0-3.579-.543-5.032-1.475 1.742.205 3.48-.278 4.86-1.359-1.437-.027-2.649-.976-3.066-2.28.515.098 1.021.069 1.482-.056-1.579-.317-2.668-1.739-2.633-3.26.442.246.949.394 1.486.411-1.461-.977-1.875-2.907-1.016-4.383 1.619 1.986 4.038 3.293 6.766 3.43-.479-2.053 1.08-4.03 3.199-4.03.943 0 1.797.398 2.395 1.037.748-.147 1.451-.42 2.086-.796-.246.767-.766 1.41-1.443 1.816.664-.08 1.297-.256 1.885-.517-.439.656-.996 1.234-1.639 1.697z"/>
+                    </g>
+                </svg>
+                <span>LinkedIn</span>
+            </a>
+        </li>
+    </ul>
+</nav>
+
+            <!-- Header Right Skeleton -->
+            <div v-cloak class="flex justify-end flex-grow skeleton">
+
+                <!-- Search input mock -->
+                <div class="relative hidden w-40 lg:block lg:max-w-sm lg:ml-auto">
+                    <div class="absolute flex items-center justify-center h-full pl-3 dark:text-dark-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon-base" width="16" height="16" viewBox="0 0 24 24" aria-labelledby="icon" role="presentation"  style="margin-bottom: 1px;"><g fill="currentColor" ><path d="M21.71 20.29l-3.68-3.68A8.963 8.963 0 0020 11c0-4.96-4.04-9-9-9s-9 4.04-9 9 4.04 9 9 9c2.12 0 4.07-.74 5.61-1.97l3.68 3.68c.2.19.45.29.71.29s.51-.1.71-.29c.39-.39.39-1.03 0-1.42zM4 11c0-3.86 3.14-7 7-7s7 3.14 7 7c0 1.92-.78 3.66-2.04 4.93-.01.01-.02.01-.02.01-.01.01-.01.01-.01.02A6.98 6.98 0 0111 18c-3.86 0-7-3.14-7-7z" ></path></g></svg>
+                    </div>
+
+                    <input class="w-full h-10 transition-colors duration-200 ease-in bg-gray-200 border border-transparent rounded md:text-sm hover:bg-white hover:border-gray-300 focus:outline-none focus:bg-white focus:border-gray-500 dark:bg-dark-600 dark:border-dark-600 placeholder-gray-400 dark:placeholder-dark-400"
+                    style="padding: 0.625rem 0.75rem 0.625rem 2rem" type="text" placeholder="Search" />
+                </div>
+
+                <!-- Mobile search button mock -->
+                <div class="flex items-center justify-center w-10 h-10 lg:hidden">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="flex-shrink-0 icon-base" width="20" height="20" viewBox="0 0 24 24" aria-labelledby="icon" role="presentation"  style="margin-bottom: 0px;"><g fill="currentColor" ><path d="M21.71 20.29l-3.68-3.68A8.963 8.963 0 0020 11c0-4.96-4.04-9-9-9s-9 4.04-9 9 4.04 9 9 9c2.12 0 4.07-.74 5.61-1.97l3.68 3.68c.2.19.45.29.71.29s.51-.1.71-.29c.39-.39.39-1.03 0-1.42zM4 11c0-3.86 3.14-7 7-7s7 3.14 7 7c0 1.92-.78 3.66-2.04 4.93-.01.01-.02.01-.02.01-.01.01-.01.01-.01.02A6.98 6.98 0 0111 18c-3.86 0-7-3.14-7-7z" ></path></g></svg>
+                </div>
+
+                <!-- Dark mode switch placehokder -->
+                <div class="w-10 h-10 lg:ml-2"></div>
+
+                <!-- History button mock -->
+                <div class="flex items-center justify-center w-10 h-10" style="margin-right: -0.625rem;">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="flex-shrink-0 icon-base" width="22" height="22" viewBox="0 0 24 24" aria-labelledby="icon" role="presentation"  style="margin-bottom: 0px;"><g fill="currentColor" ><g ><path d="M12.01 6.01c-.55 0-1 .45-1 1V12a1 1 0 00.4.8l3 2.22a.985.985 0 001.39-.2.996.996 0 00-.21-1.4l-2.6-1.92V7.01c.02-.55-.43-1-.98-1z"></path><path d="M12.01 1.91c-5.33 0-9.69 4.16-10.05 9.4l-.29-.26a.997.997 0 10-1.34 1.48l1.97 1.79c.19.17.43.26.67.26s.48-.09.67-.26l1.97-1.79a.997.997 0 10-1.34-1.48l-.31.28c.34-4.14 3.82-7.41 8.05-7.41 4.46 0 8.08 3.63 8.08 8.09s-3.63 8.08-8.08 8.08c-2.18 0-4.22-.85-5.75-2.4a.996.996 0 10-1.42 1.4 10.02 10.02 0 007.17 2.99c5.56 0 10.08-4.52 10.08-10.08.01-5.56-4.52-10.09-10.08-10.09z"></path></g></g></svg>
+                </div>
+            </div>
+
+            <div v-cloak class="flex items-center justify-end flex-grow">
+                <div id="docs-mobile-search-button"></div>
+                <doc-search-desktop></doc-search-desktop>
+
+                <doc-theme-switch class="lg:ml-2"></doc-theme-switch>
+                <doc-history></doc-history>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+    <div class="container relative flex bg-white">
+        <!-- Sidebar Skeleton -->
+<div v-cloak class="fixed flex flex-col flex-shrink-0 duration-300 ease-in-out bg-gray-100 border-gray-200 sidebar top-20 w-75 border-r h-screen md:sticky transition-transform skeleton dark:bg-dark-800 dark:border-dark-650">
+
+    <!-- Render this div, if config.showSidebarFilter is `true` -->
+    <div class="flex items-center h-16 px-6">
+        <input class="w-full h-8 px-3 py-2 transition-colors duration-200 ease-linear bg-white border border-gray-200 rounded shadow-none text-sm focus:outline-none focus:border-gray-600 dark:bg-dark-600 dark:border-dark-600" type="text" placeholder="Filter" />
+    </div>
+
+    <div class="pl-6 mb-4 mt-1">
+        <div class="w-32 h-3 mb-4 bg-gray-200 rounded-full loading dark:bg-dark-600"></div>
+        <div class="w-48 h-3 mb-4 bg-gray-200 rounded-full loading dark:bg-dark-600"></div>
+        <div class="w-40 h-3 mb-4 bg-gray-200 rounded-full loading dark:bg-dark-600"></div>
+        <div class="w-32 h-3 mb-4 bg-gray-200 rounded-full loading dark:bg-dark-600"></div>
+        <div class="w-48 h-3 mb-4 bg-gray-200 rounded-full loading dark:bg-dark-600"></div>
+        <div class="w-40 h-3 mb-4 bg-gray-200 rounded-full loading dark:bg-dark-600"></div>
+    </div>
+
+
+    <div class="flex-shrink-0 mt-auto bg-transparent dark:border-dark-650">
+        <a
+    class="flex items-center justify-center flex-nowrap h-16 text-gray-400 dark:text-dark-400 hover:text-gray-700 dark:hover:text-dark-300 transition-colors duration-150 ease-in docs-powered-by"
+    target="_blank"
+    href="https://retype.com/"
+    rel="noopener"
+>
+    <span class="text-xs whitespace-nowrap">Powered by</span>
+    <svg xmlns="http://www.w3.org/2000/svg" class="ml-2" fill="currentColor" width="96" height="20" overflow="visible"><path d="M0 0v20h13.59V0H0zm11.15 17.54H2.44V2.46h8.71v15.08zM15.8 20h2.44V4.67L15.8 2.22zM20.45 6.89V20h2.44V9.34z"/><g><path d="M40.16 8.44c0 1.49-.59 2.45-1.75 2.88l2.34 3.32h-2.53l-2.04-2.96h-1.43v2.96h-2.06V5.36h3.5c1.43 0 2.46.24 3.07.73s.9 1.27.9 2.35zm-2.48 1.1c.26-.23.38-.59.38-1.09 0-.5-.13-.84-.4-1.03s-.73-.28-1.39-.28h-1.54v2.75h1.5c.72 0 1.2-.12 1.45-.35zM51.56 5.36V7.2h-4.59v1.91h4.13v1.76h-4.13v1.92h4.74v1.83h-6.79V5.36h6.64zM60.09 7.15v7.48h-2.06V7.15h-2.61V5.36h7.28v1.79h-2.61zM70.81 14.64h-2.06v-3.66l-3.19-5.61h2.23l1.99 3.45 1.99-3.45H74l-3.19 5.61v3.66zM83.99 6.19c.65.55.97 1.4.97 2.55s-.33 1.98-1 2.51-1.68.8-3.04.8h-1.23v2.59h-2.06V5.36h3.26c1.42 0 2.45.28 3.1.83zm-1.51 3.65c.25-.28.37-.69.37-1.22s-.16-.92-.48-1.14c-.32-.23-.82-.34-1.5-.34H79.7v3.12h1.38c.68 0 1.15-.14 1.4-.42zM95.85 5.36V7.2h-4.59v1.91h4.13v1.76h-4.13v1.92H96v1.83h-6.79V5.36h6.64z"/></g></svg>
+</a>
+
+    </div>
+</div>
+
+<!-- Sidebar component -->
+<doc-sidebar v-cloak>
+    <template #sidebar-footer>
+        <div
+            class="flex-shrink-0 mt-auto border-t md:bg-transparent md:border-none dark:border-dark-650"
+        >
+
+            <div class="py-3 px-6 md:hidden border-b dark:border-dark-650">
+                <nav>
+                    <ul class="flex flex-wrap justify-center items-center">
+                        <li class="mr-6">
+                            <a class="block py-1 text-sm whitespace-nowrap transition-colors duration-200 ease-linear text-blue-500 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-200" href="/README.md">Home</a>
+                        </li>
+                        <li class="mr-6">
+                            <a class="block py-1 text-sm whitespace-nowrap transition-colors duration-200 ease-linear text-blue-500 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-200" href="https://github.com/matkuliak">GitHub</a>
+                        </li>
+                        <li class="mr-6">
+                            <a class="block py-1 text-sm whitespace-nowrap transition-colors duration-200 ease-linear text-blue-500 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-200" href="https://www.linkedin.com/in/matej-ma%C5%A5kuliak-248369184/">LinkedIn</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+
+
+            <a
+    class="flex items-center justify-center flex-nowrap h-16 text-gray-400 dark:text-dark-400 hover:text-gray-700 dark:hover:text-dark-300 transition-colors duration-150 ease-in docs-powered-by"
+    target="_blank"
+    href="https://retype.com/"
+    rel="noopener"
+>
+    <span class="text-xs whitespace-nowrap">Powered by</span>
+    <svg xmlns="http://www.w3.org/2000/svg" class="ml-2" fill="currentColor" width="96" height="20" overflow="visible"><path d="M0 0v20h13.59V0H0zm11.15 17.54H2.44V2.46h8.71v15.08zM15.8 20h2.44V4.67L15.8 2.22zM20.45 6.89V20h2.44V9.34z"/><g><path d="M40.16 8.44c0 1.49-.59 2.45-1.75 2.88l2.34 3.32h-2.53l-2.04-2.96h-1.43v2.96h-2.06V5.36h3.5c1.43 0 2.46.24 3.07.73s.9 1.27.9 2.35zm-2.48 1.1c.26-.23.38-.59.38-1.09 0-.5-.13-.84-.4-1.03s-.73-.28-1.39-.28h-1.54v2.75h1.5c.72 0 1.2-.12 1.45-.35zM51.56 5.36V7.2h-4.59v1.91h4.13v1.76h-4.13v1.92h4.74v1.83h-6.79V5.36h6.64zM60.09 7.15v7.48h-2.06V7.15h-2.61V5.36h7.28v1.79h-2.61zM70.81 14.64h-2.06v-3.66l-3.19-5.61h2.23l1.99 3.45 1.99-3.45H74l-3.19 5.61v3.66zM83.99 6.19c.65.55.97 1.4.97 2.55s-.33 1.98-1 2.51-1.68.8-3.04.8h-1.23v2.59h-2.06V5.36h3.26c1.42 0 2.45.28 3.1.83zm-1.51 3.65c.25-.28.37-.69.37-1.22s-.16-.92-.48-1.14c-.32-.23-.82-.34-1.5-.34H79.7v3.12h1.38c.68 0 1.15-.14 1.4-.42zM95.85 5.36V7.2h-4.59v1.91h4.13v1.76h-4.13v1.92H96v1.83h-6.79V5.36h6.64z"/></g></svg>
+</a>
+
+        </div>
+    </template>
+</doc-sidebar>
+
+
+        <div class="flex-grow min-w-0 dark:bg-dark-850">
+            <!-- Render "toolbar" template here on api pages --><!-- Render page content -->
+            <div class="flex">
+    <div class="flex-grow min-w-0 px-6 md:px-16">
+        <main class="relative pt-6 pb-16">
+            <div class="docs-markdown" id="docs-content">
+                <!-- Rendered if sidebar right is enabled -->
+                <div id="docs-sidebar-right-toggle"></div>
+               
+                <!-- Page content  -->
+<doc-anchor-target id="data-security-models" class="break-words">
+    <h1>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#data-security-models">#</doc-anchor-trigger>
+        <span>Data Security Models</span>
+    </h1>
+</doc-anchor-target>
+<p>UniConfig supports encryption and hashing of leaf/leaf-list values on SSH and RESTCONF API.
+Following sections describe supported security models in depth.</p>
+<doc-anchor-target id="data-encryption">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#data-encryption">#</doc-anchor-trigger>
+        <span>Data encryption</span>
+    </h2>
+</doc-anchor-target>
+<p>UniConfig uses asymmetric encryption for ensuring confidentiality of selected leaf and leaf-list values. Currently,
+only RSA ciphers are supported (both global UniConfig and device-level key-pairs). Encryption is supported
+in &#x27;uniconfig&#x27;, &#x27;unistore&#x27;, and &#x27;templates&#x27; topologies.</p>
+<doc-anchor-target id="global-device-encryption-architecture">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#global-device-encryption-architecture">#</doc-anchor-trigger>
+        <span>Global-device encryption architecture</span>
+    </h3>
+</doc-anchor-target>
+<p>Both UniConfig and device uses PKI for encryption of data:</p>
+<ul>
+<li>UniConfig side: All selected leaves are encrypted using global public key when this data enters UniConfig via
+RESTCONF API or UniConfig SSH shell API. Afterwards, data is stored in database in the encrypted format.
+UniConfig has also access to private key which is used internally for decryption of already encrypted data.</li>
+<li>Device side: Device exposes public key and UniConfig uses this key for re-encryption of data before it is sent
+to device (&#x27;commit&#x27;/&#x27;checked-commit&#x27; operations). However, device doesn&#x27;t expose its private key - UniConfig is not
+able to detect changes done to encrypted data (updated leaves/leaf-lists) - it is only able to detect, if data
+was removed or created, not updated. Because of this reason, UniConfig assumes that read encrypted data from device
+has been encrypted using the same public key as it was used by UniConfig.</li>
+</ul>
+<p>Following picture depicts data transformations done on UniConfig interfaces:</p>
+<p><figure class="content-center">
+    <img src="global-device_encryption_model.svg" alt="Global-device encryption model" />
+    <figcaption class="caption">Global-device encryption model</figcaption>
+</figure>
+</p>
+<doc-anchor-target id="global-only-encryption-architecture">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#global-only-encryption-architecture">#</doc-anchor-trigger>
+        <span>Global-only encryption architecture</span>
+    </h3>
+</doc-anchor-target>
+<p>In comparison to Global-device encryption architecture this model uses only global key-pair for encryption of data.
+Devices contain only plaintext data.</p>
+<ul>
+<li>Public key is used for encryption of received data via RESTCONF, UniConfig
+shell API, and when syncing configuration from device to UniConfig transaction (&#x27;sync-from-network&#x27; operation).</li>
+<li>Private key is used for decryption of encrypted data before forwarding this configuration to device
+(&#x27;commit&#x27;/&#x27;checked-commit&#x27; operations).</li>
+</ul>
+<p>Next picture depicts data transformations done on UniConfig interfaces:</p>
+<p><figure class="content-center">
+    <img src="global_encryption_model.svg" alt="Global-only encryption model" />
+    <figcaption class="caption">Global-only encryption model</figcaption>
+</figure>
+</p>
+<div class="flex mb-6">
+    <div class="flex-shrink-0 w-1 rounded-tl rounded-bl bg-blue-500 dark:bg-blue-400"></div>
+    <div class="flex w-full py-4 border border-l-0 border-gray-300 rounded-tr rounded-br doc-alert bg-white dark:bg-dark-700 dark:border-dark-700" role="alert">
+        <div class="flex items-center ml-4 h-7">
+            <svg xmlns="http://www.w3.org/2000/svg" class="mb-px text-blue-500 dark:text-blue-400" width="22" height="22" viewBox="0 0 24 24" role="presentation">
+                <g fill="currentColor"><g>
+                    <path d="M12 1C5.93 1 1 5.93 1 12s4.93 11 11 11 11-4.93 11-11S18.07 1 12 1zm0 20c-4.96 0-9-4.04-9-9s4.04-9 9-9 9 4.04 9 9-4.04 9-9 9z"></path>
+                    <path d="M12 11c-.55 0-1 .45-1 1v4c0 .55.45 1 1 1s1-.45 1-1v-4c0-.55-.45-1-1-1zM12.01 7c-.56 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1z"></path>
+                    <path fill="none" d="M0 0h24v24H0z"></path>
+                </g></g>
+            </svg>
+        </div>
+        <div class="pr-5 ml-3">
+<p>Reading of operational data from device directly (GET under &#x27;yang-ext:mount&#x27;) shows data
+in unencrypted format. Application gateways should restrict access to mountpoints in this use-case.</p>
+        </div>
+    </div>
+</div>
+<doc-anchor-target id="yang-support">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#yang-support">#</doc-anchor-trigger>
+        <span>YANG support</span>
+    </h3>
+</doc-anchor-target>
+<p>Leaves and leaf-lists, which value user would like to store encrypted, must be marked using YANG extension without any
+parameters. Currently, only leaves with &#x27;string&#x27; type (direct/indirect with custom type definitions) are supported,
+since encrypted values are base64 encoded. Also, be aware that type constraints must accept encrypted values.</p>
+<p>Example YANG module that defines one &#x27;encrypt&#x27; extension:</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<div class="codeblock-title">frinx-encrypt@2021-12-15</div>
+<pre class="language-yang"><code v-pre class="language-yang">module frinx-encrypt {
+    yang-version 1.1;
+    namespace urn:ietf:params:xml:ns:yang:frinx-encrypt;
+    prefix frinx-encrypt;
+
+    revision 2021-12-15 {
+        description &quot;Initial revision&quot;;
+    }
+
+    extension encrypt {
+    }
+}</code></pre>
+</doc-codeblock></div>
+<p>Usage of the extension in the &#x27;config&#x27; module:</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<div class="codeblock-title">config@2021-12-15</div>
+<pre class="language-yang"><code v-pre class="language-yang">module config {
+    yang-version 1.1;
+    namespace urn:ietf:params:xml:ns:yang:config;
+    prefix config;
+
+    import frinx-encrypt {
+        prefix fe;
+        revision-date 2021-12-15;
+    }
+
+    revision 2021-12-15 {
+        description &quot;Initial revision&quot;;
+    }
+
+    typedef secret-string {
+        type string;
+    }
+
+    container config {
+        list properties {
+            key property-id;
+
+            leaf property-id {
+                type string;
+            }
+            leaf enabled {
+                type boolean;
+            }
+            leaf value {
+                type string;
+                fe:encrypt;
+            }
+        }
+
+        container routing {
+            container eigrp {
+                leaf process-id {
+                    type uint16;
+                }
+                leaf password {
+                    type secret-string;
+                    fe:encrypt;
+                }
+            }
+
+            leaf-list neighbor-key {
+                type leafref {
+                    path &quot;../../properties/value&quot;;
+                }
+                fe:encrypt;
+            }
+        }
+    }
+}</code></pre>
+</doc-codeblock></div>
+<p>Many times, it is not possible to modify existing YANG files because they are already deployed on device, for example
+device running with NETCONF server. In this case, user can still mark what leaves should be encrypted using additional
+YANG module that contains deviations.</p>
+<p>Example:</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<div class="codeblock-title">encrypted-paths@2019-11-10</div>
+<pre class="language-yang"><code v-pre class="language-yang">module encrypted-paths {
+    yang-version 1.1;
+    namespace urn:ietf:params:xml:ns:yang:encrypted-paths;
+    prefix ep;
+
+    import snmp {
+        prefix snmp;
+        revision-date 2019-11-10;
+    }
+    import frinx-encrypt {
+        prefix fe;
+        revision-date 2021-12-15;
+    }
+
+    revision 2019-11-10 {
+        description &quot;Initial revision&quot;;
+    }
+
+    deviation &quot;/snmp:snmp/snmp:usm/snmp:remote/snmp:user/snmp:auth/snmp:protocol/snmp:md5/snmp:md5/snmp:key-type/snmp:password/snmp:password&quot; {
+        deviate add {
+            fe:encrypt;
+        }
+    }
+
+    deviation &quot;/snmp:snmp/snmp:usm/snmp:remote/snmp:user/snmp:auth/snmp:protocol/snmp:md5/snmp:md5/snmp:key-type/snmp:key/snmp:key&quot; {
+        deviate add {
+            fe:encrypt;
+        }
+    }
+
+    deviation &quot;/snmp:snmp/snmp:usm/snmp:remote/snmp:user/snmp:auth/snmp:protocol/snmp:sha/snmp:sha/snmp:key-type/snmp:password/snmp:password&quot; {
+        deviate add {
+            fe:encrypt;
+        }
+    }
+
+    deviation &quot;/snmp:snmp/snmp:usm/snmp:remote/snmp:user/snmp:auth/snmp:protocol/snmp:sha/snmp:sha/snmp:key-type/snmp:key/snmp:key&quot; {
+        deviate add {
+            fe:encrypt;
+        }
+    }
+}</code></pre>
+</doc-codeblock></div>
+<p>Afterwards, user has 2 options how this module can be coupled with modules from device (NETCONF):</p>
+<ol type="a">
+<li>Explicit specification of this side-loaded module in the &#x27;install-node&#x27; request - using
+&#x27;netconf-node-topology:yang-module-capabilities&#x27; settings (see &#x27;Device installation&#x27; section).</li>
+<li>Automatic detection of side-loaded module - UniConfig looks for specific capability from NETCONF server,
+inherits its revision, and then looks for side-loaded module with specific name and inherited revision
+(see &#x27;Configuration&#x27; section). This option is preferred, if deployment contains multiple versions of devices
+and list of encrypted paths are different on each version.</li>
+</ol>
+<doc-anchor-target id="configuration">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#configuration">#</doc-anchor-trigger>
+        <span>Configuration</span>
+    </h3>
+</doc-anchor-target>
+<p>Global RSA key-pair is stored inside PEM-encoded files in the &#x27;rsa&#x27; directory under UniConfig root. Name of the
+private key must be &#x27;encrypt_key&#x27; and name of the public key must be &#x27;encrypt_key.pub&#x27;. If user doesn&#x27;t provide
+these files, UniConfig will automatically generate its own key-pair with length of 2048 bits.
+All UniConfig instances in the cluster must use the same key-pair.</p>
+<p>Encryption settings are stored in the &#x27;config/lighty-uniconfig-config.json&#x27; file under &#x27;crypto&#x27; root object.</p>
+<p>Example:</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<div class="codeblock-title">settings</div>
+<pre class="language-json"><code v-pre class="language-json">&quot;crypto&quot;: {
+    &quot;encryptExtensionId&quot;: &quot;frinx-encrypt:encrypt&quot;,
+    &quot;netconfReferenceModuleName&quot;: &quot;system&quot;,
+    &quot;netconfEncryptedPathsModuleName&quot;: &quot;encrypted-paths&quot;
+}</code></pre>
+</doc-codeblock></div>
+<ul>
+<li>encryptExtensionId - If this setting is not defined, then encryption is disabled despite of other
+settings or install-node parameters. The value must have the format [module-name]:[extension-name] and specifies
+extension used for marking of encrypted leaves/leaf-lists in YANG modules. Corresponding YANG module, that contain
+this extension, can be part of device/unistore YANG schemas or it can be side-loaded during installation of NETCONF
+device as imported module from &#x27;default&#x27; repository.</li>
+<li>netconfReferenceModuleName - Name of the module for which NETCONF client looks for during mounting process. If
+UniConfig finds module with this name in the list of received capabilities, then it uses its revision in the lookup
+process for correct YANG module with encrypted paths (using deviations).</li>
+<li>netconfEncryptedPathsModuleName - Name of the module which contains deviations with paths to encrypted
+leaves/leaf-lists. There could be multiple revisions of this file prepared in the &#x27;default&#x27; NETCONF repository.
+NETCONF client in the UniConfig chooses the correct revision based on &#x27;netconfReferenceModuleName&#x27; setting.
+Together, &#x27;netconfReferenceModuleName&#x27; and &#x27;netconfEncryptedPathsModuleName&#x27; can be used for auto-loading
+of encrypted paths for different versions of devices.</li>
+</ul>
+<doc-anchor-target id="device-installation">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#device-installation">#</doc-anchor-trigger>
+        <span>Device installation</span>
+    </h3>
+</doc-anchor-target>
+<p>There are 2 settings related to encryption in the &#x27;install-node&#x27; RPC request:</p>
+<ul>
+<li>uniconfig-config:crypto - It allows specifying path to public key on device - &#x27;public-key-path&#x27; (leaf with RFC-8040
+path) and cipher type (by default, RSA is used) - &#x27;public-key-cipher-type&#x27;. If path to public key is specified, and it
+exists on device, then Global-device encryption model is used. Otherwise, Global-only encryption model is selected.</li>
+<li>netconf-node-topology:yang-module-capabilities - If auto-loading of YANG module with encrypted paths is not used
+and device itself doesn&#x27;t specify encrypted leaves, then it is necessary to side-load YANG module with encrypted
+paths. This parameter is relevant only on NETCONF nodes. Side-loaded modules must be expressed in the format
+of NETCONF capabilities.</li>
+</ul>
+<p>Following request shows install-node request with specified both path to public key and side-loaded YANG module
+&#x27;encrypted-paths&#x27; with revision &#x27;2021-12-15&#x27; and namespace &#x27;urn:ietf:params:xml:ns:yang:encrypted-paths&#x27;.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<div class="codeblock-title">RPC request: install device</div>
+<pre class="language-bash"><code v-pre class="language-bash">curl --location --request POST 'http://127.0.0.1:8181/rests/operations/connection-manager:install-node' \
+--header 'Content-Type: application/json' \
+--header 'Accept: application/json' \
+--data-raw '{
+    &quot;input&quot;: {
+        &quot;node-id&quot;: &quot;dev01&quot;,
+        &quot;netconf&quot;: {
+            &quot;netconf-node-topology:host&quot;: &quot;10.103.5.47&quot;,
+            &quot;netconf-node-topology:port&quot;: 2022,
+            &quot;netconf-node-topology:keepalive-delay&quot;: 5,
+            &quot;netconf-node-topology:max-connection-attempts&quot;: 1,
+            &quot;netconf-node-topology:connection-timeout-millis&quot;: 60000,
+            &quot;netconf-node-topology:default-request-timeout-millis&quot;: 60000,
+            &quot;netconf-node-topology:tcp-only&quot;: false,
+            &quot;netconf-node-topology:username&quot;: &quot;admin&quot;,
+            &quot;netconf-node-topology:password&quot;: &quot;admin&quot;,
+            &quot;netconf-node-topology:sleep-factor&quot;: 1.0,
+            &quot;uniconfig-config:uniconfig-native-enabled&quot;: true,
+            &quot;netconf-node-topology:edit-config-test-option&quot;: &quot;set&quot;,
+            &quot;uniconfig-config:crypto&quot;: {
+                &quot;public-key-path&quot;: &quot;/crypto/pki/config-keys=config_key/pub-key&quot;,
+                &quot;public-key-cipher-type&quot;: &quot;RSA&quot;
+            },
+            &quot;netconf-node-topology:yang-module-capabilities&quot;: {
+                &quot;capability&quot;: [
+                    &quot;urn:ietf:params:xml:ns:yang:encrypted-paths?module=encrypted-paths&amp;amp;revision=2021-12-15&quot;
+                ]
+            }
+        }
+    }
+}'</code></pre>
+</doc-codeblock></div>
+<p>During installation, UniConfig tries to download public key from device. Public key can be verified using GET request:</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<div class="codeblock-title">GET request: reading synced public key from device</div>
+<pre class="language-bash"><code v-pre class="language-bash">curl --location --request POST 'http://127.0.0.1:8181/rests/data/network-topology:network-topology/topology=uniconfig/node=dev01/crypto:crypto?content=nonconfig' \
+--header 'Accept: application/json'</code></pre>
+</doc-codeblock></div>
+<div class="codeblock-wrapper"><doc-codeblock>
+<div class="codeblock-title">GET response</div>
+<pre class="language-json"><code v-pre class="language-json">{
+    &quot;crypto&quot;: {
+        &quot;encryption-public-key&quot;: &quot;MIIBIjANBgkqhkiG9w0BAQEFBAOCAQ8AMIIBCgKCAQEAngAPZy+xJRhwzyC3NuiDQ6mXXhHD797wGt8L91v7jU+IZigggiRJIYOHwEUVkvPKErULIi8ZQhi2pykuSoJu6733GUoqct22M9uYOe9I5Y+9uL16dSVrn90Vy2vk9/CqAC+cKbIdEMpowhb/nap7e9+m8owcttH0trkWV1qMSTrQIIsIAo48jxLfxjtOLHwyCGE4JOSvBg3RSNUWVH7SAwk5b3zv0JM2lV1ctF2kiDs1RP2ASXgLnCjCUH6EdXfbgORrImd58kO+931RbdhGwPUlt8+ij6UxvE6kJBm9wnIBVyiDrRmPcuHd41hCFooMEmoCRxr1ZGDxcTEh3DndUwIDAQAB&quot;,
+        &quot;encryption-cipher-type&quot;: &quot;RSA&quot;
+    }
+}</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="example-global-device-model">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#example-global-device-model">#</doc-anchor-trigger>
+        <span>Example: global-device model</span>
+    </h3>
+</doc-anchor-target>
+<p>The next use-case shows encryption of values marked by &#x27;frinx-encrypt:encrypt&#x27; extension on both UniConfig server
+side and device side. NETCONF device directly exposes &#x27;frinx-encrypt&#x27; YANG module and leaves with applied extension
+(side-loading of encrypted paths is not necessary).</p>
+<p>Used YANG model for simulation of YANG device:</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<div class="codeblock-title">config2021-12-15</div>
+<pre class="language-yang"><code v-pre class="language-yang">module config {
+    yang-version 1.1;
+    namespace urn:ietf:params:xml:ns:yang:config;
+    prefix config;
+
+    import frinx-encrypt {
+        prefix fe;
+        revision-date 2021-12-15;
+    }
+
+    revision 2021-12-15 {
+        description &quot;Initial revision&quot;;
+    }
+
+    typedef secret-string {
+        type string;
+    }
+
+    container keys {
+        config false;
+        leaf public-key {
+            type binary;
+        }
+    }
+
+    container config {
+        leaf test {
+            type string;
+        }
+
+        list properties {
+            key property-id;
+
+            leaf property-id {
+                type string;
+            }
+            leaf enabled {
+                type boolean;
+            }
+            leaf value {
+                type string;
+                fe:encrypt;
+            }
+        }
+
+        container routing {
+            container rip {
+                leaf version {
+                    type uint8;
+                }
+                leaf auto-summary {
+                    type boolean;
+                    fe:encrypt; // only string is supported for encryption - ignored
+                }
+            }
+            container eigrp {
+                leaf process-id {
+                    type uint16;
+                }
+                leaf password {
+                    type secret-string;
+                    fe:encrypt;
+                }
+            }
+
+            leaf-list neighbor-key {
+                type leafref {
+                    path &quot;../../properties/value&quot;;
+                }
+                fe:encrypt;
+            }
+        }
+    }
+}</code></pre>
+</doc-codeblock></div>
+<div class="codeblock-wrapper"><doc-codeblock>
+<div class="codeblock-title">1. Installation of new device with specified path to public key</div>
+<pre class="language-bash"><code v-pre class="language-bash">curl --location --request POST 'http://127.0.0.1:8181/rests/operations/connection-manager:install-node' \
+--header 'Content-Type: application/json' \
+--header 'Accept: application/json' \
+--data-raw '{
+    &quot;input&quot;: {
+        &quot;node-id&quot;: &quot;testtool&quot;,
+        &quot;netconf&quot;: {
+            &quot;netconf-node-topology:host&quot;: &quot;127.0.0.1&quot;,
+            &quot;netconf-node-topology:port&quot;: 36000,
+            &quot;netconf-node-topology:keepalive-delay&quot;: 5,
+            &quot;netconf-node-topology:max-connection-attempts&quot;: 1,
+            &quot;netconf-node-topology:connection-timeout-millis&quot;: 60000,
+            &quot;netconf-node-topology:default-request-timeout-millis&quot;: 60000,
+            &quot;netconf-node-topology:tcp-only&quot;: false,
+            &quot;netconf-node-topology:username&quot;: &quot;admin&quot;,
+            &quot;netconf-node-topology:password&quot;: &quot;admin&quot;,
+            &quot;netconf-node-topology:sleep-factor&quot;: 1.0,
+            &quot;uniconfig-config:install-uniconfig-node-enabled&quot;: true,
+            &quot;uniconfig-config:uniconfig-native-enabled&quot;: true,
+            &quot;uniconfig-config:crypto&quot;: {
+                &quot;public-key-path&quot;: &quot;/keys/public-key&quot;
+            }
+        }
+    }
+}'</code></pre>
+</doc-codeblock></div>
+<div class="codeblock-wrapper"><doc-codeblock>
+<div class="codeblock-title">RPC response</div>
+<pre class="language-json"><code v-pre class="language-json">{
+    &quot;output&quot;: {
+        &quot;status&quot;: &quot;complete&quot;
+    }
+}</code></pre>
+</doc-codeblock></div>
+<div class="codeblock-wrapper"><doc-codeblock>
+<div class="codeblock-title">2. Creation of new transaction</div>
+<pre class="language-bash"><code v-pre class="language-bash">curl --location --request POST 'http://127.0.0.1:8181/rests/operations/uniconfig-manager:create-transaction'</code></pre>
+</doc-codeblock></div>
+<div class="codeblock-wrapper"><doc-codeblock>
+<div class="codeblock-title">RPC response (UNICONFIGTXID=5e75d4e9-382e-4852-905e-9b5c4db57107)</div>
+<pre class="language-none"><code v-pre class="language-none">5e75d4e9-382e-4852-905e-9b5c4db57107</code></pre>
+</doc-codeblock></div>
+<div class="codeblock-wrapper"><doc-codeblock>
+<div class="codeblock-title">3. Writing plaintext data with leaves that must be encrypted</div>
+<pre class="language-bash"><code v-pre class="language-bash">curl --location --request PUT 'http://127.0.0.1:8181/rests/data/network-topology:network-topology/topology=uniconfig/node=testtool/configuration/config/properties' \
+--header 'Content-Type: application/json' \
+--header 'Cookie: UNICONFIGTXID=5e75d4e9-382e-4852-905e-9b5c4db57107; Path=/rests/' \
+--data-raw '{
+    &quot;properties&quot;: [
+        {
+            &quot;property-id&quot;: &quot;id1&quot;,
+            &quot;enabled&quot;: true,
+            &quot;value&quot;: &quot;test1&quot;
+        },
+        {
+            &quot;property-id&quot;: &quot;id2&quot;,
+            &quot;enabled&quot;: false,
+            &quot;value&quot;: &quot;test2&quot;
+        }
+    ]
+}'</code></pre>
+</doc-codeblock></div>
+<div class="codeblock-wrapper"><doc-codeblock>
+<div class="codeblock-title">PUT reponse</div>
+<pre class="language-none"><code v-pre class="language-none">Status: 201</code></pre>
+</doc-codeblock></div>
+<div class="codeblock-wrapper"><doc-codeblock>
+<div class="codeblock-title">4. Reading already encrypted data in the same transaction</div>
+<pre class="language-bash"><code v-pre class="language-bash">curl --location --request GET 'http://127.0.0.1:8181/rests/data/network-topology:network-topology/topology=uniconfig/node=testtool/configuration/config/properties?content=config' \
+--header 'Accept: application/json' \
+--header 'Cookie: UNICONFIGTXID=5e75d4e9-382e-4852-905e-9b5c4db57107; Path=/rests/'</code></pre>
+</doc-codeblock></div>
+<div class="codeblock-wrapper"><doc-codeblock>
+<div class="codeblock-title">GET response</div>
+<pre class="language-json"><code v-pre class="language-json">{
+    &quot;properties&quot;: [
+        {
+            &quot;property-id&quot;: &quot;id1&quot;,
+            &quot;value&quot;: &quot;hJVw+MLPnB4K9dlH67khBXMt8LW7p2+oXCFLVq19TelOVXf4Oad6XfO36wD4gTjF0VpgGp3/95SYX25NrBT5U8vW8AQ33OdFo99TF+g+bAjYE8bBX9ND8Nwdyxu86AKmPGzJWHKlz3SIf0KzX+hC9LvdDiD4nmkPiS27ZGVOnaN9wNFHEt9Oa9Z4SvKSPq8ZpxVoCpHfZ08CS7DPuMqaMRPzi+7QWIsMSIBXoNbWDlg5YTN68tgcOCwtof1lSYaZHnpNWHAvR59HMh2vL+L4BWRvnQgVWoYYuC3aPWMbF+Z8Q5CVqdzcD67VUzhKcGKEiag9u1suy0IBTLAhJPHD+g==&quot;,
+            &quot;enabled&quot;: true
+        },
+        {
+            &quot;property-id&quot;: &quot;id2&quot;,
+            &quot;value&quot;: &quot;YMoUZ5fOIYA8Uii34hg+CJ5BsEGlu82y0MJDb8ETbz3lcnlDxevrVLHtT6TdwkU+6wUed80FRfrD9FCPWfq6E19hC7fyq9kV8nS7IO02kuafZ0fsKIFKHSQqsOJTe9dACOunWmo6ZqzRjUHn2tVBY0rrydtusk7fJ4GrmK8X73e3EXOlWYOtqxZj88Egf6FrrpN17sJZJCHMHI+tN0GMEykjYhklnW2QxaLyXjrI88PcJwPUEOQouG5tSOVDw7xAKu/yPGikTUrlIZGaT7PJTXkKOMC8TomJybVD7mA8e9ytcJO4jQVJD10JxO2PJe1L1humgi4qbOzv3xQ+Mmsfhg==&quot;,
+            &quot;enabled&quot;: false
+        }
+    ]
+}</code></pre>
+</doc-codeblock></div>
+<div class="codeblock-wrapper"><doc-codeblock>
+<div class="codeblock-title">5. Commit changes to device</div>
+<pre class="language-bash"><code v-pre class="language-bash">curl --location --request POST 'http://127.0.0.1:8181/rests/operations/uniconfig-manager:commit' \
+--header 'Accept: application/json' \
+--header 'Content-type: application/json' \
+--header 'Cookie: UNICONFIGTXID=5e75d4e9-382e-4852-905e-9b5c4db57107; Path=/rests/' \
+--data-raw '{
+    &quot;input&quot;: {
+        &quot;target-nodes&quot;: {
+        }
+    }
+}'</code></pre>
+</doc-codeblock></div>
+<div class="codeblock-wrapper"><doc-codeblock>
+<div class="codeblock-title">RPC response</div>
+<pre class="language-json"><code v-pre class="language-json">{
+    &quot;output&quot;: {
+        &quot;node-results&quot;: {
+            &quot;node-result&quot;: [
+                {
+                    &quot;node-id&quot;: &quot;testtool&quot;,
+                    &quot;configuration-status&quot;: &quot;complete&quot;
+                }
+            ]
+        },
+        &quot;overall-status&quot;: &quot;complete&quot;
+    }
+}</code></pre>
+</doc-codeblock></div>
+<div class="codeblock-wrapper"><doc-codeblock>
+<div class="codeblock-title">6. Reading committed configuration from device (immediate-commit model)</div>
+<pre class="language-bash"><code v-pre class="language-bash">curl --location --request GET 'http://127.0.0.1:8181/rests/data/network-topology:network-topology/topology=topology-netconf/node=testtool/yang-ext:mount/config/properties?content=config' \
+--header 'Accept: application/json'</code></pre>
+</doc-codeblock></div>
+<div class="codeblock-wrapper"><doc-codeblock>
+<div class="codeblock-title">GET response</div>
+<pre class="language-json"><code v-pre class="language-json">{
+    &quot;properties&quot;: [
+        {
+            &quot;property-id&quot;: &quot;id1&quot;,
+            &quot;value&quot;: &quot;BsscbpHaTAR3JBnUjuWPcIiUXmpakK9rvmEiTh5+yInezkzIEPQJNyIlVONMjRABv2cs5a0rIfcJAIpwKfmGwB1hfPRSYEUJrMuvSY2SvOhgEAYAcVrMGsVLtmSpZymvDQw1ZUAp1ANT2r3NgH+FELWmATaGmKMtBJLyt8OexXmpCmENmGf+Hdj0450a6WwW+qPcJnLclR+KUR6yHSOzIZVPGBdp0zw5bEwCsYPWLtBgEw4U9/QxzO+ELhO8o9bEJx44EVax5zSZpmr5+9TineRB99GLaBpTnbDEUDKB6qDzmmutuQfaqUCdIpeBPOHIkY2R1Eos2Bagx2mAv/QXWw==&quot;,
+            &quot;enabled&quot;: true
+        },
+        {
+            &quot;property-id&quot;: &quot;id2&quot;,
+            &quot;value&quot;: &quot;UM3pBX/zsmwBoYUQPFLMl3XciPIbAKU2Z3rFlDaHNWotxwjci2Sc4E42Mz/hfTBbJOsrDhwDf9542dUcnNZ0VQZHSZ6QSm8YZYkLgwTC0jIz+kC/aLP8yHdax8pSUrWf1oqGgYAD18wC6CLL8Jvptu4YFH7oxxVAk1b6RX3LcU41UMrxbGTdkPq8iUAMgI5d3+YKVRzy00xOAyhMo3rrRK6VDtTZ+jwxvTK4V9xo7AEgxjCQXhEnTQPWVESGRiq0WP4wRX4QlwB6b7uiwcQYa+L6ZGU83CJeA8fDb9YSsRzKkIQJ+6cKaiNXupvDTn7nMy0lhG45oJfGUB059RAaKQ==&quot;,
+            &quot;enabled&quot;: false
+        }
+    ]
+}</code></pre>
+</doc-codeblock></div>
+<div class="codeblock-wrapper"><doc-codeblock>
+<div class="codeblock-title">7. Reading committed configuration from database (immediate-commit model)</div>
+<pre class="language-bash"><code v-pre class="language-bash">curl --location --request GET 'http://127.0.0.1:8181/rests/data/network-topology:network-topology/topology=uniconfig/node=testtool/configuration/config/properties?content=config' \
+--header 'Accept: application/json'</code></pre>
+</doc-codeblock></div>
+<div class="codeblock-wrapper"><doc-codeblock>
+<div class="codeblock-title">GET reponse</div>
+<pre class="language-json"><code v-pre class="language-json">{
+    &quot;properties&quot;: [
+        {
+            &quot;property-id&quot;: &quot;id1&quot;,
+            &quot;value&quot;: &quot;hJVw+MLPnB4K9dlH67khBXMt8LW7p2+oXCFLVq19TelOVXf4Oad6XfO36wD4gTjF0VpgGp3/95SYX25NrBT5U8vW8AQ33OdFo99TF+g+bAjYE8bBX9ND8Nwdyxu86AKmPGzJWHKlz3SIf0KzX+hC9LvdDiD4nmkPiS27ZGVOnaN9wNFHEt9Oa9Z4SvKSPq8ZpxVoCpHfZ08CS7DPuMqaMRPzi+7QWIsMSIBXoNbWDlg5YTN68tgcOCwtof1lSYaZHnpNWHAvR59HMh2vL+L4BWRvnQgVWoYYuC3aPWMbF+Z8Q5CVqdzcD67VUzhKcGKEiag9u1suy0IBTLAhJPHD+g==&quot;,
+            &quot;enabled&quot;: true
+        },
+        {
+            &quot;property-id&quot;: &quot;id2&quot;,
+            &quot;value&quot;: &quot;YMoUZ5fOIYA8Uii34hg+CJ5BsEGlu82y0MJDb8ETbz3lcnlDxevrVLHtT6TdwkU+6wUed80FRfrD9FCPWfq6E19hC7fyq9kV8nS7IO02kuafZ0fsKIFKHSQqsOJTe9dACOunWmo6ZqzRjUHn2tVBY0rrydtusk7fJ4GrmK8X73e3EXOlWYOtqxZj88Egf6FrrpN17sJZJCHMHI+tN0GMEykjYhklnW2QxaLyXjrI88PcJwPUEOQouG5tSOVDw7xAKu/yPGikTUrlIZGaT7PJTXkKOMC8TomJybVD7mA8e9ytcJO4jQVJD10JxO2PJe1L1humgi4qbOzv3xQ+Mmsfhg==&quot;,
+            &quot;enabled&quot;: false
+        }
+    ]
+}</code></pre>
+</doc-codeblock></div>
+<div class="codeblock-wrapper"><doc-codeblock>
+<div class="codeblock-title">8. Writing plaintext data with leaf-list that must be encrypted (immediate-commit model)</div>
+<pre class="language-bash"><code v-pre class="language-bash">curl --location --request PUT 'http://127.0.0.1:8181/rests/data/network-topology:network-topology/topology=uniconfig/node=testtool/configuration/config/routing/neighbor-key' \
+--header 'Content-type: application/json' \
+--data-raw '{
+    &quot;neighbor-key&quot;: [
+        &quot;neigh1&quot;,
+        &quot;neigh2&quot;,
+        &quot;neigh2&quot;
+    ]
+}'</code></pre>
+</doc-codeblock></div>
+<div class="codeblock-wrapper"><doc-codeblock>
+<div class="codeblock-title">PUT response</div>
+<pre class="language-none"><code v-pre class="language-none">Status: 201</code></pre>
+</doc-codeblock></div>
+<div class="codeblock-wrapper"><doc-codeblock>
+<div class="codeblock-title">9. Reading committed configuration from device (immediate-commit model)</div>
+<pre class="language-bash"><code v-pre class="language-bash">curl --location --request GET 'http://127.0.0.1:8181/rests/data/network-topology:network-topology/topology=topology-netconf/node=testtool/yang-ext:mount/config/routing/neighbor-key?content=config' \
+--header 'Accept: application/json'</code></pre>
+</doc-codeblock></div>
+<div class="codeblock-wrapper"><doc-codeblock>
+<div class="codeblock-title">GET response</div>
+<pre class="language-json"><code v-pre class="language-json">{
+    &quot;neighbor-key&quot;: [
+        &quot;JD+6+DCBf97NIJqxekkrpdspQzgpZ9/G9ckV39hmnLyUS2rc7KULFMX/zw6drLsyV8ZgKyLXUjA0aiQq0k2FvicujJAAwSX/GRjKkN51P/kV4AA0hTxX1eVOC3RR392lRCzRmcIaaniHj9zXOJciY/Ki5UvKW0VOwcaPN47iZKJ2fcBbyNwMcQfXAP0ScBQOCxH/MVtp7vq/0tJCS6CS4CSNOx/LarSaq+MGgKgQroWQ9LONnJ5BCWsZsO6h5RhhBOjn5AT4cNrmvEAvbGohkTJCibdSmAO28AfIdVqidoRABGA8z8fEOu0vgdFmKXJFaawE7kpZBgvnm3EN5nr/6A==&quot;,
+        &quot;X24s8vRw3tJB6pK5cLaT6SnFXoGG1HlMUOs91k8DCGSVxMlV98l5W3WWnGEuQnJdH8n6dNhC3qaXO4vEd2CUT97HnMpP25mbKvBuJot12xoMj7lMDg+J0+FuhKiy+ibim1o059wbbayAU7IsxiKIVgbHIwVovI5vub331Ya5TGpuUVOAMRXasnvymGRbbWuS2aTkwDWt/148549C9ofTqOr0kFL0TVD+Ze8BSdi33+GKTskAvrk44vNJjZI/mITggWezHKi2xfu8R+vEK+pCaelcjmMuwYXYEu6l+fI8E+wU9/CRAK/EpGHjBKljuae8Q1UmeY3TeQ8/ahwCw1UqLQ==&quot;,
+        &quot;RoG/5szzENbFh0/ZWhw+f8Wg+dQyXpQ1RR2rIEfLOBZkVkNq55LTuB0NwgLfw/PBirUZVZHtPzGNMmOnuqoyfRZ8AUu8t6mgxaKKRROAaEKQOJ069Gl5klRn4kryMzDLihcoHWfnJqcb+SbQ8SIoeeUZdd0yJkgkegJMYWyWECOGbWlPX7YaKg7sd6QWzHh+SBXyZg5tYyG5qm7i6XiXysyB1CAtuQRLk2EKkE4Ce5Wo6+JT2vflx3x+CcQAB3qH6ZAa4Mc5TzPSsajTlJ+yxicKvKGz3HuV5c6qn7961+pADXlpuiV69O1nK8+yh+3+NdFE/7THpoy5FkmQ70/hGg==&quot;
+    ]
+}</code></pre>
+</doc-codeblock></div>
+<div class="codeblock-wrapper"><doc-codeblock>
+<div class="codeblock-title">10. Reading committed configuration from database (immediate-commit model)</div>
+<pre class="language-bash"><code v-pre class="language-bash">curl --location --request GET 'http://127.0.0.1:8181/rests/data/network-topology:network-topology/topology=uniconfig/node=testtool/configuration/config/routing/neighbor-key?content=config' \
+--header 'Accept: application/json'</code></pre>
+</doc-codeblock></div>
+<div class="codeblock-wrapper"><doc-codeblock>
+<div class="codeblock-title">GET response</div>
+<pre class="language-json"><code v-pre class="language-json">{
+    &quot;neighbor-key&quot;: [
+        &quot;DLvDUR3de+dqdOw3/MwokDVFa2yuw3kySFYIMFZ4Fk61F3Fp4DU5ePFxu5J1tWPeJWs769Ms11/ugTbE7SSKd5kB+NaJv2pjvsnaEg06DDXw46hEM5OiAMsW0XbkkqC1jAP2locXZRgt095x0mNV9o8ssIhLwwvw7QC625CnWma/L3fmDbk7ZyvpyAdyovkLbY2b5IbO3Iusbtkga41cTmRKbtjZ7h9fMzVSVunWj2Q4X8nwihinUI7ytiPWFvpZ9Ehhldth8kVs8t4XiRjrzSPGDsqR7jg0NnGJQMFpXxG/QVkhZSJhegxFVBvAwhTOSfu19mfR7ghSR8pYRKEtbQ==&quot;,
+        &quot;RP9tOlIDgBo2rIHoQ+JFyYVDHs69cDAh8i+2Upml+/i1XDAku6L7oCj2nQNPmutiv/GNoDZo7K3Zoq1tff8N3eqB+xVtkIyYY2YsURJb6GGOlEKRYAUtVGdVxdTnxiie19FCasNrabI/+HgU9KLopjCb9jkuDg2m/pbn14rdzM5JT0XSiuInj6jvKT4qf+/mt4tqrpPT/Y1XePAOTNotZMMXu5ocSV6gxLUk360/Eo19Lv0qSNRLis5xIpjtFPWkF1po13kM3F9kq5QeVB41XbU9ZcTpBi/EeQLmcX0JeDZiIhrSVSmrMw0JsnHlv8V550Jo8rWr/v3Q8hXpgCPr0Q==&quot;,
+        &quot;kgG8T63FBrtvORJl80HJZ86y/QTnOsOCqebNyEV1nJGgszIffUS3DrZk/xBz1ldeChMGbEzz0M7ERD9Lg7LAQGwbdci0ZlbXufdSDdGR0PTCfSly/kq2AQ6748ZQhSiEO6wjY1I5ADh3xJJoWaZTb7C9RM6YgezCQweJt41N6Yr4NMhAIEjto4b4iuHv6MjTLLOsjJKkGFZRzPZBo5B/ojMWqrBVBLc5lQqfeJ4vF2jNRaNMlLsh0wttekMjqcdBanpQh4Nov0KvCQ5Y5u4rzAQ/IS3MdD0A+fUioTW1wZhcvsi4b8Us0pIQ1lQmQVZCR/4F/YnuvuraSxq53ln+nA==&quot;
+    ]
+}</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="example-global-only-model">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#example-global-only-model">#</doc-anchor-trigger>
+        <span>Example: global-only model</span>
+    </h3>
+</doc-anchor-target>
+<p>The next use-case shows encryption of values marked by &#x27;frinx-encrypt:encrypt&#x27; extension only on UniConfig server side.
+NETCONF device directly exposes &#x27;frinx-encrypt&#x27; YANG module and leaves with applied extension
+(side-loading of encrypted paths is not necessary).</p>
+<p>Used YANG model for simulation of YANG device is same as in the previous use-case.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<div class="codeblock-title">1. Installation of new device without public key</div>
+<pre class="language-bash"><code v-pre class="language-bash">curl --location --request POST 'http://127.0.0.1:8181/rests/operations/connection-manager:install-node' \
+--header 'Content-Type: application/json' \
+--header 'Accept: application/json' \
+--data-raw '{
+    &quot;input&quot;: {
+        &quot;node-id&quot;: &quot;testtool&quot;,
+        &quot;netconf&quot;: {
+            &quot;netconf-node-topology:host&quot;: &quot;127.0.0.1&quot;,
+            &quot;netconf-node-topology:port&quot;: 36000,
+            &quot;netconf-node-topology:keepalive-delay&quot;: 5,
+            &quot;netconf-node-topology:max-connection-attempts&quot;: 1,
+            &quot;netconf-node-topology:connection-timeout-millis&quot;: 60000,
+            &quot;netconf-node-topology:default-request-timeout-millis&quot;: 60000,
+            &quot;netconf-node-topology:tcp-only&quot;: false,
+            &quot;netconf-node-topology:username&quot;: &quot;admin&quot;,
+            &quot;netconf-node-topology:password&quot;: &quot;admin&quot;,
+            &quot;netconf-node-topology:sleep-factor&quot;: 1.0,
+            &quot;uniconfig-config:install-uniconfig-node-enabled&quot;: true,
+            &quot;uniconfig-config:uniconfig-native-enabled&quot;: true
+        }
+    }
+}'</code></pre>
+</doc-codeblock></div>
+<div class="codeblock-wrapper"><doc-codeblock>
+<div class="codeblock-title">RPC response</div>
+<pre class="language-json"><code v-pre class="language-json">{
+    &quot;output&quot;: {
+        &quot;status&quot;: &quot;complete&quot;
+    }
+}</code></pre>
+</doc-codeblock></div>
+<div class="codeblock-wrapper"><doc-codeblock>
+<div class="codeblock-title">2. Creation of new transaction</div>
+<pre class="language-bash"><code v-pre class="language-bash">curl --location --request POST 'http://127.0.0.1:8181/rests/operations/uniconfig-manager:create-transaction'</code></pre>
+</doc-codeblock></div>
+<div class="codeblock-wrapper"><doc-codeblock>
+<div class="codeblock-title">RPC response (UNICONFIGTXID=782eb86d-3c11-4c77-bfdf-e8b0bf283830)</div>
+<pre class="language-none"><code v-pre class="language-none">782eb86d-3c11-4c77-bfdf-e8b0bf283830</code></pre>
+</doc-codeblock></div>
+<div class="codeblock-wrapper"><doc-codeblock>
+<div class="codeblock-title">3. Writing plaintext data with leaves that must be encrypted</div>
+<pre class="language-bash"><code v-pre class="language-bash">curl --location --request PUT 'http://127.0.0.1:8181/rests/data/network-topology:network-topology/topology=uniconfig/node=testtool/configuration/config/properties' \
+--header 'Content-Type: application/json' \
+--header 'Cookie: UNICONFIGTXID=782eb86d-3c11-4c77-bfdf-e8b0bf283830; Path=/rests/' \
+--data-raw '{
+    &quot;properties&quot;: [
+        {
+            &quot;property-id&quot;: &quot;id1&quot;,
+            &quot;enabled&quot;: true,
+            &quot;value&quot;: &quot;test1&quot;
+        },
+        {
+            &quot;property-id&quot;: &quot;id2&quot;,
+            &quot;enabled&quot;: false,
+            &quot;value&quot;: &quot;test2&quot;
+        }
+    ]
+}'</code></pre>
+</doc-codeblock></div>
+<div class="codeblock-wrapper"><doc-codeblock>
+<div class="codeblock-title">PUT reponse</div>
+<pre class="language-none"><code v-pre class="language-none">Status: 201</code></pre>
+</doc-codeblock></div>
+<div class="codeblock-wrapper"><doc-codeblock>
+<div class="codeblock-title">4. Reading already encrypted data in the same transaction</div>
+<pre class="language-bash"><code v-pre class="language-bash">curl --location --request GET 'http://127.0.0.1:8181/rests/data/network-topology:network-topology/topology=uniconfig/node=testtool/configuration/config/properties?content=config' \
+--header 'Accept: application/json' \
+--header 'Cookie: UNICONFIGTXID=782eb86d-3c11-4c77-bfdf-e8b0bf283830; Path=/rests/'</code></pre>
+</doc-codeblock></div>
+<div class="codeblock-wrapper"><doc-codeblock>
+<div class="codeblock-title">GET response</div>
+<pre class="language-json"><code v-pre class="language-json">{
+    &quot;properties&quot;: [
+        {
+            &quot;property-id&quot;: &quot;id1&quot;,
+            &quot;value&quot;: &quot;G+a03obgOIUJ0iVZRj5raw6umiDGCfmiaoufAw7QhqI/T7EH6ZSv+yV+7QgPqj278gjtC9Dy8ajTDihI8CMQstpXUrWPHnQe9KfgBfcepL7BBfYJUluJJzCdAXwlwDi7eab9VPBIyBEtz7+S/jqycbjRCBILWrJT7jxw7Pba9ar49KuaHYkclau6L6baOkbNSnF9VeQjecz51EUS5aOPvXghHzYlcHdLdkoEKoFUfEdD0UzY679cPyMojJ2bZzpdRwIIrZQRcXQxhFNIMGwuKlY0TaHF5215A68I3gbtr0/zSWu4EVZbYP8UCLKR7RdiOnbonrjB5tfekCn/1FnqSQ==&quot;,
+            &quot;enabled&quot;: true
+        },
+        {
+            &quot;property-id&quot;: &quot;id2&quot;,
+            &quot;value&quot;: &quot;dqORW1ld4lf8PPnGSXhkVIoL9/i1uH9s8mKtEINmt4N1wC3pmSElhqC06Al/TdvN/ocjOcQd8J3ULw9eDh1fnfiggMofhVsFYtQTl90pGtiZ47pMy23gWNHYf3VSBNJQTmGVPc2QV8AJVcgvZSknjlLqUW9yQ5mVPrU6NOHQSfB7ba6gp5wdY1iwnEJcrD4LYbeBzHhrrMr3QNUNSaeEyD/FHEoqzsl7p7wWIOvLZhhqiKfqkov86TGfD3U0MZE+j4FfSifxrEZQPh2O8UHMJ4ir2wFMB5TeDTqEFdBHEo1m/vlzh41dPReUVTU+/hf9Zzw2YSnaxh8ZvC4FW2bieQ==&quot;,
+            &quot;enabled&quot;: false
+        }
+    ]
+}</code></pre>
+</doc-codeblock></div>
+<div class="codeblock-wrapper"><doc-codeblock>
+<div class="codeblock-title">5. Commit changes to device</div>
+<pre class="language-bash"><code v-pre class="language-bash">curl --location --request POST 'http://127.0.0.1:8181/rests/operations/uniconfig-manager:commit' \
+--header 'Accept: application/json' \
+--header 'Content-type: application/json' \
+--header 'Cookie: UNICONFIGTXID=782eb86d-3c11-4c77-bfdf-e8b0bf283830; Path=/rests/' \
+--data-raw '{
+    &quot;input&quot;: {
+        &quot;target-nodes&quot;: {
+        }
+    }
+}'</code></pre>
+</doc-codeblock></div>
+<div class="codeblock-wrapper"><doc-codeblock>
+<div class="codeblock-title">RPC response</div>
+<pre class="language-json"><code v-pre class="language-json">{
+    &quot;output&quot;: {
+        &quot;node-results&quot;: {
+            &quot;node-result&quot;: [
+                {
+                    &quot;node-id&quot;: &quot;testtool&quot;,
+                    &quot;configuration-status&quot;: &quot;complete&quot;
+                }
+            ]
+        },
+        &quot;overall-status&quot;: &quot;complete&quot;
+    }
+}</code></pre>
+</doc-codeblock></div>
+<div class="codeblock-wrapper"><doc-codeblock>
+<div class="codeblock-title">6. Reading committed configuration from device (immediate-commit model)</div>
+<pre class="language-bash"><code v-pre class="language-bash">curl --location --request GET 'http://127.0.0.1:8181/rests/data/network-topology:network-topology/topology=topology-netconf/node=testtool/yang-ext:mount/config/properties?content=config' \
+--header 'Accept: application/json'</code></pre>
+</doc-codeblock></div>
+<div class="codeblock-wrapper"><doc-codeblock>
+<div class="codeblock-title">GET response</div>
+<pre class="language-json"><code v-pre class="language-json">{
+    &quot;properties&quot;: [
+        {
+            &quot;property-id&quot;: &quot;id1&quot;,
+            &quot;value&quot;: &quot;test1&quot;,
+            &quot;enabled&quot;: true
+        },
+        {
+            &quot;property-id&quot;: &quot;id2&quot;,
+            &quot;value&quot;: &quot;test2&quot;,
+            &quot;enabled&quot;: false
+        }
+    ]
+}</code></pre>
+</doc-codeblock></div>
+<div class="codeblock-wrapper"><doc-codeblock>
+<div class="codeblock-title">7. Reading committed configuration from database (immediate-commit model)</div>
+<pre class="language-bash"><code v-pre class="language-bash">curl --location --request GET 'http://127.0.0.1:8181/rests/data/network-topology:network-topology/topology=uniconfig/node=testtool/configuration/config/properties?content=config' \
+--header 'Accept: application/json'</code></pre>
+</doc-codeblock></div>
+<div class="codeblock-wrapper"><doc-codeblock>
+<div class="codeblock-title">GET reponse</div>
+<pre class="language-json"><code v-pre class="language-json">{
+    &quot;properties&quot;: [
+        {
+            &quot;property-id&quot;: &quot;id1&quot;,
+            &quot;value&quot;: &quot;G+a03obgOIUJ0iVZRj5raw6umiDGCfmiaoufAw7QhqI/T7EH6ZSv+yV+7QgPqj278gjtC9Dy8ajTDihI8CMQstpXUrWPHnQe9KfgBfcepL7BBfYJUluJJzCdAXwlwDi7eab9VPBIyBEtz7+S/jqycbjRCBILWrJT7jxw7Pba9ar49KuaHYkclau6L6baOkbNSnF9VeQjecz51EUS5aOPvXghHzYlcHdLdkoEKoFUfEdD0UzY679cPyMojJ2bZzpdRwIIrZQRcXQxhFNIMGwuKlY0TaHF5215A68I3gbtr0/zSWu4EVZbYP8UCLKR7RdiOnbonrjB5tfekCn/1FnqSQ==&quot;,
+            &quot;enabled&quot;: true
+        },
+        {
+            &quot;property-id&quot;: &quot;id2&quot;,
+            &quot;value&quot;: &quot;dqORW1ld4lf8PPnGSXhkVIoL9/i1uH9s8mKtEINmt4N1wC3pmSElhqC06Al/TdvN/ocjOcQd8J3ULw9eDh1fnfiggMofhVsFYtQTl90pGtiZ47pMy23gWNHYf3VSBNJQTmGVPc2QV8AJVcgvZSknjlLqUW9yQ5mVPrU6NOHQSfB7ba6gp5wdY1iwnEJcrD4LYbeBzHhrrMr3QNUNSaeEyD/FHEoqzsl7p7wWIOvLZhhqiKfqkov86TGfD3U0MZE+j4FfSifxrEZQPh2O8UHMJ4ir2wFMB5TeDTqEFdBHEo1m/vlzh41dPReUVTU+/hf9Zzw2YSnaxh8ZvC4FW2bieQ==&quot;,
+            &quot;enabled&quot;: false
+        }
+    ]
+}</code></pre>
+</doc-codeblock></div>
+<div class="codeblock-wrapper"><doc-codeblock>
+<div class="codeblock-title">8. Writing plaintext data with leaf-list that must be encrypted (immediate-commit model)</div>
+<pre class="language-bash"><code v-pre class="language-bash">curl --location --request PUT 'http://127.0.0.1:8181/rests/data/network-topology:network-topology/topology=uniconfig/node=testtool/configuration/config/routing/neighbor-key' \
+--header 'Accept: application/json' \
+--data-raw '{
+    &quot;neighbor-key&quot;: [
+        &quot;neigh1&quot;,
+        &quot;neigh2&quot;,
+        &quot;neigh2&quot;
+    ]
+}'</code></pre>
+</doc-codeblock></div>
+<div class="codeblock-wrapper"><doc-codeblock>
+<div class="codeblock-title">PUT response</div>
+<pre class="language-none"><code v-pre class="language-none">Status: 201</code></pre>
+</doc-codeblock></div>
+<div class="codeblock-wrapper"><doc-codeblock>
+<div class="codeblock-title">9. Reading committed configuration from device (immediate-commit model)</div>
+<pre class="language-bash"><code v-pre class="language-bash">curl --location --request GET 'http://127.0.0.1:8181/rests/data/network-topology:network-topology/topology=topology-netconf/node=testtool/yang-ext:mount/config/routing/neighbor-key?content=config' \
+--header 'Accept: application/json'</code></pre>
+</doc-codeblock></div>
+<div class="codeblock-wrapper"><doc-codeblock>
+<div class="codeblock-title">GET response</div>
+<pre class="language-json"><code v-pre class="language-json">{
+    &quot;neighbor-key&quot;: [
+        &quot;neigh1&quot;,
+        &quot;neigh2&quot;
+    ]
+}</code></pre>
+</doc-codeblock></div>
+<div class="codeblock-wrapper"><doc-codeblock>
+<div class="codeblock-title">10. Reading committed configuration from database (immediate-commit model)</div>
+<pre class="language-bash"><code v-pre class="language-bash">curl --location --request GET 'http://127.0.0.1:8181/rests/data/network-topology:network-topology/topology=uniconfig/node=testtool/configuration/config/routing/neighbor-key?content=config' \
+--header 'Accept: application/json'</code></pre>
+</doc-codeblock></div>
+<div class="codeblock-wrapper"><doc-codeblock>
+<div class="codeblock-title">GET response</div>
+<pre class="language-json"><code v-pre class="language-json">{
+    &quot;neighbor-key&quot;: [
+        &quot;gq4bEcMd45BAr4aT2M4bCUvYyJHmMDIJzepeKWQoK05POgZRQyxpz1wTYbeaAju+SQnFphShibIYULjKtuCRXiL6w4mt7JaAxQJwrNN9DeZrypDKWTl5sIXB7r3VCRplfqQUByzXseWbMiwJGq/StboWAnq2YMiFm1DcZVwquymMRGwQl2cwPzZXRkoAVruaEpmOyIOI0fun3u2EkPuagpGT+wB4MRhB3WcsZ7e7ieAQPdjosUoNhoSdZZcwISwXG2ken1bSyEXWYKTvGyHTopq+PhfDKWqTZ09kOr+ufyGfN+rYSQvar2Q3+J02TMb9eMD161f7RO06BBviSXGwVQ==&quot;,
+        &quot;jdX0haiadPEl2psy1pfwU4xWNyy4g0PA+QTUzJeWPtOVz4lMj6HfiGypWvpNNTaVdpOfb0R5cx6ns+i+oPWPEesodWreTj5BYX42xyFINzcB2zTbNzAOFE8zpeKNHweA0a3kDVCvJOYF5haGSA8ggjzu/ajxi6dN4hDXN9e8ixThB2hB8/Yhss6xK6Tmbxx9syajAqh3HqF9r5/IctBcQkeDAQ0XyVqjJztK6aPx2hDFZ/qSnxS8Mt+zN+rLgUuaY2SaNdEZG3lkQZyRpzlMNyNqebB8anTwtuFd4NtpAHprEVnv7f4Mnvvcj7xR1Cxld4GfmXTSljhBzKzV4cPIrQ==&quot;,
+        &quot;hgeLRb889fVXV96z2fEVaMZ/QGeFIZk9Jv9Nexjl06NqWhBn7j8RwDE/ygL1OUifWDd6xj0aRc3F6AhJR/SJHNvHDaltmHK5UqA0iYVR4kxElWi/XI3Q/aNJela1HGURc6sIv1VdEyDrlJ8r80i+wHSbxi/EG10tCYK+HkJDUQ8nTQ7T337QBRKlGDowz2CPrwSM72VBJUgax1IiFI8JW2757pxK8uyZM7q+u+Wl1M+MuTPumNEBmzwULaIgx9jNjiQkrLwQqEMS+x8igDgBaglQPOPHxRNEWt6zaKQcacFXWfdYDWMZogtJNu4wEbSFYM5UiojjqPLGzNTSAdEFfQ==&quot;
+    ]
+}</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="data-hashing">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#data-hashing">#</doc-anchor-trigger>
+        <span>Data hashing</span>
+    </h2>
+</doc-anchor-target>
+<p>UniConfig supports &#x27;iana-crypt-hash&#x27; YANG model for specification of hashed values in data-tree using type definition
+&#x27;crypt-hash&#x27;. Hashing works in the &#x27;uniconfig&#x27; and &#x27;unistore&#x27; topologies. Only NETCONF devices are currently supported
+because CLI cannot be natively used for reporting of device capabilities that would contain supported hashing function.</p>
+<doc-anchor-target id="architecture">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#architecture">#</doc-anchor-trigger>
+        <span>Architecture</span>
+    </h3>
+</doc-anchor-target>
+<p>Hashing is done only in the RESTCONF layer after writing some data that contains leaves/leaf-lists with &#x27;crypt-hash&#x27;
+type. Afterwards, UniConfig stores, uses, and writes to device only hashed representation of these values.</p>
+<p><figure class="content-center">
+    <img src="hashing_model.svg" alt="Hashing model" />
+    <figcaption class="caption">Hashing model</figcaption>
+</figure>
+</p>
+<doc-anchor-target id="yang-support-1">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#yang-support-1">#</doc-anchor-trigger>
+        <span>YANG support</span>
+    </h3>
+</doc-anchor-target>
+<p>YANG module &#x27;iana-crypt-hash&#x27;:</p>
+<p><a href="http://www.iana.org/assignments/yang-parameters/iana-crypt-hash@2014-08-06.yang">http://www.iana.org/assignments/yang-parameters/iana-crypt-hash@2014-08-06.yang</a></p>
+<p>All 3 hash functions are implemented - &#x27;MD5&#x27;, &#x27;SHA-256&#x27;, &#x27;SHA-512&#x27;. In case of &#x27;uniconfig&#x27; topology, hashing function
+is selected based on reported feature in the NETCONF capability, in case of &#x27;unistore&#x27; topology,
+UniConfig enforces &#x27;SHA-512&#x27; hashing function.</p>
+<doc-anchor-target id="device-installation-1">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#device-installation-1">#</doc-anchor-trigger>
+        <span>Device installation</span>
+    </h3>
+</doc-anchor-target>
+<p>Hashing is enabled by default on NETCONF devices that reports corresponding &#x27;iana-crypt-hash&#x27; model-based capability.
+User doesn&#x27;t have to add entry setting in the &#x27;install-node&#x27; request.</p>
+<p>After successful installation of device, it is possible to check loaded hashing function that will be used for storing
+of hashed values. Use following GET request:</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<div class="codeblock-title">Reading synced hashing function from device</div>
+<pre class="language-bash"><code v-pre class="language-bash">curl --location --request GET 'http://127.0.0.1:8181/rests/data/network-topology:network-topology/topology=uniconfig/node=dev01/crypto:hash?content=nonconfi' \
+--header 'Accept: application/json'</code></pre>
+</doc-codeblock></div>
+<div class="codeblock-wrapper"><doc-codeblock>
+<div class="codeblock-title">GET response</div>
+<pre class="language-json"><code v-pre class="language-json">{
+    &quot;hash&quot;: {
+        &quot;algorithm&quot;: &quot;SHA-512&quot;,
+    }
+}</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="example-hashing-input-values">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#example-hashing-input-values">#</doc-anchor-trigger>
+        <span>Example: hashing input values</span>
+    </h3>
+</doc-anchor-target>
+<p>This example demonstrates hashing of input values with &#x27;crypt-hash&#x27; type on RESTCONF API.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<div class="codeblock-title">1. Creation of new transaction</div>
+<pre class="language-bash"><code v-pre class="language-bash">curl --location --request POST 'http://127.0.0.1:8181/rests/operations/uniconfig-manager:create-transaction'</code></pre>
+</doc-codeblock></div>
+<div class="codeblock-wrapper"><doc-codeblock>
+<div class="codeblock-title">RPC response (UNICONFIGTXID=1ed7ea30-362e-4297-a93f-b1c35b3f376d)</div>
+<pre class="language-none"><code v-pre class="language-none">1ed7ea30-362e-4297-a93f-b1c35b3f376d</code></pre>
+</doc-codeblock></div>
+<div class="codeblock-wrapper"><doc-codeblock>
+<div class="codeblock-title">2. Writing new user with password that has type &#x27;crypt-hash&#x27;</div>
+<pre class="language-none"><code v-pre class="language-none">curl --location --request PUT 'http://127.0.0.1:8181/rests/data/network-topology:network-topology/topology=uniconfig/node=dev01/configuration/system/users=frinx' \
+--header 'Content-Type: application/json' \
+--header 'Cookie: UNICONFIGTXID=1ed7ea30-362e-4297-a93f-b1c35b3f376d; Path=/rests/' \
+--data-raw '{
+    &quot;system:users&quot;: [
+        {
+            &quot;name&quot;: &quot;frinx&quot;,
+            &quot;role&quot;: &quot;admin&quot;,
+            &quot;login&quot;: &quot;shell&quot;,
+            &quot;password&quot;: &quot;secret&quot;
+        }
+    ]
+}'</code></pre>
+</doc-codeblock></div>
+<div class="codeblock-wrapper"><doc-codeblock>
+<div class="codeblock-title">PUT response</div>
+<pre class="language-none"><code v-pre class="language-none">Status: 201</code></pre>
+</doc-codeblock></div>
+<div class="codeblock-wrapper"><doc-codeblock>
+<div class="codeblock-title">3. Reading hashed data from transaction</div>
+<pre class="language-bash"><code v-pre class="language-bash">curl --location --request GET 'http://127.0.0.1:8181/rests/data/network-topology:network-topology/topology=uniconfig/node=dev01/configuration/system/users=frinx?content=config' \
+--header 'Accept: application/json' \
+--header 'Cookie: UNICONFIGTXID=1ed7ea30-362e-4297-a93f-b1c35b3f376d; Path=/rests/'</code></pre>
+</doc-codeblock></div>
+<div class="codeblock-wrapper"><doc-codeblock>
+<div class="codeblock-title">GET response</div>
+<pre class="language-json"><code v-pre class="language-json">{
+    &quot;system:users&quot;: [
+        {
+            &quot;name&quot;: &quot;frinx&quot;,
+            &quot;role&quot;: &quot;admin&quot;,
+            &quot;password&quot;: &quot;$6$Nmd5tbv5KOkc9lud$gK6NX6Sj/5gZwdhEh6I9Ff0z0CBpIiXDYwjB9U8vIG4cQM/bWFCfcAQlKmlt86NFfZ0megJGX67UealuD95wB0&quot;,
+            &quot;login&quot;: &quot;shell&quot;
+        }
+    ]
+}</code></pre>
+</doc-codeblock></div>
+<div class="codeblock-wrapper"><doc-codeblock>
+<div class="codeblock-title">4. Commit changes to device</div>
+<pre class="language-bash"><code v-pre class="language-bash">curl --location --request POST 'http://127.0.0.1:8181/rests/operations/uniconfig-manager:commit' \
+--header 'Accept: application/json' \
+--header 'Content-type: application/json' \
+--header 'Cookie: UNICONFIGTXID=1ed7ea30-362e-4297-a93f-b1c35b3f376d; Path=/rests/' \
+--data-raw '{
+    &quot;input&quot;: {
+        &quot;target-nodes&quot;: {
+        }
+    }
+}'</code></pre>
+</doc-codeblock></div>
+<div class="codeblock-wrapper"><doc-codeblock>
+<div class="codeblock-title">RPC response</div>
+<pre class="language-json"><code v-pre class="language-json">{
+    &quot;output&quot;: {
+        &quot;node-results&quot;: {
+            &quot;node-result&quot;: [
+                {
+                    &quot;node-id&quot;: &quot;testtool&quot;,
+                    &quot;configuration-status&quot;: &quot;complete&quot;
+                }
+            ]
+        },
+        &quot;overall-status&quot;: &quot;complete&quot;
+    }
+}</code></pre>
+</doc-codeblock></div>
+<div class="codeblock-wrapper"><doc-codeblock>
+<div class="codeblock-title">5. Reading committed configuration from device (immediate-commit model)</div>
+<pre class="language-bash"><code v-pre class="language-bash">curl --location --request GET 'http://127.0.0.1:8181/rests/data/network-topology:network-topology/topology=topology-netconf/node=dev01/yang-ext:mount/system/users=frinx?content=config' \
+--header 'Accept: application/json'</code></pre>
+</doc-codeblock></div>
+<div class="codeblock-wrapper"><doc-codeblock>
+<div class="codeblock-title">GET response</div>
+<pre class="language-json"><code v-pre class="language-json">{
+    &quot;system:users&quot;: [
+        {
+            &quot;name&quot;: &quot;frinx&quot;,
+            &quot;role&quot;: &quot;admin&quot;,
+            &quot;password&quot;: &quot;$6$Nmd5tbv5KOkc9lud$gK6NX6Sj/5gZwdhEh6I9Ff0z0CBpIiXDYwjB9U8vIG4cQM/bWFCfcAQlKmlt86NFfZ0megJGX67UealuD95wB0&quot;,
+            &quot;login&quot;: &quot;shell&quot;
+        }
+    ]
+}</code></pre>
+</doc-codeblock></div>
+
+
+
+
+                <!-- Required only on API pages -->
+                <doc-toolbar-member-filter-no-results />
+            </div>
+
+            
+<nav class="flex mt-14">
+    <div class="w-1/2">
+        <a class="px-5 py-4 h-full flex items-center break-all md:break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-l-lg transition-colors duration-150 relative hover:z-5" href="/frinx-uniconfig/user-guide/operational-procedures/aaa/">
+            <svg xmlns="http://www.w3.org/2000/svg" class="mr-3" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" overflow="visible"><path d="M19 11H7.41l5.29-5.29a.996.996 0 10-1.41-1.41l-7 7a1 1 0 000 1.42l7 7a1.024 1.024 0 001.42-.01.996.996 0 000-1.41L7.41 13H19c.55 0 1-.45 1-1s-.45-1-1-1z" /><path fill="none" d="M0 0h24v24H0z" /></svg>
+            <span>
+                <span class="block text-xs font-normal text-gray-400 dark:text-dark-400">Previous</span>
+                <span class="block mt-1">Authentication, Authorization and Accounting (AAA) Services</span>
+            </span>
+        </a>
+    </div>
+
+    <div class="w-1/2">
+        <a class="px-5 py-4 -mx-px h-full flex items-center justify-end break-all md:break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-r-lg transition-colors duration-150 relative hover:z-5" href="/frinx-uniconfig/user-guide/operational-procedures/logging/">
+            <span>
+                <span class="block text-xs font-normal text-right text-gray-400 dark:text-dark-400">Next</span>
+                <span class="block mt-1">Logging Framework</span>
+            </span>
+            <svg xmlns="http://www.w3.org/2000/svg" class="ml-3" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" overflow="visible"><path d="M19.92 12.38a1 1 0 00-.22-1.09l-7-7a.996.996 0 10-1.41 1.41l5.3 5.3H5c-.55 0-1 .45-1 1s.45 1 1 1h11.59l-5.29 5.29a.996.996 0 000 1.41c.19.2.44.3.7.3s.51-.1.71-.29l7-7c.09-.09.16-.21.21-.33z" /><path fill="none" d="M0 0h24v24H0z" /></svg>
+        </a>
+    </div>
+</nav>
+
+
+        </main>
+
+        <div class="border-t dark:border-dark-650 pt-6 mb-8">
+            <footer class="flex flex-wrap items-center justify-between">
+    <div>
+        <ul class="flex flex-wrap items-center text-sm">
+</ul>
+
+    </div>
+    <div class="docs-copyright py-2 text-gray-500 dark:text-dark-350 text-sm leading-relaxed"><p>© Copyright 2022.</p>
+</div>
+</footer>
+
+        </div>
+    </div>
+    
+    <!-- Rendered if sidebar right is enabled -->
+    <!-- Sidebar right skeleton-->
+    <div v-cloak class="fixed top-0 bottom-0 right-0 transform translate-x-full bg-white border-gray-200 lg:sticky lg:border-l lg:flex-shrink-0 lg:pt-6 lg:transform-none lg:w-56 lg:z-0 md:w-72 sidebar-right skeleton dark:bg-dark-850 dark:border-dark-650">
+        <div class="pl-5">
+            <div class="w-32 h-3 mb-4 bg-gray-200 dark:bg-dark-600 rounded-full loading"></div>
+            <div class="w-48 h-3 mb-4 bg-gray-200 dark:bg-dark-600 rounded-full loading"></div>
+            <div class="w-40 h-3 mb-4 bg-gray-200 dark:bg-dark-600 rounded-full loading"></div>
+        </div>
+    </div>
+    
+    <!-- User should be able to hide sidebar right -->
+    <doc-sidebar-right v-cloak></doc-sidebar-right>
+</div>
+
+        </div>
+    </div>
+
+    <doc-search-mobile></doc-search-mobile>
+    <doc-back-to-top></doc-back-to-top>
+</div>
+
+
+        <div id="docs-overlay-target"></div>
+
+        <script>window.__DOCS__ = { "title": "Data Security Models", icon: "file", hasPrism: true, hasMermaid: false, hasMath: false }</script>
+    </body>
+</html>
