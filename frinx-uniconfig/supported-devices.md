@@ -1,12 +1,11 @@
-List of Supported Devices
-=========================
+# List of Supported Devices
 
 Here you can find list of all the devices and features supported by
 Frinx UniConfig:
 
 *OC = OpenConfig*
 
-| Vendor | Device OS Type | Device Version | CLI access via REST | CLI to OC translation | Netconf access via REST | Netconf to OC translation |
+| Vendor | Device OS Type | Device Version | CLI access via REST | CLI to OC translation | NETCONF access via REST | NETCONF to OC translation |
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | Arista | eos | .* | [!badge variant="success" text="Yes"] | [!badge variant="danger" text="No"] | [!badge variant="danger" text="No"] | [!badge variant="danger" text="No"] |
 | Brocade | ironware | .* | [!badge variant="success" text="Yes"] | [!badge variant="success" text="Yes"] | [!badge variant="danger" text="No"] | [!badge variant="danger" text="No"] |

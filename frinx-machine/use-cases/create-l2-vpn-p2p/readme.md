@@ -87,27 +87,3 @@ window you will see a sub-workflow.
 This sub-workflow is an embedded task that makes a separate API call to
 Slack to notify a pre-defined user group that the workflow has been
 executed and whether it has succeeded or failed.
-
-### Journal Output
-
-The final task listed in the output of the executed workflow is
-**CLI_get_cli_journal**.
-
-The output of **CLI_get_cli_journal** shows the exact commands that
-UniConfig sends to the IOS devices to configure the pseudowire for the
-Layer 2 VPN Point-to-Point connection.
-
-From the output you can see the following configuration commands have
-been input by UniConfig to create the pseudowire connection:
-
-```
-* configure terminal
-* pseudowire-class conn1233
-* encapsulation mpls
-* exit
-* interface GigabitEthernet3
-* xconnect 10.1.1.1 444 pw-class conn1233
-* end
-```
-
-![ClI Get CLI Journal](CLI_Get_Journal.png)

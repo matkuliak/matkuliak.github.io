@@ -1,44 +1,41 @@
-Nokia SROS devices
-==================
+# Nokia SROS devices
 
 Tested with devices SROS 13 and SROS 14.
 
-Preliminar
-----------
+## Preliminar
 
 UniConfig Native needs the YANG models of the device to be able to
-connect with it.\
+connect with it.
 Since SROS devices don't provide the possibility to automatically get
 YANG models from device, it is necessary to manually copy them to the
-UniConfig distribution before running.\
+UniConfig distribution before running.
 To do this:
 
-> -   in UniConfig distribution folder create nested folders
->     cache/schema-sros/ (you can choose random name for nested folder,
->     it doesn't have to be 'schema-sros')
-> -   copy YANG models from device into folder cache/schema-sros/
+- in UniConfig distribution folder create nested folders
+   cache/schema-sros/ (you can choose random name for nested folder,
+   it doesn't have to be 'schema-sros')
+- copy YANG models from device into folder cache/schema-sros/
 
 Moreover it is necessary to:
 
-> -   copy file ignoreNodes.txt \<./ignoreNodes.txt\> into config/
->     folder of FRINX UniConfig distribution, this file contains xml
->     paths that should be ignored while removing duplicate nodes from
->     the netconf message
+- copy file ignoreNodes.txt \<./ignoreNodes.txt\> into config/
+   folder of FRINX UniConfig distribution, this file contains xml
+   paths that should be ignored while removing duplicate nodes from
+   the netconf message
 
 Optional:
 
-> -   put file namespaceBlacklist.txt into config/ folder of FRINX
->     UniConfig distribution, this file contains xml namespaces of the
->     nodes that should be removed from the netconf message
+- put file namespaceBlacklist.txt into config/ folder of FRINX
+   UniConfig distribution, this file contains xml namespaces of the
+   nodes that should be removed from the netconf message
 
 Now UniConfig can be started.
 
-Mount SROS device
------------------
+## Install SROS device
 
-To mount the SROS device run:
+To install the SROS device run:
 
-``` {.sourceCode .bash}
+```bash
 curl -X PUT \
   http://localhost:8181/rests/data/network-topology:network-topology/topology=topology-netconf/node=sros \
   -d '{
@@ -70,26 +67,25 @@ curl -X PUT \
 
 Where:
 
-> -   sros: is the name of the device
-> -   10.19.0.18: is the IP address of the device
-> -   830: is the port number of the device
-> -   USERNAME: is the username to access the device
-> -   PASSWORD: is the respective password
-> -   "uniconfig-config:uniconfig-native-enabled": allows to enable
->     mounting through UniConfig Native
-> -   "uniconfig-config:install-uniconfig-node-enabled": allows to
->     disable mounting to uniconfig and unified layers
-> -   "uniconfig-config:path": allows to specify a list of root elements
->     from models present on device to be ignored by UniConfig Native
+-   sros: is the name of the device
+-   10.19.0.18: is the IP address of the device
+-   830: is the port number of the device
+-   USERNAME: is the username to access the device
+-   PASSWORD: is the respective password
+-   "uniconfig-config:uniconfig-native-enabled": allows to enable
+     installing through UniConfig Native
+-   "uniconfig-config:install-uniconfig-node-enabled": allows to
+     disable installing to uniconfig and unified layers
+-   "uniconfig-config:path": allows to specify a list of root elements
+     from models present on device to be ignored by UniConfig Native
 
 In case of success the return code is 201.
 
-Check if SROS device is connected
----------------------------------
+## Check if SROS device is connected
 
 To check if the device is properly connected run:
 
-``` {.sourceCode .bash}
+```bash
 curl -X GET \
  http://localhost:8181/rests/data/network-topology:network-topology/topology=topology-netconf/node=sros?conent=nonconfig
 ```
@@ -97,7 +93,7 @@ curl -X GET \
 In case of success the return code is 200, and the response body
 contains something similar to:
 
-``` {.sourceCode .bash}
+```bash
 {
     "node": [
     {
@@ -128,13 +124,12 @@ contains something similar to:
 }
 ```
 
-Check if SROS device configuration is available in UniConfig
-------------------------------------------------------------
+## Check if SROS device configuration is available in UniConfig
 
 To check if the SROS device configuration has been properly loaded in
 the UniConfig config datastore, run:
 
-``` {.sourceCode .bash}
+```bash
 curl -X GET \
  http://localhost:8181/rests/data/network-topology:network-topology/topology=uniconfig/node=sros/frinx-uniconfig-topology:configuration?content=config
 ```
@@ -142,7 +137,7 @@ curl -X GET \
 In case of success the return code is 200 and the response body contains
 something similar to:
 
-``` {.sourceCode .bash}
+```bash
 {
     "frinx-uniconfig-topology:configuration": {
     "alu-conf-r13:configure": {

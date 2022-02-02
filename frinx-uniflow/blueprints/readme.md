@@ -1,32 +1,28 @@
-Device Blueprints
-=================
+# Device Blueprints
 
 Blueprints allow you to create a template that can be used for quick
 adding of devices. They are created with JSON snippets.
 
-Creating new blueprint
-----------------------
+## Creating new blueprint
 
-To create a new blueprint click on the `Explore` button in the
-`Explore and configure device` tab and then click the `Blueprints` tab
-in the top bar. Here you can `Add blueprint`.
+To create a new blueprint click on the **Explore** button in the
+**Explore and configure device** tab and then click the **Blueprints** tab
+in the top bar. Here you can **Add blueprint**.
 
-[![alt\_text](blueprints_create.gif)](blueprints_create.gif)
+![Create blueprint](blueprints_create.gif)
 
-Using a blueprint
------------------
+## Using a blueprint
 
 To use blueprint when adding a new device toggle the "Blueprints" switch
 in the form and choose the blueprint that you want to use.
 
-[![alt\_text](blueprints_use.gif)](blueprints_use.gif)
+![Use Blueprint](blueprints_use.gif)
 
-Blueprint examples
-------------------
+## Blueprint examples
 
 ### Cisco classic IOS (cli)
 
-``` {.sourceCode .json}
+```json
 {
     "cli":{
         "cli-topology:host":"192.168.1.25",
@@ -45,7 +41,7 @@ Blueprint examples
 
 ### Cisco IOS XR (netconf)
 
-``` {.sourceCode .json}
+```json
 {
     "netconf":{
         "netconf-node-topology:host":"10.0.0.1",
@@ -75,7 +71,7 @@ Blueprint examples
 
 ### JUNOS (cli)
 
-``` {.sourceCode .json}
+```json
 {
     "cli":{
         "cli-topology:host":"10.103.5.208",
@@ -93,7 +89,7 @@ Blueprint examples
 
 ### CALIX (netconf)
 
-``` {.sourceCode .json}
+```json
 {
     "netconf":{
         "netconf-node-topology:host":"10.19.0.16",
@@ -114,7 +110,7 @@ Blueprint examples
 
 ### Nokia (netconf)
 
-``` {.sourceCode .json}
+```json
 {
     "netconf":{
         "netconf-node-topology:host":"10.19.0.18",
@@ -141,7 +137,7 @@ Blueprint examples
 
 ### Ciena (cli)
 
-``` {.sourceCode .json}
+```json
 {
     "cli":{
         "cli-topology:host":"localhost",

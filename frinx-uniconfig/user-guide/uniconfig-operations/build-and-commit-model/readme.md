@@ -40,10 +40,14 @@ container. Note that build-and-commit model is enabled if
     */
     "uniconfigTransactionEnabled": true,
     /*
+    Time after transaction can be closed [seconds] by transaction cleaner.
+    */
+    "transactionIdleTimeOut": 300,
+    /*
     Maximum transaction age before it can be evicted from transaction registry [seconds].
     Configuring '0' disables cleaning of Uniconfig transactions.
     */
-    "maxTransactionAge": 600,
+    "maxTransactionAge": 1800,
     /*
     Interval at which expired transactions are closed and cleaned [seconds].
     Expired transaction: transaction which age exceeds 'maxTransactionAge' setting.
@@ -93,10 +97,9 @@ the end of the transaction (commit RPC closes transaction).
 
 All possible scenarios are captured in the following diagrams.
 
-![optimistic locking](optimistic-locking.svg)
+![Optimistic locking](optimistic-locking.svg)
 
-Dynamic mountpoints
--------------------
+## Dynamic mountpoints
 
 Mountpoints are created only when UniConfig needs to read / write some
 data from / to device and lifecycle of mountpoint is bounded by
@@ -112,10 +115,9 @@ closed. The second diagram shows scenario in which 2 transactions share
 mountpoints is not closed since the second transaction still may
 communicate with corresponding device.
 
-![dynamic mountpoints](dynamic-mountpoints.svg)
+![Dynamic mountpoints](dynamic-mountpoints.svg)
 
-Creation of transaction
------------------------
+## Creation of transaction
 
 Transaction can be created using create-transaction RPC. RPC doesn't
 specify input body and also returns response without body. Response
@@ -131,10 +133,10 @@ diagram.
 UniConfig is performing following steps after calling create-transaction
 RPC:
 
-1.  Creation of connection to database system - Connection is created
+1. Creation of connection to database system - Connection is created
     with disabled auto-commit - enabling transactional features.
     UniConfig uses 'read committed' isolation level.
-2.  Creation of database transaction - It provides access to remote
+2. Creation of database transaction - It provides access to remote
     PostgreSQL database. Using database transaction it is possible to
     read committed data, read uncommitted changes created by this
     transaction and write modifications to database. Data read at the
@@ -142,13 +144,13 @@ RPC:
     when some component tries to access the same resource again, it is
     read only from datastore transaction. Data is written to database
     transaction at invocation of commit/checked-commit RPC.
-3.  Creation of datastore read-write transaction - It provides access to
+3. Creation of datastore read-write transaction - It provides access to
     OPER and CONFIG datastores bound to this transaction. Datastore is
     used only as a cache between application and PostgreSQL database,
     and it resides only in the memory allocated to UniConfig process.
     Datastore transaction is never committed - cache is trashed at the
     end of the transaction life.
-4.  Registration of transaction - Transaction is always bound to 1
+4. Registration of transaction - Transaction is always bound to 1
     specific UniConfig instance.
 
 ### Successful example
@@ -157,18 +159,12 @@ The following request shows successful creation of UniConfig
 transaction. Response contains Set-Cookie header with UNICONFIGTXID key
 and value.
 
-```RPC Request
-Method
-POST
-
-URL
-http://127.0.0.1:8181/rests/operations/uniconfig-manager:create-transaction
+```bash RPC Request
+curl --location --request POST 'http://localhost:8181/rests/operations/uniconfig-manager:create-transaction' \
+--header 'Accept: application/json'
 ```
-```RPC Response
-Status code
-201
 
-Headers
+``` RPC Response, Status: 201
 1Set-Cookie: UNICONFIGTXID=2ab7cfc3-dedc-4444-8431-6e9cf94fad3b;Version=1;Comment="uniconfig transaction created";Path=/rests/
 ```
 
@@ -179,16 +175,16 @@ reached maximum number of open transactions that is limited by
 'maxDbPoolSize' database connection pool setting. In that case,
 UniConfig returns response with 500 status code.
 
-> **RPC request**
->
-> **RPC request:**
+```bash RPC Request
+curl --location --request POST 'http://localhost:8181/rests/operations/uniconfig-manager:create-transaction' \
+--header 'Accept: application/json'
+```
 
-> **RPC response**
->
-> **RPC response:**
+``` RPC Response, Status: 500
 
-Invocation of CRUD operation in transaction
-------------------------------------------
+```
+
+## Invocation of CRUD operation in transaction
 
 CRUD operations for modification or reading node configuration can be
 invoked in the specific transaction by appending UNICONFIGTXID (key)
@@ -205,7 +201,7 @@ inside temporary datastore transaction - goal is to improve performance
 by limiting transferring data between UniConfig and PostgreSQL. Next
 access to same configuration can be evaluated under in-memory datastore.
 
-![invocation of CRUD operation in transaction](crud-operation-in-transaction-Invocation_of_CRUD_operation_in_UniConfig_transaction.svg)
+![Invocation of CRUD](crud-operation-in-transaction-Invocation_of_CRUD_operation_in_UniConfig_transaction.svg)
 
 ### Successful example
 
@@ -213,29 +209,76 @@ The following request demonstrates reading of some configuration from
 uniconfig topology, junos node in the transaction with ID
 'd7ff736e-8efa-4cc5-9d27-b7f560a76ff3'.
 
-> **GET request**
->
-> **GET request:**
+```bash GET Request
+curl --location --request GET 'http://localhost:8181/rests/data/network-topology:network-topology/topology=uniconfig/node=junos/configuration/frinx-openconfig-interfaces:interfaces/interface=fxp0' \
+--header 'Accept: application/json' \
+--header 'Cookie: UNICONFIGTXID=d7ff736e-8efa-4cc5-9d27-b7f560a76ff3'
+```
 
-> **GET response**
->
-> **GET response:**
+```json GET Response, Status: 200
+{
+    "frinx-openconfig-interfaces:interface": [
+        {
+            "name": "fxp0",
+            "config": {
+                "type": "iana-if-type:ethernetCsmacd",
+                "enabled": true,
+                "name": "fxp0"
+            },
+            "subinterfaces": {
+                "subinterface": [
+                    {
+                        "index": 0,
+                        "config": {
+                            "index": 0
+                        },
+                        "frinx-openconfig-if-ip:ipv4": {
+                            "addresses": {
+                                "address": [
+                                    {
+                                        "ip": "10.103.5.208",
+                                        "config": {
+                                            "prefix-length": 24,
+                                            "ip": "10.103.5.208"
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                ]
+            }
+        }
+    ]
+}
+```
 
 ### Failed example
 
 Trying to use non-existing UniConfig transaction results in 403 status
 code (Forbidden access).
 
-> **GET request**
->
-> **GET request:**
+```bash GET Request
+curl --location --request GET 'http://localhost:8181/rests/data/network-topology:network-topology/topology=uniconfig/node=junos/configuration/frinx-openconfig-interfaces:interfaces/interface=fxp0' \
+--header 'Accept: application/json' \
+--header 'Cookie: UNICONFIGTXID=d7ff736e-8efa-4cc5-9d27-b7f560a76ff4'
+```
 
-> **GET response**
->
-> **GET response:**
+```json GET Response, Status: 403
+{
+    "errors": {
+        "error": [
+            {
+                "error-message": "Unknown uniconfig transaction: d7ff736e-8efa-4cc5-9d27-b7f560a76ff4",
+                "error-tag": "access-denied",
+                "error-type": "protocol"
+            }
+        ]
+    }
+}
+```
 
-Invocation of RPC operation in transaction
-------------------------------------------
+## Invocation of RPC operation in transaction
 
 RPC operation can be invoked in the specific transaction the same way as
 CRUD operation - by specification of UNICONFIGTXID in the Cookie header.
@@ -243,15 +286,15 @@ CRUD operation - by specification of UNICONFIGTXID in the Cookie header.
 There are few differences between CRUD and RPC operations from the view
 of transactions:
 
--   Commit, checked-commit, and close-transaction RPCs can state of the
+- Commit, checked-commit, and close-transaction RPCs can state of the
     transaction. Create-transaction RPC is reserved for creation of
     transaction.
--   Not all RPC operations that are exposed by UniConfig use dedicated
+- Not all RPC operations that are exposed by UniConfig use dedicated
     transactions - in that case, these RPCs just ignore explicitly
     specified transaction and either don't work with transactions at all
     or create transaction internally (examples: install-node,
     uninstall-node RPC).
--   There are also transaction-aware operations that directly leverage
+- There are also transaction-aware operations that directly leverage
     properties of transactions. For example, if some UniConfig RPC is
     invoked with empty list of target nodes, then operation is
     automatically applied to all modified nodes in the transaction
@@ -261,42 +304,91 @@ of transactions:
 Following diagram shows execution of random RPC in the specified
 transaction.
 
-![invocation of RPC operation in transaction](invoke-operation-in-transaction-Invocation_of_UniConfig_RPC_operation_in_transaction.svg)
+![Invocation of RPC](invoke-operation-in-transaction-Invocation_of_UniConfig_RPC_operation_in_transaction.svg)
 
 ### Successful example
 
 Invocation of calculate-diff RPC in the transaction which contains
 modifications done on the 'junos' node.
 
-> **RPC invocation**
->
-> **POST request:**
+```bash RPC Request
+curl --location --request POST 'http://localhost:8181/rests/operations/uniconfig-manager:calculate-diff' \
+--header 'Accept: application/json' \
+--header 'Cookie: UNICONFIGTXID=d7ff736e-8efa-4cc5-9d27-b7f560a76ff3' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "input": {
+        "target-nodes": {
+            "node": ["junos"]
+        }
+    }
+}'
+```
 
-> **RPC response**
->
-> **POST response:**
+```json RPC Response, Status: 200
+{
+    "output": {
+        "node-results": {
+            "node-result": [
+                {
+                    "node-id": "junos",
+                    "status": "complete",
+                    "updated-data": [
+                        {
+                            "path": "/network-topology:network-topology/topology=uniconfig/node=junos/frinx-uniconfig-topology:configuration/frinx-openconfig-interfaces:interfaces/interface=fxp0/config",
+                            "data-actual": "{\n  \"frinx-openconfig-interfaces:config\": {\n    \"type\": \"iana-if-type:ethernetCsmacd\",\n    \"enabled\": true,\n    \"name\": \"fxp0\"\n  }\n}",
+                            "data-intended": "{\n  \"frinx-openconfig-interfaces:config\": {\n    \"type\": \"iana-if-type:ethernetCsmacd\",\n    \"enabled\": false,\n    \"name\": \"fxp0\"\n  }\n}"
+                        }
+                    ]
+                }
+            ]
+        },
+        "overall-status": "complete"
+    }
+}
+```
 
 ### Failed example
 
 Invocation of calculate-diff RPC with transaction ID that has wrong
 format.
 
-> **RPC invocation**
->
-> **POST request:**
+```bash RPC Request
+curl --location --request POST 'http://localhost:8181/rests/operations/uniconfig-manager:calculate-diff' \
+--header 'Accept: application/json' \
+--header 'Cookie: UNICONFIGTXID=d7ff736e-8efa-4cc5-9d27-b7f560a76ffx' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "input": {
+        "target-nodes": {
+            "node": ["junos"]
+        }
+    }
+}'
+```
 
-> **RPC response**
->
-> **POST response:**
+```json RPC Response, Status: 403
+{
+    "errors": {
+        "error": [
+            {
+                "error-type": "protocol",
+                "error-message": "Invalid transaction-id format; it should conform UUID based on RFC 4122: 2a335e04-ae11-4677-885b-cea1ea71157x",
+                "error-tag": "access-denied",
+                "error-info": "Error at index 11 in: \"cea1ea71157x\""
+            }
+        ]
+    }
+}
+```
 
-Closing transaction
--------------------
+## Closing transaction
 
 There are 2 options how transaction can be closed:
 
-1.  close-transaction RPC - Explicit closing of transaction that results
+1. close-transaction RPC - Explicit closing of transaction that results
     in dropping of all changes done in the transaction.
-2.  commit/checked-commit RPC - After execution of commit operation,
+2. commit/checked-commit RPC - After execution of commit operation,
     transaction is automatically closed (despite of commit result).
     Behaviour of commit and checked commit RPC is described in better
     detail under the 'UniConfig Node Manager' section.
@@ -312,8 +404,7 @@ from other diagrams.
 
 ![close-transaction RPC](close-transaction-rpc-Closing_transaction__RPC_.svg)
 
-| .. image:: clean-orphaned-mountpoints-Clean\_orphaned\_mountpoints.svg
-:alt: cleaning orphaned mountpoints :scale: 100
+![Clean orphaned mountpoints](clean-orphaned-mountpoints-Clean_orphaned_mountpoints.svg)
 
 Briefly depicted most important actions:
 
@@ -328,62 +419,74 @@ Briefly depicted most important actions:
     southbound / Unified mountpoints are removed together with state
     data.
 
-> **note**
->
-> After transaction is closed, it cannot be used by any other operation
-> - user must create a new transaction in order to use build-and-commit
-> model.
+!!!
+After transaction is closed, it cannot be used by any other operation - user must create a new transaction in order to use build-and-commit model.
+!!!
 
 ### Successful example
 
 Closing existing transaction using close-transaction RPC. Response
 doesn't body, only status code 200.
 
-> **RPC request**
->
-> **RPC request:**
+```bash RPC Request
+curl --location --request POST 'http://localhost:8181/rests/operations/uniconfig-manager:close-transaction' \
+--header 'Accept: application/json' \
+--header 'Cookie: UNICONFIGTXID=2ab7cfc3-dedc-4444-8431-6e9cf94fad3b'
+```
 
-> **RPC response**
->
-> **RPC response:**
+```json RPC Response, Status: 200
+
+```
 
 ### Failed example
 
 If transaction has already been closed, user will receive response with
 JSON body containing error message.
 
-> **RPC request**
->
-> **RPC request:**
+```bash RPC Request
+curl --location --request POST 'http://localhost:8181/rests/operations/uniconfig-manager:close-transaction' \
+--header 'Accept: application/json' \
+--header 'Cookie: UNICONFIGTXID=2ab7cfc3-dedc-4444-8431-6e9cf94fad3b'
+```
 
-> **RPC response**
->
-> **RPC response:**
+```json RPC Response, Status: 403
+{
+    "errors": {
+        "error": [
+            {
+                "error-message": "Uniconfig transaction 3819fbaa-6bd4-4c79-bc4e-68f70cf97903 has already been closed",
+                "error-tag": "access-denied",
+                "error-type": "protocol"
+            }
+        ]
+    }
+}
+```
 
-Transaction cleaner
--------------------
+## Transaction cleaner
 
 Transaction cleaner is used for automatic closing of transactions that
-are open longer then specified timeout value ('maxTransactionAge'
-setting in the configuration). This mechanism effectively suppresses
-application-level errors - open transactions are not closed at the end
-of the workflow.
+are open longer then specified timeout value ('transactionIdleTimeOut' 
+or 'maxTransactionAge' setting in the configuration). Transaction resets 
+her time setting 'transactionIdleTimeOut' after invoking CRUD, RPC operation, 
+and is still valid  for time specified in value of setting. This mechanism 
+effectively suppresses application-level errors - open transactions are not 
+closed at the end of the workflow.
 
 Next sequence diagram describes cleaning process. Referenced diagram
 'Close transaction' is placed in the previous 'Closing transaction'
 section.
 
-![transaction cleaner](transaction-cleaner-Transaction_cleaner.svg)
+![Transaction cleaner](transaction-cleaner-Transaction_cleaner.svg)
 
-Use cases
----------
+## Use cases
 
 ### Modification of different devices in separate transactions
 
 **1. Installation of 2 devices - ‘xr6\_1’ and ‘xr6\_2’ (without
 transaction ID)**
 
-``` {.sourceCode .bash}
+```bash RPC Request
 curl --location --request POST 'http://localhost:8181/rests/operations/connection-manager:install-node' \
 --header 'Authorization: Basic YWRtaW46YWRtaW4=' \
 --header 'Content-Type: application/json' \
@@ -441,7 +544,7 @@ curl --location --request POST 'http://localhost:8181/rests/operations/connectio
 
 **2. Creation of 2 uniconfig transactions: let’s name them TX1 and TX2**
 
-``` {.sourceCode .bash}
+```bash RPC Request
 curl --location --request POST 'http://localhost:8181/rests/operations/uniconfig-manager:create-transaction' \
 --header 'Content-Type: application/json' \
 --header 'Accept: application/json' \
@@ -452,7 +555,7 @@ curl --location --request POST 'http://localhost:8181/rests/operations/uniconfig
 The first response contains transaction-id of TX1 that can be used in
 the subsequent requests that belong to TX1:
 
-``` {.sourceCode .text}
+``` RPC Response
 Status: 201 Created
 Set cookie: UNICONFIGTXID=73f85310-a20a-46b9-beaf-d2ac98cc74cc;Version=1;Comment="uniconfig transaction created";Path=/rests/
 ```
@@ -460,7 +563,7 @@ Set cookie: UNICONFIGTXID=73f85310-a20a-46b9-beaf-d2ac98cc74cc;Version=1;Comment
 The first second contains transaction-id of TX2 that can be used in the
 subsequent requests that belong to TX2:
 
-``` {.sourceCode .text}
+``` RPC Response
 Status: 201 Created
 Set cookie: UNICONFIGTXID=5e8ab9d0-803a-40d6-9f0a-92e47524bab8;Version=1;Comment="uniconfig transaction created";Path=/rests/
 ```
@@ -470,7 +573,7 @@ Set cookie: UNICONFIGTXID=5e8ab9d0-803a-40d6-9f0a-92e47524bab8;Version=1;Comment
 Creation of new Loopback97 interface in the TX1 - cookie header contains
 UNICONFIGTXID of TX1:
 
-``` {.sourceCode .bash}
+```bash RPC Request
 curl --location --request PUT 'http://localhost:8181/rests/data/network-topology:network-topology/topology=uniconfig/node=xr6_1/frinx-uniconfig-topology:configuration/Cisco-IOS-XR-ifmgr-cfg:interface-configurations/interface-configuration=act,Loopback97' \
 --header 'Content-Type: application/json' \
 --header 'Accept: application/json' \
@@ -492,14 +595,14 @@ curl --location --request PUT 'http://localhost:8181/rests/data/network-topology
 
 Response:
 
-``` {.sourceCode .text}
+``` RPC Response
 Status: 201 Created
 ```
 
 Verification if TX1 contains created interface (Cookie header contains
 UNICONFIGTXID of TX1):
 
-``` {.sourceCode .bash}
+```bash RPC Request
 curl --location --request GET 'http://localhost:8181/rests/data/network-topology:network-topology/topology=uniconfig/node=xr6_1/frinx-uniconfig-topology:configuration/Cisco-IOS-XR-ifmgr-cfg:interface-configurations/interface-configuration=act,Loopback97?content=config' \
 --header 'Content-Type: application/json' \
 --header 'Accept: application/json' \
@@ -509,7 +612,7 @@ curl --location --request GET 'http://localhost:8181/rests/data/network-topology
 
 Response:
 
-``` {.sourceCode .json}
+``` RPC Response
 {
     "interface-configuration": [
         {
@@ -529,7 +632,7 @@ Response:
 Creation of new Loopback79 interface - cookie header contains
 UNICONFIGTXID of TX2:
 
-``` {.sourceCode .bash}
+```bash RPC Request
 curl --location --request PUT 'http://localhost:8181/rests/data/network-topology:network-topology/topology=uniconfig/node=xr6_2/frinx-uniconfig-topology:configuration/Cisco-IOS-XR-ifmgr-cfg:interface-configurations/interface-configuration=act,Loopback79' \
 --header 'Content-Type: application/json' \
 --header 'Accept: application/json' \
@@ -551,14 +654,14 @@ curl --location --request PUT 'http://localhost:8181/rests/data/network-topology
 
 Response:
 
-``` {.sourceCode .text}
+``` RPC Response
 Status: 201 Created
 ```
 
 Verification if TX2 contains created interface (Cookie header contains
 UNICONFIGTXID of TX2):
 
-``` {.sourceCode .bash}
+```bash RPC Request
 curl --location --request GET 'http://localhost:8181/rests/data/network-topology:network-topology/topology=uniconfig/node=xr6_2/frinx-uniconfig-topology:configuration/Cisco-IOS-XR-ifmgr-cfg:interface-configurations/interface-configuration=act,Loopback79?content=config' \
 --header 'Content-Type: application/json' \
 --header 'Accept: application/json' \
@@ -568,7 +671,7 @@ curl --location --request GET 'http://localhost:8181/rests/data/network-topology
 
 Response:
 
-``` {.sourceCode .json}
+``` RPC Response
 {
     "interface-configuration": [
         {
@@ -587,7 +690,7 @@ Response:
 
 TX1 doesn't see modifications done in TX2 and vice-versa:
 
-``` {.sourceCode .bash}
+```bash RPC Request
 curl --location --request GET 'http://localhost:8181/rests/data/network-topology:network-topology/topology=uniconfig/node=xr6_1/frinx-uniconfig-topology:configuration/Cisco-IOS-XR-ifmgr-cfg:interface-configurations/interface-configuration=act,Loopback97' \
 --header 'Content-Type: application/json' \
 --header 'Accept: application/json' \
@@ -603,7 +706,7 @@ curl --location --request GET 'http://localhost:8181/rests/data/network-topology
 
 Both responses should return Status 404 Not Found:
 
-``` {.sourceCode .json}
+``` RPC Response
 {
     "errors": {
         "error": [
@@ -622,7 +725,7 @@ Both responses should return Status 404 Not Found:
 It is not required to specify target nodes in the input because
 UniConfig transaction tracks modified nodes:
 
-``` {.sourceCode .bash}
+```bash RPC Request
 curl --location --request POST 'http://localhost:8181/rests/operations/uniconfig-manager:commit' \
 --header 'Content-Type: application/json' \
 --header 'Authorization: Basic YWRtaW46YWRtaW4=' \
@@ -639,7 +742,7 @@ curl --location --request POST 'http://localhost:8181/rests/operations/uniconfig
 Since there aren't any conflicts between modifications in the committed
 transactions, both RPCs should succeed. Expected responses:
 
-``` {.sourceCode .json}
+``` RPC Response
 {
     "output": {
         "node-results": {
@@ -655,7 +758,7 @@ transactions, both RPCs should succeed. Expected responses:
 }
 ```
 
-``` {.sourceCode .json}
+``` RPC Response
 {
     "output": {
         "node-results": {
@@ -677,7 +780,7 @@ Verification if configuration was correctly committed to devices (direct
 read under yang-ext:mount) and if datastore was updated (GET request
 without transaction ID):
 
-``` {.sourceCode .bash}
+```bash RPC Request
 curl --location --request GET 'http://localhost:8181/rests/data/network-topology:network-topology/topology=uniconfig/node=xr6_2/frinx-uniconfig-topology:configuration/Cisco-IOS-XR-ifmgr-cfg:interface-configurations/interface-configuration=act,Loopback79?content=config' \
 --header 'Content-Type: application/json' \
 --header 'Accept: application/json' \
@@ -704,7 +807,7 @@ verification can be done on 'xr6\_2'.
 
 Trying to read some data in the TX1:
 
-``` {.sourceCode .bash}
+```bash RPC Request
 curl --location --request GET 'http://localhost:8181/rests/data/network-topology:network-topology/topology=uniconfig/node=xr6_1/frinx-uniconfig-topology:configuration/Cisco-IOS-XR-ifmgr-cfg:interface-configurations/interface-configuration=act,Loopback97' \
 --header 'Content-Type: application/json' \
 --header 'Accept: application/json' \
@@ -714,7 +817,7 @@ curl --location --request GET 'http://localhost:8181/rests/data/network-topology
 
 Response - Status 403 Forbidden:
 
-``` {.sourceCode .json}
+``` RPC Response
 {
     "errors": {
         "error": [
@@ -730,7 +833,7 @@ Response - Status 403 Forbidden:
 
 Trying to read some data in the TX2:
 
-``` {.sourceCode .bash}
+```bash RPC Request
 curl --location --request GET 'http://localhost:8181/rests/data/network-topology:network-topology/topology=uniconfig/node=xr6_2/frinx-uniconfig-topology:configuration/Cisco-IOS-XR-ifmgr-cfg:interface-configurations/interface-configuration=act,Loopback79' \
 --header 'Content-Type: application/json' \
 --header 'Accept: application/json' \
@@ -740,7 +843,7 @@ curl --location --request GET 'http://localhost:8181/rests/data/network-topology
 
 Response - Status 403 Forbidden:
 
-``` {.sourceCode .json}
+``` RPC Response
 {
     "errors": {
         "error": [
@@ -758,7 +861,7 @@ Response - Status 403 Forbidden:
 
 **1. Installation of device ‘xr6\_1’**
 
-``` {.sourceCode .bash}
+```bash RPC Request
 curl --location --request POST 'http://localhost:8181/rests/operations/connection-manager:install-node' \
 --header 'Authorization: Basic YWRtaW46YWRtaW4=' \
 --header 'Content-Type: application/json' \
@@ -791,7 +894,7 @@ curl --location --request POST 'http://localhost:8181/rests/operations/connectio
 
 Creation of Loopback97 interface with some initial description:
 
-``` {.sourceCode .bash}
+```bash RPC Request
 curl --location --request POST 'http://localhost:8181/rests/operations/uniconfig-manager:create-transaction' \
 --header 'Content-Type: application/json' \
 --header 'Accept: application/json' \
@@ -833,7 +936,7 @@ curl --location --request POST 'http://localhost:8181/rests/operations/uniconfig
 
 Creation of the uniconfig transaction TX1:
 
-``` {.sourceCode .bash}
+```bash RPC Request
 curl --location --request POST 'http://localhost:8181/rests/operations/uniconfig-manager:create-transaction' \
 --header 'Content-Type: application/json' \
 --header 'Accept: application/json' \
@@ -843,7 +946,7 @@ curl --location --request POST 'http://localhost:8181/rests/operations/uniconfig
 
 Creation of the uniconfig transaction TX2:
 
-``` {.sourceCode .bash}
+```bash RPC Request
 curl --location --request POST 'http://localhost:8181/rests/operations/uniconfig-manager:create-transaction' \
 --header 'Content-Type: application/json' \
 --header 'Accept: application/json' \
@@ -855,7 +958,7 @@ curl --location --request POST 'http://localhost:8181/rests/operations/uniconfig
 
 Changing description of interface Loopback97 to 'test loopback':
 
-``` {.sourceCode .bash}
+```bash RPC Request
 curl --location --request PUT 'http://localhost:8181/rests/data/network-topology:network-topology/topology=uniconfig/node=xr6_1/frinx-uniconfig-topology:configuration/Cisco-IOS-XR-ifmgr-cfg:interface-configurations/interface-configuration=act,Loopback97' \
 --header 'Content-Type: application/json' \
 --header 'Accept: application/json' \
@@ -881,7 +984,7 @@ Changing description of interface Loopback97 to 'next loopback': - there
 is a conflict with TX1 which also tries to create/replace the
 configuration of the same interface:
 
-``` {.sourceCode .bash}
+```bash RPC Request
 curl --location --request PUT 'http://localhost:8181/rests/data/network-topology:network-topology/topology=uniconfig/node=xr6_1/frinx-uniconfig-topology:configuration/Cisco-IOS-XR-ifmgr-cfg:interface-configurations/interface-configuration=act,Loopback97' \
 --header 'Content-Type: application/json' \
 --header 'Accept: application/json' \
@@ -905,7 +1008,7 @@ curl --location --request PUT 'http://localhost:8181/rests/data/network-topology
 
 Commit TX2 without target nodes - it should pass:
 
-``` {.sourceCode .bash}
+```bash RPC Request
 curl --location --request POST 'http://localhost:8181/rests/operations/uniconfig-manager:commit' \
 --header 'Content-Type: application/json' \
 --header 'Authorization: Basic YWRtaW46YWRtaW4=' \
@@ -921,7 +1024,7 @@ curl --location --request POST 'http://localhost:8181/rests/operations/uniconfig
 
 Response:
 
-``` {.sourceCode .json}
+``` RPC Response
 {
     "output": {
         "node-results": {
@@ -943,7 +1046,7 @@ Commit TX1 without target nodes - it should fail because the same node
 has already been modified by different transaction that has already been
 committed:
 
-``` {.sourceCode .bash}
+```bash RPC Request
 curl --location --request POST 'http://localhost:8181/rests/operations/uniconfig-manager:commit' \
 --header 'Content-Type: application/json' \
 --header 'Authorization: Basic YWRtaW46YWRtaW4=' \
@@ -959,7 +1062,7 @@ curl --location --request POST 'http://localhost:8181/rests/operations/uniconfig
 
 Response - Status 200 OK with error message:
 
-``` {.sourceCode .json}
+``` RPC Response
 {
     "output": {
         "error-message": "14804ad7-c0f6-4b22-8336-7484efc23e31: Node 'xr6_1' in topology 'uniconfig' has been modified by other transaction."
@@ -973,7 +1076,7 @@ Response - Status 200 OK with error message:
 Verification if committed changes in TX1 were applied to datastore and
 device:
 
-``` {.sourceCode .bash}
+```bash RPC Request
 curl --location --request GET 'http://localhost:8181/rests/data/network-topology:network-topology/topology=uniconfig/node=xr6_1/frinx-uniconfig-topology:configuration/Cisco-IOS-XR-ifmgr-cfg:interface-configurations/interface-configuration=act,Loopback97?content=config' \
 --header 'Content-Type: application/json' \
 --header 'Accept: application/json' \
@@ -995,7 +1098,7 @@ curl --location --request GET 'http://localhost:8181/rests/data/network-topology
 Response for all three requests (description of interface is 'test loopback' - TX2 hasn't been committed):
 ```
 
-``` {.sourceCode .json}
+``` RPC Response
 {
     "interface-configuration": [
         {
@@ -1014,7 +1117,7 @@ Response for all three requests (description of interface is 'test loopback' - T
 
 Trying to read some data in the transaction:
 
-``` {.sourceCode .bash}
+```bash RPC Request
 curl --location --request GET 'http://localhost:8181/rests/data/network-topology:network-topology/topology=uniconfig/node=xr6_1/frinx-uniconfig-topology:configuration/Cisco-IOS-XR-ifmgr-cfg:interface-configurations/interface-configuration=act,Loopback97' \
 --header 'Content-Type: application/json' \
 --header 'Accept: application/json' \
@@ -1030,7 +1133,7 @@ curl --location --request GET 'http://localhost:8181/rests/data/network-topology
 
 Respective responses:
 
-``` {.sourceCode .json}
+``` RPC Response
 {
     "errors": {
         "error": [
@@ -1044,7 +1147,7 @@ Respective responses:
 }
 ```
 
-``` {.sourceCode .json}
+``` RPC Response
 {
     "errors": {
         "error": [

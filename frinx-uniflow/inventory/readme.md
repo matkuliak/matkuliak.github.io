@@ -1,30 +1,26 @@
-Device Inventory
-================
+# Device Inventory
 
 Devices are stored in a Device Inventory. From here they can be
 dynamically installed and uninstalled.
 
-Adding device to inventory
---------------------------
+## Adding device to inventory
 
-To add new device to invetory, click on the `Add device` button in the
-`Device inventory` tab.
+To add new device to invetory, click on the **Add device** button in the
+**Device inventory** tab.
 
-[![alt\_text](fm_install.gif)](fm_install.gif)
+![FM Install](fm_install.gif)
 
-JSON examples
--------------
+## JSON examples
 
 To adding a new device toggle the "Blueprints" switch in the form and
 choose the blueprint that you want to use.
 
-New devices are added by JSON code snippets. They are similar to how
-[blueprints](https://docs.frinx.io/frinx-uniflow/blueprints/blueprints.html)
-with one addition: **device\_id** must be specified in the snippet.
+New devices are added by JSON code snippets. They are similar to [Blueprints](../frinx-uniflow/blueprints)
+with one addition: **device_id** must be specified in the snippet.
 
 ### Cisco classic IOS (cli)
 
-```
+```json
 {
     "node-id":"ios1",
     "cli":{
@@ -44,7 +40,7 @@ with one addition: **device\_id** must be specified in the snippet.
 
 ### Cisco IOS XR (netconf)
 
-```
+```json
 {
     "node-id":"xr1",
     "netconf":{
@@ -75,7 +71,7 @@ with one addition: **device\_id** must be specified in the snippet.
 
 ### JUNOS (cli)
 
-```
+```json
 {
     "node-id":"junos1",
     "cli":{
@@ -94,7 +90,7 @@ with one addition: **device\_id** must be specified in the snippet.
 
 ### CALIX (netconf)
 
-```
+```json
 {
     "node-id":"cal1",
     "netconf":{
@@ -116,7 +112,7 @@ with one addition: **device\_id** must be specified in the snippet.
 
 ### Nokia (netconf)
 
-```
+```json
 {
     "node-id":"nokia1",
     "netconf":{
@@ -144,7 +140,7 @@ with one addition: **device\_id** must be specified in the snippet.
 
 ### Ciena (cli)
 
-```
+```json
 {
     "node-id":"ciena1",
     "cli":{

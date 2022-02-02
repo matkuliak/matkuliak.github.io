@@ -3,28 +3,44 @@ label: UniConfig Operations
 order: 8000
 ---
 
-# UniConfig Node Manager
+# UniConfig Operations
 
-The responsibility of this component is to maintain configuration on
-devices based on intended configuration. Each device and its
-configuration is represented as a node in the uniconfig topology and the
-configuration of this node is described by using OpenConfig YANG models.
-The Northbound API of Uniconfig Manager (UNM) is RPC driven and provides
-functionality for commit with automatic rollback and synchronization of
-configuration from the network.
+## Sending and receiving data (RESTCONF)
 
-When a commit is called, the UNM creates a diff based on intended state
-from CONFIG DS and actual state from OPER DS. This Diff is used as the
-basis for device configuration. UNM prepares a network wide transaction
-which uses Unified mountpoints for communication with different types of
-devices.
+RESTCONF represents REST API to access datastores and UniConfig operations.
 
-An additional git like diff RPC was created so it shows all the changes
-grouped under root elements in a git-like style.
+## UniConfig Node Manager API
 
-In the case where the configuration of one device fails, the UNM
-executes automatic rollback where the previous configuration is restored
-on all modified devices.
+The responsibility of this component is to maintain configuration on devices based on intended configuration. Each device and its configuration is represented as a node in the uniconfig topology and the configuration of this node is described by using OpenConfig YANG models. The Northbound API of Uniconfig Manager (UNM) is RPC driven and provides functionality for commit with automatic rollback and synchronization of configuration from the network.
 
-Synchronization from the network reads configuration from devices and
-stores it as an actual state to the OPER DS.
+## Device discovery
+
+This component is used to check reachable devices in a network. The manager checks the reachability via the ICMP protocol. Afterwards, the manager is able to check whether various TCP/UDP ports are open or not.
+
+## Dry-run Manager API
+
+The manager provides functionality showing CLI commands which would be sent to network element.
+
+## Snapshot Manager API
+
+The snapshot manager creates and deletes uniconfig snapshots of actual uniconfig topology. Multiple snapshots can be created in the system.
+
+## Subtree Manager API
+
+The subtree manager copies (merge/replace) subtrees between source and target paths.
+
+## Templates Manager API
+
+This component is responsible for application of templates into UniConfig nodes.
+
+## Websocket Notifications
+
+Mechanism where the NETCONF client indicates interest in receiving event notifications from a NETCONF server by creating a subscription to receive event notifications. The NETCONF server replies to indicate whether the subscription request was successful and, if it was successful, begins sending the event notifications to the NETCONF client as the events occur within the system.
+
+## Transaction Log API
+
+This component is responsible for tracking transactions.
+
+## Dedicated transaction (Immediate Commit Model)
+
+The immediate commit creates new transactions for every call of an RPC. The transaction is then closed so no lingering data will occur.

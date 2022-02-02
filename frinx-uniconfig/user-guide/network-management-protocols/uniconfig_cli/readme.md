@@ -5,8 +5,7 @@ order: 9000
 
 # UniConfig CLI
 
-Introduction
-------------
+## Introduction
 
 The CLI southbound plugin enables the Frinx UniConfig to communicate
 with CLI devices that do not speak NETCONF or any other programmatic
@@ -29,8 +28,7 @@ structured data.
 
 ![CLI southbound plugin](cliSouthPlugin.png)
 
-Architecture
-------------
+## Architecture
 
 This section provides an architectural overview of the plugin, focusing
 on the main components.
@@ -40,11 +38,11 @@ on the main components.
 The CLI topology is a dedicated topology instance where users and
 applications can:
 
--   install a CLI device,
--   uninstall a device,
--   check the state of connection,
--   read/write data from/to a device,
--   execute RPCs on a device.
+- install a CLI device,
+- uninstall a device,
+- check the state of connection,
+- read/write data from/to a device,
+- execute RPCs on a device.
 
 This topology can be seen as an equivalent of topology-netconf,
 providing the same features for netconf devices. The topology APIs are
@@ -60,30 +58,30 @@ enables the CLI topology to actually access the device's data in a
 structured/YANG manner. Components of such a mountpoint can be divided
 into 3 distinct layers:
 
--   Service layer - implementation of MD-SAL APIs delegating execution
+- Service layer - implementation of MD-SAL APIs delegating execution
     to transport layer.
--   Translation layer - a generic and extensible translation layer. The
+- Translation layer - a generic and extensible translation layer. The
     actual translation between YANG and CLI takes place in the
     extensions. The resulting CLI commands are then delegated to
     transport layer.
--   Transport layer - implementation of various transport protocols used
+- Transport layer - implementation of various transport protocols used
     for actual communication with network devices.
 
 The following diagram shows the layers of a CLI mountpoint:
 
 ![CLI mountpoint](cliMountpoint.png)
 
-#### Translation layer
+### Translation layer
 
 The CLI southbound plugin is as generic as possible. However, the
-device-specific translation code (from YANG data -\> CLI commands and
+device-specific translation code (from YANG data -\ CLI commands and
 vice versa), needs to be encapsulated in a device-specific translation
 plugin. E.g. Cisco IOS specific translation code needs to be implemented
 by Cisco IOS translation plugin before FRINX UniConfig can manage IOS
 devices. These translation plugins in conjunction with the generic
 translation layer allow for a CLI mountpoint to be created.
 
-**Device specific translation plugin**
+### Device specific translation plugin
 
 Device specific translation plugin is a set of:
 
@@ -104,9 +102,9 @@ and CLI. However, the translation layer into which it plugs in is what
 handles the heavy lifting for it e.g. transactions, rollback, config
 data storage, reconciliation etc. Additionally, the SPIs of the
 translation layer are very simple to implement because the translation
-plugin only needs to focus on the translations between YANG \<-\> CLI.
+plugin only needs to focus on the translations between YANG \<-\ CLI.
 
-**Units**
+### Units
 
 In order to enable better extensibility of the translation plugin and
 also to allow the separation of various aspects of a device's
@@ -131,12 +129,12 @@ multiple units:
 
 ![IOS translation plugin](iosUnits.png)
 
-#### Transport layer
+### Transport layer
 
 For now, two transport protocols are supported:
 
--   SSH
--   Telnet
+- SSH
+- Telnet
 
 They implement the same APIs, which enables the translation layer of the
 CLI plugin to be completely independent of the underlying protocol in
@@ -151,37 +149,36 @@ The transport layer can be specified using install-request
 There are 2 types of data depending on data-store in which data is
 stored:
 
--   Config
--   Operational
+- Config
+- Operational
 
 This section details how these data types map to CLI commands.
 
 Just as there are 2 types of data, there are 2 streams of data in the
 CLI southbound plugin:
 
--   **Config**
-    -   It represents user/application intended configuration for the
+- **Config**
+  -   It represents user/application intended configuration for the
         device.
-    -   Translation plugins/units need to handle this configuration in
+  -   Translation plugins/units need to handle this configuration in
         data handlers as C(reate), U(pdate) and D(elete) operations.
         R(ead) pulls this config data from the device and updates the
         cache on its way back.
 
 ![Config data](readCfg.png)
 
--   **Operational**
-    -   It represents actual configuration on the device, optionally
+- **Operational**
+  -   It represents actual configuration on the device, optionally
         statistics from the device.
-    -   Translation plugins/units need to pull these data out of the
+  -   Translation plugins/units need to pull these data out of the
         device when R(ead) operation is requested.
 
 ![Operational data](readOper.png)
 
--   **RPCs** stand on their own and can encapsulate any command(s) on
+- **RPCs** stand on their own and can encapsulate any command(s) on
     the device.
 
-Reconciliation
---------------
+## Reconciliation
 
 There might be situations where there are inconsistencies between actual
 configuration on the device and the state cached in Frinx UniConfig.
@@ -204,8 +201,7 @@ connected so if both the Uniconfig and CLI layer reconcile, the install
 process is unnecessarily prolonged. That's why it is advised to turn off
 reconciliation on the CLI layer when using Uniconfig.
 
-RPCs provided by CLI layer
---------------------------
+## RPCs provided by CLI layer
 
 There are multiple RPCs that can be used for sending of commands to CLI
 session and optionally waiting for command output. To use all of these
@@ -215,13 +211,13 @@ RPCs, it is required to have installed CLI device in 'Connected' state.
 
 #### Description
 
--   Execution of the sequence of commands specified in the input. These
+- Execution of the sequence of commands specified in the input. These
     commands must be separated by the new line - then, each of the
     command is executed separately.
--   After all commands are executed, it is assumed, that the original
+- After all commands are executed, it is assumed, that the original
     command prompt (prompt that was set before execution of this RPC)
     appears on the remote terminal.
--   If the input contains only single command, output of this RPC will
+- If the input contains only single command, output of this RPC will
     contain only output of this command. If input contains multiple
     commands separated by newline, output of this RPC will be built from
     command prompts (except the prompt of the first command), input
@@ -239,13 +235,13 @@ mode (for example, starting with 'Router\#') using 'end' command and
 configured to 2 seconds - CLI layer waits for command output returned
 from device up to 2 seconds.
 
-> **note**
->
-> Remember that the last command prompt must equal to original prompt
-> otherwise CLI session fails on timeout and CLI mountpoint must be
-> recreated.
+!!!
+Remember that the last command prompt must equal to original prompt
+otherwise CLI session fails on timeout and CLI mountpoint must be
+recreated.
+!!!
 
-``` {.sourceCode .bash}
+```bash
 curl --request POST 'http://127.0.0.1:8181/rests/operations/network-topology:network-topology/topology=cli/node=xrcli/yang-ext:mount/cli-unit-generic:execute-and-read' \
 --header 'Content-Type: application/json' \
 --data-raw '{
@@ -263,7 +259,7 @@ curl --request POST 'http://127.0.0.1:8181/rests/operations/network-topology:net
 RPC reply with unescaped output string (output can be easily unescaped
 with 'printf' linux application):
 
-``` {.sourceCode .json}
+```
 {
     "output": {
         "output": "show ip int brief
@@ -305,10 +301,10 @@ Uncommitted changes found, commit them before exiting(yes/no/cancel)? [cancel]:"
 
 Description of RPC-request input body fields:
 
--   **command** (mandatory) - The list of commands that are sent to
+- **command** (mandatory) - The list of commands that are sent to
     device. Commands must be separated by newline character. Every
     command-line is executed separately.
--   **wait-for-output-timer** (optional) - By default (if this parameter
+- **wait-for-output-timer** (optional) - By default (if this parameter
     is not set or set to 0), outputs from entered commands are collected
     after caught echo of the next typed command in CLI session (or
     command prompt, if the command is the last one from input sequence).
@@ -324,62 +320,62 @@ Description of RPC-request input body fields:
 
 #### Wait-for-echo behaviour
 
-The comparison between described 'wait-for-echo' approaches can be
+The comparison between described **wait-for-echo** approaches can be
 demonstrated in the steps of processing 2 command-lines:
 
 1)  **'wait-for-output-timer' is not set or it set to value 0**
 
-    > 1.  write command 1
-    > 2.  wait for command 1 echo
-    > 3.  hit enter
-    > 4.  write command 2
-    > 5.  wait for command 2 echo
-    > 6.  hit enter
-    > 7.  read until command prompt appears
+     1.  write command 1
+     2.  wait for command 1 echo
+     3.  hit enter
+     4.  write command 2
+     5.  wait for command 2 echo
+     6.  hit enter
+     7.  read until command prompt appears
 
 2)  **'wait-for-output-timer' is specified in request**
 
-    > 1.  write command 1
-    > 2.  hit enter
-    > 3.  read output until timeout expires
-    > 4.  write command 2
-    > 5.  hit enter
-    > 6.  read until command prompt appears
+     1.  write command 1
+     2.  hit enter
+     3.  read output until timeout expires
+     4.  write command 2
+     5.  hit enter
+     6.  read until command prompt appears
 
-> **note**
->
-> Even if the 'wait-for-output-timer' is configured, the last output
-> must equal to original command-prompt.
+!!!
+Even if the 'wait-for-output-timer' is configured, the last output
+must equal to original command-prompt.
+!!!
 
 ### RPC: Execute-and-expect
 
 #### Description
 
--   It is a form of the 'execute-and-read' RPC that additionally may
+- It is a form of the 'execute-and-read' RPC that additionally may
     contain 'expect(..)' patterns used for waiting for specific
     outputs/prompts. It can be used for execution of interactive
     commands that require multiple subsequent inputs with different
     preceding prompts.
--   The body of 'expect(..)' pattern must be specified by Java-based
+- The body of 'expect(..)' pattern must be specified by Java-based
     regular expression typed between the brackets (see
     <https://docs.oracle.com/javase/7/docs/api/java/util/regex/Pattern.html>
     - documentation about regular expressions used in Java language).
--   'expect(..)' pattern can only be used for testing of previous
+- 'expect(..)' pattern can only be used for testing of previous
     command line output including next command prompt. From this reason,
     it is also a suitable tool for testing of specific command prompts.
--   'expect(..)' pattern must be specified on the distinct line. If
+- 'expect(..)' pattern must be specified on the distinct line. If
     multiple 'expect(..)' patterns are chained on neighboring lines,
     then all of them must match previous output (patterns are joined
     using logical AND operation).
--   Output of this RPC reflects the whole dialogue between Frinx
+- Output of this RPC reflects the whole dialogue between Frinx
     UniConfig client and remote terminal except the initial
     command-prompt.
--   'wait-for-output-timer' parameter can also be specified in this RPC
+- 'wait-for-output-timer' parameter can also be specified in this RPC
     - but in this case, it applies only for non-interactive commands -
     commands that are not followed by 'expect(..)' pattern. It is
     possible to mix interactive and non-interactive commands in input
     command snippet.
--   If 'expect' pattern doesn't match previous output, CLI session will
+- If 'expect' pattern doesn't match previous output, CLI session will
     be dropped on timeout.
 
 #### Example
@@ -390,7 +386,7 @@ source filename and destination filename. These prompts are asserted by
 'expect(..) pattern. The last 'expect(..) pattern just waits for
 confirmation about number of copied bytes.
 
-``` {.sourceCode .bash}
+```bash
 curl --request POST 'http://127.0.0.1:8181/rests/operations/network-topology:network-topology/topology=cli/node=iosxr/yang-ext:mount/cli-unit-generic:execute-and-expect' \
 --header 'Content-Type: application/json' \
 --data-raw '{
@@ -409,7 +405,7 @@ curl --request POST 'http://127.0.0.1:8181/rests/operations/network-topology:net
 RPC reply with unescaped output string (output can be easily unescaped
 with 'printf' linux application):
 
-``` {.sourceCode .json}
+```bash
 {
     "output": {
         "output": "copy tftp://192.168.1.40 disk0:/
@@ -424,17 +420,15 @@ RP/0/0/CPU0:PE1#"
 }
 ```
 
-> **note**
->
-> Backslash is a special character that must be escaped in JSON body.
-> From this reason, in the previous example, there are two backslashes
-> proceeding regular-expression constructs.
+!!!
+ Backslash is a special character that must be escaped in JSON body.
+ From this reason, in the previous example, there are two backslashes
+ proceeding regular-expression constructs.
 
-> **note**
->
-> If 'execute-and-expect' command field doesn't contain any 'expect(..)'
-> patterns, it will be evaluated in the same way like 'execute-and-read'
-> RPC.
+ If 'execute-and-expect' command field doesn't contain any 'expect(..)'
+ patterns, it will be evaluated in the same way like 'execute-and-read'
+ RPC.
+!!!
 
 ### RPC: Execute-and-read-until
 
@@ -457,7 +451,7 @@ command prompt 'RP/0/0/CPU0:XR5\#'. From this reason it is required to
 return back to initial command prompt by sending of additional commands
 or specification of 'last-output' as it is demonstrated in this example.
 
-``` {.sourceCode .bash}
+```bash
 curl --request POST 'http://127.0.0.1:8181/rests/operations/network-topology:network-topology/topology=cli/node=iosxr/yang-ext:mount/cli-unit-generic:execute-and-read-until' \
 --header 'Content-Type: application/json' \
 --data-raw '{
@@ -474,7 +468,7 @@ curl --request POST 'http://127.0.0.1:8181/rests/operations/network-topology:net
 RPC reply with unescaped output string (output can be easily unescaped
 with 'printf' linux application):
 
-``` {.sourceCode .json}
+```
 {
     "output": {
         "output": "conf t
@@ -487,11 +481,11 @@ RP/0/0/CPU0:XR5(config-rip)#"
 }
 ```
 
-> **note**
->
-> Set 'last-output' is saved within current CLI session - if you send
-> next 'execute-and-read' RPC, it is assumed that the initial and last
-> output is newly configured 'last-output'.
+!!!
+ Set 'last-output' is saved within current CLI session - if you send
+ next 'execute-and-read' RPC, it is assumed that the initial and last
+ output is newly configured 'last-output'.
+!!!
 
 ### RPC: Execute
 
@@ -511,7 +505,7 @@ RP/0/0/CPU0:XR5(config-rip)#"
 The following example demonstrates 'execute' RPC on creation of simple
 static route and committing of made change.
 
-``` {.sourceCode .bash}
+```bash
 curl --request POST 'http://127.0.0.1:8181/rests/operations/network-topology:network-topology/topology=cli/node=xrcli/yang-ext:mount/cli-unit-generic:execute' \
 --header 'Content-Type: application/json' \
 --data-raw '{
@@ -528,7 +522,7 @@ curl --request POST 'http://127.0.0.1:8181/rests/operations/network-topology:net
 
 RPC reply - output contains just status message:
 
-``` {.sourceCode .json}
+```
 {
     "output": {
         "status": "ok"

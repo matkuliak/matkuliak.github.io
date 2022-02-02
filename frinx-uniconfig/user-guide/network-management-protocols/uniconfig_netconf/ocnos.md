@@ -1,12 +1,10 @@
-IP Infusion OcNOS Devices
-=========================
+# IP Infusion OcNOS Devices
 
-Mounting a OcNos device with UniConfig
---------------------------------------
+## Installing a OcNos device with UniConfig
 
-This is the request to mount a OcNos device:
+This is the request to install a OcNos device:
 
-``` {.sourceCode .bash}
+```bash
 curl PUT \
   'https://192.168.60.53:8181/rests/data/network-topology:network-topology/topology=topology-netconf/node=ocnos' \
   'Authorization: Basic YWRtaW46YWRtaW4=' \
@@ -33,23 +31,23 @@ curl PUT \
 
 Where:
 
-> -   "node-id": is the name of the device
-> -   "netconf-node-topology:host" (192.168.1.248): is the ip address of
->     the device
-> -   "netconf-node-topology:port" (830): is the port number of the
->     device
-> -   "netconf-node-topology:username" (ocnos): is the username to
->     access the device
-> -   "netconf-node-topology:password" (ocnos): is the respective
->     password
-> -   "uniconfig-config:uniconfig-native-enabled": allows to enable
->     mounting through UniConfig Native
+-   "node-id": is the name of the device
+-   "netconf-node-topology:host" (192.168.1.248): is the ip address of
+    the device
+-   "netconf-node-topology:port" (830): is the port number of the
+    device
+-   "netconf-node-topology:username" (ocnos): is the username to
+    access the device
+-   "netconf-node-topology:password" (ocnos): is the respective
+    password
+-   "uniconfig-config:uniconfig-native-enabled": allows to enable
+    installing through UniConfig Native
 
 ### Show configuration
 
 To show all the configurations loaded in config datastore, run:
 
-``` {.sourceCode .bash}
+```bash
 curl -X GET \
   https://{{odl_ip}}:8181/rests/data/network-topology:network-topology/topology=uniconfig/node=ocnos
 
@@ -190,8 +188,7 @@ curl -X GET \
    }
 ```
 
-Troubleshooting OcNos mounting with UniConfig
----------------------------------------------
+## Troubleshooting OcNos installing with UniConfig
 
-If you have trouble mounting an OcNOS device into UniConfig, please
+If you have trouble installing an OcNOS device into UniConfig, please
 consult ocnos-tshoot

@@ -1,17 +1,14 @@
-Calix devices
-=============
+# Calix devices
 
-> **note**
->
-> To mount a Calix device is necessary to increase the memory assigned
-> to JVM at least to 6GB
+!!!
+To mount a Calix device is necessary to increase the memory assigned to JVM at least to 6GB
+!!!
 
-Mount Calix device
-------------------
+## Mount Calix device
 
 To mount the Calix device run:
 
-``` {.sourceCode .bash}
+```bash
 curl -X PUT \
  http://localhost:8181/rests/data/network-topology:network-topology/topology=topology-netconf/node=calix \
  -d '{
@@ -35,30 +32,29 @@ curl -X PUT \
 }'
 ```
 
-Where:
+**Where:**
 
-> -   calix: is the name of the device
-> -   10.19.0.16: is the ip address of the device
-> -   830: is the port number of the device
-> -   USERNAME: is the username to access the device
-> -   PASSWORD: is the respective password
-> -   "uniconfig-config:uniconfig-native-enabled": allows to enable
->     mounting through UniConfig Native
-> -   "uniconfig-config:install-uniconfig-node-enabled": allows to
->     disable mounting to uniconfig and unified layers
-> -   "uniconfig-config:path": allows to specify a list of root elements
->     from models present on device to be ignored by UniConfig Native
-> -   "uniconfig-config:extension": allows to specify a list of module's
->     extensions to be ignored by UniConfig Native
+-   calix: is the name of the device
+-   10.19.0.16: is the ip address of the device
+-   830: is the port number of the device
+-   USERNAME: is the username to access the device
+-   PASSWORD: is the respective password
+-   "uniconfig-config:uniconfig-native-enabled": allows to enable
+     mounting through UniConfig Native
+-   "uniconfig-config:install-uniconfig-node-enabled": allows to
+     disable mounting to uniconfig and unified layers
+-   "uniconfig-config:path": allows to specify a list of root elements
+     from models present on device to be ignored by UniConfig Native
+-   "uniconfig-config:extension": allows to specify a list of module's
+     extensions to be ignored by UniConfig Native
 
 In case of success the return code is 201.
 
-Check if Calix device is connected
-----------------------------------
+## Check if Calix device is connected
 
 To check if the device is properly connected run:
 
-``` {.sourceCode .bash}
+```bash
 curl -X GET \
  http://localhost:8181/rests/data/network-topology:network-topology/topology=topology-netconf/node=calix?content=nonconfig
 ```
@@ -66,7 +62,7 @@ curl -X GET \
 In case of success the return code is 200, and the response body
 contains something similar to:
 
-``` {.sourceCode .bash}
+```bash
 {
    "node": [
        {
@@ -103,13 +99,12 @@ contains something similar to:
 }
 ```
 
-Check if Calix device configuration is available in UniConfig
--------------------------------------------------------------
+## Check if Calix device configuration is available in UniConfig
 
 To check if the Calix device configuration has been properly loaded in
 the UniConfig config datastore, run:
 
-``` {.sourceCode .bash}
+```bash
 curl -X GET \
  http://localhost:8181/rests/data/network-topology:network-topology/topology=uniconfig/node=calix/frinx-uniconfig-topology:configuration?content=config
 ```
@@ -117,7 +112,7 @@ curl -X GET \
 In case of success the return code is 200 and the response body contains
 something similar to:
 
-``` {.sourceCode .bash}
+```bash
 {
   "frinx-uniconfig-topology:configuration": {
       "exa-base:config": {

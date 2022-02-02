@@ -1,5 +1,4 @@
-Transaction Log
-===============
+# Transaction Log
 
 The transaction log consists of a transaction tracker and a
 revert-changes RPC. The transaction tracker stores information called
@@ -8,3 +7,11 @@ snapshot. Whereas revert-changes RPC can be used to revert changes that
 have been made in a specific transaction. A user only need to have ID of
 transaction for that. One or more transactions can be reverted using one
 revert-changes RPC.
+
+## RPC revert-changes
+
+[!ref text="RPC revert-changes"](../transaction-log/rpc_revert-changes)
+
+## Transaction tracker
+
+[!ref text="Transaction tracker"](../transaction-log/transaction-tracker)

@@ -6,12 +6,12 @@ order: 9000
 
 # Device installation
 
-**Device installation**
+## Device installation
 
 Guide explaining installation mechanisms along with both CLI and NETCONF
 examples.
 
-**UniConfig CLI**
+## UniConfig CLI
 
 The CLI southbound plugin enables the Frinx UniConfig to communicate
 with CLI devices that do not speak NETCONF or any other programmatic
@@ -19,7 +19,7 @@ API. The CLI service module uses YANG models and implements a
 translation logic to send and receive structured data to and from CLI
 devices.
 
-**UniConfig Netconf**
+## UniConfig Netconf
 
 NETCONF is an Internet Engineering Task Force (IETF) protocol used for
 configuration and monitoring devices in the network. It can be used to
@@ -27,7 +27,7 @@ configuration and monitoring devices in the network. It can be used to
 devices”.NETCONF operations are overlaid on the Remote Procedure Call
 (RPC) layer and may be described in either XML or JSON.
 
-**UniConfig-native CLI**
+## UniConfig-native CLI
 
 UniConfig-native CLI allows user configuration of CLI-enabled devices
 using YANG models that describe configuration commands. In

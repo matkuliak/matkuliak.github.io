@@ -5,8 +5,7 @@ order: 8000
 
 # UniConfig NETCONF
 
-Overview
---------
+## Overview
 
 NETCONF is an Internet Engineering Task Force (IETF) protocol used for
 configuration and monitoring devices in the network. It can be used to
@@ -17,8 +16,7 @@ The base NETCONF protocol is described in
 NETCONF operations are overlaid on the Remote Procedure Call (RPC) layer
 and may be described in either XML or JSON.
 
-NETCONF southbound plugin
--------------------------
+## NETCONF southbound plugin
 
 ### Introduction to southbound plugin and netconf-connectors
 
@@ -30,13 +28,13 @@ mounted devices.
 
 In terms of RFCs, the southbound plugin supports:
 
--   Network Configuration Protocol (NETCONF) -
+- Network Configuration Protocol (NETCONF) -
     [RFC-6241](https://tools.ietf.org/html/rfc6241)
--   NETCONF Event Notifications -
+- NETCONF Event Notifications -
     [RFC-5277](https://tools.ietf.org/html/rfc5277)
--   YANG Module for NETCONF Monitoring -
+- YANG Module for NETCONF Monitoring -
     [RFC-6022](https://tools.ietf.org/html/rfc6022)
--   YANG Module Library -
+- YANG Module Library -
     [draft-ietf-netconf-yang-library-06](https://tools.ietf.org/html/draft-ietf-netconf-yang-library-06)
 
 NETCONF is fully model-driven (utilizing the YANG modelling language) so
@@ -46,12 +44,12 @@ described by a YANG model that is implemented by the device.
 By mounting of NETCONF device a new netconf-connector is created. This
 connector is responsible for:
 
--   keeping state of NETCONF session between NETCONF client that resides
+- keeping state of NETCONF session between NETCONF client that resides
     on FRINX UniConfig distribution and NETCONF server (remote network
     device)
--   sending / receiving of NETCONF RPCs that are used for reading /
+- sending / receiving of NETCONF RPCs that are used for reading /
     configuration of network device
--   interpreting of NETCONF RPCs by mapping of their content using
+- interpreting of NETCONF RPCs by mapping of their content using
     loaded device-specific YANG schemas
 
 There are 2 ways for configuring a new netconf-connector: NETCONF or
@@ -67,7 +65,7 @@ NETCONF device. The following example shows how to mount device with
 node name 'example' (make sure that the same node name is specified in
 URI and request body under 'node-id' leaf).
 
-``` {.sourceCode .guess}
+```bash
 curl -X PUT \
   http://127.0.0.1:8181/rests/data/network-topology:network-topology/topology=topology-netconf/node=example \
   -d '{
@@ -95,7 +93,7 @@ Right after the new netconf-connector is created, NETCONF layer writes
 some useful metadata into the operational data-store of MD-SAL under the
 network-topology subtree. This metadata can be found at:
 
-``` {.sourceCode .guess}
+```bash
 curl -X GET \
   http://127.0.0.1:8181/rests/data/network-topology:network-topology/topology=topology-netconf/node=example?content=nonconfig
 ```
@@ -107,7 +105,7 @@ You can check the configuration of device by accessing of
 'yang-ext:mount' container that is created under every mounted NETCONF
 node. The new netconf-connector will now be present there. Just invoke:
 
-``` {.sourceCode .guess}
+```bash
 curl -X GET \
   http://127.0.0.1:8181/rests/data/network-topology:network-topology/topology=topology-netconf/node=example/yang-ext:mount?content=config
 ```
@@ -127,26 +125,26 @@ To accomplish that, follow these steps :
 
 **1.** Generate private/public key-pair on your local machine
 
-``` {.sourceCode .guess}
+```
 $ ssh-keygen -b 1024 -t rsa -f sshkey -m pem
 ```
 
 **2.** Change .pub format into .bin format
 
-``` {.sourceCode .guess}
-$ cat sshkey.pub | cut -f 2 -d ' ' | base64 -d > sshkey.bin
+```
+$ cat sshkey.pub | cut -f 2 -d ' ' | base64 -d sshkey.bin
 ```
 
 **3.** Copy public key into device directory. Password of the device
 will be required.
 
-``` {.sourceCode .guess}
+```
 scp asr_sshkey.bin cisco@192.168.1.216:disk0:/
 ```
 
 **4.** (Optional) Check if the public key is on device
 
-``` {.sourceCode .guess}
+```
 $ ssh cisco@192.168.1.216
 (password)
 
@@ -163,7 +161,7 @@ $ ssh cisco@192.168.1.216
    42 -rw-r--r-- 1  1524 Oct 31 08:57 status_file
 16354 drwxr-xr-x 2  4096 Jul 23  2019 nvgen_traces
    12 drwxr-xr-x 2  4096 Jun 27  2019 core
-   15 lrwxrwxrwx 1    12 Jun 27  2019 config -> /misc/config
+   15 lrwxrwxrwx 1    12 Jun 27  2019 config -/misc/config
    11 drwx------ 2 16384 Jun 27  2019 lost+found
 16353 drwxr-xr-x 8  4096 Oct 31 08:58 ztp
    14 -rw-r--r-- 1 93861 Oct 31 08:53 pnet_cfg.log
@@ -173,14 +171,14 @@ $ ssh cisco@192.168.1.216
 
 **5.** Import public key to device
 
-``` {.sourceCode .guess}
+```
 crypto key import authentication rsa disk0:/asr_sshkey.bin
 ```
 
 **6.** Log in with private key to device NETCONF subsystem. Passphrase
 for key will be required.
 
-``` {.sourceCode .guess}
+```
 $ ssh -i ./asr_sshkey cisco@192.168.1.216 -s netconf
 
 If it is not possible use optional parameter
@@ -189,22 +187,88 @@ $ ssh -o "IdentitiesOnly=yes" -i ./asr_sshkey cisco@192.168.1.216 -s netconf
 
 **7.** Start UniConfig and insert keystore with private key into it.
 
-> **Insert keystore**
->
-> **RPC request:**
+**RPC request:**
+
+```
+REST
+    PUT
+URL
+    http://localhost:8181/rests/operations/netconf-keystore:add-keystore-entry
+HEAD
+    Accept
+        application/json
+    Content-Type
+        application/json
+
+BODY
+{
+    "input":{
+        "key-credential":[
+            {
+                "netconf-keystore:key-id":"sshkey",
+                "netconf-keystore:private-key":"-----BEGIN RSA PRIVATE KEY-----
+Proc-Type: 4,ENCRYPTED
+DEK-Info: AES-128-CBC,0C4CB5DDAAF81007B4178A05A3CEDF60
+
+2URiEEton5ifZnq2IY4Tn2FhQynkXCd6RxV7rPUYbCvlDo2W7GMMUTPbXNchMOgp
+YXuDA/MSUx7lS7K8OHHYmx/dhubnqdfEM3r7LmHDdmee4Rc86xWYTVUktVzZDBEu
+pGNs2aL/2wcFIgB3twaBvpqlpNcdIdzRkXGks34MdU/NwIYWP0wxik2Toku3Upfk
+knaF+nchAbSCCxv3qmJ1w1/MQq4r6CnTSA9Dl+SVChLvi5EdcjHrOmqfUS6m6k8I
+upRIQh4AJ2cl+88yxAsHFJHFUSolcEE7ckrkSfLUYhWYXZ6w8mTw29ocUE0BeQm6
+NjseVNVPMrprvTMQUpmNNk5NOApsdQPilDbM8OxHTvGNv0qzlU/dB+FSvkfe9ThZ
+YnXaXEPh4VEPPyCyN/pJF+7wmTxEUmabdEpLAz+AEKvq/LHkhWqd2Ep8keDfHpSk
+hkTXEc5W/PS0+G7wePIaVC4T++vO37f3YkKmwd2X2bqOQaVa1ddcMO/FSenTZFBc
+PbyD8RIIU1rScdHan+BOCgk6h58pvqWHpPLNojQXC0t3ricFRpFBlMGAD/N3F9IP
+0NmptxwODio1L8BztKdDosekpPy/tV3M2kWdFlqqbKQtnGk6afyr4YIufJ/KQFfe
+d0/FEKtn1rTTkQDbmwmLoFFOycRBEyE2PcmGTCndySL6kLzUjBWrEu5S6cHgqTTg
+tbxh/nhw92RHwXkR6/87HRVpjB3gpbDoRvYibwUximOQna/2OHMFDjrfB7Uz5zvV
+tuwnQbgswmiIvjISLRNNlHh3GuCHw7ZNowenHheX8vzLsGeW1iywqsVt/H1AYFx4
+-----END RSA PRIVATE KEY-----",
+                "netconf-keystore:passphrase":"iosxr"
+            }
+        ]
+    }
+}
+```
 
 **8.** Create mount-point with key-id
 
-> **Mount**
->
-> **RPC request:**
+**RPC request:**
+
+```
+REST
+    PUT
+URL
+    http://localhost:8181/rests/data/network-topology:network-topology/topology=topology-netconf/node=iosxr
+HEAD
+    Accept
+        application/json
+    Content-Type
+        application/json
+
+BODY
+{
+    "node" :
+    {
+        "node-id" : "iosxr",
+        "netconf-node-topology:host": "192.168.1.216",
+        "netconf-node-topology:port": 830,
+        "netconf-node-topology:keepalive-delay": 0,
+        "netconf-node-topology:tcp-only": false,
+        "netconf-node-topology:key-based": {
+            "username": "cisco",
+            "key-id": "sshkey"
+        }
+    }
+}
+```
 
 **Delete public key**
 
 Login to device, remove rsa public key and after that, it is also
 possible to delete key from device directory.
 
-``` {.sourceCode .guess}
+```
 $ ssh cisco@192.168.1.216
 (password)
 
@@ -225,13 +289,51 @@ data store is updated, when the JSON file with PKI data is updated.
 
 **Keystore insertion example**
 
-> **Insert keystore**
->
-> **RPC request:**
+**RPC request:**
+
+```
+REST
+    POST
+URL
+    http://localhost:8181/rests/operations/netconf-keystore:add-keystore-entry
+HEAD
+    Accept
+        application/json
+    Content-Type
+        application/json
+
+BODY
+{
+    "input" :
+    {
+        "key-credential": [
+                {
+                        "netconf-keystore:key-id": "versa2",
+                        "netconf-keystore:private-key": "-----BEGIN RSA PRIVATE KEY-----
+MIICXAIBAAKBgQClEX+nOWXIn51qQffvi1FxM97AQvjdd8Upol1uJxoWzDnQ67h+
+lP9nEnamehPjL3JNsdJOQwWhNE4hVKm4ZC+7PfxGyY4a+sZ3Q+t2KzLlY/i59UUb
+fWlV5tNdE/LHEV4hc3JE+k0NoxtjpQ5DNuiulQX6Pup5zvV2kzCnmJ6pUwIDAQAB
+AoGBAJS08/yRv/mCmkzcy2FZcHB8W0N30j2qpcvBQ0x2G5HIQJnPkjEvR/vybUPD
+HOGBoAcQmLb6uDqnJW/vlsrQLxKcTeVKcWzMLI5LfLXo3VU7VVokagyal/2nCVtp
+R1vKjC6uUw6eY/9zQDTbLAqu7vXIQn4HK48ml6/orYyrAHUxAkEA2nGPwzYzbECv
+fX6Km4+a8abEm0SQ4rV7z48E9PnH5Wmg8fs0AP4chp/Yf3eMohFL1nOXLQfyZl2K
+VjpEFezr6wJBAMFytnfi5bc20OS5pvACEOapDY9wEje37B2Kg/+NBaraCMLp0oRA
+eTC1ANusg90aEeCsTCj5yAbg9KlNqEN75jkCQA64GDfPLyfcM/cAz9YrlwUxd43+
+0MR19iHGQU9AhXev5mhnxNlMRh/MJYpxQ8in4bRRlZ4zKuI661dkFbJkhIECQAcD
+aaofB8UEr74bHPpGmOZD6sHwhjiO6niHtRFmw3XWQcsPPxqcW8hwR3+vWXiCoXNL
+y9cQdzgIn9Yjgp4vt8ECQAD/bkgp3g7+boKcYvKO4uEpzr9bzgDhu1Q66TwApO0k
+6TqFm7lxWCLJROSl/4VvEZpUFsD31zAWosMpo3Oq08c=
+-----END RSA PRIVATE KEY-----",
+                                "netconf-keystore:passphrase": ""
+                }
+        ]
+    }
+}
+```
 
 **JSON file example**
 
-``` {.sourceCode .guess}
+```
 {"netconf-keystore:keystore":{"key-credential":[{"key-id":"versa2","passphrase":"jKNzkicDKmVrpOehbo/Jtw==",
 "private-key":"kjTlzs/EpFAQA6xLjmye5uvWdUtpQyD0oQKan49EIdlXhpk76FO8QU7kptJpqG8XhREOKkDQpOFw1FYIi92e2czIFS9N8OlOMsXtc
 0GEoYTG+vjkOAx6PIqjelVTcB1doF5YvmZwR3D7aLBSA8EnatWjJ0lPkP6Tq0jFh0qVLURTgAACbx+JkbSYJ45w/+HAwaIBWzcPtcQH3H6rqoMaux5Z7
@@ -248,7 +350,7 @@ T12+NoAdThcSgaELaWXO329/YiU4GPRnuLHndZDLry84MNCLow="}]}}
 
 **Empty data store JSON file example**
 
-``` {.sourceCode .guess}
+```
 {"netconf-keystore:keystore":{}}
 ```
 
@@ -291,7 +393,7 @@ mount-request:
 Example with set keepalive parameters at creation of NETCONF mount-point
 (connection timeout, keepalive delay and request timeout):
 
-``` {.sourceCode .guess}
+```
 {
   "node": [
       {
@@ -330,7 +432,7 @@ Example with set reconnection parameters at creation of NETCONF
 mount-point - maximum connection attempts, initial delay between
 attempts and sleep factor:
 
-``` {.sourceCode .guess}
+```
 {
   "node": [
       {
@@ -386,7 +488,7 @@ The NETCONF repository can be registered in 3 ways:
 Already registered schema repositories can be listed using following
 request:
 
-``` {.sourceCode .guess}
+```bash
 curl -X GET \
   http://127.0.0.1:8181/rests/data/schema-resources:odl-nodes?content=nonconfig
 ```
@@ -395,7 +497,7 @@ It should return list of ODL nodes in cluster with list of all loaded
 repositories. Each repository have associated list of source
 identifiers. See the following example of GET request output:
 
-``` {.sourceCode .guess}
+```
 {
     "odl-nodes": {
         "odl-node-state": [
@@ -451,17 +553,16 @@ sources. In general, there are 2 situations that can occur:
 
 1.  **Missing imports**
 
-> The device requires and provides a resource which for its work
-> requires additional resources that are not covered by provided
-> resources.
+The device requires and provides a resource which for its work
+requires additional resources that are not covered by provided
+resources.
 
 2.  **Source that is not covered by provided sources**
 
-> The device requires but does not provide a specific source.
+The device requires but does not provide a specific source.
 
-> **note**
->
-> Using the 'default' directory in the 'cache' directory is optional.
+**note**
+Using the 'default' directory in the 'cache' directory is optional.
 
 ### Connecting to a device not supporting NETCONF monitoring
 
@@ -475,74 +576,63 @@ you might encounter:
 1.  **NETCONF device does not support 'ietf-netconf-monitoring' but it
     does list all its YANG models as capabilities in HELLO message**
 
-> This could be a device that internally uses, for example,
-> 'ietf-inet-types' YANG model with revision '2010-09-24'. In the HELLO
-> message, that is sent from this device, there is this capability
-> reported as the following string (other YANG schemas can be reported
-> as capabilities in the similar format):
->
-> ``` {.sourceCode .guess}
-> urn:ietf:params:xml:ns:yang:ietf-inet-types?module=ietf-inet-types&amp;revision=2010-09-24
-> ```
->
-> The format of the capability string is following:
->
-> ``` {.sourceCode .guess}
-> [NAMESPACE]?module=[MODULE_NAME]&amp;revision=[REVISION]
-> ```
->
-> -   [NAMESPACE] - Namespace that is specified in the YANG schema.
-> -   [MODULE\_NAME] - Name of the YANG module.
-> -   [REVISION] - The newest revision that is specified in the YANG
->     schema (it should be specified as the first one in the file).
->
-> > **note**
-> >
-> > Revision number is not mandatory (YANG model doesn't have to contain
-> > revision number) - then, the capability is specified without the
-> > '&amp;' and revision too.
->
-> For such devices you have to side load all device YANG models into
-> separate sub-directory under 'cache' directory (you can choose random
-> name for this directory, but directory must contain only YANG files of
-> one device type).
+This could be a device that internally uses, for example,
+'ietf-inet-types' YANG model with revision '2010-09-24'. In the HELLO
+message, that is sent from this device, there is this capability
+reported as the following string (other YANG schemas can be reported
+as capabilities in the similar format):
+```
+urn:ietf:params:xml:ns:yang:ietf-inet-types?module=ietf-inet-types&amp;revision=2010-09-24
+```
+The format of the capability string is following:
+```
+[NAMESPACE]?module=[MODULE_NAME]&amp;revision=[REVISION]
+```
+-   [NAMESPACE] - Namespace that is specified in the YANG schema.
+-   [MODULE\_NAME] - Name of the YANG module.
+-   [REVISION] - The newest revision that is specified in the YANG
+    schema (it should be specified as the first one in the file).
+**note**
+Revision number is not mandatory (YANG model doesn't have to contain
+revision number) - then, the capability is specified without the
+'&amp;' and revision too.
+For such devices you have to side load all device YANG models into
+separate sub-directory under 'cache' directory (you can choose random
+name for this directory, but directory must contain only YANG files of
+one device type).
 
 2.  **NETCONF device does not support 'ietf-netconf-monitoring' and it
     does NOT list its YANG models as capabilities in HELLO message**
 
-> Compared to device that lists its YANG models in HELLO message, in
-> this case there would be no specified capabilities in the HELLO
-> message. This type of device basically provides no information about
-> the YANG schemas it uses so its up to the user of OpenDaylight to
-> properly configure netconf-connector for this device.
->
-> Netconf-connector has an optional configuration attribute called
-> 'yang-module-capabilities' and this attribute can contain a list of
-> 'yang-module-based' capabilities. By setting this configuration
-> attribute, it is possible to override the 'yang-module-based'
-> capabilities reported in HELLO message of the device. To do this, we
-> need to mount NETCONF device or modify the configuration of existing
-> netconf-connector by adding the configuration snippet with explicitly
-> specified capabilities (it needs to be added next to the address,
-> port, username etc. configuration elements).
->
-> The following example shows explicit specification of 6 capabilities:
->
-> ``` {.sourceCode .guess}
-> "netconf-node-topology:yang-module-capabilities": {
->     "capability": [
->         "urn:ietf:params:xml:ns:a?module=module-a&amp;revision=2018-04-09",
->         "urn:ietf:params:xml:ns:b?module=module-b&amp;revision=2014-06-09",
->         "urn:ietf:params:xml:ns:c?module=module-c&amp;revision=1998-10-19",
->         "urn:ietf:params:xml:ns:d?module=module-damp;revision=2018-04-09",
->         "urn:ietf:params:xml:ns:e?module=module-e&amp;revision=2017-09-17",
->         "urn:ietf:params:xml:ns:f?module=module-f"
->     ]
-> }
-> ```
->
-> **Remember to also put the YANG schemas into the cache folder like in
-> the case 1.**
+Compared to device that lists its YANG models in HELLO message, in
+this case there would be no specified capabilities in the HELLO
+message. This type of device basically provides no information about
+the YANG schemas it uses so its up to the user of OpenDaylight to
+properly configure netconf-connector for this device.
+Netconf-connector has an optional configuration attribute called
+'yang-module-capabilities' and this attribute can contain a list of
+'yang-module-based' capabilities. By setting this configuration
+attribute, it is possible to override the 'yang-module-based'
+capabilities reported in HELLO message of the device. To do this, we
+need to mount NETCONF device or modify the configuration of existing
+netconf-connector by adding the configuration snippet with explicitly
+specified capabilities (it needs to be added next to the address,
+port, username etc. configuration elements).
+The following example shows explicit specification of 6 capabilities:
+```
+"netconf-node-topology:yang-module-capabilities": {
+    "capability": [
+        "urn:ietf:params:xml:ns:a?module=module-a&amp;revision=2018-04-09",
+        "urn:ietf:params:xml:ns:b?module=module-b&amp;revision=2014-06-09",
+        "urn:ietf:params:xml:ns:c?module=module-c&amp;revision=1998-10-19",
+        "urn:ietf:params:xml:ns:d?module=module-damp;revision=2018-04-09",
+        "urn:ietf:params:xml:ns:e?module=module-e&amp;revision=2017-09-17",
+        "urn:ietf:params:xml:ns:f?module=module-f"
+    ]
+}
+```
+**Remember to also put the YANG schemas into the cache folder like in
+the case 1.**
 
 ### Registration or refreshing of NETCONF cache repository using RPC
 
@@ -557,7 +647,7 @@ The following example shows how to register a NETCONF repository with
 name 'example-repository'. The name of the provided repository must
 equal to name of the directory which contains YANG schemas.
 
-``` {.sourceCode .guess}
+```bash
 curl -X POST \
   http://127.0.0.1:8181/rests/operations/schema-resources:register-repository \
   -d '{
@@ -570,7 +660,7 @@ curl -X POST \
 If the repository registration or refreshing process ends successfully,
 the output contains just set 'status' leaf with 'success' value:
 
-``` {.sourceCode .guess}
+```
 {
     "output": {
         "status": "success"
@@ -584,7 +674,7 @@ cannot be built using provided YANG sources the response body will
 contain 'failed' 'status' and set 'error-message'. For example,
 non-existing directory name produces following response:
 
-``` {.sourceCode .guess}
+```
 {
     "output": {
         "status": "failed",
@@ -610,7 +700,7 @@ netconf-connector.
 To update an existing netconf-connector you need to send following
 request to RESTCONF:
 
-``` {.sourceCode .guess}
+```bash
 curl -X PUT \
   http://127.0.0.1:8181/rests/data/network-topology:network-topology/topology=topology-netconf/node=example \
   -d '{
@@ -633,7 +723,7 @@ should result in a '2xx' response and the instance of netconf-connector
 called 'example' will be reconfigured to use username 'bob' and password
 'passwd'. New configuration can be verified by executing:
 
-``` {.sourceCode .guess}
+```bash
 curl -X GET \
   http://127.0.0.1:8181/rests/data/network-topology:network-topology/topology=topology-netconf/node=example?content=config
 ```
@@ -649,7 +739,7 @@ NETCONF mount-point on NETCONF layer will be cleaned (both CONFIGURATION
 and OPERATIONAL data-store information). To do this, simply issue a
 request to following URL:
 
-``` {.sourceCode .guess}
+```bash
 curl -X DELETE \
   http://127.0.0.1:8181/rests/data/network-topology:network-topology/topology=topology-netconf/node=example
 ```
@@ -670,7 +760,7 @@ NETCONF test-tool is the Java application that:
 -   Supports YANG notifications.
 
 NETCONF test-tool is available at netconf repository of ODL
-(<https://git.opendaylight.org/gerrit/admin/repos/netconf>) under
+(<https://git.opendaylight.org/gerrit/admin/repos/netconf under
 'netconf/tools/netconf-testtool' module. After building of this module
 using maven (just invoke command 'mvn clean install' in this directory),
 the java executable can be found in appeared 'target' directory with
@@ -682,7 +772,7 @@ depends on used release).
 After NETCONF test-tool has been built, it can be used using the
 following command:
 
-``` {.sourceCode .guess}
+```
 java -Xmx1G -jar netconf-testtool-[version]-executable.jar --schemas-dir SCHEMAS-DIR --device-count DEVICE-COUNT --debug ENABLED-DEBUGGING --starting-port STARTING-PORT --ssh SSH --md-sal MD-SAL
 ```
 
@@ -707,7 +797,7 @@ Description of the used fields:
 
 All configurable parameters can be fetched using help modifier:
 
-``` {.sourceCode .guess}
+```
 java -jar netconf-testtool-[version]-executable.jar -h
 ```
 
@@ -715,7 +805,7 @@ The following snippet shows output from successfully simulated NETCONF
 device (notice the last line that shows hint, on which TCP ports
 simulated devices have been started):
 
-``` {.sourceCode .guess}
+```
 16:31:12.136 [main] INFO  o.o.n.t.tool.NetconfDeviceSimulator - Starting 1, SSH simulated devices starting on port 36000
 16:31:12.164 [main] INFO  o.o.n.t.tool.NetconfDeviceSimulator - Loading models from directory.
 16:31:12.662 [main] INFO  o.o.n.t.tool.NetconfDeviceSimulator - using MdsalOperationProvider.
@@ -740,7 +830,7 @@ messages) and hard limit to 4096 (it cannot be exceeded). For setting of
 custom soft and hard limits you must modify the following lines in
 "/etc/security/limits.conf" file:
 
-``` {.sourceCode .guess}
+```
 [user-name] soft nofile 4096
 [user-name] hard nofile 10240
 ```
@@ -750,7 +840,7 @@ NETCONF test-tool.
 
 You can check the current limits using following commands:
 
-``` {.sourceCode .guess}
+```
 ulimit -Hn
 ulimit -Sn
 ```
@@ -758,10 +848,9 @@ ulimit -Sn
 Soft limit '4096' and hard limit '10240' should be enough, but it also
 depends on occupation by other applications and operating system too).
 
-> **note**
->
-> Configured value should not reach the one that applies for all users -
-> "cat /proc/sys/fs/file-max".
+**note**
+Configured value should not reach the one that applies for all users -
+"cat /proc/sys/fs/file-max".
 
 How does the FRINX UniConfig distribution use NETCONF?
 ------------------------------------------------------

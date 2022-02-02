@@ -4,8 +4,7 @@ icon: rocket
 order: 10000
 ---
 
-FRINX UniConfig introduction
-============================
+# FRINX UniConfig introduction
 
 The purpose of UniConfig is to manage configuration state and to
 retrieve operational state of physical and virtual networking devices.
@@ -15,8 +14,7 @@ in a container, standalone or as part of our automation solution FRINX
 Machine. UniConfig has a built-in data store that can be run in memory
 or with an external database.
 
-UniConfig key feature overview
-------------------------------
+## UniConfig key feature overview
 
 -   Retrieves and stores current startup and running configuration from
     mounted network devices
@@ -88,8 +86,7 @@ contact FRINX for more information.)
 
 ![UniConfig solution](FRINX_Uniconfig_solution.jpg)
 
-UniConfig in a Docker container
--------------------------------
+## UniConfig in a Docker container
 
 ### Download and activate FRINX UniConfig
 
@@ -106,8 +103,8 @@ docker run -it --hostname uniconfig --name uniconfig -p 8181:8181 frinx/uniconfi
 Replace [frinx-licence-secret-token] with your unique token. The token is unique to your user account on frinx.io and cannot be shared with other users. It can be found [here](https://frinx.io/profile). (you need to be logged in frinx.io to view your token).
 !!!
 
-Stop the container
-------------------
+### Stop the container
+
 
 To stop the container type:
 
@@ -115,11 +112,9 @@ To stop the container type:
 docker stop uniconfig
 ```
 
-UniConfig as a Java process in a VM or on a host
-------------------------------------------------
+## UniConfig as a Java process in a VM or on a host
 
-Download FRINX UniConfig
-------------------------
+### Download FRINX UniConfig
 
 Click on the link to download a zip archive of the latest FRINX
 UniConfig:\
@@ -144,16 +139,7 @@ Replace [frinx-licence-secret-token] with your unique token. The token is unique
 For more information on the different arguments run the startup script with the **-h** flag
 !!!
 
-Labs & Docs
------------
-
-Get to know FRINX UniConfig through a series of labs right
-[here](https://frinxio.github.io/Learning-Labs/). Visit our user
-documentation
-[here](https://docs.frinx.io/frinx-uniconfig/UniConfig/user-guide/index.html).
-
-Offline Activation
-------------------
+## Offline Activation
 
 Please contact **support@frinx.io** for offline activation of
 UniConfig.

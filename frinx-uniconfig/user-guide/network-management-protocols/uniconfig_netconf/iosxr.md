@@ -1,13 +1,11 @@
-Cisco IOS XR devices
-====================
+# Cisco IOS XR devices
 
-Mount Cisco XR device
----------------------
+## Install Cisco XR device
 
-Cisco XR device can be mounted through UniConfig Native with the
+Cisco XR device can be installed through UniConfig Native with the
 following request:
 
-``` {.sourceCode .bash}
+```bash
 curl -X PUT \
  http://localhost:8181/rests/data/network-topology:network-topology/topology=topology-netconf/node=R1 \
  -d '{
@@ -32,32 +30,31 @@ curl -X PUT \
 
 Where:
 
-> -   R1: is the name of the device
-> -   192.168.1.214: is the IP address of the device
-> -   830: is the port number of the device
-> -   USERNAME: is the username to access the device
-> -   PASSWORD: is the respective password
-> -   "uniconfig-config:uniconfig-native-enabled": allows to enable
->     mounting through UniConfig Native
-> -   "uniconfig-config:install-uniconfig-node-enabled": allows to
->     disable mounting to uniconfig and unified layers
-> -   "uniconfig-config:path": allows to specify a list of root elements
->     from models present on device to be ignored by UniConfig Native
+-   R1: is the name of the device
+-   192.168.1.214: is the IP address of the device
+-   830: is the port number of the device
+-   USERNAME: is the username to access the device
+-   PASSWORD: is the respective password
+-   "uniconfig-config:uniconfig-native-enabled": allows to enable
+     installing through UniConfig Native
+-   "uniconfig-config:install-uniconfig-node-enabled": allows to
+     disable installing to uniconfig and unified layers
+-   "uniconfig-config:path": allows to specify a list of root elements
+     from models present on device to be ignored by UniConfig Native
 
-Check if Cisco XR device is mounted succesfully
------------------------------------------------
+## Check if Cisco XR device is installed succesfully
 
-After the device has been mounted, the connection can be checked with
+After the device has been installed, the connection can be checked with
 the following command:
 
-``` {.sourceCode .bash}
+```bash
 curl -X GET \
  http://localhost:8181/rests/data/network-topology:network-topology/topology=topology-netconf/node=R1?content=nonconfig
 ```
 
 In case the device is still connecting console will return:
 
-``` {.sourceCode .bash}
+```bash
 {
    "node": [
        {
@@ -73,7 +70,7 @@ In case the device is still connecting console will return:
 Send again the same GET request until the device will be connected.\
 When the device is connected, the response is similar to:
 
-``` {.sourceCode .bash}
+```bash
 {
  "node": [
      {
@@ -115,26 +112,25 @@ When the device is connected, the response is similar to:
  ]
 ```
 
-> }
+ }
 
 This response body shows which are the available capabilities that have
 been properly loaded and which are instead the unavailable capabilities
 that have not been loaded with the related failing reason.
 
-Check if Cisco XR device configuration is available in UniConfig
-----------------------------------------------------------------
+## Check if Cisco XR device configuration is available in UniConfig
 
 The following command checks that the configuration of the device is
 available in UniConfig:
 
-``` {.sourceCode .bash}
+```bash
 curl -X GET \
  http://localhost:8181/rests/data/network-topology:network-topology/topology=uniconfig/node=R1/frinx-uniconfig-topology:configuration?content=config
 ```
 
 The example of output:
 
-``` {.sourceCode .bash}
+```bash
 {
  "frinx-uniconfig-topology:configuration": {
      "Cisco-IOS-XR-crypto-sam-cfg:crypto": {
@@ -215,23 +211,22 @@ The example of output:
  }
 ```
 
-> }
+ }
 
-Check if Cisco XR device has an existing interface
---------------------------------------------------
+## Check if Cisco XR device has an existing interface
 
 It is possible to check if an interface is available on a device by
 checking if it is available on the operational datastore. To check if
 the interface Loopback123 is available on device R1 run:
 
-``` {.sourceCode .bash}
+```bash
 curl -X GET \
  http://localhost:8181/rests/data/network-topology:network-topology/topology=uniconfig/node=R1/frinx-uniconfig-topology:configuration/Cisco-IOS-XR-ifmgr-cfg:interface-configurations/interface-configuration=act,Loopback123?content=nonconfig
 ```
 
 If the interface exists the response is:
 
-``` {.sourceCode .bash}
+```bash
 {
    "interface-configuration": [
        {
@@ -248,12 +243,12 @@ If the interface exists the response is:
 
 If the interface doesn't exist the return code is 404.
 
-Unmount device
---------------
+## Uninstall device
 
-To unmount device R1 run:
 
-``` {.sourceCode .bash}
+To uninstall device R1 run:
+
+```bash
 curl -X DELETE \
  http://localhost:8181/rests/data/network-topology:network-topology/topology=topology-netconf/node=R1
 ```
@@ -261,7 +256,7 @@ curl -X DELETE \
 In case of success the return code is 204, otherwise is 404.
 
 Can be used for instance this
-[request](#check-if-cisco-xr-device-is-mounted-succesfully) to check if
-the device has been properly unmounted.\
+[request](#check-if-cisco-xr-device-is-installed-succesfully) to check if
+the device has been properly uninstalled.
 In this case the return code must be 404 since the device does not exist
 in UniConfig anymore.

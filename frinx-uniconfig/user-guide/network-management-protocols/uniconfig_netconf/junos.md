@@ -1,23 +1,16 @@
-Juniper Junos devices
-=====================
+# Juniper Junos devices
 
-> **note**
->
-> If you have trouble with mounting Junos device into UniConfig, please
-> consult FAQ \<../../../Q&A\>
+!!!
+If you have trouble with installing Junos device into UniConfig, please
+consult [Why I can not install Junos device on UniConfig
+?](https://docs.frinx.io/frinx-uniconfig/q_a/#why-i-can-not-install-junos-device-on-uniconfig-)
+!!!
 
-> **note**
->
-> If you have trouble with mounting Junos device into UniConfig, please
-> consult [Why I can not mount Junos device on UniConfig
-> ?](https://docs.frinx.io/frinx-odl-distribution/oxygen/Q&A.html#id21)
+## Install Junos device
 
-Mount Junos device
-------------------
+This is the request to install Junos device:
 
-This is the request to mount Junos device:
-
-``` {.sourceCode .bash}
+```bash
 curl -X PUT \
  http://localhost:8181/rests/data/network-topology:network-topology/topology=topology-netconf/node=junos \
  -d '{
@@ -40,33 +33,32 @@ curl -X PUT \
 }'
 ```
 
-Where:
+**Where:**
 
-> -   junos: is the name of the device
-> -   10.10.199.47: is the ip address of the device
-> -   830: is the port number of the device
-> -   USERNAME: is the username to access the device
-> -   PASSWORD: is the respective password
-> -   "uniconfig-config:uniconfig-native-enabled": allows to enable
->     mounting through UniConfig Native
-> -   "uniconfig-config:install-uniconfig-node-enabled": allows to
->     disable mounting to uniconfig and unified layers
-> -   "uniconfig-config:path": allows to specify a list of root elements
->     from models present on device to be ignored by UniConfig Native
+-   junos: is the name of the device
+-   10.10.199.47: is the ip address of the device
+-   830: is the port number of the device
+-   USERNAME: is the username to access the device
+-   PASSWORD: is the respective password
+-   "uniconfig-config:uniconfig-native-enabled": allows to enable
+     installing through UniConfig Native
+-   "uniconfig-config:install-uniconfig-node-enabled": allows to
+     disable installing to uniconfig and unified layers
+-   "uniconfig-config:path": allows to specify a list of root elements
+     from models present on device to be ignored by UniConfig Native
 
-Show configuration
-------------------
+## Show configuration
 
 To show all the configurations loaded in config datastore, run:
 
-``` {.sourceCode .bash}
+```bash
 curl -X GET \
  http://localhost:8181/rests/data/network-topology:network-topology/topology=uniconfig/node=junos?content=config
 ```
 
 In case of success it will respond something similar to:
 
-``` {.sourceCode .bash}
+```bash
 {
  "node": [
      {
@@ -120,20 +112,19 @@ In case of success it will respond something similar to:
          ...
 ```
 
-Show interface configuration
-----------------------------
+## Show interface configuration
 
 To show the configuration related to a specific interface, in this case
 “ge-0/0/2”, run:
 
-``` {.sourceCode .bash}
+```bash
 curl -X GET \
  http://localhost:8181/rests/data/network-topology:network-topology/topology=uniconfig/node=junos/frinx-uniconfig-topology:configuration/configuration:configuration/interfaces/interface=ge-0%2F0%2F2?content=config
 ```
 
 The response will show the status of the interface:
 
-``` {.sourceCode .bash}
+```bash
 {
  "interface": [
      {
@@ -145,14 +136,11 @@ The response will show the status of the interface:
  ]
 ```
 
-> }
-
-Enable interface in configuration
----------------------------------
+## Enable interface in configuration
 
 To enable the interface “ge-0/0/2” in config datastore, run:
 
-``` {.sourceCode .bash}
+```bash
 curl -X PUT \
  http://localhost:8181/rests/data/network-topology:network-topology/topology=uniconfig/node=junos/frinx-uniconfig-topology:configuration/configuration:configuration/interfaces/interface=ge-0%2F0%2F2 \
  -d '{
@@ -164,12 +152,11 @@ curl -X PUT \
 }'
 ```
 
-Disable interface in configuration
-----------------------------------
+## Disable interface in configuration
 
 To disable the interface “ge-0/0/2” in config datastore, run:
 
-``` {.sourceCode .bash}
+```bash
 curl -X PUT \
  http://localhost:8181/rests/data/network-topology:network-topology/topology=uniconfig/node=junos/frinx-uniconfig-topology:configuration/configuration:configuration/interfaces/interface=ge-0%2F0%2F2 \
  -d '{

@@ -1,5 +1,4 @@
-Subtree Manager
-===============
+# Subtree Manager
 
 The subtree manager copies (merge/replace) subtrees between source and
 target paths in Configuration or Operational datastore of UniConfig.
@@ -15,10 +14,44 @@ it is necessary to copy some configuration between two mounted nodes
 that are described by slightly different YANG schemas. The following
 changes between schemas are tolerated:
 
--   skipping non-existing composite nodes and leaves,
--   adjusting namespace and revision in node identifiers, only name of
+- Skipping non-existing composite nodes and leaves,
+- Adjusting namespace and revision in node identifiers, only name of
     nodes must match with target schema,
--   moving nodes between choice and augmentation schema nodes,
--   adjusting value format to target type definition of leaf or
+- Moving nodes between choice and augmentation schema nodes,
+- Adjusting value format to target type definition of leaf or
     leaf-list schema node.
 
+## RPC copy-one-to-one
+
+Provides a list of supported operations on subscriptions, includes
+request examples and workflow diagrams.
+
+[!ref text="RPC copy-one-to-one"](../subtree-manager/rpc_copy-one-to-one)
+
+## RPC copy-one-to-many
+
+Provides a list of supported operations on subscriptions, includes
+request examples and workflow diagrams.
+
+[!ref text="RPC copy-one-to-many"](../subtree-manager/rpc_copy-one-to-many)
+
+## RPC copy-many-to-one
+
+Provides a list of supported operations on subscriptions, includes
+request examples and workflow diagrams.
+
+[!ref text="RPC copy-many-to-one"](../subtree-manager/rpc_copy-many-to-one)
+
+## RPC calculate-subtree-diff
+
+Provides a list of supported operations on subscriptions, includes
+request examples and workflow diagrams.
+
+[!ref text="RPC calculate-subtree-diff"](../subtree-manager/rpc_calculate-subtree-diff)
+
+## RPC calculate-subtree-git-like-diff
+
+Provides a list of supported operations on subscriptions, includes
+request examples and workflow diagrams.
+
+[!ref text="RPC calculate-subtree-git-like-diff"](../subtree-manager/rpc_calculate-subtree-git-like-diff)

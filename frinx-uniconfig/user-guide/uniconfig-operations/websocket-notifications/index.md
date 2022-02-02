@@ -1,7 +1,6 @@
-WebSocket Notifications
-=======================
+# WebSocket Notifications
 
-**Background**
+## Background
 
 [RFC 5277](https://tools.ietf.org/html/rfc5277) document defines a
 mechanism where the NETCONF client indicates interest in receiving event
@@ -23,13 +22,18 @@ Northbound API to manage subscriptions lifecycle via RESTCONF and
 WebSocket network transport for notification delivery to the
 subscribers.
 
-**Architecture**
+## Architecture
 
 This section describes the high-level design of this component and
 provides details of communication with the NETCONF device via the
 Southbound interface.
 
-**Operations**
+[!ref text="Architecture"](../websocket-notifications/architecture)
+
+
+## Operations
 
 Provides a list of supported operations on subscriptions, includes
 request examples and workflow diagrams.
+
+[!ref text="Operations"](../websocket-notifications/operations)
