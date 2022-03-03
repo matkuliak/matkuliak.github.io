@@ -6,31 +6,32 @@
     <meta name="turbo-cache-control" content="no-cache">
 
     <!-- Primary Meta Tags -->
-    <title>Add a device to inventory and mount itExample | Frinx Docs</title>
-    <meta name="title" content="Add a device to inventory and mount itExample | Frinx Docs">
-    <meta name="description" content="In this workflow we will create a device entry in our inventory via the UniConfig UI." />
+    <title>Frinx Machine with Azure AD</title>
+    <meta name="title" content="Frinx Machine with Azure AD">
+    <meta name="description" content="Frinx Machine supports authentification and authorization via Azure AD. The following sections describe how to set up Azure AD for Frinx Machine." />
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://matkuliak.xyz/frinx-machine/use-cases/add-to-inventory-and-mount/">
-    <meta property="og:title" content="Add a device to inventory and mount itExample | Frinx Docs">
-    <meta property="og:description" content="In this workflow we will create a device entry in our inventory via the UniConfig UI.">
-    <meta property="og:image" content="https://matkuliak.xyz/frinx-machine/use-cases/add-to-inventory-and-mount/workflow_dashboard.png">
+    <meta property="og:url" content="https://matkuliak.xyz/frinx-machine/azure-ad/">
+    <meta property="og:title" content="Frinx Machine with Azure AD">
+    <meta property="og:description" content="Frinx Machine supports authentification and authorization via Azure AD. The following sections describe how to set up Azure AD for Frinx Machine.">
+    <meta property="og:image" content="https://matkuliak.xyz/frinx-machine/azure-ad/azure_tenant.png">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://matkuliak.xyz/frinx-machine/use-cases/add-to-inventory-and-mount/">
-    <meta property="twitter:title" content="Add a device to inventory and mount itExample | Frinx Docs">
-    <meta property="twitter:description" content="In this workflow we will create a device entry in our inventory via the UniConfig UI.">
-    <meta property="twitter:image" content="https://matkuliak.xyz/frinx-machine/use-cases/add-to-inventory-and-mount/workflow_dashboard.png">
+    <meta property="twitter:url" content="https://matkuliak.xyz/frinx-machine/azure-ad/">
+    <meta property="twitter:title" content="Frinx Machine with Azure AD">
+    <meta property="twitter:description" content="Frinx Machine supports authentification and authorization via Azure AD. The following sections describe how to set up Azure AD for Frinx Machine.">
+    <meta property="twitter:image" content="https://matkuliak.xyz/frinx-machine/azure-ad/azure_tenant.png">
     
     <script>(function () { var el = document.documentElement, m = localStorage.getItem("doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
 
-    <link href="/resources/css/retype.css?v=1.11.2.699652750170" rel="stylesheet" data-turbo-track="reload" />
+    <link href="/resources/css/retype.css?v=1.11.2.699656704835" rel="stylesheet" data-turbo-track="reload" />
 
-    <script type="text/javascript" src="/resources/js/config.js?v=1.11.2.699652750170" defer data-turbo-track="reload"></script>
+    <script type="text/javascript" src="/resources/js/config.js?v=1.11.2.699656704835" defer data-turbo-track="reload"></script>
     <script type="text/javascript" src="/resources/js/retype.js?v=1.11.2" defer data-turbo-track="reload"></script>
-    <script id="lunr-js" type="text/javascript" src="/resources/js/lunr.js?v=1.11.2.699652750170" defer></script>
+    <script id="lunr-js" type="text/javascript" src="/resources/js/lunr.js?v=1.11.2.699656704835" defer></script>
+    <script id="prism-js" type="text/javascript" src="/resources/js/prism.js?v=1.11.2.699656704835" defer></script>
 </head>
     <body>
         <div id="docs-app" class="relative text-base antialiased text-gray-700 bg-white font-body dark:bg-dark-850 dark:text-dark-300">
@@ -45,8 +46,8 @@
         <!-- Logo -->
         <div class="flex items-center justify-between h-full py-2 md:w-75">
             <div class="flex items-center px-2 md:px-6">
-                <a id="docs-site-logo" href="/" class="flex items-center leading-snug text-2xl">
-                    <span class="dark:text-white font-semibold line-clamp-1 md:line-clamp-2">Example docs</span>
+                <a id="docs-site-logo" href="/" class="flex items-center leading-snug text-xl">
+                    <span class="dark:text-white font-semibold line-clamp-1 md:line-clamp-2">Docs portfolio</span>
                 </a>
             </div>
 
@@ -211,144 +212,244 @@
                 <div id="docs-sidebar-right-toggle"></div>
                
                 <!-- Page content  -->
-<doc-anchor-target id="add-a-device-to-inventory-and-mount-it" class="break-words">
+<doc-anchor-target id="frinx-machine-with-azure-ad" class="break-words">
     <h1>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#add-a-device-to-inventory-and-mount-it">#</doc-anchor-trigger>
-        <span>Add a device to inventory and mount it</span>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#frinx-machine-with-azure-ad">#</doc-anchor-trigger>
+        <span>Frinx Machine with Azure AD</span>
     </h1>
 </doc-anchor-target>
-<doc-anchor-target id="create-a-new-device-in-the-inventory">
+<p>Frinx Machine supports authentification and authorization via Azure AD.
+The following sections describe how to set up Azure AD for Frinx Machine.</p>
+<doc-anchor-target id="client-configuration">
     <h2>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#create-a-new-device-in-the-inventory">#</doc-anchor-trigger>
-        <span>Create a new device in the inventory</span>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#client-configuration">#</doc-anchor-trigger>
+        <span>Client configuration</span>
     </h2>
 </doc-anchor-target>
-<p>In this workflow we will create a device entry in our inventory via the
-UniConfig UI.</p>
-<p>Many customers will choose to import bulk data from other data sources
-like Excel or CSV files. Many data import tools exist for Elasticsearch
-(e.g. <a href="https://github.com/knutandre/excelastic">https://github.com/knutandre/excelastic</a>).
-The import of bulk data is out of scope for this use case. We rather
-focus on data input via our GUI to demonstrate a simple set of
-workflows.</p>
-<p>Click on: Workflows</p>
-<p>You&#x27;ll be able to search for workflows by <code v-pre>label</code> and/or <code v-pre>keyword</code></p>
-<p><figure class="content-center">
-    <img src="workflow_dashboard.png" alt="Workflows Dashboard" />
-    <figcaption class="caption">Workflows Dashboard</figcaption>
-</figure>
-Search for <strong>Add_cli_device_to_inventory</strong> or
-<strong>Add_netconf_device_to_inventory</strong>. This workflows has the labels
-<strong>BASIC</strong>, <strong>MAIN</strong>.</p>
-<p>Click on this workflow and select <strong>Input</strong> and fill out the form.</p>
-<p><strong>Add_cli_device_to_inventory</strong>:</p>
-<div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-none"><code v-pre class="language-none">device_id: any unique identifier
-type: type of device (e.g. ios, ios xr)
-version: version of the device
-host: host ip address
-protocol: protocol for connection
-port: port to connect to
-username: credentials to use
-password: credentials to use
-labels: label of device (optional)</code></pre>
-</doc-codeblock></div>
-<p><strong>Add_netconf_device_to_inventory</strong>:</p>
-<div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-none"><code v-pre class="language-none">device_id: any unique identifier
-port: port to connect to
-host: host ip address
-keepalive: value of keepalive delay
-tcponly: set type of communication
-username: credentials to use
-password: credentials to use
-labels: label of device (optional)
-uniconfignative: enable uniconfig-native
-blacklist: List of blacklisted root paths and/or extensions</code></pre>
-</doc-codeblock></div>
-<p>Click on <code v-pre>Execute</code>. A link to the left of the <code v-pre>Execute</code> button should
-pop up. If you click on it, you&#x27;ll be taken to the
-<code v-pre>Home</code> --&gt; <code v-pre>Workflows</code> --&gt; <code v-pre>Executed</code> page.</p>
-<p>There, you can click on the just executed workflow to see it&#x27;s details.</p>
-<p>After successful execution of our first workflow, we can see the new
-device created in Elasticsearch. To see it, go to
-<code v-pre>Home</code> --&gt; <code v-pre>Inventory</code> --&gt; <code v-pre>Discover</code></p>
-<div class="flex mb-6">
-    <div class="flex-shrink-0 w-1 rounded-tl rounded-bl bg-blue-500 dark:bg-blue-400"></div>
-    <div class="flex w-full py-4 border border-l-0 border-gray-300 rounded-tr rounded-br doc-alert bg-white dark:bg-dark-700 dark:border-dark-700" role="alert">
-        <div class="flex items-center ml-4 h-7">
-            <svg xmlns="http://www.w3.org/2000/svg" class="mb-px text-blue-500 dark:text-blue-400" width="22" height="22" viewBox="0 0 24 24" role="presentation">
-                <g fill="currentColor"><g>
-                    <path d="M12 1C5.93 1 1 5.93 1 12s4.93 11 11 11 11-4.93 11-11S18.07 1 12 1zm0 20c-4.96 0-9-4.04-9-9s4.04-9 9-9 9 4.04 9 9-4.04 9-9 9z"></path>
-                    <path d="M12 11c-.55 0-1 .45-1 1v4c0 .55.45 1 1 1s1-.45 1-1v-4c0-.55-.45-1-1-1zM12.01 7c-.56 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1z"></path>
-                    <path fill="none" d="M0 0h24v24H0z"></path>
-                </g></g>
-            </svg>
-        </div>
-        <div class="pr-5 ml-3">
-<p>If you are using Kibana for the first time, you will have to create a
-new index pattern called <strong>inventory</strong>.</p>
-<p>To create a new index pattern click on <code v-pre>Management</code> in the left hand
-side bar, select <code v-pre>Index Patterns</code> and click on the button <code v-pre>Create Index Pattern</code>. Enter <code v-pre>inventory</code> in the index pattern field and
-click <code v-pre>Create</code>.</p>
-<p>Now click on <code v-pre>Discover</code> in the left hand side bar and you should see
-all devices that you have entered in the step before.</p>
-        </div>
-    </div>
+<p>Register the application in your Azure AD and configure the following settings.</p>
+<doc-anchor-target id="redirect-uris">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#redirect-uris">#</doc-anchor-trigger>
+        <span>Redirect URIs</span>
+    </h3>
+</doc-anchor-target>
+<p>Set platform redirect URIs on the Authentication page. The table below shows examples of configuration settings.</p>
+<div class="table-wrapper scrollbar overflow-hidden">
+<table class="comfortable">
+<thead>
+<tr>
+<th>Syntax</th>
+<th>Platform configuration</th>
+<th>Redirect URI</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Frontend Login</td>
+<td>Single-page application</td>
+<td>https://&lt;<strong>IP/DNS</strong>&gt;/ ,e.g. https://localhost/</td>
+</tr>
+<tr>
+<td>Uniflow docs (swager)</td>
+<td>Web</td>
+<td>https://&lt;<strong>IP/DNS</strong>&gt;/oauth2-redirect.html</td>
+</tr>
+<tr>
+<td>Cloud swagger</td>
+<td>Web</td>
+<td><a href="https://editor.swagger.io/oauth2-redirect.html">https://editor.swagger.io/oauth2-redirect.html</a></td>
+</tr>
+<tr>
+<td>Local Postman</td>
+<td>Web</td>
+<td><a href="https://oauth.pstmn.io/v1/callback">https://oauth.pstmn.io/v1/callback</a></td>
+</tr>
+<tr>
+<td>Cloud Postman</td>
+<td>Web</td>
+<td><a href="https://getpostman.com/oauth2/callback">https://getpostman.com/oauth2/callback</a></td>
+</tr>
+</tbody>
+</table>
 </div>
-<doc-anchor-target id="mount-the-new-device-from-inventory">
+<p><strong>Frontent login URI</strong> is passed to the installation script <code v-pre>azure_ad.sh</code> via <code v-pre>--redirect_url</code> flag.</p>
+<doc-anchor-target id="implicit-flow-and-singlemulti-tenancy-settings">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#implicit-flow-and-singlemulti-tenancy-settings">#</doc-anchor-trigger>
+        <span>Implicit flow and single/multi-tenancy settings</span>
+    </h3>
+</doc-anchor-target>
+<p>On the same page choose single/multi-tenancy. Based on this setting the parameter <code v-pre>--tenant_name</code> is defined in the installation script <code v-pre>azure_ad.sh</code>.</p>
+<p>For a single-tenant, use Azure AD domain name from AD overview. For multi-tenant use value <code v-pre>common</code>.
+Enabled implicit flow is optional based on specific requirements.</p>
+<p><figure class="content-center">
+    <img src="azure_tenant.png" alt="Token config" />
+    <figcaption class="caption">Token config</figcaption>
+</figure>
+</p>
+<doc-anchor-target id="api-permissions">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#api-permissions">#</doc-anchor-trigger>
+        <span>API permissions</span>
+    </h3>
+</doc-anchor-target>
+<p><figure class="content-center">
+    <img src="azure_api_permissions.png" alt="Client API permissions" />
+    <figcaption class="caption">Client API permissions</figcaption>
+</figure>
+</p>
+<doc-anchor-target id="client-secrets">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#client-secrets">#</doc-anchor-trigger>
+        <span>Client secrets</span>
+    </h3>
+</doc-anchor-target>
+<p>Generate secret and use it as an input parameter for <code v-pre>--client_secret</code> flag in the installation script <code v-pre>azure_ad.sh</code>.
+This secret is used in KrakenD azure plugin for translating group id to the group name (human-readable format).</p>
+<p><figure class="content-center">
+    <img src="azure_client_secret.png" alt="Azure client secrets" />
+    <figcaption class="caption">Azure client secrets</figcaption>
+</figure>
+</p>
+<doc-anchor-target id="token-claims-configuration">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#token-claims-configuration">#</doc-anchor-trigger>
+        <span>Token claims configuration</span>
+    </h3>
+</doc-anchor-target>
+<p><figure class="content-center">
+    <img src="azure_token_configuration.png" alt="Token claims configuration" />
+    <figcaption class="caption">Token claims configuration</figcaption>
+</figure>
+</p>
+<p>Example of encoded JWT token with claims. These claims are transferred to the request header (see <a href="https://github.com/FRINXio/krakend-azure-plugin">KrakenD Azure Plugin docs</a> for more info).</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-json"><code v-pre class="language-json">{
+  ......
+  &quot;tid&quot;: &quot;aaaaaaaa-1234-5678-abcd-abcd12345678&quot;,
+  &quot;name&quot;: &quot;FRINX Super Administrator (Test)&quot;,
+  &quot;oid&quot;: &quot;d040c2a8-aaaa-bbbb-cccc-f2900fea4f51&quot;,
+  &quot;preferred_username&quot;: &quot;frinx-user@yourname.onmicrosoft.com&quot;,
+  &quot;roles&quot;: [
+    &quot;User.ReadWrite&quot;
+  ],
+  &quot;groups&quot;: [
+    &quot;bbbbbbbb-cccc-1234-5678-abcd12345678&quot;
+  ],
+  ......
+}</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="rbac-configuration">
     <h2>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#mount-the-new-device-from-inventory">#</doc-anchor-trigger>
-        <span>Mount the new device from Inventory</span>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#rbac-configuration">#</doc-anchor-trigger>
+        <span>RBAC configuration</span>
     </h2>
 </doc-anchor-target>
-<p>Next we want to mount the device in ODL. The mount operation for NETCONF
-or CLI devices in ODL results in a permanent connection that is
-established, maintained and if necessary re-established with the device.
-Once a device is mounted in FRINX OpenDaylight, it can be accessed via
-the UniConfig framework for reading and writing configuration and
-operational data. The next workflow will mount the device in FRINX ODL.</p>
-<p>Go back to <code v-pre>Home</code> --&gt; <code v-pre>Workflows</code> --&gt; <code v-pre>Definitions</code> and search for a
-workflow called <strong>Mount_from_inventory</strong></p>
-<p>To mount the device that you previously inserted into the inventory,
-specify the ID that you used when you filled out the form. As
-previously, after you click <code v-pre>Execute</code> a link should pop up to the left
-of the <code v-pre>Execute</code> button. Click on it to see the executed workflows.
-Click on the one that you are presented with to see more details.</p>
-<doc-anchor-target id="look-at-the-details-of-the-workflow">
-    <h2>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#look-at-the-details-of-the-workflow">#</doc-anchor-trigger>
-        <span>Look at the details of the workflow</span>
-    </h2>
+<p>Super user is defined in .env file via <strong>ADMIN_GROUP</strong> variable.</p>
+<doc-anchor-target id="uniflow">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#uniflow">#</doc-anchor-trigger>
+        <span>Uniflow</span>
+    </h3>
 </doc-anchor-target>
-<p>The workflow that we have executed will spawn a number of sub workflows
-and will only show completed if all sub workflows have completed
-successfully. You can verify the state of main and sub-workflows in the
-view below.</p>
-<p><figure class="content-center">
-    <img src="details_mount_inv.png" alt="Workflows detail" />
-    <figcaption class="caption">Workflows detail</figcaption>
-</figure>
-</p>
-<p><figure class="content-center">
-    <img src="mount_from_inv_flow.png" alt="Workflows diagram" />
-    <figcaption class="caption">Workflows diagram</figcaption>
-</figure>
-</p>
-<p>In this view, we can see that all workflows have completed successfully.
-After the main workflow was executed it has spawned of multiple sub
-workflows until the last workflow checks if the device was successfully
-mounted.</p>
-<p>The following screenshots show additional information about the
-sub-workflows that is relevant to analysis and troubleshooting.</p>
-<p><figure class="content-center">
-    <img src="mount_from_inv_output.png" alt="Workflow input/output" />
-    <figcaption class="caption">Workflow input/output</figcaption>
-</figure>
-</p>
-<p>Once the main workflow has successfully completed the device is mounted
-and can now be used to get information from the device or configure the
-device.</p>
+<p>RBAC proxy adds 2 features on top of tenant proxy:</p>
+<ul>
+<li>Ensures user authorization to access certain endpoints</li>
+<li>Filters workflow definitions and workflow executions based on user&#x27;s roles, groups and userID</li>
+</ul>
+<p>RBAC support simply distinguishes 2 user types: an admin and everyone else.
+An admin has full access to workflow API while the ordinary user can only:</p>
+<ul>
+<li>Read workflow definitions
+<ul>
+<li>Ordinary users can only view workflow definitions belonging to the same groups</li>
+<li>A workflow definition (created by an admin) can have multiple labels assigned</li>
+<li>A user can belong into multiple groups
+<ul>
+<li>User groups are identified in HTTP request&#x27;s header field <code v-pre>x-auth-user-roles</code></li>
+</ul>
+</li>
+<li>If an ordinary user&#x27;s group matches one of the workflow labels, the workflow becomes visible to the user</li>
+</ul>
+</li>
+<li>Execute visible workflow definitions</li>
+<li>Monitor running executions
+<ul>
+<li>Only those executed by the user currently logged in</li>
+</ul>
+</li>
+</ul>
+<p>Define user roles in workflow by adding role or group name to description label.</p>
+<p>Example: added User.ReadWrite, Role.ReadWrite, Group.ReadWrite labels to workflow description.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-json"><code v-pre class="language-json">{
+  &quot;name&quot;: &quot;Install_all_from_inventory&quot;,
+  &quot;description&quot;: &quot;{\&quot;description\&quot;: \&quot;Install all devices from device inventory\&quot;, \&quot;labels\&quot;: [\&quot;User.ReadWrite\&quot;, \&quot;Role.ReadWrite\&quot;, \&quot;Group.ReadWrite\&quot;]}&quot;,
+  &quot;version&quot;: 1,
+  &quot;tasks&quot;: [
+  ......</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="uniconfig">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#uniconfig">#</doc-anchor-trigger>
+        <span>Uniconfig</span>
+    </h3>
+</doc-anchor-target>
+<p>Super-users (based on their role and user groups) can use all REST APIs.
+Regular users will only be able to use GET REST API requests.</p>
+<div class="table-wrapper scrollbar overflow-hidden">
+<table class="comfortable">
+<thead>
+<tr>
+<th>Role</th>
+<th>READ (GET REQUEST)</th>
+<th>WRITE (ALL REQUEST)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Admin (Superuser)</td>
+<td>true</td>
+<td>true</td>
+</tr>
+<tr>
+<td>Regular user</td>
+<td>true</td>
+<td>false</td>
+</tr>
+</tbody>
+</table>
+</div>
+<doc-anchor-target id="uniresource">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#uniresource">#</doc-anchor-trigger>
+        <span>Uniresource</span>
+    </h3>
+</doc-anchor-target>
+<p>A simple RBAC model is implemented where only super-users (based on their role and user groups) can manipulate resource types, resource pools and labels. Regular users will only be able to read the above entities, allocate and free resources.</p>
+<div class="table-wrapper scrollbar overflow-hidden">
+<table class="comfortable">
+<thead>
+<tr>
+<th>Role</th>
+<th>READ</th>
+<th>WRITE</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Admin (Superuser)</td>
+<td>true</td>
+<td>true</td>
+</tr>
+<tr>
+<td>Regular user</td>
+<td>true</td>
+<td>false</td>
+</tr>
+</tbody>
+</table>
+</div>
 
 
 
@@ -360,20 +461,20 @@ device.</p>
             
 <nav class="flex mt-14">
     <div class="w-1/2">
-        <a class="px-5 py-4 h-full flex items-center break-all md:break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-l-lg transition-colors duration-150 relative hover:z-5" href="/frinx-machine/use-cases/">
+        <a class="px-5 py-4 h-full flex items-center break-all md:break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-l-lg transition-colors duration-150 relative hover:z-5" href="/frinx-machine/getting-started/">
             <svg xmlns="http://www.w3.org/2000/svg" class="mr-3" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" overflow="visible"><path d="M19 11H7.41l5.29-5.29a.996.996 0 10-1.41-1.41l-7 7a1 1 0 000 1.42l7 7a1.024 1.024 0 001.42-.01.996.996 0 000-1.41L7.41 13H19c.55 0 1-.45 1-1s-.45-1-1-1z" /><path fill="none" d="M0 0h24v24H0z" /></svg>
             <span>
                 <span class="block text-xs font-normal text-gray-400 dark:text-dark-400">Previous</span>
-                <span class="block mt-1">Demo Use Cases</span>
+                <span class="block mt-1">FRINX Machine introduction</span>
             </span>
         </a>
     </div>
 
     <div class="w-1/2">
-        <a class="px-5 py-4 -mx-px h-full flex items-center justify-end break-all md:break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-r-lg transition-colors duration-150 relative hover:z-5" href="/frinx-machine/use-cases/create-l2-vpn-p2p/">
+        <a class="px-5 py-4 -mx-px h-full flex items-center justify-end break-all md:break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-r-lg transition-colors duration-150 relative hover:z-5" href="/frinx-machine/use-cases/">
             <span>
                 <span class="block text-xs font-normal text-right text-gray-400 dark:text-dark-400">Next</span>
-                <span class="block mt-1">Creating a Layer 2 VPN Point-to-Point Connection</span>
+                <span class="block mt-1">Demo Use Cases</span>
             </span>
             <svg xmlns="http://www.w3.org/2000/svg" class="ml-3" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" overflow="visible"><path d="M19.92 12.38a1 1 0 00-.22-1.09l-7-7a.996.996 0 10-1.41 1.41l5.3 5.3H5c-.55 0-1 .45-1 1s.45 1 1 1h11.59l-5.29 5.29a.996.996 0 000 1.41c.19.2.44.3.7.3s.51-.1.71-.29l7-7c.09-.09.16-.21.21-.33z" /><path fill="none" d="M0 0h24v24H0z" /></svg>
         </a>
@@ -421,6 +522,6 @@ device.</p>
 
         <div id="docs-overlay-target"></div>
 
-        <script>window.__DOCS__ = { "title": "Add a device to inventory and mount it", icon: "file", hasPrism: false, hasMermaid: false, hasMath: false }</script>
+        <script>window.__DOCS__ = { "title": "Frinx Machine with Azure AD", icon: "file", hasPrism: true, hasMermaid: false, hasMath: false }</script>
     </body>
 </html>
