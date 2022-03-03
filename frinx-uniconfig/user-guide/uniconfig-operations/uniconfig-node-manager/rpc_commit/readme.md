@@ -16,6 +16,7 @@ The configuration of nodes consists of the following phases:
     device without committing of this changes.
 3. Validate configuration - Validation of written configuration from
     the view of constraints and consistency.
+    This phase can be skipped with "do-validate" flag.
 4. Confirmed commit - It is used for locking of device configuration,
     so no other transaction can touch this device.
 5. Confirming commit (submit configuration) - Persisting all changes on
@@ -175,7 +176,7 @@ curl --location --request POST 'http://localhost:8181/rests/operations/uniconfig
                     "node-id": "IOSXRN",
                     "configuration-status": "fail",
                     "error-message": "RemoteDevice{IOSXRN}: Validate failed. illegal reference /orgs/org[name='TESTING-PROVIDER']/traffic-identification/using-networks\n",
-                    "error-type": "processing-error",
+                    "error-type": "uniconfig-error",
                     "rollback-status": "complete"
                 },
                 {
@@ -193,7 +194,7 @@ curl --location --request POST 'http://localhost:8181/rests/operations/uniconfig
 
 RPC commit input has 2 target nodes and the output describes the result
 of the commit. One node has failed because the confirmed commit failed
-(IOSXRN).
+(IOSXRN). Validation phase was skipped due to false "do-validate" flag.
 
 ```bash RPC Request
 curl --location --request POST 'http://localhost:8181/rests/operations/uniconfig-manager:commit' \
@@ -201,6 +202,7 @@ curl --location --request POST 'http://localhost:8181/rests/operations/uniconfig
 --header 'Content-Type: application/json' \
 --data-raw '{
     "input": {
+        "do-validate" : False,
         "target-nodes": {
             "node": ["IOSXR", "IOSXRN"]
         }
@@ -218,7 +220,7 @@ curl --location --request POST 'http://localhost:8181/rests/operations/uniconfig
                     "node-id": "IOSXRN",
                     "configuration-status": "fail",
                     "error-message": "RemoteDevice{IOSXRN}: Confirmed commit failed. illegal reference /orgs/org[name='TESTING-PROVIDER']/traffic-identification/using-networks\n",
-                    "error-type": "processing-error",
+                    "error-type": "uniconfig-error",
                     "rollback-status": "complete"
                 },
                 {
@@ -261,7 +263,7 @@ curl --location --request POST 'http://localhost:8181/rests/operations/uniconfig
                     "node-id": "IOSXRN",
                     "configuration-status": "fail",
                     "error-message": "RemoteDevice{IOSXRN}: time delay between confirmed and confirming commit was greater than 300 seconds, the configured changes were rolled back.\n",
-                    "error-type": "processing-error",
+                    "error-type": "uniconfig-error",
                     "rollback-status": "complete"
                 },
                 {
@@ -304,7 +306,7 @@ curl --location --request POST 'http://localhost:8181/rests/operations/uniconfig
                     "node-id": "IOSXRN",
                     "configuration-status": "fail",
                     "error-message": "Supplied value \"GigabitEthernet0/0/0/1ghjfhjfhjfghj\" does not match required pattern \"^(([a-zA-Z0-9_]*\\d+/){3,4}\\d+)|(([a-zA-Z0-9_]*\\d+/){3,4}\\d+\\.\\d+)|(([a-zA-Z0-9_]*\\d+/){2}([a-zA-Z0-9_]*\\d+))|(([a-zA-Z0-9_]*\\d+/){2}([a-zA-Z0-9_]+))|([a-zA-Z0-9_-]*\\d+)|([a-zA-Z0-9_-]*\\d+\\.\\d+)|(mpls)|(dwdm)$\"\n",
-                    "error-type": "processing-error",
+                    "error-type": "uniconfig-error",
                     "rollback-status": "complete"
                 },
                 {
@@ -353,12 +355,12 @@ curl --location --request POST 'http://localhost:8181/rests/operations/uniconfig
                 {
                     "node-id": "IOSXRN",
                     "configuration-status": "fail",
-                    "error-type": "processing-error"
+                    "error-type": "uniconfig-error"
                 },
                 {
                     "node-id": "IOSXR",
                     "configuration-status": "fail",
-                    "error-type": "processing-error"
+                    "error-type": "uniconfig-error"
                 }
             ]
         }
@@ -400,7 +402,7 @@ curl --location --request POST 'http://localhost:8181/rests/operations/uniconfig
                     "node-id": "IOSXRN",
                     "configuration-status": "fail",
                     "error-message": "Illegal value for key: (http://cisco.com/ns/yang/Cisco-IOS-XR-ifmgr-cfg?revision=2017-09-07)interface-name, in: (http://cisco.com/ns/yang/Cisco-IOS-XR-ifmgr-cfg?revision=2017-09-07)interface-configuration[{(http://cisco.com/ns/yang/Cisco-IOS-XR-ifmgr-cfg?revision=2017-09-07)active=act, (http://cisco.com/ns/yang/Cisco-IOS-XR-ifmgr-cfg?revision=2017-09-07)interface-name=GigabitEthernet0/0/0/3}], actual value: GigabitEthernet0/0/0/3/ddd, expected value from key: GigabitEthernet0/0/0/3\n",
-                    "error-type": "processing-error",
+                    "error-type": "uniconfig-error",
                     "rollback-status": "complete"
                 }
             ]

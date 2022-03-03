@@ -1,3 +1,7 @@
+---
+visibility: hidden
+---
+
 # Generated API libs
 
 ## Swagger

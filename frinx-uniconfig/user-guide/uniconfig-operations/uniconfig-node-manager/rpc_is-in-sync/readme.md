@@ -34,7 +34,7 @@ Possible RPC outputs per target node:
     mountpoint doesn't exist because the connection has been lost or the
     node has not been mounted yet.
 3. 'status' field with value 'fail' with set 'error-type' to
-    'processing-error' and corresponding 'error-message'; reading of the
+    'uniconfig-error' and corresponding 'error-message'; reading of the
     fingerprint from the Operational datastore or Unified mountpoint has
     failed, or the configuration metadata parsing is not supported for
     the device type.
@@ -163,7 +163,7 @@ curl --location --request POST 'http://localhost:8181/rests/operations/uniconfig
                     "node-id": "example2",
                     "status": "fail",
                     "error-message": "Unable to check configuration fingerprint - parsing of configuration fingerprint is not implemented for this device type.",
-                    "error-type": "processing-error"
+                    "error-type": "uniconfig-error"
                 },
                 {
                     "node-id": "nodeX",
@@ -179,11 +179,7 @@ curl --location --request POST 'http://localhost:8181/rests/operations/uniconfig
 
 ### Failed Example
 
-RPC input contains 2 nodes, the first one ('node1') is valid and synced,
-the second one ('nodeX') has not been mounted yet. Even if there is one
-invalid node, is-in-sync process will be executed for each node
-('is-in-sync' flag will be set for valid node 'node1'). However,
-'overall-status' will be set to 'fail'.
+RPC input contains 2 nodes, the first one ('node1') is valid and synced, the second one ('nodeX') has not been mounted yet. If there is one invalid node, Uniconfig will be evaluate nodes with fail. However, 'overall-status' will be set to 'fail'.
 
 ```bash RPC Request
 curl --location --request POST 'http://localhost:8181/rests/operations/uniconfig-manager:is-in-sync' \

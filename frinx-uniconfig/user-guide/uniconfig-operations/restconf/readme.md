@@ -60,7 +60,7 @@ The following example shows how reserved characters are percent-encoded within a
 Example URL: /rests/data/example-top:top/list1=%2C%27"%3A"%20%2F,,foo
 !!!
 
--   The format \<moduleName\>:\<nodeName\> has to be used in this case
+- The format \<moduleName\>:\<nodeName\> has to be used in this case
     as well. Module A has node A1. Module B augments node A1 by adding
     node X. Module C augments node A1 by adding node X. For clarity, it
     has to be known which node is X (for example: C:X).
@@ -85,7 +85,7 @@ In this request, we are using parameter **content=config**, this means
 we are reading candidate NETCONF datastore. Value **config** of
 parameter content is translated into get-config NETCONF RPC.
 
-```bash Yang-ext:mount using content=config parameter
+```bash RPC Request, Yang-ext:mount using content=config parameter
 curl --location --request GET 'http://localhost:8181/rests/data/network-topology:network-topology/topology=cli/node=R1/yang-ext:mount?content=config' \
 --header 'Accept: application/json'
 ```
@@ -149,7 +149,7 @@ we are reading running NETCONF datastore. Value **nonconfig** is
 translated into get NETCONF RPC. We can compare it with data directly
 from device using show running-config command.
 
-```bash Yang-ext:mount using content=nonconfig parameter
+```bash RPC Request, Yang-ext:mount using content=nonconfig parameter
 curl --location --request GET 'http://localhost:8181/rests/data/network-topology:network-topology/topology=cli/node=R1/yang-ext:mount?content=nonconfig' \
 --header 'Accept: application/json'
 ```
@@ -207,7 +207,7 @@ curl --location --request GET 'http://localhost:8181/rests/data/network-topology
 
 **Examples of invocation of yang actions behind yang-ext:mount**.
 
-```bash Invocation of yang action -> Clear VRRP global statistics
+```bash RPC Request, Invocation of yang action -> Clear VRRP global statistics
 curl --location --request POST 'http://localhost:8181/rests/data/network-topology:network-topology/topology=topology-netconf/node=R1/yang-ext:mount/clear:clear/clear:statistics/vrrp/global' \
 --header 'Accept: application/json'
 ```
@@ -220,7 +220,7 @@ curl --location --request POST 'http://localhost:8181/rests/data/network-topolog
 
 **Invocation of yang action -\> List available firmware packages on disk**
 
-```bash Invocation of yang action -> List available firmware packages on disk
+```bash RPC Request, Invocation of yang action -> List available firmware packages on disk
 curl --location --request POST 'http://localhost:8181/rests/data/network-topology:network-topology/topology=topology-netconf/node=R1/yang-ext:mount/system:system/firmware/list' \
 --header 'Accept: application/json'
 ```
@@ -241,7 +241,7 @@ curl --location --request POST 'http://localhost:8181/rests/data/network-topolog
 
 **Invocation of yang action -\> Erase running-config-then load**
 
-```bash Invocation of yang action -> Erase running-config-then load
+```bash RPC Request, Invocation of yang action -> Erase running-config-then load
 curl --location --request POST 'http://localhost:8181/rests/data/network-topology:network-topology/topology=topology-netconf/node=R1/yang-ext:mount/system:erase/running-config-then/load' \
 --header 'Accept: application/json' \
 --header 'Content-Type: application/json' \
@@ -252,7 +252,7 @@ curl --location --request POST 'http://localhost:8181/rests/data/network-topolog
 }'
 ```
 
-```json RPC Response, Status: 200
+```xml RPC Response, Status: 200
 <output xmlns="namespace">
     <status>Erasing config and restarting services</status>
 </output>
@@ -294,24 +294,22 @@ To completely understand installing of node see [Device installation](https://do
 - Content type does not have to be specified in URI - it can only be
     the Configuration datastore.
 
-Example:
-
-```
-PUT http://<uniconfig-ip>:8181/rests/data/module1:foo/bar
-Content-Type: applicaton/xml
-<bar>
+```bash Example:
+curl --location --request PUT 'http://<uniconfig-ip>:8181/rests/data/module1:foo/bar' \
+--header 'Accept: application/json' \
+--header 'Content-Type: application/json' \
+--data-raw '<bar>
   …
-</bar>
+</bar>'
 ```
 
-Example with mount point:
-
-```
-PUT http://<uniconfig-ip>:8181/rests/data/module1:foo1/foo2/yang-ext:mount/module2:foo/bar
-Content-Type: applicaton/xml
-<bar>
+```bash Example with mountpoint:
+curl --location --request PUT 'http://<uniconfig-ip>:8181/rests/data/module1:foo1/foo2/yang-ext:mount/module2:foo/bar' \
+--header 'Accept: application/json' \
+--header 'Content-Type: application/json' \
+--data-raw '<bar>
   …
-</bar>
+</bar>'
 ```
 
 #### POST /rests/data/\<identifier\>
@@ -322,24 +320,22 @@ Content-Type: applicaton/xml
 - The root element of data must have the namespace (data is in XML) or
     module name (data is in JSON).
 
-Example:
-
-```
-POST http://<uniconfig-ip>:8181/rests/data/<identifier>
-Content-Type: applicaton/xml
-<bar xmlns=“module1namespace”>
+```bash Example:
+curl --location --request POST 'http://<uniconfig-ip>:8181/rests/data/<identifier>' \
+--header 'Accept: application/xml' \
+--header 'Content-Type: application/xml' \
+--data-raw '<bar xmlns=“module2namespace”>
   …
-</bar>
+</bar>'
 ```
 
-Example with mount point:
-
-```
-http://<uniconfig-ip>:8181/rests/data/module1:foo1/foo2/yang-ext:mount/module2:foo
-Content-Type: applicaton/xml
-<bar xmlns=“module2namespace”>
+```bash Example with mount point:
+curl --location --request POST 'http://<uniconfig-ip>:8181/rests/data/module1:foo1/foo2/yang-ext:mount/module2:foo' \
+--header 'Accept: application/xml' \
+--header 'Content-Type: application/xml' \
+--data-raw '<bar xmlns=“module2namespace”>
   …
-</bar>
+</bar>'
 ```
 
 #### POST /rests/data
@@ -350,21 +346,17 @@ Content-Type: applicaton/xml
     clear that URI doesn't contain 'toaster' node in comparison to a PUT
     request that must contain the name of the created node in URI.
 
-Example:
-
-```
-POST URL: http://localhost:8181/rests/data
-content-type: application/json
-JSON payload:
-
-   {
-     "toaster:toaster" :
-     {
-       "toaster:toasterManufacturer" : "General Electric",
-       "toaster:toasterModelNumber" : "123",
-       "toaster:toasterStatus" : "up"
-     }
-   }
+```bash Example:
+curl --location --request POST 'http://localhost:8181/rests/data' \
+--header 'Accept: application/json' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "toaster:toaster": {
+        "toaster:toasterManufacturer": "General Electric",
+        "toaster:toasterModelNumber": "123",
+        "toaster:toasterStatus": "up"
+    }
+}'
 ```
 
 #### DELETE /rests/data/\<identifier\>
@@ -394,7 +386,7 @@ other settings under system:system container are left untouched
 including other leaves under 'connection' container and 'ethernet' list
 item.
 
-```
+```bash RPC Request
 curl --location --request PATCH 'http://localhost:8181/rests/data/network-topology:network-topology/topology=uniconfig/node=n1/configuration/system:system' \
 --header 'Content-Type: application/json' \
 --data-raw '{
@@ -430,37 +422,33 @@ curl --location --request PATCH 'http://localhost:8181/rests/data/network-topolo
 - The result has the status code and optionally retrieved data having
     the root element “output”.
 
-Example:
-
-```
-POST http://<uniconfig-ip>:8181/rests/operations/module1:fooRpc
-Content-Type: applicaton/xml
-Accept: applicaton/xml
-<input>
+```bash Example:
+curl --location --request POST 'http://<uniconfig-ip>:8181/rests/operations/module1:fooRpc' \
+--header 'Content-Type: application/xml' \
+--header 'Accept: application/xml' \
+--data-raw '<input>
   …
-</input>
+</input>'
 ```
 
 The answer from the server could be:
 
-```
+```bash Response
 <output>
   …
 </output>
 ```
 
-An example using a JSON payload:
-
-```
-POST http://localhost:8181/rests/operations/toaster:make-toast
-Content-Type: application/yang.data+json
-{
-  "input" :
-  {
-     "toaster:toasterDoneness" : "10",
-     "toaster:toasterToastType":"wheat-bread"
-  }
-}
+```bash RPC Request, An example using a JSON payload:
+curl --location --request POST 'http://localhost:8181/rests/operations/toaster:make-toast' \
+--header 'Accept: application/json' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "input": {
+        "toaster:toasterDoneness": "10",
+        "toaster:toasterToastType": "wheat-bread"
+    }
+}'
 ```
 
 !!!
@@ -526,7 +514,7 @@ container interfaces {
 Invocation of the action named 'compute-stats' that is placed under the
 'interfaces' container of NETCONF mountpoint:
 
-```
+```bash Request
 curl --location --request POST 'http://localhost:8181/rests/data/network-topology:network-topology/topology=topology-netconf/node=dev/yang-ext:mount/interfaces:interfaces/compute-stats' \
 --header 'Content-Type: application/json' \
 --data-raw '{
@@ -538,9 +526,7 @@ curl --location --request POST 'http://localhost:8181/rests/data/network-topolog
 }'
 ```
 
-The response body:
-
-```
+```json The response body:
 {
     "interfaces:output": {
         "avg-rx-kbps": 14524,
@@ -827,9 +813,9 @@ enclosed in brackets represents sort direction ('asc' or 'desc'). If
 there are multiple leaves based on which sorting is done, they are
 separated by semicolon.
 
-> **note**
->
-> Sorting, just like pagination, can only be used on list nodes.
+!!!
+Sorting, just like pagination, can only be used on list nodes.
+!!!
 
 The example of using sortby parameter with 1 value (sorting by the value
 of 'name' leaf):
@@ -868,6 +854,157 @@ the blocks that are ordered by the following strategy:
 3. boolean type
 4. random numeric type
 5. types that can be represented by JSON string
+
+## Inserting
+
+### Insert query parameter
+
+The 'insert' query parameter can be used to specify how an item should be inserted within an list or leaf-list.
+This parameter is only supported for the POST and PUT methods. It is also only supported if the target list or leaf-list
+is marked as 'ordered-by user' in YANG model.
+
+The allowed values for 'insert' query parameter:
+
+| Value  | Description |
+| --- | --- |
+| first | Insert the new item as the new first entry. |
+| last | Insert the new item as the new last entry (default value). |
+| before | Insert the new item before the insertion point, as specified by the value of the 'point' query parameter. |
+| after  | Insert the new data after the insertion point, as specified by the value of the "point" parameter. |
+
+!!!
+If the values 'before' or 'after' are used, then a 'point' query parameter for the 'insert' query parameter MUST
+also be present.
+!!!
+
+### Point query parameter
+
+The 'point' query parameter is used to specify the insertion point for an item that is being created or moved within an
+'ordered-by user' list or leaf-list. Like the 'insert' query parameter, 'point' query parameter is only supported for
+the POST and PUT methods and also if the target list or leaf-list is marked as 'ordered-by user' in YANG model.
+The value of the 'point' query parameter is a string that indicates the key of the insertion point item. If the key
+is composite, the key items must be separated by a comma.
+
+### Examples
+
+Next five examples show usage of 'insert' and 'point' query parameters for leaf-list. First example shows how leaf-list
+looks before update. There are no differences in the use of the list and leaf-list.
+
+#### List before update
+
+```bash RPC Request
+curl --location --request GET 'http://localhost:8181/rests/data/network-topology:network-topology/topology=uniconfig/node=xr5/configuration/frinx-openconfig-qos:qos/classifiers/classifier=test/terms/term=1/conditions/frinx-qos-extension:qos-group?content=nonconfig`' \
+--header 'Content-Type: application/json' \
+--header 'Content-Type: content=nonconfig' \
+--header 'Accept: application/json'
+```
+
+```json RPC Response
+{
+    "frinx-qos-extension:qos-group": [
+        1,
+        2,
+        3
+    ]
+}
+```
+
+#### Insert item at the top of the list
+
+```bash RPC Request
+curl --location --request PUT 'http://localhost:8181/rests/data/network-topology:network-topology/topology=uniconfig/node=xr5/configuration/frinx-openconfig-qos:qos/classifiers/classifier=test/terms/term=1/conditions/frinx-qos-extension:qos-group=4?insert=first' \
+--header 'Content-Type: application/json' \
+--header 'Accept: application/json' \
+--data-raw '{
+    "frinx-qos-extension:qos-group": [
+        4
+    ]
+}'
+```
+
+```json RPC Response, Updated list
+{
+    "frinx-qos-extension:qos-group": [
+        4,
+        1,
+        2,
+        3
+    ]
+}
+```
+
+#### Insert item at the bottom of the list
+
+```bash RPC Request
+curl --location --request PUT 'http://localhost:8181/rests/data/network-topology:network-topology/topology=uniconfig/node=xr5/configuration/frinx-openconfig-qos:qos/classifiers/classifier=test/terms/term=1/conditions/frinx-qos-extension:qos-group=4?insert=last' \
+--header 'Content-Type: application/json' \
+--header 'Accept: application/json' \
+--data-raw '{
+    "frinx-qos-extension:qos-group": [
+        4
+    ]
+}'
+```
+
+```json RPC Response, Updated list
+{
+    "frinx-qos-extension:qos-group": [
+        1,
+        2,
+        3,
+        4
+    ]
+}
+```
+
+#### Insert item after specific item
+
+```bash RPC Request
+curl --location --request PUT 'http://localhost:8181/rests/data/network-topology:network-topology/topology=uniconfig/node=xr5/configuration/frinx-openconfig-qos:qos/classifiers/classifier=test/terms/term=1/conditions/frinx-qos-extension:qos-group=4?insert=after&point=2' \
+--header 'Content-Type: application/json' \
+--header 'Accept: application/json' \
+--data-raw '{
+    "frinx-qos-extension:qos-group": [
+        4
+    ]
+}'
+```
+
+```json RPC Response, Updated list
+{
+    "frinx-qos-extension:qos-group": [
+        1,
+        2,
+        4,
+        3
+    ]
+}
+```
+
+#### Insert item before specific item
+
+```bash RPC Request
+curl --location --request PUT 'http://localhost:8181/rests/data/network-topology:network-topology/topology=uniconfig/node=xr5/configuration/frinx-openconfig-qos:qos/classifiers/classifier=test/terms/term=1/conditions/frinx-qos-extension:qos-group=4?insert=before&point=2' \
+--header 'Content-Type: application/json' \
+--header 'Accept: application/json' \
+--data-raw '{
+    "frinx-qos-extension:qos-group": [
+        4
+    ]
+}'
+```
+
+```json RPC Response, Updated list
+{
+    "frinx-qos-extension:qos-group": [
+        1,
+        4,
+        2,
+        3
+    ]
+}
+```
+
 
 ## JSON Attributes
 
@@ -915,7 +1052,7 @@ Leaf without attributes:
 The same leaf with set 2 attributes: 'm1:attribute-1' and
 'm1:attribute-2':
 
-```
+```json
 {
   "sample-leaf": {
     "@": {
@@ -931,7 +1068,7 @@ The same leaf with set 2 attributes: 'm1:attribute-1' and
 
 A container without attributes:
 
-```
+```json
 {
   "sample-container": {
     "nested-leaf-1": "str1",
@@ -946,7 +1083,7 @@ A container without attributes:
 The same container with set 2 attributes: 'm1:switch' and
 'm2:multiplier':
 
-```
+```json
 {
   "sample-container": {
     "@": {
@@ -966,7 +1103,7 @@ The same container with set 2 attributes: 'm1:switch' and
 
 Leaf-list without attributes:
 
-```
+```json
 {
   "sample-leaf-list": [10, 20, 30]
 }
@@ -974,7 +1111,7 @@ Leaf-list without attributes:
 
 The same leaf with set 1 attribute: 'mx:split':
 
-```
+```json
 {
   "sample-leaf-list": {
     "@": {
@@ -989,7 +1126,7 @@ The same leaf with set 1 attribute: 'mx:split':
 
 Leaf-list without attributes:
 
-```
+```json
 {
   "sample-leaf-list": [10, 20]
 }
@@ -999,7 +1136,7 @@ Two leaf-list entries, leaf-list entry with value '10' has one attribute
 with identifier 'm1:prefix'. The second leaf-list entry '20' doesn't
 have any attributes assigned.
 
-```
+```json
 {
   "sample-leaf-list": [
     {
@@ -1017,7 +1154,7 @@ have any attributes assigned.
 
 List without attributes:
 
-```
+```json
 {
   "sample-list": [
     {
@@ -1034,7 +1171,7 @@ List without attributes:
 
 The same list with applied single attribute: 'constraints:length'.
 
-```
+```json
 {
   "sample-list": {
     "@": {
@@ -1058,7 +1195,7 @@ The same list with applied single attribute: 'constraints:length'.
 
 List with two list entries without attributes:
 
-```
+```json
 {
   "sample-list": [
     {
@@ -1077,7 +1214,7 @@ The same list entries, the first list entry doesn't contain any
 attribute, but the second list entry contains 2 attributes: 'm1:switch'
 and 'm2:multiplier'.
 
-```
+```json
 {
   "sample-list": [
     {
@@ -1115,7 +1252,7 @@ The following example demonstrates how to enable schema filters for
 selected extensions and make RESTCONF ignore unknown definitions and
 definitions with a 'deprecated status' attribute.
 
-```
+```json
 "schemaFilters": {
   "ignoredDataOnWriteByExtensions": [
     "tailf:hidden full"
@@ -1141,15 +1278,15 @@ Example of using the 'unhide' parameter for the GET request.
 
 **Using unhide with a list of extensions**
 
-> ```
-> http://localhost:8181/rests/data/network-topology:network-topology/topology=uniconfig/node=device/configuration?unhide=tailf:hidden debug,tailf:hidden deprecated
-> ```
+```
+http://localhost:8181/rests/data/network-topology:network-topology/topology=uniconfig/node=device/configuration?unhide=tailf:hidden debug,tailf:hidden deprecated
+```
 
 **Using unhide parameter to unhide all hidden definitions**
 
-> ```
-> http://localhost:8181/rests/data/network-topology:network-topology/topology=uniconfig/node=device/configuration?unhide=all
-> ```
+```
+http://localhost:8181/rests/data/network-topology:network-topology/topology=uniconfig/node=device/configuration?unhide=all
+```
 
 
 ## Leafref validation
@@ -1158,31 +1295,33 @@ These constraints are not validated by default. Leafref validation
 can be enabled using checkForReferences query parameter with value
 set to true.
 
-Example:
+### Example:
 
-**Using leafref validation**
+#### Using leafref validation
 
-> ```
-> DELETE http://localhost:8181/rests/data/network-topology:network-topology/topology=uniconfig/node=device/configuration/
-> frinx-openconfig-interfaces:interfaces/interface=eth0?checkForReferences=true
-> ```
+```
+curl --location --request DELETE 'http://localhost:8181/rests/data/network-topology:network-topology/topology=uniconfig/node=device/configuration/
+> frinx-openconfig-interfaces:interfaces/interface=eth0?checkForReferences=true' \
+--header 'Accept: application/json' \
+--header 'Content-Type: application/json'
+```
 
-**Example output of failed validation**
+#### Example output of failed validation
 
-> ```
-> {
->    "errors": {
->        "error": [
->            {
->                "error-message": "Leafref validation failed. Violated leafref constraint on leaf /network-topology/topology/node/configuration/interfaces/interface/name -
->                                    node is referenced by leaf on path: /network-topology/topology/node/configuration/referencing/path,
->                "error-tag": "invalid-value",
->                "error-type": "protocol"
->            }
->        ]
->    }
-> }
-> ```
+```json
+{
+    "errors": {
+        "error": [
+            {
+                "error-message": "Leafref validation failed. Violated leafref constraint on leaf /network-topology/topology/node/configuration/interfaces/interface/name -
+                                    node is referenced by leaf on path: /network-topology/topology/node/configuration/referencing/path,
+                "error-tag": "invalid-value",
+                "error-type": "protocol"
+            }
+        ]
+    }
+}
+ ```
 
 If checkForReferences parameter is set to false or is not provided UniConfig will
 not perform leafref validation and there will be no leafref validation error.

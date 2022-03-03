@@ -138,7 +138,7 @@ curl --location --request POST 'http://localhost:8181/rests/operations/uniconfig
             "node-result": [
                 {
                     "node-id": "IOSXRN",
-                    "error-type": "processing-error",
+                    "error-type": "uniconfig-error",
                     "rollback-status": "complete",
                     "error-message": "Supplied value \"GigabitEthernet0/0/0/1ghjfhjfhjfghj\" does not match required pattern \"^(([a-zA-Z0-9_]*\\d+/){3,4}\\d+)|(([a-zA-Z0-9_]*\\d+/){3,4}\\d+\\.\\d+)|(([a-zA-Z0-9_]*\\d+/){2}([a-zA-Z0-9_]*\\d+))|(([a-zA-Z0-9_]*\\d+/){2}([a-zA-Z0-9_]+))|([a-zA-Z0-9_-]*\\d+)|([a-zA-Z0-9_-]*\\d+\\.\\d+)|(mpls)|(dwdm)$\"\n",
                     "configuration-status": "fail"
@@ -182,14 +182,14 @@ curl --location --request POST 'http://localhost:8181/rests/operations/uniconfig
             "node-result": [
                 {
                     "node-id": "IOSXRN",
-                    "error-type": "processing-error",
+                    "error-type": "uniconfig-error",
                     "error-message": "Fingerprint from datastore: 2019-09-04T09:32:41 is different than fingerprint from device: 2019-09-04T09:49:01",
                     "configuration-status": "fail"
                 },
                 {
                     "node-id": "IOSXR",
                     "configuration-status": "fail",
-                    "error-type": "processing-error"
+                    "error-type": "uniconfig-error"
                 }
             ]
         }
@@ -232,11 +232,11 @@ curl --location --request POST 'http://localhost:8181/rests/operations/uniconfig
                 {
                     "node-id": "IOSXRN",
                     "configuration-status": "fail",
-                    "error-type": "processing-error"
+                    "error-type": "uniconfig-error"
                 },
                 {
                     "node-id": "IOSXR",
-                    "error-type": "processing-error",
+                    "error-type": "uniconfig-error",
                     "error-message": "Node is missing in uniconfig topology CONFIG datastore.",
                     "configuration-status": "fail"
                 }

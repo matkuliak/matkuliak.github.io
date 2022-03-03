@@ -100,7 +100,7 @@ curl --location --request POST 'http://localhost:8181/rests/operations/uniconfig
     "output": {
         "status": "fail",
         "error-message": "target-path is not specified in input request",
-        "error-type": "processing-error"
+        "error-type": "uniconfig-error"
     }
 }
 ```
@@ -128,7 +128,7 @@ curl --location --request POST 'http://localhost:8181/rests/operations/uniconfig
     "output": {
         "status": "fail",
         "error-message": "target-datastore is not specified in input request",
-        "error-type": "processing-error"
+        "error-type": "uniconfig-error"
     }
 }
 ```

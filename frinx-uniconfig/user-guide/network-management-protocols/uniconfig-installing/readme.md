@@ -35,7 +35,7 @@ Only 1 node with the same node-id can be installed on UniConfig layer.
 
 It is synchronous: it succeeds only after node is successfully installed
 it fails in other cases – **max-connection-attempts** is automatically
-set to value '1', if different value is not provided in RPC input.
+set to value '1', if different value is not provided in RPC input, database or config file.
 
 Following sections provide deeper explanation of parameters needed for
 installation, along with example install requests.
@@ -43,6 +43,109 @@ installation, along with example install requests.
 !!!
 Overview of our OpenAPI along with all parameters and expected returns [can be found here](https://app.swaggerhub.com/apis-docs/Frinx/uniconfig/latest#/connection-manager/rpc_connection-manager%3Ainstall-node).
 !!!
+
+## Default parameters
+All install parameters (CLI/NETCONF) are set in database when Uniconfig is initializing. 
+Values of these parameters are equal to specific yang model default values. 
+These parameters are used when they are missing in RPC request.
+
+Priority of using install parameters : 
+1. Parameter set in install RPC request
+2. Parameter set in database
+3. Default parameter from yang model
+
+Priority of initial writing default parameters into database:
+1. Database already contains default parameters
+2. User defines default parameters into config file
+3. Default values from yang schema file will be saved
+
+Default parameters can be managed (put/read/delete) by user using RESTCONF/Uniconfig-shell.
+
+Definition of default parameters can be also done using config file **default-parameters.json**. 
+It is placed in config subdirectory together with lighty-uniconfig-config.json.
+
+```json
+{
+    "netconf-default-parameters" : {
+        "connection-timeout-millis": 20000,
+        "default-request-timeout-millis": 60000,
+        "between-attempts-timeout-millis" : 2000,
+        "max-connection-attempts": 1,
+        "max-reconnection-attempts": 0,
+        "reconnect-on-changed-schema" : false,
+        "keepalive-delay": 120,
+        "sleep-factor": 1.5,
+        "confirm-timeout" : 600,
+        "concurrent-rpc-limit" : 0,
+        "actor-response-wait-time" : 5,
+        "dry-run-journal-size" : 0,
+        "enabled-notifications" : true,
+        "customization-factory" : "default",
+        "edit-config-test-option" : "test-then-set",
+        "strict-parsing" : true
+    },
+    "cli-default-parameters" : {
+        "max-connection-attempts": 1,
+        "max-reconnection-attempts": 0,
+        "keepalive-delay" : 60,
+        "keepalive-timeout": 60,
+        "keepalive-initial-delay": 120,
+        "journal-size" : 0,
+        "dry-run-journal-size" : 0,
+        "journal-level" : "command-only",
+        "parsing-engine" : "tree-parser"
+    }
+}
+```
+
+**RPC request - CLI default parameters:**
+
+```bash
+curl --location --request PUT 'http://localhost:8181/rests/data/cli-topology:cli-default-parameters' \
+--header 'Authorization: Basic YWRtaW46YWRtaW4=' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "cli-topology:cli-default-parameters" : {
+        "cli-topology:max-connection-attempts": 3,
+        "cli-topology:max-reconnection-attempts": 3,
+        "cli-topology:keepalive-delay" : 60,
+        "cli-topology:keepalive-timeout": 60,
+        "cli-topology:keepalive-initial-timeout": 120,
+        "cli-topology:journal-size" : 0,
+        "cli-topology:dry-run-journal-size" : 0,
+        "cli-topology:journal-level" : "command-only",
+        "cli-topology:parsing-engine" : "tree-parser"
+    }
+}'
+```
+
+**RPC request - NETCONF default parameters:**
+
+```bash
+curl --location --request PUT 'http://localhost:8181/rests/data/netconf-node-topology:netconf-default-parameters' \
+--header 'Authorization: Basic YWRtaW46YWRtaW4=' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "netconf-node-topology:netconf-default-parameters" : {
+        "netconf-node-topology:connection-timeout-millis": 20000,
+        "netconf-node-topology:default-request-timeout-millis": 20000,
+        "netconf-node-topology:between-attempts-timeout-millis" : 20000,
+        "netconf-node-topology:max-connection-attempts": 20,
+        "netconf-node-topology:max-reconnection-attempts": 3,
+        "netconf-node-topology:reconnect-on-changed-schema" : false,
+        "netconf-node-topology:keepalive-delay": 5,
+        "netconf-node-topology:sleep-factor": 1.0,
+        "netconf-node-topology:confirm-timeout" : 600,
+        "netconf-node-topology:concurrent-rpc-limit" : 0,
+        "netconf-node-topology:actor-response-wait-time" : 5,
+        "netconf-node-topology:dry-run-journal-size" : 0,
+        "netconf-node-topology:enabled-notifications" : true,
+        "netconf-node-topology:customization-factory" : "default",
+        "netconf-node-topology:edit-config-test-option" : "test-then-set",
+        "netconf-node-topology:strict-parsing" : true
+    }
+}'
+```
 
 ## Installing CLI device
 
@@ -84,6 +187,14 @@ strategy. None of these parameters is mandatory - if they are not set,
 default values are set. There are two exclusive groups of parameters
 based on selected reconnection strategy - you can define only parameters
 from single group. By default, keepalive strategy is used.
+
+### Connection parameters
+
+Following parameters adjust maintaining of CLI session state. 
+None of these parameters are mandatory (default values will be used).
+
+-   **cli-topology:max-connection-attempts** - Maximum number of initial connection attempts (default value: 1).
+-   **cli-topology:max-reconnection-attempts** - Maximum number of reconnection attempts (default value: 1).
 
 ### Keepalive strategies
 
@@ -312,7 +423,9 @@ of NETCONF session state. None of these parameters are mandatory
     for blocking RPC operations within transactions (default value:
     60000 ms).
 - **netconf-node-topology:max-connection-attempts** - Maximum number
-    of connection attempts (default value: 0 - disabled).
+    of initial connection attempts (default value: 1).
+- **netconf-node-topology:max-reconnection-attempts** - Maximum number
+    of reconnection attempts (default value: 1).
 - **netconf-node-topology:between-attempts-timeout-millis** - Initial
     timeout between reconnection attempts (default value: 2000 ms).
 - **netconf-node-topology:sleep-factor** - Multiplier between

@@ -153,12 +153,15 @@ brokers.
 - Requests and responses are paired using a unique message-id. This
     message-id is not part of the HTTP request, it is generated on the
     RESTCONF server.
+- Requests and responses contain Uniconfig transactions for easier matching
+  with the log-transactions.
 
 **Example: - Request and corresponding response with the same message-id**
 
 ```
 08:51:21.508 TRACE org.opendaylight.restconf.nb.rfc8040.jersey.providers.logging.RestconfLoggingBroker - HTTP request:
 Message ID: 3
+Uniconfig transaction: b6639cb4-55f2-449e-a91e-d2ad490198d2
 HTTP method: POST
 URI: http://localhost:8181/rests/operations/logging:enable-device-logging
 Source address: 0:0:0:0:0:0:0:1
@@ -184,6 +187,7 @@ Request body:
 
 08:51:21.518 TRACE org.opendaylight.restconf.nb.rfc8040.jersey.providers.logging.RestconfLoggingBroker - HTTP response:
 Request message ID: 3
+Uniconfig transaction: b6639cb4-55f2-449e-a91e-d2ad490198d2
 Status code: 200
 HTTP headers:
     Content-Type: [application/yang-data+json]
@@ -209,22 +213,38 @@ Example - sending POST RPC for installing CLI device, and getting
 requests with corresponding responses paired with same Message-ID:
 
 ```
-15:11:33.119 TRACE io.frinx.cli.io.impl.cli.CliLoggingBroker -
-Message-ID:1 - Sending CLI command: show configuration commit list |
-utility egrep "\^1 " 15:11:33.697 TRACE
-io.frinx.cli.io.impl.cli.CliLoggingBroker - Message-ID:1 - Received CLI
-response: Wed Sep 22 13:11:29.776 UTC 1 1000005360 cisco
-vty0:node0\_0\_CPU0 CLI Mon Sep 6 07:53:03 2021 15:11:33.724 TRACE
-io.frinx.cli.io.impl.cli.CliLoggingBroker - Message-ID:2 - Sending CLI
-command: show running-config 15:11:34.459 TRACE
-io.frinx.cli.io.impl.cli.CliLoggingBroker - Message-ID:2 - Received CLI
-response: Wed Sep 22 13:11:30.116 UTC Building configuration... !! IOS
-XR Configuration 5.3.4 !! Last configuration change at Mon Sep 6
-07:53:03 2021 by cisco ! hostname XR5 interface MgmtEth0/0/CPU0/0 ipv4
-address 192.168.1.214 255.255.255.0 ! interface GigabitEthernet0/0/0/0
-shutdown ! interface GigabitEthernet0/0/0/1 description init description
-shutdown ! interface GigabitEthernet0/0/0/2 ! ssh server v2 ssh server
-netconf port 830 netconf-yang agent ssh ! end
+15:11:33.119 TRACE io.frinx.cli.io.impl.cli.CliLoggingBroker - Message-ID:1 - Sending CLI command:
+show configuration commit list | utility egrep "^1 "
+15:11:33.697 TRACE io.frinx.cli.io.impl.cli.CliLoggingBroker - Message-ID:1 - Received CLI response:
+Wed Sep 22 13:11:29.776 UTC
+1    1000005360            cisco     vty0:node0_0_CPU0   CLI         Mon Sep  6 07:53:03 2021
+15:11:33.724 TRACE io.frinx.cli.io.impl.cli.CliLoggingBroker - Message-ID:2 - Sending CLI command:
+show running-config
+15:11:34.459 TRACE io.frinx.cli.io.impl.cli.CliLoggingBroker - Message-ID:2 - Received CLI response:
+Wed Sep 22 13:11:30.116 UTC
+Building configuration...
+!! IOS XR Configuration 5.3.4
+!! Last configuration change at Mon Sep  6 07:53:03 2021 by cisco
+!
+hostname XR5
+interface MgmtEth0/0/CPU0/0
+ ipv4 address 192.168.1.214 255.255.255.0
+!
+interface GigabitEthernet0/0/0/0
+ shutdown
+!
+interface GigabitEthernet0/0/0/1
+ description init description
+ shutdown
+!
+interface GigabitEthernet0/0/0/2
+!
+ssh server v2
+ssh server netconf port 830
+netconf-yang agent
+ ssh
+!
+end
 ```
 
 #### NETCONF Messages
@@ -241,7 +261,7 @@ netconf port 830 netconf-yang agent ssh ! end
 **Example: - Sending NETCONF GET RPC and receiving response**
 
 ```
-11:10:15.038 TRACE org.opendaylight.netconf.logging.brokers.NetconfMessagesLoggingBroker - b1b2b9c1: Sending NETCONF message:
+11:10:15.038 TRACE org.opendaylight.netconf.logging.brokers.NetconfMessagesLoggingBroker - Session: 641 - Sending NETCONF message:
 <rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0" message-id="m-179">
     <get>
         <filter xmlns:ns0="urn:ietf:params:xml:ns:netconf:base:1.0" ns0:type="subtree">
@@ -250,7 +270,7 @@ netconf port 830 netconf-yang agent ssh ! end
     </get>
 </rpc>
 
-11:10:15.055 TRACE org.opendaylight.netconf.logging.brokers.NetconfMessagesLoggingBroker - b1b2b9c1: Received NETCONF message:
+11:10:15.055 TRACE org.opendaylight.netconf.logging.brokers.NetconfMessagesLoggingBroker - Session: 641 - Received NETCONF message:
 <rpc-reply xmlns="urn:ietf:params:xml:ns:netconf:base:1.0" message-id="m-179">
     <data>
         <netconf xmlns="urn:ietf:params:xml:ns:netmod:notification">
@@ -274,7 +294,8 @@ netconf port 830 netconf-yang agent ssh ! end
 ```
 
 !!!
-String 'b1b2b9c1' represents the session ID. If multiple sessions are
+Number 641 represents the session ID. It is read from 
+the NETCONF hello message. If multiple sessions are 
 created between the NETCONF server and NETCONF client and are
 logically grouped by the same node ID, then logs from multiple
 sessions are stored to the same logging file (this is needed to
@@ -456,6 +477,12 @@ The next JSON snippet shows the sample configuration
 'netconf\_notifications' are enabled; the 'netconf\_messages' broker is
 enabled for all devices while 'netconf\_notifications' is enabled only
 for 'xr6' and 'xr7' devices.
+
+!!!
+If unknown parameters are specified in a configuration file, they will be
+ignored and a warning, that the corresponding parameter
+was ignored, will be logged.
+!!!
 
 ```json
 {

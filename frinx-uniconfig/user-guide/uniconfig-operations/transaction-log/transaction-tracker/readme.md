@@ -15,9 +15,9 @@ about performed transactions, such as:
 - **metadata** - Items in this field represent nodes that have been
     configured in the one transaction. Each item contains a diff item
     with additional information.
-
 - **diff** - Items in this field are a specific changes. Each item 
     contains path to changes, data before change and data after change.
+- **topology** - On which topology is a node installed. Can be 'uniconfig' or 'unistore'.
 
 !!!
 Data-before is visible only if data was updated or deleted.
@@ -59,47 +59,47 @@ curl --location --request GET 'http://localhost:8181/rests/data/transaction-log:
 
 ```json RPC Response, Status: 200
 {
-    {
-        "transactions-metadata":{
-            "transaction-metadata":[
-                {
-                    "transaction-id":"221aa4a5-e32e-46fd-921a-83314b190e89",
-                    "username":"admin",
-                    "metadata":[
-                        {
-                            "node-id":"xr6",
-                            "diff":[
-                                {
-                                    "path":"/Cisco-IOS-XR-ifmgr-cfg:interface-configurations/interface-configuration=act,Bundle-Ether1/description",
-                                    "data-after":"{\n  \"Cisco-IOS-XR-ifmgr-cfg:description\": \"bundle-ether1-description-create\"\n}"
-                                },
-                                {
-                                    "path":"/Cisco-IOS-XR-ifmgr-cfg:interface-configurations/interface-configuration=act,Bundle-Ether2/description",
-                                    "data-before":"{\n  \"Cisco-IOS-XR-ifmgr-cfg:description\": \"bundle-ether2-description-before\"\n}""data-after":"{\n  \"Cisco-IOS-XR-ifmgr-cfg:description\": \"bundle-ether2-description-after\"\n}"
-                                },
-                                
-                            ]
-                        }
-                    ],
-                    "commit-time":"2021-Mar-09 10:53:59.102 +0100"
-                },
-                "transaction-id":"869df9d6-9025-4849-b30b-9db4d8fb26ec",
-                "username":"admin",
-                "metadata":[
+    "transactions-metadata": {
+        "transaction-metadata": [
+            {
+                "transaction-id": "221aa4a5-e32e-46fd-921a-83314b190e89",
+                "username": "admin",
+                "metadata": [
                     {
-                        "node-id":"xr5",
-                        "diff":[
+                        "node-id": "xr6unistore",
+                        "diff": [
                             {
-                                "path":"/frinx-openconfig-interfaces:interfaces/interface=Loopback123/config",
-                                "data-before":"{\n  \"frinx-openconfig-interfaces:config\": {\n    \"type\": \"iana-if-type:softwareLoopback\",\n    \"enabled\": true,\n    \"name\": \"Loopback123\"\n  }\n}",
-                                "data-after":"{\n  \"frinx-openconfig-interfaces:config\": {\n    \"type\": \"iana-if-type:softwareLoopback\",\n    \"enabled\": true,\n    \"description\": \"test-description\",\n    \"name\": \"Loopback123\"\n  }\n}"
-                            }
-                        ]
+                                "path": "/Cisco-IOS-XR-ifmgr-cfg:interface-configurations/interface-configuration=act,Bundle-Ether1/description",
+                                "data-after": "{\n  \"Cisco-IOS-XR-ifmgr-cfg:description\": \"bundle-ether1-description-create\"\n}"
+                            },
+                            {
+                                "path": "/Cisco-IOS-XR-ifmgr-cfg:interface-configurations/interface-configuration=act,Bundle-Ether2/description",
+                                "data-before": "{\n  \"Cisco-IOS-XR-ifmgr-cfg:description\": \"bundle-ether2-description-before\"\n}"
+                                                    "data-after": "{\n  \"Cisco-IOS-XR-ifmgr-cfg:description\": \"bundle-ether2-description-after\"\n}"
+                            },
+                        ],
+                        "topology": "unistore"
                     }
                 ],
-                "commit-time":"2021-Mar-09 11:06:58.000 +0100"
-            }
-        ]
-    }
+                "commit-time": "2021-Mar-09 10:53:59.102 +0100"
+            },
+            "transaction-id": "869df9d6-9025-4849-b30b-9db4d8fb26ec",
+            "username": "admin",
+            "metadata": [
+                {
+                    "node-id": "xr5",
+                    "diff": [
+                        {
+                            "path": "/frinx-openconfig-interfaces:interfaces/interface=Loopback123/config",
+                            "data-before": "{\n  \"frinx-openconfig-interfaces:config\": {\n    \"type\": \"iana-if-type:softwareLoopback\",\n    \"enabled\": true,\n    \"name\": \"Loopback123\"\n  }\n}",
+                            "data-after": "{\n  \"frinx-openconfig-interfaces:config\": {\n    \"type\": \"iana-if-type:softwareLoopback\",\n    \"enabled\": true,\n    \"description\": \"test-description\",\n    \"name\": \"Loopback123\"\n  }\n}"
+                        }
+                    ],
+                    "topology": "uniconfig"
+                }
+            ],
+            "commit-time": "2021-Mar-09 11:06:58.000 +0100"
+    ]
+        }
 }
 ```

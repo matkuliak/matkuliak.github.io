@@ -81,12 +81,12 @@ curl --location --request POST 'http://localhost:8181/rests/operations/snapshot-
                 {
                     "node-id": "IOSXR",
                     "status": "fail",
-                    "error-type": "processing-error"
+                    "error-type": "uniconfig-error"
                 },
                 {
                     "node-id": "IOSXRN",
                     "status": "fail",
-                    "error-type": "processing-error"
+                    "error-type": "uniconfig-error"
                 }
             ]
         }
@@ -121,12 +121,12 @@ curl --location --request POST 'http://localhost:8181/rests/operations/snapshot-
             "node-result": [
                 {
                     "node-id": "IOSXRN",
-                    "error-type": "processing-error",
+                    "error-type": "uniconfig-error",
                     "status": "fail"
                 },
                 {
                     "node-id": "IOSXR",
-                    "error-type": "processing-error",
+                    "error-type": "uniconfig-error",
                     "status": "fail"
                 }
             ]
@@ -166,7 +166,7 @@ curl --location --request POST 'http://localhost:8181/rests/operations/snapshot-
                 {
                     "node-id": "AAA",
                     "error-message": "Node is missing in uniconfig topology OPERATIONAL datastore.",
-                    "error-type": "processing-error",
+                    "error-type": "uniconfig-error",
                     "status": "fail"
                 }
             ]

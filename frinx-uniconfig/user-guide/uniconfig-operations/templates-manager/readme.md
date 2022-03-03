@@ -544,6 +544,125 @@ curl --location --request PUT 'http://localhost:8181/rests/data/network-topology
 }
 ```
 
+## RPC get-template-info
+
+This RPC shows information about all variables in specified template. The RPC input has to contain template name.
+
+### Creation of template
+
+```bash RPC Request
+curl --location --request PUT 'http://localhost:8181/rests/data/network-topology:network-topology/topology=templates/node=interface_template/frinx-uniconfig-topology:configuration/Cisco-IOS-XR-ifmgr-cfg:interface-configurations/interface-configuration=%7B%24act-var%7D,%7B%24ifc-name-var%7D?uniconfig-schema-repository=schemas_1' \
+--header 'Accept: application/json' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "interface-configuration": [
+        {
+            "active": "{$act-var}",
+            "interface-name": "{$ifc-name-var}",
+            "shutdown": [
+                "{$shutdown-var}"
+            ]
+        }
+    ]
+}'
+```
+
+```json RPC Response, Status: 201
+
+```
+
+### Usage of RPC
+
+```bash RPC Request
+curl --location --request POST 'http://localhost:8181/rests/operations/template-manager:get-template-info' \
+--header 'Accept: application/json' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "input": {
+        "template-node-id": "interface_template"
+    }
+}'
+```
+
+```bash RPC Response
+{
+    "output": {
+        "variables": {
+            "variable": [
+                {
+                    "variable-name": "{$act-var}",
+                    "type": "Cisco-IOS-XR-ifmgr-cfg:Interface-active",
+                    "paths": {
+                        "path": [
+                            {
+                                "path": "/network-topology:network-topology/topology=templates/node=interface_template/frinx-uniconfig-topology:configuration/Cisco-IOS-XR-ifmgr-cfg:interface-configurations/interface-configuration={%24act-var},{%24ifc-name-var}/active",
+                                "path-description": "Whether the interface is active or\npreconfigured"
+                            }
+                        ]
+                    },
+                    "base-types": {
+                        "base-type": [
+                            {
+                                "constraints": [
+                                    "Length: [[0..2147483647]]",
+                                    "Pattern: (act)|(pre)"
+                                ],
+                                "type": "string"
+                            }
+                        ]
+                    },
+                    "type-description": "act:The interface is active, pre:Preconfiguration"
+                },
+                {
+                    "variable-name": "{$ifc-name-var}",
+                    "type": "Cisco-IOS-XR-types:Interface-name",
+                    "paths": {
+                        "path": [
+                            {
+                                "path": "/network-topology:network-topology/topology=templates/node=interface_template/frinx-uniconfig-topology:configuration/Cisco-IOS-XR-ifmgr-cfg:interface-configurations/interface-configuration={%24act-var},{%24ifc-name-var}/interface-name",
+                                "path-description": "The name of the interface"
+                            }
+                        ]
+                    },
+                    "base-types": {
+                        "base-type": [
+                            {
+                                "constraints": [
+                                    "Length: [[0..2147483647]]",
+                                    "Pattern: (([a-zA-Z0-9_]*\\d+/){3}\\d+)|(([a-zA-Z0-9_]*\\d+/){4}\\d+)|(([a-zA-Z0-9_]*\\d+/){3}\\d+\\.\\d+)|(([a-zA-Z0-9_]*\\d+/){2}([a-zA-Z0-9_]*\\d+))|(([a-zA-Z0-9_]*\\d+/){2}([a-zA-Z0-9_]+))|([a-zA-Z0-9_-]*\\d+)|([a-zA-Z0-9_-]*\\d+\\.\\d+)|(mpls)|(dwdm)"
+                                ],
+                                "type": "string"
+                            }
+                        ]
+                    },
+                    "type-description": "An interface name specifying an interface type and\ninstance.\nInterface represents a string defining an interface\ntype and instance, e.g. MgmtEth0/4/CPU1/0 or\nTenGigE0/2/0/0.2 or Bundle-Ether9 or\nBundle-Ether9.98"
+                },
+                {
+                    "variable-name": "{$shutdown-var}",
+                    "type": "empty",
+                    "paths": {
+                        "path": [
+                            {
+                                "path": "/network-topology:network-topology/topology=templates/node=interface_template/frinx-uniconfig-topology:configuration/Cisco-IOS-XR-ifmgr-cfg:interface-configurations/interface-configuration={%24act-var},{%24ifc-name-var}/shutdown",
+                                "path-description": "Shut the interface"
+                            }
+                        ]
+                    },
+                    "base-types": {
+                        "base-type": [
+                            {
+                                "type": "empty"
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    }
+}
+```
+
+
 ## Application of template
 
 Template can be applied to UniConfig nodes using 'apply-template' RPC.
@@ -725,7 +844,7 @@ curl --location --request PUT 'http://localhost:8181/rests/operations/template-m
         "node-result": [
             {
                 "node-id": "dev1",
-                "error-type": "processing-error",
+                "error-type": "uniconfig-error",
                 "status": "fail"
             }
         ],
@@ -788,13 +907,13 @@ curl --location --request PUT 'http://localhost:8181/rests/operations/template-m
         "node-result": [
             {
                 "node-id": "dev1",
-                "error-type": "processing-error",
+                "error-type": "uniconfig-error",
                 "status": "fail",
                 "error-message": "String substitution failed: Node /network-topology:network-topology/topology=templates/node=redundancy_template/frinx-uniconfig-topology:configuration/ha:redundancy/intra-chassis/bfd-liveness-detection/transmit-interval/minimum-interval has defined variable/s: '[min-interval]', but there is not provided or default value for all of these variables"
             },
             {
                 "node-id": "dev2",
-                "error-type": "processing-error",
+                "error-type": "uniconfig-error",
                 "status": "fail"
             }
         ]
@@ -847,7 +966,7 @@ curl --location --request PUT 'http://localhost:8181/rests/operations/template-m
         "node-result": [
             {
                 "node-id": "dev1",
-                "error-type": "processing-error",
+                "error-type": "uniconfig-error",
                 "status": "fail",
                 "error-message": "Value '172.30.15.1s' cannot be applied to leaf /network-topology:network-topology/topology=templates/node=redundancy_template/frinx-uniconfig-topology:configuration/ha:redundancy/inter-chassis/local-ip - it accepts only values with following YANG types: [type: string, constraints: [Length[[0..2147483647]], PatternConstraintImpl{regex=^(?:(([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])(%[\\p{N}\\p{L}]+)?)$, errorAppTag=invalid-regular-expression}], type: string, constraints: [Length[[0..2147483647]], PatternConstraintImpl{regex=^(?:((:|[0-9a-fA-F]{0,4}):)([0-9a-fA-F]{0,4}:){0,5}((([0-9a-fA-F]{0,4}:)?(:|[0-9a-fA-F]{0,4}))|(((25[0-5]|2[0-4][0-9]|[01]?[0-9]?[0-9])\\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9]?[0-9])))(%[\\p{N}\\p{L}]+)?)$, errorAppTag=invalid-regular-expression}, PatternConstraintImpl{regex=^(?:(([^:]+:){6}(([^:]+:[^:]+)|(.*\\..*)))|((([^:]+:)*[^:]+)?::(([^:]+:)*[^:]+)?)(%.+)?)$, errorAppTag=invalid-regular-expression}]]"
             }

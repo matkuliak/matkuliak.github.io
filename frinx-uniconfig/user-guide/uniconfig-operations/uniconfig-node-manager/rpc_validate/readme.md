@@ -91,7 +91,7 @@ curl --location --request POST 'http://localhost:8181/rests/operations/uniconfig
                     "node-id": "IOSXRN",
                     "status": "fail",
                     "error-message": "RemoteDevice{IOSXRN}: Validate failed. illegal reference /orgs/org[name='TESTING-PROVIDER']/traffic-identification/using-networks\n",
-                    "error-type": "processing-error"
+                    "error-type": "uniconfig-error"
                 }
             ]
         },

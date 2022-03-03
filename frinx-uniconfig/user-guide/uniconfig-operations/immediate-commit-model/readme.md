@@ -20,6 +20,33 @@ transaction is closed. For reading data, it is necessary to close the
 transaction differently, because no data were changed, so calling a
 commit would be unnecessary.
 
+When calling the 'sync-from-network' RPC, it internally calls
+'replace-config-with-operational'. Note that this only works when
+using the Immediate Commit Model.
+
+
+## Configuration
+Configuration related to UniConfig transactions is placed in the
+'config/lighty-uniconfig-config.json' file under 'transactions'
+container.
+A user can turn off the Immediate Commit Model and use only the
+[Build and Commit Model](../build-and-commit-model/readme.md)
+instead.
+
+
+```json JSON Snippet
+"transactions": {
+        .
+        .
+        .
+        /*
+        Boolean value if the Immediate Commit Model is enabled or not. Default value is true.
+        If disabled, only manually created transactions can exist.
+        */
+        "isImmediateCommitEnabled": true
+    }
+```
+
 RPC Examples
 ------------
 

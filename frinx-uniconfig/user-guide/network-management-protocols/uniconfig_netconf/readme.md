@@ -414,12 +414,10 @@ described by 3 configurable mount-request parameters:
 
 1.  **Maximum number of connection attempts [count]** - Maximum number
     of initial connection retries; when it is reached, the NETCONF won't
-    try to connect to device anymore. By default, this threshold is
-    disabled by value 0.
+    try to connect to device anymore. By default, this value is set to 1.
 2.  **Maximum number of reconnection attempts [count]** - Maximum number
     of reconnection retries; when it is reached, the NETCONF won't try
-    to reconnect to device anymore. By default, this threshold is set to
-    infinite by value 0.
+    to reconnect to device anymore. By default, this value is set to 1.
 3.  **Initial timeout between attempts [milliseconds]** - The first
     timeout between reconnection attempts in milliseconds. The default
     timeout value is set to 2000 ms.

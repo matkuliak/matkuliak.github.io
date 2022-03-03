@@ -639,6 +639,8 @@ distribution:
     >     > -   **port** - TCP port on which the database system listens
     >     >     to incoming connections.
 
+    Username and password are removed from logs due to security reasons.
+
 #### Deployment example
 
 Example of the 3-nodes deployment from the view of configuration files -

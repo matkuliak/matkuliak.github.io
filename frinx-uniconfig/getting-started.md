@@ -14,6 +14,8 @@ in a container, standalone or as part of our automation solution FRINX
 Machine. UniConfig has a built-in data store that can be run in memory
 or with an external database.
 
+![UniConfig features](uc_features.png)
+
 ## UniConfig key feature overview
 
 -   Retrieves and stores current startup and running configuration from
@@ -94,9 +96,9 @@ Enter the following commands to download, activate and start UniConfig
 in a Docker container:
 
 ```
-docker pull frinx/uniconfig:4.2.9
+docker pull frinx/uniconfig:4.2.10
 TOKEN=[frinx-license_secret-token]
-docker run -it --hostname uniconfig --name uniconfig -p 8181:8181 frinx/uniconfig:4.2.9 -l $TOKEN
+docker run -it --hostname uniconfig --name uniconfig -p 8181:8181 frinx/uniconfig:4.2.10 -l $TOKEN
 ```
 
 !!!
@@ -118,7 +120,7 @@ docker stop uniconfig
 
 Click on the link to download a zip archive of the latest FRINX
 UniConfig:\
-[uniconfig-4.2.9.frinx.zip](https://license.frinx.io/download/uniconfig-4.2.9.frinx.zip)\
+[uniconfig-4.2.10.frinx.zip](https://license.frinx.io/download/uniconfig-4.2.10.frinx.zip)\
 By downloading the file you accept the FRINX software agreement:
 [EULA](https://frinx.io/eula)
 
@@ -138,6 +140,20 @@ Replace [frinx-licence-secret-token] with your unique token. The token is unique
 !!!
 For more information on the different arguments run the startup script with the **-h** flag
 !!!
+
+## OpenAPI
+
+UniConfig distributions contain '.yaml' file that generates list of all
+usable RPCs and their examples. You can view it locally or on our hosted version that always shows
+latest OpenAPI version.
+
+**File can be found here:**
+
+```
+/uniconfig-x.x.x.frinx/openapi
+```
+
+[!ref text="OpenAPI"](../user-guide/operational-procedures/openapi/)
 
 ## Offline Activation
 

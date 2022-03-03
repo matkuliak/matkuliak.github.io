@@ -463,7 +463,7 @@ curl --location --request POST 'http://localhost:8181/rests/operations/subtree-m
     "output": {
         "status": "fail",
         "error-message": "source-path is not specified in input request",
-        "error-type": "processing-error"
+        "error-type": "uniconfig-error"
     }
 }
 ```

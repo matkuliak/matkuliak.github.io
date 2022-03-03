@@ -8,6 +8,11 @@ Swagger API runs, and opens the file containing all the RPC. After
 running the shell script, open any browser and type **localhost** in the
 URL bar.
 
+!!!success
+Overview of our OpenAPI along with all parameters and expected returns
+[can be found here](https://app.swaggerhub.com/apis-docs/Frinx/uniconfig/latest#)
+!!!
+
 The website should look like on the screenshot below:
 
 ![openapi website](openapi-website.png)

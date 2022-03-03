@@ -23,7 +23,7 @@ comparison to Immediate Commit Model:
 
 ## Configuration
 
-Configurations related to UniConfig transactions is placed in the
+Configuration related to UniConfig transactions is placed in the
 'config/lighty-uniconfig-config.json' file under 'transactions'
 container. Note that build-and-commit model is enabled if
 'uniconfigTransactionEnabled' is set to 'true' value (default value).
@@ -31,14 +31,6 @@ container. Note that build-and-commit model is enabled if
 ```
 // Grouped settings that are related to Uniconfig transactions.
 "transactions": {
-    /*
-    Flag that determines whether build-and-commit or only immediate commit model
-    is supported:
-    [TRUE]: both build-and-commit using dedicated UniConfig transactions and immediate
-            commit models are supported
-    [FALSE]: only immediate commit model without explicit transactions is supported
-    */
-    "uniconfigTransactionEnabled": true,
     /*
     Time after transaction can be closed [seconds] by transaction cleaner.
     */
@@ -51,9 +43,16 @@ container. Note that build-and-commit model is enabled if
     /*
     Interval at which expired transactions are closed and cleaned [seconds].
     Expired transaction: transaction which age exceeds 'maxTransactionAge' setting.
-    Configuring '0' disables cleaning of Uniconfig transactions.
+    Only dedicated Uniconfig transactions (initialized using 'create-transaction' RPC)
+    are cleaned - shared transaction is never removed or invalidated.
+     Configuring '0' disables cleaning of Uniconfig transactions.
     */
-    "cleaningInterval": 60
+    "cleaningInterval": 60,
+    /*
+    Boolean value if the Immediate Commit Model is enabled or not. Default value is true.
+    If disabled, only manually created transactions can exist.
+    */
+    "isImmediateCommitEnabled": true
 }
 ```
 
@@ -124,6 +123,18 @@ specify input body and also returns response without body. Response
 additionally contains Set-Cookie header with UNICONFIGTXID key and
 corresponding value - transaction identifier that conforms RFC-4122
 Universally Unique IDentifier (UUID) format.
+
+Create-transaction RPC can be used with optional query parameter called timeout.
+This parameter is used to override global idle timeout for transaction created 
+by this RPC call. After transaction inactivity for specified time transaction will be
+automatically cleaned. Value of this parameter is whole number and defines
+time in seconds.
+
+### Example request with timeout parameter
+```URL
+http://localhost:8181/rests/operations/uniconfig-manager:create-transaction?timeout=100
+```
+
 
 Process of transaction creation is depicted by following sequence
 diagram.

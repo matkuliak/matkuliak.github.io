@@ -165,7 +165,7 @@ curl --location --request POST 'http://localhost:8181/rests/operations/dryrun-ma
                     "node-id": "IOSXRN",
                     "rollback-status": "complete",
                     "error-message": "Supplied value \"GigabitEthernet0/0/0/1gfhjk\" does not match required pattern \"^(?:(([a-zA-Z0-9_]*\\d+/){3,4}\\d+)|(([a-zA-Z0-9_]*\\d+/){3,4}\\d+\\.\\d+)|(([a-zA-Z0-9_]*\\d+/){2}([a-zA-Z0-9_]*\\d+))|(([a-zA-Z0-9_]*\\d+/){2}([a-zA-Z0-9_]+))|([a-zA-Z0-9_-]*\\d+)|([a-zA-Z0-9_-]*\\d+\\.\\d+)|(mpls)|(dwdm))$\"\n",
-                    "error-type": "processing-error",
+                    "error-type": "uniconfig-error",
                     "configuration-status": "fail"
                 },
                 {

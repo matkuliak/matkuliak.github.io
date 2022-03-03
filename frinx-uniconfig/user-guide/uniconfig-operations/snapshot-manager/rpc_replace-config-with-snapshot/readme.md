@@ -84,7 +84,7 @@ curl --location --request POST 'http://localhost:8181/rests/operations/snapshot-
                 {
                     "node-id": "IOSXR",
                     "status": "fail",
-                    "error-type": "processing-error"
+                    "error-type": "uniconfig-error"
                 }
             ]
         }
@@ -122,7 +122,7 @@ curl --location --request POST 'http://localhost:8181/rests/operations/snapshot-
                 {
                     "node-id": "IOSXR",
                     "status": "fail",
-                    "error-type": "processing-error"
+                    "error-type": "uniconfig-error"
                 }
             ]
         }
@@ -160,12 +160,12 @@ curl --location --request POST 'http://localhost:8181/rests/operations/snapshot-
                 {
                     "node-id": "IOSXR",
                     "status": "fail",
-                    "error-type": "processing-error"
+                    "error-type": "uniconfig-error"
                 },
                 {
                     "node-id": "IOSXRN",
                     "status": "fail",
-                    "error-type": "processing-error",
+                    "error-type": "uniconfig-error",
                     "error-message": "UniConfig node does not exist in snapshot 'snapshot1'."
                 }
             ]

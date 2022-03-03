@@ -105,6 +105,15 @@ curl --location --request POST 'http://localhost:8181/rests/operations/uniconfig
                         }
                     ],
                     "status": "complete"
+                },
+                {
+                    "node-id": "XR5",
+                    "reordered-lists": [
+                        "path": "/network-topology:network-topology/topology=uniconfig/node=R6/frinx-uniconfig-topology:configuration/routing-policy:routing-policy/policy-definitions/policy-definition=route_policy_1/statements/statement",
+                        "actual-list-keys": "[\"name=1\", \"name=3\", \"name=2\"]",
+                        "intended-list-keys": "[\"name=1\", \"name=2\", \"name=3\"]"
+                    ],
+                    "status": "complete"
                 }
             ]
         },
@@ -141,13 +150,13 @@ curl --location --request POST 'http://localhost:8181/rests/operations/uniconfig
                 {
                     "node-id": "AAA",
                     "status": "fail",
-                    "error-type": "processing-error",
+                    "error-type": "uniconfig-error",
                     "error-message": "Node is missing in uniconfig topology CONFIG and OPERATIONAL datastore.",
                 }
                 {
                     "node-id": "IOSXR",
                     "status": "fail",
-                    "error-type": "processing-error",
+                    "error-type": "uniconfig-error",
                 }
             ]
         }
