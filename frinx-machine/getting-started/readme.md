@@ -62,7 +62,7 @@ FRINX UniConfig. Further information about conductor can be found at:
     tasks
 -   Allows users to mount devices and view their status. The UI allows
     users to execute UniConfig operations such as read, edit, and
-    commit. Cofigurations can be pushed to or synced from the network
+    commit. Configurations can be pushed to or synced from the network
 -   Inventory, workflow execution, metadata and UniConfig log files are
     all accessible through the UI
 -   View inventory, workflow execution, metadata and UniConfig log files

@@ -3,10 +3,10 @@ output: .retype
 url: matkuliak.xyz
 
 branding:
-  title: Example docs
+  title: Docs portfolio
 
 meta:
-  title: "Example | Frinx Docs"
+  title:
 
 links:
   - text: Home
