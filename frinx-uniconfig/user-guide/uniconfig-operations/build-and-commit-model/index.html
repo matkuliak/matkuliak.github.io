@@ -26,12 +26,12 @@
     
     <script>(function () { var el = document.documentElement, m = localStorage.getItem("doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
 
-    <link href="/resources/css/retype.css?v=1.11.2.697130768959" rel="stylesheet" data-turbo-track="reload" />
+    <link href="/resources/css/retype.css?v=1.11.2.699652750170" rel="stylesheet" data-turbo-track="reload" />
 
-    <script type="text/javascript" src="/resources/js/config.js?v=1.11.2.697130768959" defer data-turbo-track="reload"></script>
+    <script type="text/javascript" src="/resources/js/config.js?v=1.11.2.699652750170" defer data-turbo-track="reload"></script>
     <script type="text/javascript" src="/resources/js/retype.js?v=1.11.2" defer data-turbo-track="reload"></script>
-    <script id="lunr-js" type="text/javascript" src="/resources/js/lunr.js?v=1.11.2.697130768959" defer></script>
-    <script id="prism-js" type="text/javascript" src="/resources/js/prism.js?v=1.11.2.697130768959" defer></script>
+    <script id="lunr-js" type="text/javascript" src="/resources/js/lunr.js?v=1.11.2.699652750170" defer></script>
+    <script id="prism-js" type="text/javascript" src="/resources/js/prism.js?v=1.11.2.699652750170" defer></script>
 </head>
     <body>
         <div id="docs-app" class="relative text-base antialiased text-gray-700 bg-white font-body dark:bg-dark-850 dark:text-dark-300">
@@ -248,21 +248,13 @@ expired, is closed, or has never been created.</li>
         <span>Configuration</span>
     </h2>
 </doc-anchor-target>
-<p>Configurations related to UniConfig transactions is placed in the
+<p>Configuration related to UniConfig transactions is placed in the
 &#x27;config/lighty-uniconfig-config.json&#x27; file under &#x27;transactions&#x27;
 container. Note that build-and-commit model is enabled if
 &#x27;uniconfigTransactionEnabled&#x27; is set to &#x27;true&#x27; value (default value).</p>
 <div class="codeblock-wrapper"><doc-codeblock>
 <pre class="language-none"><code v-pre class="language-none">// Grouped settings that are related to Uniconfig transactions.
 &quot;transactions&quot;: {
-    /*
-    Flag that determines whether build-and-commit or only immediate commit model
-    is supported:
-    [TRUE]: both build-and-commit using dedicated UniConfig transactions and immediate
-            commit models are supported
-    [FALSE]: only immediate commit model without explicit transactions is supported
-    */
-    &quot;uniconfigTransactionEnabled&quot;: true,
     /*
     Time after transaction can be closed [seconds] by transaction cleaner.
     */
@@ -275,9 +267,16 @@ container. Note that build-and-commit model is enabled if
     /*
     Interval at which expired transactions are closed and cleaned [seconds].
     Expired transaction: transaction which age exceeds 'maxTransactionAge' setting.
-    Configuring '0' disables cleaning of Uniconfig transactions.
+    Only dedicated Uniconfig transactions (initialized using 'create-transaction' RPC)
+    are cleaned - shared transaction is never removed or invalidated.
+     Configuring '0' disables cleaning of Uniconfig transactions.
     */
-    &quot;cleaningInterval&quot;: 60
+    &quot;cleaningInterval&quot;: 60,
+    /*
+    Boolean value if the Immediate Commit Model is enabled or not. Default value is true.
+    If disabled, only manually created transactions can exist.
+    */
+    &quot;isImmediateCommitEnabled&quot;: true
 }</code></pre>
 </doc-codeblock></div>
 <doc-anchor-target id="optimistic-locking-mechanism">
@@ -362,6 +361,20 @@ specify input body and also returns response without body. Response
 additionally contains Set-Cookie header with UNICONFIGTXID key and
 corresponding value - transaction identifier that conforms RFC-4122
 Universally Unique IDentifier (UUID) format.</p>
+<p>Create-transaction RPC can be used with optional query parameter called timeout.
+This parameter is used to override global idle timeout for transaction created
+by this RPC call. After transaction inactivity for specified time transaction will be
+automatically cleaned. Value of this parameter is whole number and defines
+time in seconds.</p>
+<doc-anchor-target id="example-request-with-timeout-parameter">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#example-request-with-timeout-parameter">#</doc-anchor-trigger>
+        <span>Example request with timeout parameter</span>
+    </h3>
+</doc-anchor-target>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-uri"><code v-pre class="language-uri">http://localhost:8181/rests/operations/uniconfig-manager:create-transaction?timeout=100</code></pre>
+</doc-codeblock></div>
 <p>Process of transaction creation is depicted by following sequence
 diagram.</p>
 <p><figure class="content-center">
@@ -1434,11 +1447,11 @@ curl --location --request GET 'http://localhost:8181/rests/data/network-topology
             
 <nav class="flex mt-14">
     <div class="w-1/2">
-        <a class="px-5 py-4 h-full flex items-center break-all md:break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-l-lg transition-colors duration-150 relative hover:z-5" href="/frinx-uniconfig/user-guide/uniconfig-operations/websocket-notifications/architecture/">
+        <a class="px-5 py-4 h-full flex items-center break-all md:break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-l-lg transition-colors duration-150 relative hover:z-5" href="/frinx-uniconfig/user-guide/uniconfig-operations/utilities/yang-packager/">
             <svg xmlns="http://www.w3.org/2000/svg" class="mr-3" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" overflow="visible"><path d="M19 11H7.41l5.29-5.29a.996.996 0 10-1.41-1.41l-7 7a1 1 0 000 1.42l7 7a1.024 1.024 0 001.42-.01.996.996 0 000-1.41L7.41 13H19c.55 0 1-.45 1-1s-.45-1-1-1z" /><path fill="none" d="M0 0h24v24H0z" /></svg>
             <span>
                 <span class="block text-xs font-normal text-gray-400 dark:text-dark-400">Previous</span>
-                <span class="block mt-1">Architecture</span>
+                <span class="block mt-1">YANG packager</span>
             </span>
         </a>
     </div>

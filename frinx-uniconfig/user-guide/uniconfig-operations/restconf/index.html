@@ -24,12 +24,12 @@
     
     <script>(function () { var el = document.documentElement, m = localStorage.getItem("doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
 
-    <link href="/resources/css/retype.css?v=1.11.2.697130768959" rel="stylesheet" data-turbo-track="reload" />
+    <link href="/resources/css/retype.css?v=1.11.2.699652750170" rel="stylesheet" data-turbo-track="reload" />
 
-    <script type="text/javascript" src="/resources/js/config.js?v=1.11.2.697130768959" defer data-turbo-track="reload"></script>
+    <script type="text/javascript" src="/resources/js/config.js?v=1.11.2.699652750170" defer data-turbo-track="reload"></script>
     <script type="text/javascript" src="/resources/js/retype.js?v=1.11.2" defer data-turbo-track="reload"></script>
-    <script id="lunr-js" type="text/javascript" src="/resources/js/lunr.js?v=1.11.2.697130768959" defer></script>
-    <script id="prism-js" type="text/javascript" src="/resources/js/prism.js?v=1.11.2.697130768959" defer></script>
+    <script id="lunr-js" type="text/javascript" src="/resources/js/lunr.js?v=1.11.2.699652750170" defer></script>
+    <script id="prism-js" type="text/javascript" src="/resources/js/prism.js?v=1.11.2.699652750170" defer></script>
 </head>
     <body>
         <div id="docs-app" class="relative text-base antialiased text-gray-700 bg-white font-body dark:bg-dark-850 dark:text-dark-300">
@@ -338,7 +338,7 @@ configuration data will be read.</p>
 we are reading candidate NETCONF datastore. Value <strong>config</strong> of
 parameter content is translated into get-config NETCONF RPC.</p>
 <div class="codeblock-wrapper"><doc-codeblock>
-<div class="codeblock-title">Yang-ext:mount using content=config parameter</div>
+<div class="codeblock-title">RPC Request, Yang-ext:mount using content=config parameter</div>
 <pre class="language-bash"><code v-pre class="language-bash">curl --location --request GET 'http://localhost:8181/rests/data/network-topology:network-topology/topology=cli/node=R1/yang-ext:mount?content=config' \
 --header 'Accept: application/json'</code></pre>
 </doc-codeblock></div>
@@ -401,7 +401,7 @@ we are reading running NETCONF datastore. Value <strong>nonconfig</strong> is
 translated into get NETCONF RPC. We can compare it with data directly
 from device using show running-config command.</p>
 <div class="codeblock-wrapper"><doc-codeblock>
-<div class="codeblock-title">Yang-ext:mount using content=nonconfig parameter</div>
+<div class="codeblock-title">RPC Request, Yang-ext:mount using content=nonconfig parameter</div>
 <pre class="language-bash"><code v-pre class="language-bash">curl --location --request GET 'http://localhost:8181/rests/data/network-topology:network-topology/topology=cli/node=R1/yang-ext:mount?content=nonconfig' \
 --header 'Accept: application/json'</code></pre>
 </doc-codeblock></div>
@@ -457,7 +457,7 @@ from device using show running-config command.</p>
 </doc-codeblock></div>
 <p><strong>Examples of invocation of yang actions behind yang-ext:mount</strong>.</p>
 <div class="codeblock-wrapper"><doc-codeblock>
-<div class="codeblock-title">Invocation of yang action -&gt; Clear VRRP global statistics</div>
+<div class="codeblock-title">RPC Request, Invocation of yang action -&gt; Clear VRRP global statistics</div>
 <pre class="language-bash"><code v-pre class="language-bash">curl --location --request POST 'http://localhost:8181/rests/data/network-topology:network-topology/topology=topology-netconf/node=R1/yang-ext:mount/clear:clear/clear:statistics/vrrp/global' \
 --header 'Accept: application/json'</code></pre>
 </doc-codeblock></div>
@@ -468,7 +468,7 @@ from device using show running-config command.</p>
 </doc-codeblock></div>
 <p><strong>Invocation of yang action -&gt; List available firmware packages on disk</strong></p>
 <div class="codeblock-wrapper"><doc-codeblock>
-<div class="codeblock-title">Invocation of yang action -&gt; List available firmware packages on disk</div>
+<div class="codeblock-title">RPC Request, Invocation of yang action -&gt; List available firmware packages on disk</div>
 <pre class="language-bash"><code v-pre class="language-bash">curl --location --request POST 'http://localhost:8181/rests/data/network-topology:network-topology/topology=topology-netconf/node=R1/yang-ext:mount/system:system/firmware/list' \
 --header 'Accept: application/json'</code></pre>
 </doc-codeblock></div>
@@ -487,7 +487,7 @@ from device using show running-config command.</p>
 </doc-codeblock></div>
 <p><strong>Invocation of yang action -&gt; Erase running-config-then load</strong></p>
 <div class="codeblock-wrapper"><doc-codeblock>
-<div class="codeblock-title">Invocation of yang action -&gt; Erase running-config-then load</div>
+<div class="codeblock-title">RPC Request, Invocation of yang action -&gt; Erase running-config-then load</div>
 <pre class="language-bash"><code v-pre class="language-bash">curl --location --request POST 'http://localhost:8181/rests/data/network-topology:network-topology/topology=topology-netconf/node=R1/yang-ext:mount/system:erase/running-config-then/load' \
 --header 'Accept: application/json' \
 --header 'Content-Type: application/json' \
@@ -499,7 +499,7 @@ from device using show running-config command.</p>
 </doc-codeblock></div>
 <div class="codeblock-wrapper"><doc-codeblock>
 <div class="codeblock-title">RPC Response, Status: 200</div>
-<pre class="language-json"><code v-pre class="language-json">&lt;output xmlns=&quot;namespace&quot;&gt;
+<pre class="language-markup"><code v-pre class="language-markup">&lt;output xmlns=&quot;namespace&quot;&gt;
     &lt;status&gt;Erasing config and restarting services&lt;/status&gt;
 &lt;/output&gt;</code></pre>
 </doc-codeblock></div>
@@ -581,21 +581,23 @@ state about success.</li>
 <li>Content type does not have to be specified in URI - it can only be
 the Configuration datastore.</li>
 </ul>
-<p>Example:</p>
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-none"><code v-pre class="language-none">PUT http://&lt;uniconfig-ip&gt;:8181/rests/data/module1:foo/bar
-Content-Type: applicaton/xml
-&lt;bar&gt;
+<div class="codeblock-title">Example:</div>
+<pre class="language-bash"><code v-pre class="language-bash">curl --location --request PUT 'http://&lt;uniconfig-ip&gt;:8181/rests/data/module1:foo/bar' \
+--header 'Accept: application/json' \
+--header 'Content-Type: application/json' \
+--data-raw '&lt;bar&gt;
   …
-&lt;/bar&gt;</code></pre>
+&lt;/bar&gt;'</code></pre>
 </doc-codeblock></div>
-<p>Example with mount point:</p>
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-none"><code v-pre class="language-none">PUT http://&lt;uniconfig-ip&gt;:8181/rests/data/module1:foo1/foo2/yang-ext:mount/module2:foo/bar
-Content-Type: applicaton/xml
-&lt;bar&gt;
+<div class="codeblock-title">Example with mountpoint:</div>
+<pre class="language-bash"><code v-pre class="language-bash">curl --location --request PUT 'http://&lt;uniconfig-ip&gt;:8181/rests/data/module1:foo1/foo2/yang-ext:mount/module2:foo/bar' \
+--header 'Accept: application/json' \
+--header 'Content-Type: application/json' \
+--data-raw '&lt;bar&gt;
   …
-&lt;/bar&gt;</code></pre>
+&lt;/bar&gt;'</code></pre>
 </doc-codeblock></div>
 <doc-anchor-target id="post-restsdataidentifier">
     <h4>
@@ -610,21 +612,23 @@ returns the state about success.</li>
 <li>The root element of data must have the namespace (data is in XML) or
 module name (data is in JSON).</li>
 </ul>
-<p>Example:</p>
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-none"><code v-pre class="language-none">POST http://&lt;uniconfig-ip&gt;:8181/rests/data/&lt;identifier&gt;
-Content-Type: applicaton/xml
-&lt;bar xmlns=“module1namespace”&gt;
+<div class="codeblock-title">Example:</div>
+<pre class="language-bash"><code v-pre class="language-bash">curl --location --request POST 'http://&lt;uniconfig-ip&gt;:8181/rests/data/&lt;identifier&gt;' \
+--header 'Accept: application/xml' \
+--header 'Content-Type: application/xml' \
+--data-raw '&lt;bar xmlns=“module2namespace”&gt;
   …
-&lt;/bar&gt;</code></pre>
+&lt;/bar&gt;'</code></pre>
 </doc-codeblock></div>
-<p>Example with mount point:</p>
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-none"><code v-pre class="language-none">http://&lt;uniconfig-ip&gt;:8181/rests/data/module1:foo1/foo2/yang-ext:mount/module2:foo
-Content-Type: applicaton/xml
-&lt;bar xmlns=“module2namespace”&gt;
+<div class="codeblock-title">Example with mount point:</div>
+<pre class="language-bash"><code v-pre class="language-bash">curl --location --request POST 'http://&lt;uniconfig-ip&gt;:8181/rests/data/module1:foo1/foo2/yang-ext:mount/module2:foo' \
+--header 'Accept: application/xml' \
+--header 'Content-Type: application/xml' \
+--data-raw '&lt;bar xmlns=“module2namespace”&gt;
   …
-&lt;/bar&gt;</code></pre>
+&lt;/bar&gt;'</code></pre>
 </doc-codeblock></div>
 <doc-anchor-target id="post-restsdata">
     <h4>
@@ -639,20 +643,18 @@ in YANG (it doesn&#x27;t have any parent). This example also makes it
 clear that URI doesn&#x27;t contain &#x27;toaster&#x27; node in comparison to a PUT
 request that must contain the name of the created node in URI.</li>
 </ul>
-<p>Example:</p>
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-none"><code v-pre class="language-none">POST URL: http://localhost:8181/rests/data
-content-type: application/json
-JSON payload:
-
-   {
-     &quot;toaster:toaster&quot; :
-     {
-       &quot;toaster:toasterManufacturer&quot; : &quot;General Electric&quot;,
-       &quot;toaster:toasterModelNumber&quot; : &quot;123&quot;,
-       &quot;toaster:toasterStatus&quot; : &quot;up&quot;
-     }
-   }</code></pre>
+<div class="codeblock-title">Example:</div>
+<pre class="language-bash"><code v-pre class="language-bash">curl --location --request POST 'http://localhost:8181/rests/data' \
+--header 'Accept: application/json' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    &quot;toaster:toaster&quot;: {
+        &quot;toaster:toasterManufacturer&quot;: &quot;General Electric&quot;,
+        &quot;toaster:toasterModelNumber&quot;: &quot;123&quot;,
+        &quot;toaster:toasterStatus&quot;: &quot;up&quot;
+    }
+}'</code></pre>
 </doc-codeblock></div>
 <doc-anchor-target id="delete-restsdataidentifier">
     <h4>
@@ -691,7 +693,8 @@ other settings under system:system container are left untouched
 including other leaves under &#x27;connection&#x27; container and &#x27;ethernet&#x27; list
 item.</p>
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-none"><code v-pre class="language-none">curl --location --request PATCH 'http://localhost:8181/rests/data/network-topology:network-topology/topology=uniconfig/node=n1/configuration/system:system' \
+<div class="codeblock-title">RPC Request</div>
+<pre class="language-bash"><code v-pre class="language-bash">curl --location --request PATCH 'http://localhost:8181/rests/data/network-topology:network-topology/topology=uniconfig/node=n1/configuration/system:system' \
 --header 'Content-Type: application/json' \
 --data-raw '{
     &quot;system:system&quot;: {
@@ -730,32 +733,33 @@ module and &lt;rpcName&gt; is the name of the RPC in this module.</li>
 <li>The result has the status code and optionally retrieved data having
 the root element “output”.</li>
 </ul>
-<p>Example:</p>
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-none"><code v-pre class="language-none">POST http://&lt;uniconfig-ip&gt;:8181/rests/operations/module1:fooRpc
-Content-Type: applicaton/xml
-Accept: applicaton/xml
-&lt;input&gt;
+<div class="codeblock-title">Example:</div>
+<pre class="language-bash"><code v-pre class="language-bash">curl --location --request POST 'http://&lt;uniconfig-ip&gt;:8181/rests/operations/module1:fooRpc' \
+--header 'Content-Type: application/xml' \
+--header 'Accept: application/xml' \
+--data-raw '&lt;input&gt;
   …
-&lt;/input&gt;</code></pre>
+&lt;/input&gt;'</code></pre>
 </doc-codeblock></div>
 <p>The answer from the server could be:</p>
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-none"><code v-pre class="language-none">&lt;output&gt;
+<div class="codeblock-title">Response</div>
+<pre class="language-bash"><code v-pre class="language-bash">&lt;output&gt;
   …
 &lt;/output&gt;</code></pre>
 </doc-codeblock></div>
-<p>An example using a JSON payload:</p>
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-none"><code v-pre class="language-none">POST http://localhost:8181/rests/operations/toaster:make-toast
-Content-Type: application/yang.data+json
-{
-  &quot;input&quot; :
-  {
-     &quot;toaster:toasterDoneness&quot; : &quot;10&quot;,
-     &quot;toaster:toasterToastType&quot;:&quot;wheat-bread&quot;
-  }
-}</code></pre>
+<div class="codeblock-title">RPC Request, An example using a JSON payload:</div>
+<pre class="language-bash"><code v-pre class="language-bash">curl --location --request POST 'http://localhost:8181/rests/operations/toaster:make-toast' \
+--header 'Accept: application/json' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    &quot;input&quot;: {
+        &quot;toaster:toasterDoneness&quot;: &quot;10&quot;,
+        &quot;toaster:toasterToastType&quot;: &quot;wheat-bread&quot;
+    }
+}'</code></pre>
 </doc-codeblock></div>
 <div class="flex mb-6">
     <div class="flex-shrink-0 w-1 rounded-tl rounded-bl bg-blue-500 dark:bg-blue-400"></div>
@@ -835,7 +839,8 @@ structure of these containers when we invoke YANG RPC.</li>
 <p>Invocation of the action named &#x27;compute-stats&#x27; that is placed under the
 &#x27;interfaces&#x27; container of NETCONF mountpoint:</p>
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-none"><code v-pre class="language-none">curl --location --request POST 'http://localhost:8181/rests/data/network-topology:network-topology/topology=topology-netconf/node=dev/yang-ext:mount/interfaces:interfaces/compute-stats' \
+<div class="codeblock-title">Request</div>
+<pre class="language-bash"><code v-pre class="language-bash">curl --location --request POST 'http://localhost:8181/rests/data/network-topology:network-topology/topology=topology-netconf/node=dev/yang-ext:mount/interfaces:interfaces/compute-stats' \
 --header 'Content-Type: application/json' \
 --data-raw '{
     &quot;input&quot;: {
@@ -845,9 +850,9 @@ structure of these containers when we invoke YANG RPC.</li>
     }
 }'</code></pre>
 </doc-codeblock></div>
-<p>The response body:</p>
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-none"><code v-pre class="language-none">{
+<div class="codeblock-title">The response body:</div>
+<pre class="language-json"><code v-pre class="language-json">{
     &quot;interfaces:output&quot;: {
         &quot;avg-rx-kbps&quot;: 14524,
         &quot;avg-tx-kbps&quot;: 47787
@@ -1242,10 +1247,23 @@ first part of the value represents leaf identifier, the second part
 enclosed in brackets represents sort direction (&#x27;asc&#x27; or &#x27;desc&#x27;). If
 there are multiple leaves based on which sorting is done, they are
 separated by semicolon.</p>
-<blockquote>
-<p><strong>note</strong></p>
+<div class="flex mb-6">
+    <div class="flex-shrink-0 w-1 rounded-tl rounded-bl bg-blue-500 dark:bg-blue-400"></div>
+    <div class="flex w-full py-4 border border-l-0 border-gray-300 rounded-tr rounded-br doc-alert bg-white dark:bg-dark-700 dark:border-dark-700" role="alert">
+        <div class="flex items-center ml-4 h-7">
+            <svg xmlns="http://www.w3.org/2000/svg" class="mb-px text-blue-500 dark:text-blue-400" width="22" height="22" viewBox="0 0 24 24" role="presentation">
+                <g fill="currentColor"><g>
+                    <path d="M12 1C5.93 1 1 5.93 1 12s4.93 11 11 11 11-4.93 11-11S18.07 1 12 1zm0 20c-4.96 0-9-4.04-9-9s4.04-9 9-9 9 4.04 9 9-4.04 9-9 9z"></path>
+                    <path d="M12 11c-.55 0-1 .45-1 1v4c0 .55.45 1 1 1s1-.45 1-1v-4c0-.55-.45-1-1-1zM12.01 7c-.56 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1z"></path>
+                    <path fill="none" d="M0 0h24v24H0z"></path>
+                </g></g>
+            </svg>
+        </div>
+        <div class="pr-5 ml-3">
 <p>Sorting, just like pagination, can only be used on list nodes.</p>
-</blockquote>
+        </div>
+    </div>
+</div>
 <p>The example of using sortby parameter with 1 value (sorting by the value
 of &#x27;name&#x27; leaf):</p>
 <div class="codeblock-wrapper"><doc-codeblock>
@@ -1276,6 +1294,222 @@ the blocks that are ordered by the following strategy:</p>
 <li>random numeric type</li>
 <li>types that can be represented by JSON string</li>
 </ol>
+<doc-anchor-target id="inserting">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#inserting">#</doc-anchor-trigger>
+        <span>Inserting</span>
+    </h2>
+</doc-anchor-target>
+<doc-anchor-target id="insert-query-parameter">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#insert-query-parameter">#</doc-anchor-trigger>
+        <span>Insert query parameter</span>
+    </h3>
+</doc-anchor-target>
+<p>The &#x27;insert&#x27; query parameter can be used to specify how an item should be inserted within an list or leaf-list.
+This parameter is only supported for the POST and PUT methods. It is also only supported if the target list or leaf-list
+is marked as &#x27;ordered-by user&#x27; in YANG model.</p>
+<p>The allowed values for &#x27;insert&#x27; query parameter:</p>
+<div class="table-wrapper scrollbar overflow-hidden">
+<table class="comfortable">
+<thead>
+<tr>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>first</td>
+<td>Insert the new item as the new first entry.</td>
+</tr>
+<tr>
+<td>last</td>
+<td>Insert the new item as the new last entry (default value).</td>
+</tr>
+<tr>
+<td>before</td>
+<td>Insert the new item before the insertion point, as specified by the value of the &#x27;point&#x27; query parameter.</td>
+</tr>
+<tr>
+<td>after</td>
+<td>Insert the new data after the insertion point, as specified by the value of the &quot;point&quot; parameter.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="flex mb-6">
+    <div class="flex-shrink-0 w-1 rounded-tl rounded-bl bg-blue-500 dark:bg-blue-400"></div>
+    <div class="flex w-full py-4 border border-l-0 border-gray-300 rounded-tr rounded-br doc-alert bg-white dark:bg-dark-700 dark:border-dark-700" role="alert">
+        <div class="flex items-center ml-4 h-7">
+            <svg xmlns="http://www.w3.org/2000/svg" class="mb-px text-blue-500 dark:text-blue-400" width="22" height="22" viewBox="0 0 24 24" role="presentation">
+                <g fill="currentColor"><g>
+                    <path d="M12 1C5.93 1 1 5.93 1 12s4.93 11 11 11 11-4.93 11-11S18.07 1 12 1zm0 20c-4.96 0-9-4.04-9-9s4.04-9 9-9 9 4.04 9 9-4.04 9-9 9z"></path>
+                    <path d="M12 11c-.55 0-1 .45-1 1v4c0 .55.45 1 1 1s1-.45 1-1v-4c0-.55-.45-1-1-1zM12.01 7c-.56 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1z"></path>
+                    <path fill="none" d="M0 0h24v24H0z"></path>
+                </g></g>
+            </svg>
+        </div>
+        <div class="pr-5 ml-3">
+<p>If the values &#x27;before&#x27; or &#x27;after&#x27; are used, then a &#x27;point&#x27; query parameter for the &#x27;insert&#x27; query parameter MUST
+also be present.</p>
+        </div>
+    </div>
+</div>
+<doc-anchor-target id="point-query-parameter">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#point-query-parameter">#</doc-anchor-trigger>
+        <span>Point query parameter</span>
+    </h3>
+</doc-anchor-target>
+<p>The &#x27;point&#x27; query parameter is used to specify the insertion point for an item that is being created or moved within an
+&#x27;ordered-by user&#x27; list or leaf-list. Like the &#x27;insert&#x27; query parameter, &#x27;point&#x27; query parameter is only supported for
+the POST and PUT methods and also if the target list or leaf-list is marked as &#x27;ordered-by user&#x27; in YANG model.
+The value of the &#x27;point&#x27; query parameter is a string that indicates the key of the insertion point item. If the key
+is composite, the key items must be separated by a comma.</p>
+<doc-anchor-target id="examples">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#examples">#</doc-anchor-trigger>
+        <span>Examples</span>
+    </h3>
+</doc-anchor-target>
+<p>Next five examples show usage of &#x27;insert&#x27; and &#x27;point&#x27; query parameters for leaf-list. First example shows how leaf-list
+looks before update. There are no differences in the use of the list and leaf-list.</p>
+<doc-anchor-target id="list-before-update">
+    <h4>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#list-before-update">#</doc-anchor-trigger>
+        <span>List before update</span>
+    </h4>
+</doc-anchor-target>
+<div class="codeblock-wrapper"><doc-codeblock>
+<div class="codeblock-title">RPC Request</div>
+<pre class="language-bash"><code v-pre class="language-bash">curl --location --request GET 'http://localhost:8181/rests/data/network-topology:network-topology/topology=uniconfig/node=xr5/configuration/frinx-openconfig-qos:qos/classifiers/classifier=test/terms/term=1/conditions/frinx-qos-extension:qos-group?content=nonconfig`' \
+--header 'Content-Type: application/json' \
+--header 'Content-Type: content=nonconfig' \
+--header 'Accept: application/json'</code></pre>
+</doc-codeblock></div>
+<div class="codeblock-wrapper"><doc-codeblock>
+<div class="codeblock-title">RPC Response</div>
+<pre class="language-json"><code v-pre class="language-json">{
+    &quot;frinx-qos-extension:qos-group&quot;: [
+        1,
+        2,
+        3
+    ]
+}</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="insert-item-at-the-top-of-the-list">
+    <h4>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#insert-item-at-the-top-of-the-list">#</doc-anchor-trigger>
+        <span>Insert item at the top of the list</span>
+    </h4>
+</doc-anchor-target>
+<div class="codeblock-wrapper"><doc-codeblock>
+<div class="codeblock-title">RPC Request</div>
+<pre class="language-bash"><code v-pre class="language-bash">curl --location --request PUT 'http://localhost:8181/rests/data/network-topology:network-topology/topology=uniconfig/node=xr5/configuration/frinx-openconfig-qos:qos/classifiers/classifier=test/terms/term=1/conditions/frinx-qos-extension:qos-group=4?insert=first' \
+--header 'Content-Type: application/json' \
+--header 'Accept: application/json' \
+--data-raw '{
+    &quot;frinx-qos-extension:qos-group&quot;: [
+        4
+    ]
+}'</code></pre>
+</doc-codeblock></div>
+<div class="codeblock-wrapper"><doc-codeblock>
+<div class="codeblock-title">RPC Response, Updated list</div>
+<pre class="language-json"><code v-pre class="language-json">{
+    &quot;frinx-qos-extension:qos-group&quot;: [
+        4,
+        1,
+        2,
+        3
+    ]
+}</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="insert-item-at-the-bottom-of-the-list">
+    <h4>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#insert-item-at-the-bottom-of-the-list">#</doc-anchor-trigger>
+        <span>Insert item at the bottom of the list</span>
+    </h4>
+</doc-anchor-target>
+<div class="codeblock-wrapper"><doc-codeblock>
+<div class="codeblock-title">RPC Request</div>
+<pre class="language-bash"><code v-pre class="language-bash">curl --location --request PUT 'http://localhost:8181/rests/data/network-topology:network-topology/topology=uniconfig/node=xr5/configuration/frinx-openconfig-qos:qos/classifiers/classifier=test/terms/term=1/conditions/frinx-qos-extension:qos-group=4?insert=last' \
+--header 'Content-Type: application/json' \
+--header 'Accept: application/json' \
+--data-raw '{
+    &quot;frinx-qos-extension:qos-group&quot;: [
+        4
+    ]
+}'</code></pre>
+</doc-codeblock></div>
+<div class="codeblock-wrapper"><doc-codeblock>
+<div class="codeblock-title">RPC Response, Updated list</div>
+<pre class="language-json"><code v-pre class="language-json">{
+    &quot;frinx-qos-extension:qos-group&quot;: [
+        1,
+        2,
+        3,
+        4
+    ]
+}</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="insert-item-after-specific-item">
+    <h4>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#insert-item-after-specific-item">#</doc-anchor-trigger>
+        <span>Insert item after specific item</span>
+    </h4>
+</doc-anchor-target>
+<div class="codeblock-wrapper"><doc-codeblock>
+<div class="codeblock-title">RPC Request</div>
+<pre class="language-bash"><code v-pre class="language-bash">curl --location --request PUT 'http://localhost:8181/rests/data/network-topology:network-topology/topology=uniconfig/node=xr5/configuration/frinx-openconfig-qos:qos/classifiers/classifier=test/terms/term=1/conditions/frinx-qos-extension:qos-group=4?insert=after&amp;point=2' \
+--header 'Content-Type: application/json' \
+--header 'Accept: application/json' \
+--data-raw '{
+    &quot;frinx-qos-extension:qos-group&quot;: [
+        4
+    ]
+}'</code></pre>
+</doc-codeblock></div>
+<div class="codeblock-wrapper"><doc-codeblock>
+<div class="codeblock-title">RPC Response, Updated list</div>
+<pre class="language-json"><code v-pre class="language-json">{
+    &quot;frinx-qos-extension:qos-group&quot;: [
+        1,
+        2,
+        4,
+        3
+    ]
+}</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="insert-item-before-specific-item">
+    <h4>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#insert-item-before-specific-item">#</doc-anchor-trigger>
+        <span>Insert item before specific item</span>
+    </h4>
+</doc-anchor-target>
+<div class="codeblock-wrapper"><doc-codeblock>
+<div class="codeblock-title">RPC Request</div>
+<pre class="language-bash"><code v-pre class="language-bash">curl --location --request PUT 'http://localhost:8181/rests/data/network-topology:network-topology/topology=uniconfig/node=xr5/configuration/frinx-openconfig-qos:qos/classifiers/classifier=test/terms/term=1/conditions/frinx-qos-extension:qos-group=4?insert=before&amp;point=2' \
+--header 'Content-Type: application/json' \
+--header 'Accept: application/json' \
+--data-raw '{
+    &quot;frinx-qos-extension:qos-group&quot;: [
+        4
+    ]
+}'</code></pre>
+</doc-codeblock></div>
+<div class="codeblock-wrapper"><doc-codeblock>
+<div class="codeblock-title">RPC Response, Updated list</div>
+<pre class="language-json"><code v-pre class="language-json">{
+    &quot;frinx-qos-extension:qos-group&quot;: [
+        1,
+        4,
+        2,
+        3
+    ]
+}</code></pre>
+</doc-codeblock></div>
 <doc-anchor-target id="json-attributes">
     <h2>
         <doc-anchor-trigger class="header-anchor-trigger" to="#json-attributes">#</doc-anchor-trigger>
@@ -1321,7 +1555,7 @@ data entity:</p>
 <p>The same leaf with set 2 attributes: &#x27;m1:attribute-1&#x27; and
 &#x27;m1:attribute-2&#x27;:</p>
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-none"><code v-pre class="language-none">{
+<pre class="language-json"><code v-pre class="language-json">{
   &quot;sample-leaf&quot;: {
     &quot;@&quot;: {
       &quot;m1:attribute-1&quot;: &quot;value&quot;,
@@ -1339,7 +1573,7 @@ data entity:</p>
 </doc-anchor-target>
 <p>A container without attributes:</p>
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-none"><code v-pre class="language-none">{
+<pre class="language-json"><code v-pre class="language-json">{
   &quot;sample-container&quot;: {
     &quot;nested-leaf-1&quot;: &quot;str1&quot;,
     &quot;nested-container&quot;: {
@@ -1352,7 +1586,7 @@ data entity:</p>
 <p>The same container with set 2 attributes: &#x27;m1:switch&#x27; and
 &#x27;m2:multiplier&#x27;:</p>
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-none"><code v-pre class="language-none">{
+<pre class="language-json"><code v-pre class="language-json">{
   &quot;sample-container&quot;: {
     &quot;@&quot;: {
       &quot;m1:switch&quot;: true,
@@ -1374,13 +1608,13 @@ data entity:</p>
 </doc-anchor-target>
 <p>Leaf-list without attributes:</p>
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-none"><code v-pre class="language-none">{
+<pre class="language-json"><code v-pre class="language-json">{
   &quot;sample-leaf-list&quot;: [10, 20, 30]
 }</code></pre>
 </doc-codeblock></div>
 <p>The same leaf with set 1 attribute: &#x27;mx:split&#x27;:</p>
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-none"><code v-pre class="language-none">{
+<pre class="language-json"><code v-pre class="language-json">{
   &quot;sample-leaf-list&quot;: {
     &quot;@&quot;: {
       &quot;mx:split&quot;: true
@@ -1397,7 +1631,7 @@ data entity:</p>
 </doc-anchor-target>
 <p>Leaf-list without attributes:</p>
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-none"><code v-pre class="language-none">{
+<pre class="language-json"><code v-pre class="language-json">{
   &quot;sample-leaf-list&quot;: [10, 20]
 }</code></pre>
 </doc-codeblock></div>
@@ -1405,7 +1639,7 @@ data entity:</p>
 with identifier &#x27;m1:prefix&#x27;. The second leaf-list entry &#x27;20&#x27; doesn&#x27;t
 have any attributes assigned.</p>
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-none"><code v-pre class="language-none">{
+<pre class="language-json"><code v-pre class="language-json">{
   &quot;sample-leaf-list&quot;: [
     {
       &quot;@&quot;: {
@@ -1425,7 +1659,7 @@ have any attributes assigned.</p>
 </doc-anchor-target>
 <p>List without attributes:</p>
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-none"><code v-pre class="language-none">{
+<pre class="language-json"><code v-pre class="language-json">{
   &quot;sample-list&quot;: [
     {
       &quot;key&quot;: &quot;k1&quot;,
@@ -1440,7 +1674,7 @@ have any attributes assigned.</p>
 </doc-codeblock></div>
 <p>The same list with applied single attribute: &#x27;constraints:length&#x27;.</p>
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-none"><code v-pre class="language-none">{
+<pre class="language-json"><code v-pre class="language-json">{
   &quot;sample-list&quot;: {
     &quot;@&quot;: {
       &quot;constraints:length&quot;: 100
@@ -1466,7 +1700,7 @@ have any attributes assigned.</p>
 </doc-anchor-target>
 <p>List with two list entries without attributes:</p>
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-none"><code v-pre class="language-none">{
+<pre class="language-json"><code v-pre class="language-json">{
   &quot;sample-list&quot;: [
     {
       &quot;key&quot;: &quot;k1&quot;,
@@ -1483,7 +1717,7 @@ have any attributes assigned.</p>
 attribute, but the second list entry contains 2 attributes: &#x27;m1:switch&#x27;
 and &#x27;m2:multiplier&#x27;.</p>
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-none"><code v-pre class="language-none">{
+<pre class="language-json"><code v-pre class="language-json">{
   &quot;sample-list&quot;: [
     {
       &quot;key&quot;: &quot;k1&quot;,
@@ -1529,7 +1763,7 @@ processing less restrictive:</p>
 selected extensions and make RESTCONF ignore unknown definitions and
 definitions with a &#x27;deprecated status&#x27; attribute.</p>
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-none"><code v-pre class="language-none">&quot;schemaFilters&quot;: {
+<pre class="language-json"><code v-pre class="language-json">&quot;schemaFilters&quot;: {
   &quot;ignoredDataOnWriteByExtensions&quot;: [
     &quot;tailf:hidden full&quot;
   ],
@@ -1554,17 +1788,13 @@ keyword &#x27;all&#x27; to include all possible hidden definitions in the
 response.</p>
 <p>Example of using the &#x27;unhide&#x27; parameter for the GET request.</p>
 <p><strong>Using unhide with a list of extensions</strong></p>
-<blockquote>
 <div class="codeblock-wrapper"><doc-codeblock>
 <pre class="language-none"><code v-pre class="language-none">http://localhost:8181/rests/data/network-topology:network-topology/topology=uniconfig/node=device/configuration?unhide=tailf:hidden debug,tailf:hidden deprecated</code></pre>
 </doc-codeblock></div>
-</blockquote>
 <p><strong>Using unhide parameter to unhide all hidden definitions</strong></p>
-<blockquote>
 <div class="codeblock-wrapper"><doc-codeblock>
 <pre class="language-none"><code v-pre class="language-none">http://localhost:8181/rests/data/network-topology:network-topology/topology=uniconfig/node=device/configuration?unhide=all</code></pre>
 </doc-codeblock></div>
-</blockquote>
 <doc-anchor-target id="leafref-validation">
     <h2>
         <doc-anchor-trigger class="header-anchor-trigger" to="#leafref-validation">#</doc-anchor-trigger>
@@ -1575,31 +1805,44 @@ response.</p>
 These constraints are not validated by default. Leafref validation
 can be enabled using checkForReferences query parameter with value
 set to true.</p>
-<p>Example:</p>
-<p><strong>Using leafref validation</strong></p>
-<blockquote>
+<doc-anchor-target id="example">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#example">#</doc-anchor-trigger>
+        <span>Example:</span>
+    </h3>
+</doc-anchor-target>
+<doc-anchor-target id="using-leafref-validation">
+    <h4>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#using-leafref-validation">#</doc-anchor-trigger>
+        <span>Using leafref validation</span>
+    </h4>
+</doc-anchor-target>
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-none"><code v-pre class="language-none">DELETE http://localhost:8181/rests/data/network-topology:network-topology/topology=uniconfig/node=device/configuration/
-frinx-openconfig-interfaces:interfaces/interface=eth0?checkForReferences=true</code></pre>
+<pre class="language-none"><code v-pre class="language-none">curl --location --request DELETE 'http://localhost:8181/rests/data/network-topology:network-topology/topology=uniconfig/node=device/configuration/
+&gt; frinx-openconfig-interfaces:interfaces/interface=eth0?checkForReferences=true' \
+--header 'Accept: application/json' \
+--header 'Content-Type: application/json'</code></pre>
 </doc-codeblock></div>
-</blockquote>
-<p><strong>Example output of failed validation</strong></p>
-<blockquote>
+<doc-anchor-target id="example-output-of-failed-validation">
+    <h4>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#example-output-of-failed-validation">#</doc-anchor-trigger>
+        <span>Example output of failed validation</span>
+    </h4>
+</doc-anchor-target>
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-none"><code v-pre class="language-none">{
-   &quot;errors&quot;: {
-       &quot;error&quot;: [
-           {
-               &quot;error-message&quot;: &quot;Leafref validation failed. Violated leafref constraint on leaf /network-topology/topology/node/configuration/interfaces/interface/name -
-                                   node is referenced by leaf on path: /network-topology/topology/node/configuration/referencing/path,
-               &quot;error-tag&quot;: &quot;invalid-value&quot;,
-               &quot;error-type&quot;: &quot;protocol&quot;
-           }
-       ]
-   }
+<pre class="language-json"><code v-pre class="language-json">{
+    &quot;errors&quot;: {
+        &quot;error&quot;: [
+            {
+                &quot;error-message&quot;: &quot;Leafref validation failed. Violated leafref constraint on leaf /network-topology/topology/node/configuration/interfaces/interface/name -
+                                    node is referenced by leaf on path: /network-topology/topology/node/configuration/referencing/path,
+                &quot;error-tag&quot;: &quot;invalid-value&quot;,
+                &quot;error-type&quot;: &quot;protocol&quot;
+            }
+        ]
+    }
 }</code></pre>
 </doc-codeblock></div>
-</blockquote>
 <p>If checkForReferences parameter is set to false or is not provided UniConfig will
 not perform leafref validation and there will be no leafref validation error.</p>
 

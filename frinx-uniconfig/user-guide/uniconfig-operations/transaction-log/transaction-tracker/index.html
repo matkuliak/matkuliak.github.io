@@ -26,12 +26,12 @@
     
     <script>(function () { var el = document.documentElement, m = localStorage.getItem("doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
 
-    <link href="/resources/css/retype.css?v=1.11.2.697130768959" rel="stylesheet" data-turbo-track="reload" />
+    <link href="/resources/css/retype.css?v=1.11.2.699652750170" rel="stylesheet" data-turbo-track="reload" />
 
-    <script type="text/javascript" src="/resources/js/config.js?v=1.11.2.697130768959" defer data-turbo-track="reload"></script>
+    <script type="text/javascript" src="/resources/js/config.js?v=1.11.2.699652750170" defer data-turbo-track="reload"></script>
     <script type="text/javascript" src="/resources/js/retype.js?v=1.11.2" defer data-turbo-track="reload"></script>
-    <script id="lunr-js" type="text/javascript" src="/resources/js/lunr.js?v=1.11.2.697130768959" defer></script>
-    <script id="prism-js" type="text/javascript" src="/resources/js/prism.js?v=1.11.2.697130768959" defer></script>
+    <script id="lunr-js" type="text/javascript" src="/resources/js/lunr.js?v=1.11.2.699652750170" defer></script>
+    <script id="prism-js" type="text/javascript" src="/resources/js/prism.js?v=1.11.2.699652750170" defer></script>
 </head>
     <body>
         <div id="docs-app" class="relative text-base antialiased text-gray-700 bg-white font-body dark:bg-dark-850 dark:text-dark-300">
@@ -229,21 +229,17 @@ to the operational snapshot after successfully executed
 commit/checked-commit RPC. The transaction-metadata contains information
 about performed transactions, such as:</p>
 <ul>
-<li><p><strong>transaction-id</strong> - Identifier of transaction.</p>
-</li>
-<li><p><strong>username</strong> - The name of the user who made changes.</p>
-</li>
-<li><p><strong>commit-time</strong> - Timestamp of changes. If multiple devices are
+<li><strong>transaction-id</strong> - Identifier of transaction.</li>
+<li><strong>username</strong> - The name of the user who made changes.</li>
+<li><strong>commit-time</strong> - Timestamp of changes. If multiple devices are
 configured, then the &#x27;commit-time&#x27; will contains the timestamp of
-the last update on the last device.</p>
-</li>
-<li><p><strong>metadata</strong> - Items in this field represent nodes that have been
+the last update on the last device.</li>
+<li><strong>metadata</strong> - Items in this field represent nodes that have been
 configured in the one transaction. Each item contains a diff item
-with additional information.</p>
-</li>
-<li><p><strong>diff</strong> - Items in this field are a specific changes. Each item
-contains path to changes, data before change and data after change.</p>
-</li>
+with additional information.</li>
+<li><strong>diff</strong> - Items in this field are a specific changes. Each item
+contains path to changes, data before change and data after change.</li>
+<li><strong>topology</strong> - On which topology is a node installed. Can be &#x27;uniconfig&#x27; or &#x27;unistore&#x27;.</li>
 </ul>
 <div class="flex mb-6">
     <div class="flex-shrink-0 w-1 rounded-tl rounded-bl bg-blue-500 dark:bg-blue-400"></div>
@@ -303,48 +299,48 @@ data before update and after update, etc.</p>
 <div class="codeblock-wrapper"><doc-codeblock>
 <div class="codeblock-title">RPC Response, Status: 200</div>
 <pre class="language-json"><code v-pre class="language-json">{
-    {
-        &quot;transactions-metadata&quot;:{
-            &quot;transaction-metadata&quot;:[
-                {
-                    &quot;transaction-id&quot;:&quot;221aa4a5-e32e-46fd-921a-83314b190e89&quot;,
-                    &quot;username&quot;:&quot;admin&quot;,
-                    &quot;metadata&quot;:[
-                        {
-                            &quot;node-id&quot;:&quot;xr6&quot;,
-                            &quot;diff&quot;:[
-                                {
-                                    &quot;path&quot;:&quot;/Cisco-IOS-XR-ifmgr-cfg:interface-configurations/interface-configuration=act,Bundle-Ether1/description&quot;,
-                                    &quot;data-after&quot;:&quot;{\n  \&quot;Cisco-IOS-XR-ifmgr-cfg:description\&quot;: \&quot;bundle-ether1-description-create\&quot;\n}&quot;
-                                },
-                                {
-                                    &quot;path&quot;:&quot;/Cisco-IOS-XR-ifmgr-cfg:interface-configurations/interface-configuration=act,Bundle-Ether2/description&quot;,
-                                    &quot;data-before&quot;:&quot;{\n  \&quot;Cisco-IOS-XR-ifmgr-cfg:description\&quot;: \&quot;bundle-ether2-description-before\&quot;\n}&quot;&quot;data-after&quot;:&quot;{\n  \&quot;Cisco-IOS-XR-ifmgr-cfg:description\&quot;: \&quot;bundle-ether2-description-after\&quot;\n}&quot;
-                                },
-                                
-                            ]
-                        }
-                    ],
-                    &quot;commit-time&quot;:&quot;2021-Mar-09 10:53:59.102 +0100&quot;
-                },
-                &quot;transaction-id&quot;:&quot;869df9d6-9025-4849-b30b-9db4d8fb26ec&quot;,
-                &quot;username&quot;:&quot;admin&quot;,
-                &quot;metadata&quot;:[
+    &quot;transactions-metadata&quot;: {
+        &quot;transaction-metadata&quot;: [
+            {
+                &quot;transaction-id&quot;: &quot;221aa4a5-e32e-46fd-921a-83314b190e89&quot;,
+                &quot;username&quot;: &quot;admin&quot;,
+                &quot;metadata&quot;: [
                     {
-                        &quot;node-id&quot;:&quot;xr5&quot;,
-                        &quot;diff&quot;:[
+                        &quot;node-id&quot;: &quot;xr6unistore&quot;,
+                        &quot;diff&quot;: [
                             {
-                                &quot;path&quot;:&quot;/frinx-openconfig-interfaces:interfaces/interface=Loopback123/config&quot;,
-                                &quot;data-before&quot;:&quot;{\n  \&quot;frinx-openconfig-interfaces:config\&quot;: {\n    \&quot;type\&quot;: \&quot;iana-if-type:softwareLoopback\&quot;,\n    \&quot;enabled\&quot;: true,\n    \&quot;name\&quot;: \&quot;Loopback123\&quot;\n  }\n}&quot;,
-                                &quot;data-after&quot;:&quot;{\n  \&quot;frinx-openconfig-interfaces:config\&quot;: {\n    \&quot;type\&quot;: \&quot;iana-if-type:softwareLoopback\&quot;,\n    \&quot;enabled\&quot;: true,\n    \&quot;description\&quot;: \&quot;test-description\&quot;,\n    \&quot;name\&quot;: \&quot;Loopback123\&quot;\n  }\n}&quot;
-                            }
-                        ]
+                                &quot;path&quot;: &quot;/Cisco-IOS-XR-ifmgr-cfg:interface-configurations/interface-configuration=act,Bundle-Ether1/description&quot;,
+                                &quot;data-after&quot;: &quot;{\n  \&quot;Cisco-IOS-XR-ifmgr-cfg:description\&quot;: \&quot;bundle-ether1-description-create\&quot;\n}&quot;
+                            },
+                            {
+                                &quot;path&quot;: &quot;/Cisco-IOS-XR-ifmgr-cfg:interface-configurations/interface-configuration=act,Bundle-Ether2/description&quot;,
+                                &quot;data-before&quot;: &quot;{\n  \&quot;Cisco-IOS-XR-ifmgr-cfg:description\&quot;: \&quot;bundle-ether2-description-before\&quot;\n}&quot;
+                                                    &quot;data-after&quot;: &quot;{\n  \&quot;Cisco-IOS-XR-ifmgr-cfg:description\&quot;: \&quot;bundle-ether2-description-after\&quot;\n}&quot;
+                            },
+                        ],
+                        &quot;topology&quot;: &quot;unistore&quot;
                     }
                 ],
-                &quot;commit-time&quot;:&quot;2021-Mar-09 11:06:58.000 +0100&quot;
-            }
-        ]
-    }
+                &quot;commit-time&quot;: &quot;2021-Mar-09 10:53:59.102 +0100&quot;
+            },
+            &quot;transaction-id&quot;: &quot;869df9d6-9025-4849-b30b-9db4d8fb26ec&quot;,
+            &quot;username&quot;: &quot;admin&quot;,
+            &quot;metadata&quot;: [
+                {
+                    &quot;node-id&quot;: &quot;xr5&quot;,
+                    &quot;diff&quot;: [
+                        {
+                            &quot;path&quot;: &quot;/frinx-openconfig-interfaces:interfaces/interface=Loopback123/config&quot;,
+                            &quot;data-before&quot;: &quot;{\n  \&quot;frinx-openconfig-interfaces:config\&quot;: {\n    \&quot;type\&quot;: \&quot;iana-if-type:softwareLoopback\&quot;,\n    \&quot;enabled\&quot;: true,\n    \&quot;name\&quot;: \&quot;Loopback123\&quot;\n  }\n}&quot;,
+                            &quot;data-after&quot;: &quot;{\n  \&quot;frinx-openconfig-interfaces:config\&quot;: {\n    \&quot;type\&quot;: \&quot;iana-if-type:softwareLoopback\&quot;,\n    \&quot;enabled\&quot;: true,\n    \&quot;description\&quot;: \&quot;test-description\&quot;,\n    \&quot;name\&quot;: \&quot;Loopback123\&quot;\n  }\n}&quot;
+                        }
+                    ],
+                    &quot;topology&quot;: &quot;uniconfig&quot;
+                }
+            ],
+            &quot;commit-time&quot;: &quot;2021-Mar-09 11:06:58.000 +0100&quot;
+    ]
+        }
 }</code></pre>
 </doc-codeblock></div>
 

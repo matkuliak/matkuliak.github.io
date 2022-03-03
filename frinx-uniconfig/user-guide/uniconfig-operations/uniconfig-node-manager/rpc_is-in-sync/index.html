@@ -26,12 +26,12 @@
     
     <script>(function () { var el = document.documentElement, m = localStorage.getItem("doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
 
-    <link href="/resources/css/retype.css?v=1.11.2.697130768959" rel="stylesheet" data-turbo-track="reload" />
+    <link href="/resources/css/retype.css?v=1.11.2.699652750170" rel="stylesheet" data-turbo-track="reload" />
 
-    <script type="text/javascript" src="/resources/js/config.js?v=1.11.2.697130768959" defer data-turbo-track="reload"></script>
+    <script type="text/javascript" src="/resources/js/config.js?v=1.11.2.699652750170" defer data-turbo-track="reload"></script>
     <script type="text/javascript" src="/resources/js/retype.js?v=1.11.2" defer data-turbo-track="reload"></script>
-    <script id="lunr-js" type="text/javascript" src="/resources/js/lunr.js?v=1.11.2.697130768959" defer></script>
-    <script id="prism-js" type="text/javascript" src="/resources/js/prism.js?v=1.11.2.697130768959" defer></script>
+    <script id="lunr-js" type="text/javascript" src="/resources/js/lunr.js?v=1.11.2.699652750170" defer></script>
+    <script id="prism-js" type="text/javascript" src="/resources/js/prism.js?v=1.11.2.699652750170" defer></script>
 </head>
     <body>
         <div id="docs-app" class="relative text-base antialiased text-gray-700 bg-white font-body dark:bg-dark-850 dark:text-dark-300">
@@ -253,7 +253,7 @@ fingerprints have been successfully compared.</li>
 mountpoint doesn&#x27;t exist because the connection has been lost or the
 node has not been mounted yet.</li>
 <li>&#x27;status&#x27; field with value &#x27;fail&#x27; with set &#x27;error-type&#x27; to
-&#x27;processing-error&#x27; and corresponding &#x27;error-message&#x27;; reading of the
+&#x27;uniconfig-error&#x27; and corresponding &#x27;error-message&#x27;; reading of the
 fingerprint from the Operational datastore or Unified mountpoint has
 failed, or the configuration metadata parsing is not supported for
 the device type.</li>
@@ -396,7 +396,7 @@ translation unit has not been implemented for this device).</p>
                     &quot;node-id&quot;: &quot;example2&quot;,
                     &quot;status&quot;: &quot;fail&quot;,
                     &quot;error-message&quot;: &quot;Unable to check configuration fingerprint - parsing of configuration fingerprint is not implemented for this device type.&quot;,
-                    &quot;error-type&quot;: &quot;processing-error&quot;
+                    &quot;error-type&quot;: &quot;uniconfig-error&quot;
                 },
                 {
                     &quot;node-id&quot;: &quot;nodeX&quot;,
@@ -415,11 +415,7 @@ translation unit has not been implemented for this device).</p>
         <span>Failed Example</span>
     </h3>
 </doc-anchor-target>
-<p>RPC input contains 2 nodes, the first one (&#x27;node1&#x27;) is valid and synced,
-the second one (&#x27;nodeX&#x27;) has not been mounted yet. Even if there is one
-invalid node, is-in-sync process will be executed for each node
-(&#x27;is-in-sync&#x27; flag will be set for valid node &#x27;node1&#x27;). However,
-&#x27;overall-status&#x27; will be set to &#x27;fail&#x27;.</p>
+<p>RPC input contains 2 nodes, the first one (&#x27;node1&#x27;) is valid and synced, the second one (&#x27;nodeX&#x27;) has not been mounted yet. If there is one invalid node, Uniconfig will be evaluate nodes with fail. However, &#x27;overall-status&#x27; will be set to &#x27;fail&#x27;.</p>
 <div class="codeblock-wrapper"><doc-codeblock>
 <div class="codeblock-title">RPC Request</div>
 <pre class="language-bash"><code v-pre class="language-bash">curl --location --request POST 'http://localhost:8181/rests/operations/uniconfig-manager:is-in-sync' \

@@ -26,12 +26,12 @@
     
     <script>(function () { var el = document.documentElement, m = localStorage.getItem("doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
 
-    <link href="/resources/css/retype.css?v=1.11.2.697130768959" rel="stylesheet" data-turbo-track="reload" />
+    <link href="/resources/css/retype.css?v=1.11.2.699652750170" rel="stylesheet" data-turbo-track="reload" />
 
-    <script type="text/javascript" src="/resources/js/config.js?v=1.11.2.697130768959" defer data-turbo-track="reload"></script>
+    <script type="text/javascript" src="/resources/js/config.js?v=1.11.2.699652750170" defer data-turbo-track="reload"></script>
     <script type="text/javascript" src="/resources/js/retype.js?v=1.11.2" defer data-turbo-track="reload"></script>
-    <script id="lunr-js" type="text/javascript" src="/resources/js/lunr.js?v=1.11.2.697130768959" defer></script>
-    <script id="prism-js" type="text/javascript" src="/resources/js/prism.js?v=1.11.2.697130768959" defer></script>
+    <script id="lunr-js" type="text/javascript" src="/resources/js/lunr.js?v=1.11.2.699652750170" defer></script>
+    <script id="prism-js" type="text/javascript" src="/resources/js/prism.js?v=1.11.2.699652750170" defer></script>
 </head>
     <body>
         <div id="docs-app" class="relative text-base antialiased text-gray-700 bg-white font-body dark:bg-dark-850 dark:text-dark-300">
@@ -296,23 +296,96 @@ the default value &#x27;false&#x27; is automatically used.</p>
 GET request to display all stored transaction-metadata.</p>
 <div class="codeblock-wrapper"><doc-codeblock>
 <div class="codeblock-title">RPC Request</div>
-<pre class="language-bash"><code v-pre class="language-bash">curl --location --request POST 'http://localhost:8181/restconf/operations/device-discovery:discover' \
---header 'Accept: application/json' \
-    }
-}'</code></pre>
+<pre class="language-bash"><code v-pre class="language-bash">curl --location --request GET 'http://192.168.56.11:8181/rests/data/transaction-log:transactions-metadata' \
+--header 'Accept: application/json'</code></pre>
 </doc-codeblock></div>
 <div class="codeblock-wrapper"><doc-codeblock>
 <div class="codeblock-title">RPC Response, Status: 200</div>
 <pre class="language-json"><code v-pre class="language-json">{
-    &quot;output&quot;: {
-    }
+    &quot;transactions-metadata&quot;: {
+        &quot;transaction-metadata&quot;: [
+            {
+                &quot;transaction-id&quot;: &quot;221aa4a5-e32e-46fd-921a-83314b190e89&quot;,
+                &quot;username&quot;: &quot;admin&quot;,
+                &quot;metadata&quot;: [
+                    {
+                        &quot;node-id&quot;: &quot;xr6&quot;,
+                        &quot;diff&quot;: [
+                            {
+                                &quot;path&quot;: &quot;/Cisco-IOS-XR-ifmgr-cfg:interface-configurations/interface-configuration=act,Bundle-Ether1/description&quot;,
+                                &quot;data-after&quot;: &quot;{\n  \&quot;Cisco-IOS-XR-ifmgr-cfg:description\&quot;: \&quot;bundle-ether1-description-create\&quot;\n}&quot;
+                            },
+                            {
+                                &quot;path&quot;: &quot;/Cisco-IOS-XR-ifmgr-cfg:interface-configurations/interface-configuration=act,Bundle-Ether2/description&quot;,
+                                &quot;data-before&quot;: &quot;{\n  \&quot;Cisco-IOS-XR-ifmgr-cfg:description\&quot;: \&quot;bundle-ether2-description-before\&quot;\n}&quot;
+                                                    &quot;data-after&quot;: &quot;{\n  \&quot;Cisco-IOS-XR-ifmgr-cfg:description\&quot;: \&quot;bundle-ether2-description-after\&quot;\n}&quot;
+                            },
+                        ],
+                        &quot;topology&quot;: &quot;uniconfig&quot;
+                    }
+                ],
+                &quot;commit-time&quot;: &quot;2021-Mar-09 10:53:59.102 +0100&quot;
+            },
+            &quot;transaction-id&quot;: &quot;869df9d6-9025-4849-b30b-9db4d8fb26ec&quot;,
+            &quot;username&quot;: &quot;admin&quot;,
+            &quot;metadata&quot;: [
+                {
+                    &quot;node-id&quot;: &quot;xr5&quot;,
+                    &quot;diff&quot;: [
+                        {
+                            &quot;path&quot;: &quot;/frinx-openconfig-interfaces:interfaces/interface=Loopback123/config&quot;,
+                            &quot;data-before&quot;: &quot;{\n  \&quot;frinx-openconfig-interfaces:config\&quot;: {\n    \&quot;type\&quot;: \&quot;iana-if-type:softwareLoopback\&quot;,\n    \&quot;enabled\&quot;: true,\n    \&quot;name\&quot;: \&quot;Loopback123\&quot;\n  }\n}&quot;,
+                            &quot;data-after&quot;: &quot;{\n  \&quot;frinx-openconfig-interfaces:config\&quot;: {\n    \&quot;type\&quot;: \&quot;iana-if-type:softwareLoopback\&quot;,\n    \&quot;enabled\&quot;: true,\n    \&quot;description\&quot;: \&quot;test-description\&quot;,\n    \&quot;name\&quot;: \&quot;Loopback123\&quot;\n  }\n}&quot;
+                        }
+                    ],
+                    &quot;topology&quot;: &quot;uniconfig&quot;
+                }
+            ],
+            &quot;commit-time&quot;: &quot;2021-Mar-09 11:06:58.000 +0100&quot;
+        },
+        {
+            &quot;transaction-id&quot;: &quot;2c4c1eb5-185a-4204-8021-2ea05ba2c2c1&quot;,
+            &quot;username&quot;: &quot;admin&quot;,
+            &quot;metadata&quot;: [
+                {
+                    &quot;node-id&quot;: &quot;R1&quot;,
+                    &quot;diff&quot;: [
+                        {
+                            &quot;path&quot;: &quot;/frinx-openconfig-interfaces:interfaces/interface=Bundle-Ether1&quot;,
+                            &quot;data-after&quot;: &quot;{\n  \&quot;interface\&quot;: [\n    {\n      \&quot;name\&quot;: \&quot;Bundle-Ether1\&quot;,\n      \&quot;config\&quot;: {\n        \&quot;type\&quot;: \&quot;iana-if-type:ieee8023adLag\&quot;,\n        \&quot;enabled\&quot;: false,\n        \&quot;name\&quot;: \&quot;Bundle-Ether1\&quot;\n      }\n    }\n  ]\n}&quot;
+                        }
+                    ],
+                    &quot;topology&quot;: &quot;uniconfig&quot;
+                },
+                {
+                    &quot;node-id&quot;: &quot;xr5&quot;,
+                    &quot;diff&quot;: [
+                        {
+                            &quot;path&quot;: &quot;/frinx-openconfig-interfaces:interfaces/interface=Loopback1/config&quot;,
+                            &quot;data-before&quot;: &quot;{\n  \&quot;frinx-openconfig-interfaces:config\&quot;: {\n    \&quot;type\&quot;: \&quot;iana-if-type:softwareLoopback\&quot;,\n    \&quot;enabled\&quot;: true,\n    \&quot;name\&quot;: \&quot;Loopback1\&quot;\n  }\n}&quot;,
+                        }
+                    ],
+                    &quot;topology&quot;: &quot;uniconfig&quot;
+                }
+            ],
+            &quot;commit-time&quot;: &quot;2021-Mar-09 11:10:54.104 +0100&quot;
+        }
+    ]
 }</code></pre>
 </doc-codeblock></div>
 <p>Reverting changes of the single transaction.</p>
 <div class="codeblock-wrapper"><doc-codeblock>
 <div class="codeblock-title">RPC Request</div>
-<pre class="language-bash"><code v-pre class="language-bash">curl --location --request POST 'http://localhost:8181/restconf/operations/device-discovery:discover' \
+<pre class="language-bash"><code v-pre class="language-bash">curl --location --request POST 'http://192.168.56.11:8181/rests/operations/transaction-log:revert-changes' \
 --header 'Accept: application/json' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    &quot;input&quot;: {
+        &quot;target-transactions&quot;: {
+            &quot;transaction&quot;: [
+                &quot;221aa4a5-e32e-46fd-921a-83314b190e89&quot;
+            ]
+        }
     }
 }'</code></pre>
 </doc-codeblock></div>
@@ -320,14 +393,32 @@ GET request to display all stored transaction-metadata.</p>
 <div class="codeblock-title">RPC Response, Status: 200</div>
 <pre class="language-json"><code v-pre class="language-json">{
     &quot;output&quot;: {
+        &quot;revert-output&quot;: {
+            &quot;result&quot;: [
+                {
+                    &quot;transaction-id&quot;: &quot;221aa4a5-e32e-46fd-921a-83314b190e89&quot;,
+                    &quot;status&quot;: &quot;complete&quot;
+                }
+            ]
+        },
+        &quot;overall-status&quot;: &quot;complete&quot;
     }
 }</code></pre>
 </doc-codeblock></div>
 <p>Reverting changes of multiple transactions.</p>
 <div class="codeblock-wrapper"><doc-codeblock>
 <div class="codeblock-title">RPC Request</div>
-<pre class="language-bash"><code v-pre class="language-bash">curl --location --request POST 'http://localhost:8181/restconf/operations/device-discovery:discover' \
+<pre class="language-bash"><code v-pre class="language-bash">curl --location --request POST 'http://192.168.56.11:8181/rests/operations/transaction-log:revert-changes' \
 --header 'Accept: application/json' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    &quot;input&quot;: {
+        &quot;target-transactions&quot;: {
+            &quot;transaction&quot;: [
+                &quot;221aa4a5-e32e-46fd-921a-83314b190e89&quot;,
+                &quot;869df9d6-9025-4849-b30b-9db4d8fb26ec&quot;
+            ]
+        }
     }
 }'</code></pre>
 </doc-codeblock></div>
@@ -335,6 +426,19 @@ GET request to display all stored transaction-metadata.</p>
 <div class="codeblock-title">RPC Response, Status: 200</div>
 <pre class="language-json"><code v-pre class="language-json">{
     &quot;output&quot;: {
+        &quot;revert-output&quot;: {
+            &quot;result&quot;: [
+                {
+                    &quot;transaction-id&quot;: &quot;221aa4a5-e32e-46fd-921a-83314b190e89&quot;,
+                    &quot;status&quot;: &quot;complete&quot;
+                },
+                {
+                    &quot;transaction-id&quot;: &quot;869df9d6-9025-4849-b30b-9db4d8fb26ec&quot;,
+                    &quot;status&quot;: &quot;complete&quot;
+                }
+            ]
+        },
+        &quot;overall-status&quot;: &quot;complete&quot;
     }
 }</code></pre>
 </doc-codeblock></div>
@@ -344,8 +448,18 @@ id &#x27;2c4c1eb5-185a-4204-8021-2ea05ba2c2c1&#x27; contains non-existent node
 used, and therefore the RPC will be successful.</p>
 <div class="codeblock-wrapper"><doc-codeblock>
 <div class="codeblock-title">RPC Request</div>
-<pre class="language-bash"><code v-pre class="language-bash">curl --location --request POST 'http://localhost:8181/restconf/operations/device-discovery:discover' \
+<pre class="language-bash"><code v-pre class="language-bash">curl --location --request POST 'http://192.168.56.11:8181/rests/operations/transaction-log:revert-changes' \
 --header 'Accept: application/json' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    &quot;input&quot;: {
+        &quot;ignore-non-existing-nodes&quot;: true,
+        &quot;target-transactions&quot;: {
+            &quot;transaction&quot;: [
+                &quot;221aa4a5-e32e-46fd-921a-83314b190e89&quot;,
+                &quot;2c4c1eb5-185a-4204-8021-2ea05ba2c2c1&quot;
+            ]
+        }
     }
 }'</code></pre>
 </doc-codeblock></div>
@@ -353,6 +467,19 @@ used, and therefore the RPC will be successful.</p>
 <div class="codeblock-title">RPC Response, Status: 200</div>
 <pre class="language-json"><code v-pre class="language-json">{
     &quot;output&quot;: {
+        &quot;revert-output&quot;: {
+            &quot;result&quot;: [
+                {
+                    &quot;transaction-id&quot;: &quot;221aa4a5-e32e-46fd-921a-83314b190e89&quot;,
+                    &quot;status&quot;: &quot;complete&quot;
+                },
+                {
+                    &quot;transaction-id&quot;: &quot;2c4c1eb5-185a-4204-8021-2ea05ba2c2c1&quot;,
+                    &quot;status&quot;: &quot;complete&quot;
+                }
+            ]
+        },
+        &quot;overall-status&quot;: &quot;complete&quot;
     }
 }</code></pre>
 </doc-codeblock></div>
@@ -366,8 +493,16 @@ used, and therefore the RPC will be successful.</p>
 transaction in the request body.</p>
 <div class="codeblock-wrapper"><doc-codeblock>
 <div class="codeblock-title">RPC Request</div>
-<pre class="language-bash"><code v-pre class="language-bash">curl --location --request POST 'http://localhost:8181/restconf/operations/device-discovery:discover' \
+<pre class="language-bash"><code v-pre class="language-bash">curl --location --request POST 'http://192.168.56.11:8181/rests/operations/transaction-log:revert-changes' \
 --header 'Accept: application/json' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    &quot;input&quot;: {
+        &quot;target-transactions&quot;: {
+            &quot;transaction&quot;: [
+                &quot;82b4e916-e1ed-4a54-97bc-067699842af6&quot;
+            ]
+        }
     }
 }'</code></pre>
 </doc-codeblock></div>
@@ -375,6 +510,17 @@ transaction in the request body.</p>
 <div class="codeblock-title">RPC Response, Status: 200</div>
 <pre class="language-json"><code v-pre class="language-json">{
     &quot;output&quot;: {
+        &quot;revert-output&quot;: {
+            &quot;result&quot;: [
+                {
+                    &quot;transaction-id&quot;: &quot;82b4e916-e1ed-4a54-97bc-067699842af6&quot;,
+                    &quot;status&quot;: &quot;fail&quot;,
+                    &quot;error-message&quot;: &quot;Failed to find transaction in log with ID: 82b4e916-e1ed-4a54-97bc-067699842af6&quot;,
+                    &quot;error-type&quot;: &quot;uniconfig-error&quot;
+                }
+            ]
+        },
+        &quot;overall-status&quot;: &quot;fail&quot;
     }
 }</code></pre>
 </doc-codeblock></div>
@@ -384,8 +530,18 @@ non-existent node. In this case &#x27;ignore-non-existing-nodes&#x27; with a val
 of &#x27;false&#x27; is used, and therefore the RPC fails.</p>
 <div class="codeblock-wrapper"><doc-codeblock>
 <div class="codeblock-title">RPC Request</div>
-<pre class="language-bash"><code v-pre class="language-bash">curl --location --request POST 'http://localhost:8181/restconf/operations/device-discovery:discover' \
+<pre class="language-bash"><code v-pre class="language-bash">curl --location --request POST 'http://192.168.56.11:8181/rests/operations/transaction-log:revert-changes' \
 --header 'Accept: application/json' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    &quot;input&quot;: {
+        &quot;ignore-non-existing-nodes&quot;: false,
+        &quot;target-transactions&quot;: {
+            &quot;transaction&quot;: [
+                &quot;221aa4a5-e32e-46fd-921a-83314b190e89&quot;,
+                &quot;2c4c1eb5-185a-4204-8021-2ea05ba2c2c1&quot;
+            ]
+        }
     }
 }'</code></pre>
 </doc-codeblock></div>
@@ -393,6 +549,22 @@ of &#x27;false&#x27; is used, and therefore the RPC fails.</p>
 <div class="codeblock-title">RPC Response, Status: 200</div>
 <pre class="language-json"><code v-pre class="language-json">{
     &quot;output&quot;: {
+        &quot;revert-output&quot;: {
+            &quot;result&quot;: [
+                {
+                    &quot;transaction-id&quot;: &quot;221aa4a5-e32e-46fd-921a-83314b190e89&quot;,
+                    &quot;status&quot;: &quot;fail&quot;,
+                    &quot;error-type&quot;: &quot;uniconfig-error&quot;
+                },
+                {
+                    &quot;transaction-id&quot;: &quot;2c4c1eb5-185a-4204-8021-2ea05ba2c2c1&quot;,
+                    &quot;status&quot;: &quot;fail&quot;,
+                    &quot;error-message&quot;: &quot;Transactions metadata 2c4c1eb5-185a-4204-8021-2ea05ba2c2c1 contain non-existent uniconfig nodes: [R1]&quot;,
+                    &quot;error-type&quot;: &quot;uniconfig-error&quot;
+                }
+            ]
+        },
+        &quot;overall-status&quot;: &quot;fail&quot;
     }
 }</code></pre>
 </doc-codeblock></div>

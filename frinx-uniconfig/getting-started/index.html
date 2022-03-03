@@ -15,22 +15,22 @@
     <meta property="og:url" content="https://matkuliak.xyz/frinx-uniconfig/getting-started/">
     <meta property="og:title" content="FRINX UniConfig introductionExample | Frinx Docs">
     <meta property="og:description" content="The purpose of UniConfig is to manage configuration state and to retrieve operational state of physical and virtual networking devices.">
-    <meta property="og:image" content="https://matkuliak.xyz/frinx-uniconfig/frinx_uniconfig_solution.jpg">
+    <meta property="og:image" content="https://matkuliak.xyz/frinx-uniconfig/uc_features.png">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://matkuliak.xyz/frinx-uniconfig/getting-started/">
     <meta property="twitter:title" content="FRINX UniConfig introductionExample | Frinx Docs">
     <meta property="twitter:description" content="The purpose of UniConfig is to manage configuration state and to retrieve operational state of physical and virtual networking devices.">
-    <meta property="twitter:image" content="https://matkuliak.xyz/frinx-uniconfig/frinx_uniconfig_solution.jpg">
+    <meta property="twitter:image" content="https://matkuliak.xyz/frinx-uniconfig/uc_features.png">
     
     <script>(function () { var el = document.documentElement, m = localStorage.getItem("doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
 
-    <link href="/resources/css/retype.css?v=1.11.2.697130768959" rel="stylesheet" data-turbo-track="reload" />
+    <link href="/resources/css/retype.css?v=1.11.2.699652750170" rel="stylesheet" data-turbo-track="reload" />
 
-    <script type="text/javascript" src="/resources/js/config.js?v=1.11.2.697130768959" defer data-turbo-track="reload"></script>
+    <script type="text/javascript" src="/resources/js/config.js?v=1.11.2.699652750170" defer data-turbo-track="reload"></script>
     <script type="text/javascript" src="/resources/js/retype.js?v=1.11.2" defer data-turbo-track="reload"></script>
-    <script id="lunr-js" type="text/javascript" src="/resources/js/lunr.js?v=1.11.2.697130768959" defer></script>
+    <script id="lunr-js" type="text/javascript" src="/resources/js/lunr.js?v=1.11.2.699652750170" defer></script>
 </head>
     <body>
         <div id="docs-app" class="relative text-base antialiased text-gray-700 bg-white font-body dark:bg-dark-850 dark:text-dark-300">
@@ -224,6 +224,11 @@ network. UniConfig can be run as an application on bare metal in a VM or
 in a container, standalone or as part of our automation solution FRINX
 Machine. UniConfig has a built-in data store that can be run in memory
 or with an external database.</p>
+<p><figure class="content-center">
+    <img src="../uc_features.png" alt="UniConfig features" />
+    <figcaption class="caption">UniConfig features</figcaption>
+</figure>
+</p>
 <doc-anchor-target id="uniconfig-key-feature-overview">
     <h2>
         <doc-anchor-trigger class="header-anchor-trigger" to="#uniconfig-key-feature-overview">#</doc-anchor-trigger>
@@ -320,9 +325,9 @@ contact FRINX for more information.)</p>
 <p>Enter the following commands to download, activate and start UniConfig
 in a Docker container:</p>
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-none"><code v-pre class="language-none">docker pull frinx/uniconfig:4.2.9
+<pre class="language-none"><code v-pre class="language-none">docker pull frinx/uniconfig:4.2.10
 TOKEN=[frinx-license_secret-token]
-docker run -it --hostname uniconfig --name uniconfig -p 8181:8181 frinx/uniconfig:4.2.9 -l $TOKEN</code></pre>
+docker run -it --hostname uniconfig --name uniconfig -p 8181:8181 frinx/uniconfig:4.2.10 -l $TOKEN</code></pre>
 </doc-codeblock></div>
 <div class="flex mb-6">
     <div class="flex-shrink-0 w-1 rounded-tl rounded-bl bg-blue-500 dark:bg-blue-400"></div>
@@ -365,7 +370,7 @@ docker run -it --hostname uniconfig --name uniconfig -p 8181:8181 frinx/uniconfi
 </doc-anchor-target>
 <p>Click on the link to download a zip archive of the latest FRINX
 UniConfig:<br />
-<a href="https://license.frinx.io/download/uniconfig-4.2.9.frinx.zip">uniconfig-4.2.9.frinx.zip</a><br />
+<a href="https://license.frinx.io/download/uniconfig-4.2.10.frinx.zip">uniconfig-4.2.10.frinx.zip</a><br />
 By downloading the file you accept the FRINX software agreement:
 <a href="https://frinx.io/eula">EULA</a></p>
 <doc-anchor-target id="activate-frinx-uniconfig">
@@ -413,6 +418,33 @@ following command:</p>
         </div>
     </div>
 </div>
+<doc-anchor-target id="openapi">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#openapi">#</doc-anchor-trigger>
+        <span>OpenAPI</span>
+    </h2>
+</doc-anchor-target>
+<p>UniConfig distributions contain &#x27;.yaml&#x27; file that generates list of all
+usable RPCs and their examples. You can view it locally or on our hosted version that always shows
+latest OpenAPI version.</p>
+<p><strong>File can be found here:</strong></p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-none"><code v-pre class="language-none">/uniconfig-x.x.x.frinx/openapi</code></pre>
+</doc-codeblock></div>
+<p>
+<div class="mb-6 px-5 py-4 flex justify-between relative border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded transition-colors duration-150">
+    <div class="flex items-center text-blue-500 dark:text-blue-400">
+        <span class="inline-block mb-px">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" role="presentation" fill="currentColor"><path fill="none" d="M0 0h24v24H0z"/><path d="M19.92 12.38a1 1 0 00-.22-1.09l-7-7a.996.996 0 10-1.41 1.41l5.3 5.3H5c-.55 0-1 .45-1 1s.45 1 1 1h11.59l-5.29 5.29a.996.996 0 000 1.41c.19.2.44.3.7.3s.51-.1.71-.29l7-7c.09-.09.16-.21.21-.33z"/></svg>
+        </span>
+        <span class="inline-block font-medium ml-2">OpenAPI</span>
+    </div>
+    <div class="flex items-center text-xs text-gray-400 dark:text-dark-400">
+        <span>../user-guide/operational-procedures/openapi/</span>
+    </div>
+    <a href="../user-guide/operational-procedures/openapi/" class="absolute block inset-0"></a>
+</div>
+</p>
 <doc-anchor-target id="offline-activation">
     <h2>
         <doc-anchor-trigger class="header-anchor-trigger" to="#offline-activation">#</doc-anchor-trigger>

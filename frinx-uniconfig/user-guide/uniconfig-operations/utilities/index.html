@@ -6,30 +6,29 @@
     <meta name="turbo-cache-control" content="no-cache">
 
     <!-- Primary Meta Tags -->
-    <title>NETCONF Unified Translation UnitExample | Frinx Docs</title>
-    <meta name="title" content="NETCONF Unified Translation UnitExample | Frinx Docs">
-    <meta name="description" content="Unified translation units are located in https://github.com/FRINXio/unitopo-units repository." />
+    <title>UtilitiesExample | Frinx Docs</title>
+    <meta name="title" content="UtilitiesExample | Frinx Docs">
+    <meta name="description" content="The utilities are simple programs that are part of the UniConfig distribution. They can be found in UniConfig" />
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://matkuliak.xyz/frinx-uniconfig/developer-guide/netconf-translation-unit/">
-    <meta property="og:title" content="NETCONF Unified Translation UnitExample | Frinx Docs">
-    <meta property="og:description" content="Unified translation units are located in https://github.com/FRINXio/unitopo-units repository.">
+    <meta property="og:url" content="https://matkuliak.xyz/frinx-uniconfig/user-guide/uniconfig-operations/utilities/">
+    <meta property="og:title" content="UtilitiesExample | Frinx Docs">
+    <meta property="og:description" content="The utilities are simple programs that are part of the UniConfig distribution. They can be found in UniConfig">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://matkuliak.xyz/frinx-uniconfig/developer-guide/netconf-translation-unit/">
-    <meta property="twitter:title" content="NETCONF Unified Translation UnitExample | Frinx Docs">
-    <meta property="twitter:description" content="Unified translation units are located in https://github.com/FRINXio/unitopo-units repository.">
+    <meta property="twitter:url" content="https://matkuliak.xyz/frinx-uniconfig/user-guide/uniconfig-operations/utilities/">
+    <meta property="twitter:title" content="UtilitiesExample | Frinx Docs">
+    <meta property="twitter:description" content="The utilities are simple programs that are part of the UniConfig distribution. They can be found in UniConfig">
     
     <script>(function () { var el = document.documentElement, m = localStorage.getItem("doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
 
-    <link href="/resources/css/retype.css?v=1.11.2.697130768959" rel="stylesheet" data-turbo-track="reload" />
+    <link href="/resources/css/retype.css?v=1.11.2.699652750170" rel="stylesheet" data-turbo-track="reload" />
 
-    <script type="text/javascript" src="/resources/js/config.js?v=1.11.2.697130768959" defer data-turbo-track="reload"></script>
+    <script type="text/javascript" src="/resources/js/config.js?v=1.11.2.699652750170" defer data-turbo-track="reload"></script>
     <script type="text/javascript" src="/resources/js/retype.js?v=1.11.2" defer data-turbo-track="reload"></script>
-    <script id="lunr-js" type="text/javascript" src="/resources/js/lunr.js?v=1.11.2.697130768959" defer></script>
-    <script id="prism-js" type="text/javascript" src="/resources/js/prism.js?v=1.11.2.697130768959" defer></script>
+    <script id="lunr-js" type="text/javascript" src="/resources/js/lunr.js?v=1.11.2.699652750170" defer></script>
 </head>
     <body>
         <div id="docs-app" class="relative text-base antialiased text-gray-700 bg-white font-body dark:bg-dark-850 dark:text-dark-300">
@@ -210,227 +209,34 @@
                 <div id="docs-sidebar-right-toggle"></div>
                
                 <!-- Page content  -->
-<doc-anchor-target id="netconf-unified-translation-unit" class="break-words">
+<doc-anchor-target id="utilities" class="break-words">
     <h1>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#netconf-unified-translation-unit">#</doc-anchor-trigger>
-        <span>NETCONF Unified Translation Unit</span>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#utilities">#</doc-anchor-trigger>
+        <span>Utilities</span>
     </h1>
 </doc-anchor-target>
-<p>Unified translation units are located in
-<a href="https://github.com/FRINXio/unitopo-units">https://github.com/FRINXio/unitopo-units</a> repository.</p>
-<p>Kotlin is used as preferred programming language in NETCONF translation
-units because it provides <a href="https://kotlinlang.org/docs/reference/type-aliases.html">type
-aliases</a> and
-better
-<a href="https://kotlinlang.org/docs/reference/null-safety.html">null-safety</a>.</p>
-<doc-anchor-target id="translateunit">
+<p>The utilities are simple programs that are part of the UniConfig distribution. They can be found in UniConfig
+distribution subdirectory named &#x27;utils&#x27; after building and unpacking UniConfig distribution.</p>
+<doc-anchor-target id="yang-packager">
     <h2>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#translateunit">#</doc-anchor-trigger>
-        <span>TranslateUnit</span>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#yang-packager">#</doc-anchor-trigger>
+        <span>YANG Packager</span>
     </h2>
 </doc-anchor-target>
-<p>Translate unit class must implement interface
-<strong>io.frinx.unitopo.registry.spi.TranslateUnit</strong>. Naming convention for
-translate unit class is just name Unit. Translate unit class is usually
-instantiated, initialized and closed from Blueprint.</p>
-<p>Implementation of TranslateUnit must be registered into
-<strong>TranslationUnitCollector</strong> and must provide set of supported underlay
-YANG models. Snippet below shows registration of
-<a href="https://github.com/FRINXio/unitopo-units/blob/master/junos/junos-17/junos-17-interface-unit/src/main/kotlin/io/frinx/unitopo/unit/junos/interfaces/Unit.kt">Unit</a>
-for junos device version 17.3.</p>
-<div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-kotlin"><code v-pre class="language-kotlin">class Unit(private val registry: TranslationUnitCollector) : TranslateUnit {
-    private var reg: TranslationUnitCollector.Registration? = null
-
-    fun init() {
-        reg = registry.registerTranslateUnit(this)
-    }
-
-    fun close() {
-        reg?.let { reg!!.close() }
-    }
-
-    override fun getUnderlayYangSchemas() = setOf(
-            UnderlayInterfacesYangInfo.getInstance())</code></pre>
-</doc-codeblock></div>
-<p>Implementation of TranslateUnit must implement these methods:</p>
-<p><strong>toString(): String</strong></p>
-<p>Return unique string among all translation units which will be used as
-ID for the translation unit (e.g. &quot;IOS XR Interface (OpenConfig)
-translate unit&quot;)</p>
-<p><strong>getYangSchemas(): Set</strong></p>
-<p>Return YANG models containing composite nodes handled by
-handlers(readers/writers). It must return empty Set if no handlers are
-implemented.</p>
-<p><strong>getUnderlayYangSchemas(): Set</strong></p>
-<p>Return YANG module informations about underlay models used in the
-translation unit. These YANG modules describes configuration of NETCONF
-capable device.</p>
-<p><strong>getRpcs(underlayAccess: UnderlayAccess): Set&gt;</strong></p>
-<p>Return RPC services implemented in the translation unit. Default
-implementation returns an emptySet. Parameter <strong>underlayAccess</strong>
-represents object containing methods for communication with a device via
-NETCONF and should be passed to readers/writers.</p>
-<p><strong>provideHandlers(rRegistry: ModifiableReaderRegistryBuilder,</strong>
-<strong>wRegistry: ModifiableWriterRegistryBuilder,</strong> <strong>underlayAccess:
-UnderlayAccess): Unit</strong></p>
-<p>Handlers(readers/writers) need to be registered in this method.
-<strong>underlayAccess</strong> represents object containing methods for communication
-with a device via NETCONF and should be passed to readers/writers.</p>
-<p>How to register readers/writers is described in
-CLI Translation Unit &lt;cli-translation-unit&gt;</p>
-<doc-anchor-target id="readers">
-    <h2>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#readers">#</doc-anchor-trigger>
-        <span>Readers</span>
-    </h2>
-</doc-anchor-target>
-<p>Readers are handlers responsible for reading and parsing the data coming
-from a device.</p>
-<p>There are 2 types of readers: Reader and ListReader. Reader can be used
-to handle container or argument nodes and ListReader should handle list
-nodes from YANG.</p>
-<ul>
-<li>Both types need to implement <strong>readCurrentAttributes</strong> to fill the
-builder with appropriate values</li>
-<li>ListReader needs to also implement <strong>getAllIds()</strong> where it
-retrieves a key for each item to be present in current list. After
-the list is received, framework will invoke
-<strong>readCurrentAttributes</strong> for each item from getAllIds</li>
-</ul>
-<doc-anchor-target id="mandatory-interfaces-to-implement">
-    <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#mandatory-interfaces-to-implement">#</doc-anchor-trigger>
-        <span>Mandatory interfaces to implement</span>
-    </h3>
-</doc-anchor-target>
-<p>Each reader needs to implement one of these interfaces based on type of
-target node in YANG.For more information about methods please read
-javadocs.</p>
-<p><strong>ConfigListReaderCustomizer</strong> - implement this interface if target
-composite node in YANG is list and represents config data.</p>
-<p><strong>ConfigReaderCustomizer</strong> - implement this interface if target
-composite node in YANG is container or augmentation and represents
-config data.</p>
-<p><strong>OperListReaderCustomizer</strong> - implement this interface if target
-composite node in YANG is list and represents operational data.</p>
-<p><strong>OperReaderCustomizer</strong> - implement this interface if target composite
-node in YANG is container or augmentation and represents operational
-data.</p>
-<doc-anchor-target id="base-readers">
-    <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#base-readers">#</doc-anchor-trigger>
-        <span>Base Readers</span>
-    </h3>
-</doc-anchor-target>
-<p>Each base reader for netconf readers should be generic. The generic
-marks the data element within device YANG that is being parsed into. The
-base reader should contain abstract methods:</p>
-<ul>
-<li><strong>fun readIid(&lt;args&gt;): InstanceIdentifier&lt;T&gt;</strong> - each child
-reader should fill in the device specific InstanceIdentifier that
-points to the information needed for this reader. Arguments may vary
-and they are used to be more specific IID (e.g. when creating an IID
-to gather information about a specific interface, you may want to
-pass interface name as argument).</li>
-<li><strong>fun readData(data: T?, configBuilder: ConfigBuilder, &lt;args&gt;)</strong>
-<ul>
-<li>this method is used to transform OpenConfig data (contained in
-ConfigBuilder) into device data (T) using .</li>
-</ul>
-</li>
-</ul>
-<div class="flex mb-6">
-    <div class="flex-shrink-0 w-1 rounded-tl rounded-bl bg-blue-500 dark:bg-blue-400"></div>
-    <div class="flex w-full py-4 border border-l-0 border-gray-300 rounded-tr rounded-br doc-alert bg-white dark:bg-dark-700 dark:border-dark-700" role="alert">
-        <div class="flex items-center ml-4 h-7">
-            <svg xmlns="http://www.w3.org/2000/svg" class="mb-px text-blue-500 dark:text-blue-400" width="22" height="22" viewBox="0 0 24 24" role="presentation">
-                <g fill="currentColor"><g>
-                    <path d="M12 1C5.93 1 1 5.93 1 12s4.93 11 11 11 11-4.93 11-11S18.07 1 12 1zm0 20c-4.96 0-9-4.04-9-9s4.04-9 9-9 9 4.04 9 9-4.04 9-9 9z"></path>
-                    <path d="M12 11c-.55 0-1 .45-1 1v4c0 .55.45 1 1 1s1-.45 1-1v-4c0-.55-.45-1-1-1zM12.01 7c-.56 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1z"></path>
-                    <path fill="none" d="M0 0h24v24H0z"></path>
-                </g></g>
-            </svg>
-        </div>
-        <div class="pr-5 ml-3">
-<p>Naming of the methods should be unified in order to be easily parsed
-by auto-generated documentation.</p>
-        </div>
+<p>
+<div class="mb-6 px-5 py-4 flex justify-between relative border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded transition-colors duration-150">
+    <div class="flex items-center text-blue-500 dark:text-blue-400">
+        <span class="inline-block mb-px">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" role="presentation" fill="currentColor"><path fill="none" d="M0 0h24v24H0z"/><path d="M19.92 12.38a1 1 0 00-.22-1.09l-7-7a.996.996 0 10-1.41 1.41l5.3 5.3H5c-.55 0-1 .45-1 1s.45 1 1 1h11.59l-5.29 5.29a.996.996 0 000 1.41c.19.2.44.3.7.3s.51-.1.71-.29l7-7c.09-.09.16-.21.21-.33z"/></svg>
+        </span>
+        <span class="inline-block font-medium ml-2">YANG Packager</span>
     </div>
-</div>
-<doc-anchor-target id="writers">
-    <h2>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#writers">#</doc-anchor-trigger>
-        <span>Writers</span>
-    </h2>
-</doc-anchor-target>
-<p>A writer needs to implement all 3 methods: Write, Update, Delete in
-order to fully support default rollback mechanism of the framework</p>
-<div class="flex mb-6">
-    <div class="flex-shrink-0 w-1 rounded-tl rounded-bl bg-blue-500 dark:bg-blue-400"></div>
-    <div class="flex w-full py-4 border border-l-0 border-gray-300 rounded-tr rounded-br doc-alert bg-white dark:bg-dark-700 dark:border-dark-700" role="alert">
-        <div class="flex items-center ml-4 h-7">
-            <svg xmlns="http://www.w3.org/2000/svg" class="mb-px text-blue-500 dark:text-blue-400" width="22" height="22" viewBox="0 0 24 24" role="presentation">
-                <g fill="currentColor"><g>
-                    <path d="M12 1C5.93 1 1 5.93 1 12s4.93 11 11 11 11-4.93 11-11S18.07 1 12 1zm0 20c-4.96 0-9-4.04-9-9s4.04-9 9-9 9 4.04 9 9-4.04 9-9 9z"></path>
-                    <path d="M12 11c-.55 0-1 .45-1 1v4c0 .55.45 1 1 1s1-.45 1-1v-4c0-.55-.45-1-1-1zM12.01 7c-.56 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1z"></path>
-                    <path fill="none" d="M0 0h24v24H0z"></path>
-                </g></g>
-            </svg>
-        </div>
-        <div class="pr-5 ml-3">
-<p>Time showed that update like 1. delete, 2. write is anti-pattern and
-should not be used. There is just one case where it is necessary: when
-re-writing list entry, you must first delete the previous entry, then
-write the new one, otherwise the previous entry would still be present
-and the new entry will be added to the list.</p>
-        </div>
+    <div class="flex items-center text-xs text-gray-400 dark:text-dark-400">
+        <span>/frinx-uniconfig/user-guide/uniconfig-operations/utilities/yang-packager/</span>
     </div>
+    <a href="/frinx-uniconfig/user-guide/uniconfig-operations/utilities/yang-packager/" class="absolute block inset-0"></a>
 </div>
-<p>A writer can properly work only if there is a reader for the same
-composite node.</p>
-<p>The framework provides safe methods to use when handling data on device:</p>
-<ul>
-<li><strong>safePut</strong> deletes or adds managed data. Does not touch data that
-was previously on the device and is not handled by the writer.</li>
-<li><strong>safeMerge</strong> stores just the changed data into device. Does not
-touch data that was previously on the device and is not handled by
-the writer.</li>
-<li><strong>safeDelete</strong> removes data from the device only if the managed node
-does not contain any other information (even one not handled by the
-writer)</li>
-</ul>
-<doc-anchor-target id="mandatory-interfaces-to-implement-1">
-    <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#mandatory-interfaces-to-implement-1">#</doc-anchor-trigger>
-        <span>Mandatory interfaces to implement</span>
-    </h3>
-</doc-anchor-target>
-<p>Each writer needs to implement one of these interfaces based on type of
-target node in YANG. Unlike mandatory interfaces for reading, only
-interfaces for writing config data are available (because it is not
-possible to write operational data). For more information about methods
-please read javadocs.</p>
-<p><strong>ListWriterCustomizer</strong> - implement this interface if target composite
-node in YANG is list. An implementation needs to be registered as
-GenericListWriter.</p>
-<p><strong>WriterCustomizer</strong> - implement this interface if target composite node
-in YANG is container or augmentation. An implementation needs to be
-registered as GenericWriter.</p>
-<doc-anchor-target id="base-writers">
-    <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#base-writers">#</doc-anchor-trigger>
-        <span>Base Writers</span>
-    </h3>
-</doc-anchor-target>
-<p>Each base writer should be generic and contain abstract methods:</p>
-<ul>
-<li><strong>fun getIid(id: InstanceIdentifier&lt;Config&gt;):
-InstanceIdentifier&lt;T&gt;</strong> -this method returns InstanceIdentifier
-that points to a node where data should be written</li>
-<li><strong>fun getData(data: Config): T</strong> - this method transforms OpenConfig
-data into device specific data (T)</li>
-</ul>
+</p>
 
 
 
@@ -442,20 +248,20 @@ data into device specific data (T)</li>
             
 <nav class="flex mt-14">
     <div class="w-1/2">
-        <a class="px-5 py-4 h-full flex items-center break-all md:break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-l-lg transition-colors duration-150 relative hover:z-5" href="/frinx-uniconfig/developer-guide/cli-translation-unit/">
+        <a class="px-5 py-4 h-full flex items-center break-all md:break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-l-lg transition-colors duration-150 relative hover:z-5" href="/frinx-uniconfig/user-guide/uniconfig-operations/uniconfig-node-manager/rpc_validate/">
             <svg xmlns="http://www.w3.org/2000/svg" class="mr-3" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" overflow="visible"><path d="M19 11H7.41l5.29-5.29a.996.996 0 10-1.41-1.41l-7 7a1 1 0 000 1.42l7 7a1.024 1.024 0 001.42-.01.996.996 0 000-1.41L7.41 13H19c.55 0 1-.45 1-1s-.45-1-1-1z" /><path fill="none" d="M0 0h24v24H0z" /></svg>
             <span>
                 <span class="block text-xs font-normal text-gray-400 dark:text-dark-400">Previous</span>
-                <span class="block mt-1">Implementing CLI Translation Unit</span>
+                <span class="block mt-1">RPC validate</span>
             </span>
         </a>
     </div>
 
     <div class="w-1/2">
-        <a class="px-5 py-4 -mx-px h-full flex items-center justify-end break-all md:break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-r-lg transition-colors duration-150 relative hover:z-5" href="/frinx-uniconfig/developer-guide/native-cli-units/">
+        <a class="px-5 py-4 -mx-px h-full flex items-center justify-end break-all md:break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-r-lg transition-colors duration-150 relative hover:z-5" href="/frinx-uniconfig/user-guide/uniconfig-operations/utilities/yang-packager/">
             <span>
                 <span class="block text-xs font-normal text-right text-gray-400 dark:text-dark-400">Next</span>
-                <span class="block mt-1">Native-CLI translation units</span>
+                <span class="block mt-1">YANG packager</span>
             </span>
             <svg xmlns="http://www.w3.org/2000/svg" class="ml-3" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" overflow="visible"><path d="M19.92 12.38a1 1 0 00-.22-1.09l-7-7a.996.996 0 10-1.41 1.41l5.3 5.3H5c-.55 0-1 .45-1 1s.45 1 1 1h11.59l-5.29 5.29a.996.996 0 000 1.41c.19.2.44.3.7.3s.51-.1.71-.29l7-7c.09-.09.16-.21.21-.33z" /><path fill="none" d="M0 0h24v24H0z" /></svg>
         </a>
@@ -503,6 +309,6 @@ data into device specific data (T)</li>
 
         <div id="docs-overlay-target"></div>
 
-        <script>window.__DOCS__ = { "title": "NETCONF Unified Translation Unit", icon: "file", hasPrism: true, hasMermaid: false, hasMath: false }</script>
+        <script>window.__DOCS__ = { "title": "Utilities", icon: "file", hasPrism: false, hasMermaid: false, hasMath: false }</script>
     </body>
 </html>

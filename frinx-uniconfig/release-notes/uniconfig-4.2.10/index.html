@@ -1,0 +1,3082 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="turbo-cache-control" content="no-cache">
+
+    <!-- Primary Meta Tags -->
+    <title>UniConfig 4.2.10Example | Frinx Docs</title>
+    <meta name="title" content="UniConfig 4.2.10Example | Frinx Docs">
+    <meta name="description" content="Each modification in the transaction was expressed using one edit-config message on southbound layer." />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://matkuliak.xyz/frinx-uniconfig/release-notes/uniconfig-4.2.10/">
+    <meta property="og:title" content="UniConfig 4.2.10Example | Frinx Docs">
+    <meta property="og:description" content="Each modification in the transaction was expressed using one edit-config message on southbound layer.">
+    <meta property="og:image" content="https://matkuliak.xyz/frinx-uniconfig/release-notes/global-device-encryption-model-1.png">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://matkuliak.xyz/frinx-uniconfig/release-notes/uniconfig-4.2.10/">
+    <meta property="twitter:title" content="UniConfig 4.2.10Example | Frinx Docs">
+    <meta property="twitter:description" content="Each modification in the transaction was expressed using one edit-config message on southbound layer.">
+    <meta property="twitter:image" content="https://matkuliak.xyz/frinx-uniconfig/release-notes/global-device-encryption-model-1.png">
+    
+    <script>(function () { var el = document.documentElement, m = localStorage.getItem("doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
+
+    <link href="/resources/css/retype.css?v=1.11.2.699652750170" rel="stylesheet" data-turbo-track="reload" />
+
+    <script type="text/javascript" src="/resources/js/config.js?v=1.11.2.699652750170" defer data-turbo-track="reload"></script>
+    <script type="text/javascript" src="/resources/js/retype.js?v=1.11.2" defer data-turbo-track="reload"></script>
+    <script id="lunr-js" type="text/javascript" src="/resources/js/lunr.js?v=1.11.2.699652750170" defer></script>
+</head>
+    <body>
+        <div id="docs-app" class="relative text-base antialiased text-gray-700 bg-white font-body dark:bg-dark-850 dark:text-dark-300">
+    <div class="absolute bottom-0 left-0 bg-gray-100 dark:bg-dark-800" style="top: 5rem; right: 50%"></div>
+
+    <header id="docs-site-header" class="sticky top-0 z-30 flex w-full h-16 bg-white border-b border-gray-200 md:h-20 dark:bg-dark-850 dark:border-dark-650">
+    <div class="container relative flex items-center justify-between flex-grow pr-6 md:justify-start">
+        <!-- Mobile menu button skeleton -->
+        <button v-cloak class="skeleton docs-mobile-menu-button flex items-center justify-center flex-shrink-0 overflow-hidden dark:text-white focus:outline-none rounded-full w-10 h-10 ml-3.5 md:hidden"><svg xmlns="http://www.w3.org/2000/svg" class="mb-px flex-shrink-0" width="24" height="24" viewBox="0 0 24 24" role="presentation" style="margin-bottom: 0px;"><g fill="currentColor"><path d="M2 4h20v2H2zM2 11h20v2H2zM2 18h20v2H2z"></path></g></svg></button>
+        <div v-cloak id="docs-sidebar-toggle"></div>
+
+        <!-- Logo -->
+        <div class="flex items-center justify-between h-full py-2 md:w-75">
+            <div class="flex items-center px-2 md:px-6">
+                <a id="docs-site-logo" href="/" class="flex items-center leading-snug text-2xl">
+                    <span class="dark:text-white font-semibold line-clamp-1 md:line-clamp-2">Example docs</span>
+                </a>
+            </div>
+
+            <span class="hidden h-8 border-r md:inline-block dark:border-dark-650"></span>
+        </div>
+
+        <div class="flex justify-between md:flex-grow">
+            <!-- Top Nav -->
+            <nav class="hidden md:flex">
+    <ul class="flex flex-col mb-4 md:pl-16 md:mb-0 md:flex-row md:items-center">
+        <li class="md:mr-6">
+            <a class="inline-flex items-center py-2 md:mb-0 text-sm text-gray-400 whitespace-nowrap transition-colors duration-200 ease-linear md:text-blue-500 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-200" href="/">
+                <svg xmlns="http://www.w3.org/2000/svg" class="mb-px mr-1" width="18" height="18" viewBox="0 0 24 24" role="presentation">
+                    <g fill="currentColor">
+                        <path fill-rule="evenodd" d="M11.03 2.59a1.5 1.5 0 011.94 0l7.5 6.363a1.5 1.5 0 01.53 1.144V19.5a1.5 1.5 0 01-1.5 1.5h-5.75a.75.75 0 01-.75-.75V14h-2v6.25a.75.75 0 01-.75.75H4.5A1.5 1.5 0 013 19.5v-9.403c0-.44.194-.859.53-1.144l7.5-6.363zM12 3.734l-7.5 6.363V19.5h5v-6.25a.75.75 0 01.75-.75h3.5a.75.75 0 01.75.75v6.25h5v-9.403L12 3.734z"/>
+                    </g>
+                </svg>
+                <span>Home</span>
+            </a>
+        </li>
+        <li class="md:mr-6">
+            <a class="inline-flex items-center py-2 md:mb-0 text-sm text-gray-400 whitespace-nowrap transition-colors duration-200 ease-linear md:text-blue-500 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-200" href="https://github.com/matkuliak" target="_blank">
+                <svg xmlns="http://www.w3.org/2000/svg" class="mb-px mr-1" width="18" height="18" viewBox="0 0 24 24" role="presentation">
+                    <g fill="currentColor">
+                        <symbol id="mark-github-icon-symbol" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></symbol><use xlink:href="#mark-github-icon-symbol" />
+                    </g>
+                </svg>
+                <span>GitHub</span>
+            </a>
+        </li>
+        <li class="md:mr-6">
+            <a class="inline-flex items-center py-2 md:mb-0 text-sm text-gray-400 whitespace-nowrap transition-colors duration-200 ease-linear md:text-blue-500 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-200" href="https://www.linkedin.com/in/matej-ma%C5%A5kuliak-248369184/" target="_blank">
+                <svg xmlns="http://www.w3.org/2000/svg" class="mb-px mr-1" width="18" height="18" viewBox="0 0 24 24" role="presentation">
+                    <g fill="currentColor">
+                        <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-.139 9.237c.209 4.617-3.234 9.765-9.33 9.765-1.854 0-3.579-.543-5.032-1.475 1.742.205 3.48-.278 4.86-1.359-1.437-.027-2.649-.976-3.066-2.28.515.098 1.021.069 1.482-.056-1.579-.317-2.668-1.739-2.633-3.26.442.246.949.394 1.486.411-1.461-.977-1.875-2.907-1.016-4.383 1.619 1.986 4.038 3.293 6.766 3.43-.479-2.053 1.08-4.03 3.199-4.03.943 0 1.797.398 2.395 1.037.748-.147 1.451-.42 2.086-.796-.246.767-.766 1.41-1.443 1.816.664-.08 1.297-.256 1.885-.517-.439.656-.996 1.234-1.639 1.697z"/>
+                    </g>
+                </svg>
+                <span>LinkedIn</span>
+            </a>
+        </li>
+    </ul>
+</nav>
+
+            <!-- Header Right Skeleton -->
+            <div v-cloak class="flex justify-end flex-grow skeleton">
+
+                <!-- Search input mock -->
+                <div class="relative hidden w-40 lg:block lg:max-w-sm lg:ml-auto">
+                    <div class="absolute flex items-center justify-center h-full pl-3 dark:text-dark-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon-base" width="16" height="16" viewBox="0 0 24 24" aria-labelledby="icon" role="presentation"  style="margin-bottom: 1px;"><g fill="currentColor" ><path d="M21.71 20.29l-3.68-3.68A8.963 8.963 0 0020 11c0-4.96-4.04-9-9-9s-9 4.04-9 9 4.04 9 9 9c2.12 0 4.07-.74 5.61-1.97l3.68 3.68c.2.19.45.29.71.29s.51-.1.71-.29c.39-.39.39-1.03 0-1.42zM4 11c0-3.86 3.14-7 7-7s7 3.14 7 7c0 1.92-.78 3.66-2.04 4.93-.01.01-.02.01-.02.01-.01.01-.01.01-.01.02A6.98 6.98 0 0111 18c-3.86 0-7-3.14-7-7z" ></path></g></svg>
+                    </div>
+
+                    <input class="w-full h-10 transition-colors duration-200 ease-in bg-gray-200 border border-transparent rounded md:text-sm hover:bg-white hover:border-gray-300 focus:outline-none focus:bg-white focus:border-gray-500 dark:bg-dark-600 dark:border-dark-600 placeholder-gray-400 dark:placeholder-dark-400"
+                    style="padding: 0.625rem 0.75rem 0.625rem 2rem" type="text" placeholder="Search" />
+                </div>
+
+                <!-- Mobile search button mock -->
+                <div class="flex items-center justify-center w-10 h-10 lg:hidden">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="flex-shrink-0 icon-base" width="20" height="20" viewBox="0 0 24 24" aria-labelledby="icon" role="presentation"  style="margin-bottom: 0px;"><g fill="currentColor" ><path d="M21.71 20.29l-3.68-3.68A8.963 8.963 0 0020 11c0-4.96-4.04-9-9-9s-9 4.04-9 9 4.04 9 9 9c2.12 0 4.07-.74 5.61-1.97l3.68 3.68c.2.19.45.29.71.29s.51-.1.71-.29c.39-.39.39-1.03 0-1.42zM4 11c0-3.86 3.14-7 7-7s7 3.14 7 7c0 1.92-.78 3.66-2.04 4.93-.01.01-.02.01-.02.01-.01.01-.01.01-.01.02A6.98 6.98 0 0111 18c-3.86 0-7-3.14-7-7z" ></path></g></svg>
+                </div>
+
+                <!-- Dark mode switch placehokder -->
+                <div class="w-10 h-10 lg:ml-2"></div>
+
+                <!-- History button mock -->
+                <div class="flex items-center justify-center w-10 h-10" style="margin-right: -0.625rem;">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="flex-shrink-0 icon-base" width="22" height="22" viewBox="0 0 24 24" aria-labelledby="icon" role="presentation"  style="margin-bottom: 0px;"><g fill="currentColor" ><g ><path d="M12.01 6.01c-.55 0-1 .45-1 1V12a1 1 0 00.4.8l3 2.22a.985.985 0 001.39-.2.996.996 0 00-.21-1.4l-2.6-1.92V7.01c.02-.55-.43-1-.98-1z"></path><path d="M12.01 1.91c-5.33 0-9.69 4.16-10.05 9.4l-.29-.26a.997.997 0 10-1.34 1.48l1.97 1.79c.19.17.43.26.67.26s.48-.09.67-.26l1.97-1.79a.997.997 0 10-1.34-1.48l-.31.28c.34-4.14 3.82-7.41 8.05-7.41 4.46 0 8.08 3.63 8.08 8.09s-3.63 8.08-8.08 8.08c-2.18 0-4.22-.85-5.75-2.4a.996.996 0 10-1.42 1.4 10.02 10.02 0 007.17 2.99c5.56 0 10.08-4.52 10.08-10.08.01-5.56-4.52-10.09-10.08-10.09z"></path></g></g></svg>
+                </div>
+            </div>
+
+            <div v-cloak class="flex items-center justify-end flex-grow">
+                <div id="docs-mobile-search-button"></div>
+                <doc-search-desktop></doc-search-desktop>
+
+                <doc-theme-switch class="lg:ml-2"></doc-theme-switch>
+                <doc-history></doc-history>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+    <div class="container relative flex bg-white">
+        <!-- Sidebar Skeleton -->
+<div v-cloak class="fixed flex flex-col flex-shrink-0 duration-300 ease-in-out bg-gray-100 border-gray-200 sidebar top-20 w-75 border-r h-screen md:sticky transition-transform skeleton dark:bg-dark-800 dark:border-dark-650">
+
+    <!-- Render this div, if config.showSidebarFilter is `true` -->
+    <div class="flex items-center h-16 px-6">
+        <input class="w-full h-8 px-3 py-2 transition-colors duration-200 ease-linear bg-white border border-gray-200 rounded shadow-none text-sm focus:outline-none focus:border-gray-600 dark:bg-dark-600 dark:border-dark-600" type="text" placeholder="Filter" />
+    </div>
+
+    <div class="pl-6 mb-4 mt-1">
+        <div class="w-32 h-3 mb-4 bg-gray-200 rounded-full loading dark:bg-dark-600"></div>
+        <div class="w-48 h-3 mb-4 bg-gray-200 rounded-full loading dark:bg-dark-600"></div>
+        <div class="w-40 h-3 mb-4 bg-gray-200 rounded-full loading dark:bg-dark-600"></div>
+        <div class="w-32 h-3 mb-4 bg-gray-200 rounded-full loading dark:bg-dark-600"></div>
+        <div class="w-48 h-3 mb-4 bg-gray-200 rounded-full loading dark:bg-dark-600"></div>
+        <div class="w-40 h-3 mb-4 bg-gray-200 rounded-full loading dark:bg-dark-600"></div>
+    </div>
+
+
+    <div class="flex-shrink-0 mt-auto bg-transparent dark:border-dark-650">
+        <a
+    class="flex items-center justify-center flex-nowrap h-16 text-gray-400 dark:text-dark-400 hover:text-gray-700 dark:hover:text-dark-300 transition-colors duration-150 ease-in docs-powered-by"
+    target="_blank"
+    href="https://retype.com/"
+    rel="noopener"
+>
+    <span class="text-xs whitespace-nowrap">Powered by</span>
+    <svg xmlns="http://www.w3.org/2000/svg" class="ml-2" fill="currentColor" width="96" height="20" overflow="visible"><path d="M0 0v20h13.59V0H0zm11.15 17.54H2.44V2.46h8.71v15.08zM15.8 20h2.44V4.67L15.8 2.22zM20.45 6.89V20h2.44V9.34z"/><g><path d="M40.16 8.44c0 1.49-.59 2.45-1.75 2.88l2.34 3.32h-2.53l-2.04-2.96h-1.43v2.96h-2.06V5.36h3.5c1.43 0 2.46.24 3.07.73s.9 1.27.9 2.35zm-2.48 1.1c.26-.23.38-.59.38-1.09 0-.5-.13-.84-.4-1.03s-.73-.28-1.39-.28h-1.54v2.75h1.5c.72 0 1.2-.12 1.45-.35zM51.56 5.36V7.2h-4.59v1.91h4.13v1.76h-4.13v1.92h4.74v1.83h-6.79V5.36h6.64zM60.09 7.15v7.48h-2.06V7.15h-2.61V5.36h7.28v1.79h-2.61zM70.81 14.64h-2.06v-3.66l-3.19-5.61h2.23l1.99 3.45 1.99-3.45H74l-3.19 5.61v3.66zM83.99 6.19c.65.55.97 1.4.97 2.55s-.33 1.98-1 2.51-1.68.8-3.04.8h-1.23v2.59h-2.06V5.36h3.26c1.42 0 2.45.28 3.1.83zm-1.51 3.65c.25-.28.37-.69.37-1.22s-.16-.92-.48-1.14c-.32-.23-.82-.34-1.5-.34H79.7v3.12h1.38c.68 0 1.15-.14 1.4-.42zM95.85 5.36V7.2h-4.59v1.91h4.13v1.76h-4.13v1.92H96v1.83h-6.79V5.36h6.64z"/></g></svg>
+</a>
+
+    </div>
+</div>
+
+<!-- Sidebar component -->
+<doc-sidebar v-cloak>
+    <template #sidebar-footer>
+        <div
+            class="flex-shrink-0 mt-auto border-t md:bg-transparent md:border-none dark:border-dark-650"
+        >
+
+            <div class="py-3 px-6 md:hidden border-b dark:border-dark-650">
+                <nav>
+                    <ul class="flex flex-wrap justify-center items-center">
+                        <li class="mr-6">
+                            <a class="block py-1 text-sm whitespace-nowrap transition-colors duration-200 ease-linear text-blue-500 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-200" href="/README.md">Home</a>
+                        </li>
+                        <li class="mr-6">
+                            <a class="block py-1 text-sm whitespace-nowrap transition-colors duration-200 ease-linear text-blue-500 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-200" href="https://github.com/matkuliak">GitHub</a>
+                        </li>
+                        <li class="mr-6">
+                            <a class="block py-1 text-sm whitespace-nowrap transition-colors duration-200 ease-linear text-blue-500 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-200" href="https://www.linkedin.com/in/matej-ma%C5%A5kuliak-248369184/">LinkedIn</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+
+
+            <a
+    class="flex items-center justify-center flex-nowrap h-16 text-gray-400 dark:text-dark-400 hover:text-gray-700 dark:hover:text-dark-300 transition-colors duration-150 ease-in docs-powered-by"
+    target="_blank"
+    href="https://retype.com/"
+    rel="noopener"
+>
+    <span class="text-xs whitespace-nowrap">Powered by</span>
+    <svg xmlns="http://www.w3.org/2000/svg" class="ml-2" fill="currentColor" width="96" height="20" overflow="visible"><path d="M0 0v20h13.59V0H0zm11.15 17.54H2.44V2.46h8.71v15.08zM15.8 20h2.44V4.67L15.8 2.22zM20.45 6.89V20h2.44V9.34z"/><g><path d="M40.16 8.44c0 1.49-.59 2.45-1.75 2.88l2.34 3.32h-2.53l-2.04-2.96h-1.43v2.96h-2.06V5.36h3.5c1.43 0 2.46.24 3.07.73s.9 1.27.9 2.35zm-2.48 1.1c.26-.23.38-.59.38-1.09 0-.5-.13-.84-.4-1.03s-.73-.28-1.39-.28h-1.54v2.75h1.5c.72 0 1.2-.12 1.45-.35zM51.56 5.36V7.2h-4.59v1.91h4.13v1.76h-4.13v1.92h4.74v1.83h-6.79V5.36h6.64zM60.09 7.15v7.48h-2.06V7.15h-2.61V5.36h7.28v1.79h-2.61zM70.81 14.64h-2.06v-3.66l-3.19-5.61h2.23l1.99 3.45 1.99-3.45H74l-3.19 5.61v3.66zM83.99 6.19c.65.55.97 1.4.97 2.55s-.33 1.98-1 2.51-1.68.8-3.04.8h-1.23v2.59h-2.06V5.36h3.26c1.42 0 2.45.28 3.1.83zm-1.51 3.65c.25-.28.37-.69.37-1.22s-.16-.92-.48-1.14c-.32-.23-.82-.34-1.5-.34H79.7v3.12h1.38c.68 0 1.15-.14 1.4-.42zM95.85 5.36V7.2h-4.59v1.91h4.13v1.76h-4.13v1.92H96v1.83h-6.79V5.36h6.64z"/></g></svg>
+</a>
+
+        </div>
+    </template>
+</doc-sidebar>
+
+
+        <div class="flex-grow min-w-0 dark:bg-dark-850">
+            <!-- Render "toolbar" template here on api pages --><!-- Render page content -->
+            <div class="flex">
+    <div class="flex-grow min-w-0 px-6 md:px-16">
+        <main class="relative pt-6 pb-16">
+            <div class="docs-markdown" id="docs-content">
+                <!-- Rendered if sidebar right is enabled -->
+                <div id="docs-sidebar-right-toggle"></div>
+               
+                <!-- Page content  -->
+<doc-anchor-target id="uniconfig-4210" class="break-words">
+    <h1>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#uniconfig-4210">#</doc-anchor-trigger>
+        <span>UniConfig 4.2.10</span>
+    </h1>
+</doc-anchor-target>
+<doc-anchor-target id="new-features">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#new-features">#</doc-anchor-trigger>
+        <span><span class="docs-emoji">&#x2705;</span> New Features</span>
+    </h2>
+</doc-anchor-target>
+<doc-anchor-target id="aggregation-of-all-edit-config-netconf-messages-into-one-edit-config-message">
+    <h4>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#aggregation-of-all-edit-config-netconf-messages-into-one-edit-config-message">#</doc-anchor-trigger>
+        <span>Aggregation of all edit-config NETCONF messages into one edit-config message</span>
+    </h4>
+</doc-anchor-target>
+<ul>
+<li>Each modification in the transaction was expressed using one edit-config message on southbound layer.</li>
+</ul>
+<p>This approach was not optimal:</p>
+<ul>
+<li>it generated more network traffic than needed</li>
+<li>it could introduce errors, if device checks some references before committing configuration</li>
+</ul>
+<p>After this patch, all NETCONF edit-config RPCs in the transaction are aggregated into single edit-config RPC with common parent element.</p>
+<doc-anchor-target id="capturing-changes-in-ordered-listleaf-list-using-calculate-diff-rpc">
+    <h4>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#capturing-changes-in-ordered-listleaf-list-using-calculate-diff-rpc">#</doc-anchor-trigger>
+        <span>Capturing changes in ordered list/leaf-list using calculate-diff RPC</span>
+    </h4>
+</doc-anchor-target>
+<ul>
+<li><p>Currently, changed order of list entries inside ordered list/leaf-list is displayed as updated whole list with all list entries - not optimal solution.</p>
+</li>
+<li><p>Added new list to calculate-diff RPC output that captures changes in the ordering of list or leaf-list elements. Such changes are not displayed under created/removed/updated containers.</p>
+</li>
+</ul>
+<doc-anchor-target id="validation-of-leaf-refs">
+    <h4>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#validation-of-leaf-refs">#</doc-anchor-trigger>
+        <span>Validation of leaf-refs</span>
+    </h4>
+</doc-anchor-target>
+<ul>
+<li>Validation of leaf-ref YANG constraints that are affected by some create/delete/update operation:</li>
+<li>Supported following leaf-ref paths:
+<ul>
+<li>absolute paths</li>
+<li>relative paths</li>
+<li>paths with &#x27;current()&#x27; XPATH function</li>
+</ul>
+</li>
+<li>Added new RESTCONF query parameter into put/patch/delete operations - checkForReferences.</li>
+<li>Implementation conforms <a href="https://datatracker.ietf.org/doc/html/rfc7950#section-9.9">RFC 7950 - The YANG 1.1 Data Modeling Language</a></li>
+</ul>
+<doc-anchor-target id="encryption-of-leaves-selected-by-paths">
+    <h4>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#encryption-of-leaves-selected-by-paths">#</doc-anchor-trigger>
+        <span>Encryption of leaves selected by paths</span>
+    </h4>
+</doc-anchor-target>
+<ul>
+<li>UniConfig uses asymmetric encryption for ensuring confidentiality of selected leaf and leaf-list values. Currently, only RSA ciphers are supported (both global UniConfig and device-level key-pairs). Encryption is supported in ‘uniconfig’, ‘unistore’, and ‘templates’ topologies.</li>
+<li>Global-device encryption architecture - both UniConfig and device uses PKI for encryption of data:</li>
+</ul>
+<p><figure class="content-center">
+    <img src="../global-device-encryption-model-1.png" alt="Global-device encryption architecture" />
+    <figcaption class="caption">Global-device encryption architecture</figcaption>
+</figure>
+</p>
+<ul>
+<li>In comparison to Global-device encryption architecture this model uses only global key-pair for encryption of data. Devices contain only plaintext data.</li>
+</ul>
+<p><figure class="content-center">
+    <img src="../global-device-encryption-model-2.png" alt="" />
+    <figcaption class="caption"></figcaption>
+</figure>
+</p>
+<hr />
+<doc-anchor-target id="implementation-of-crypt-hash-type-from-iana-crypt-hash-yang-module">
+    <h4>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#implementation-of-crypt-hash-type-from-iana-crypt-hash-yang-module">#</doc-anchor-trigger>
+        <span>Implementation of ‘crypt-hash&#x27; type from &#x27;iana-crypt-hash’ YANG module</span>
+    </h4>
+</doc-anchor-target>
+<ul>
+<li><p>UniConfig supports &#x27;iana-crypt-hash&#x27; YANG model for specification of hashed values in data-tree using type definition &#x27;crypt-hash&#x27;. Hashing works in the &#x27;uniconfig&#x27; and &#x27;unistore&#x27; topologies. Only NETCONF devices are currently supported because CLI cannot be natively used for reporting of device capabilities that would contain supported hashing function.</p>
+</li>
+<li><p>Hashing is done only in the RESTCONF layer after writing some data that contains leaves/leaf-lists with &#x27;crypt-hash&#x27; type. Afterwards, UniConfig stores, uses, and writes to device only hashed representation of these values.</p>
+</li>
+<li><p>All 3 hash functions are implemented - &#x27;MD5&#x27;, &#x27;SHA-256&#x27;, &#x27;SHA-512&#x27;. In case of &#x27;uniconfig&#x27; topology, hashing function is selected based on reported feature in the NETCONF capability, in case of &#x27;unistore&#x27; topology, UniConfig enforces &#x27;SHA-512&#x27; hashing function.</p>
+</li>
+</ul>
+<p><figure class="content-center">
+    <img src="../security-models-hashing-model.png" alt="Hashing model" />
+    <figcaption class="caption">Hashing model</figcaption>
+</figure>
+</p>
+<hr />
+<doc-anchor-target id="using-the-latest-schema-at-creation-of-template">
+    <h4>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#using-the-latest-schema-at-creation-of-template">#</doc-anchor-trigger>
+        <span>Using the latest schema at creation of template</span>
+    </h4>
+</doc-anchor-target>
+<ul>
+<li>Adding configuration into UniConfig that tracks identifier of the UniConfig repository that must be used at creation of new template, if user doesn’t explicitly specify identifier of this repository using ‘schema-cache-directory’ query parameter.</li>
+</ul>
+<doc-anchor-target id="rebalancing-of-notifications-cluster-at-runtime">
+    <h4>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#rebalancing-of-notifications-cluster-at-runtime">#</doc-anchor-trigger>
+        <span>Rebalancing of notifications cluster at runtime</span>
+    </h4>
+</doc-anchor-target>
+<ul>
+<li><p>Random distribution of subscriptions to NETCONF notifications streams and turning on/off UniConfig instances may lead to scenario when one of the UniConfig instances in the cluster contain most of the subscriptions while others unequally smaller number.</p>
+</li>
+<li><p>Fixed by automatic redistribution of already created subscriptions on UniConfig instances and introduction of limits, how many subscriptions can be allocated on the one UniConfig instance in the cluster.</p>
+</li>
+</ul>
+<p><figure class="content-center">
+    <img src="../cluster-rebalancing.png" alt="Cluster rebalancing" />
+    <figcaption class="caption">Cluster rebalancing</figcaption>
+</figure>
+</p>
+<doc-anchor-target id="configuration">
+    <h5>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#configuration">#</doc-anchor-trigger>
+        <span>Configuration</span>
+    </h5>
+</doc-anchor-target>
+<ul>
+<li>Added new parameters under “notifications“ element in the lighty-uniconfig-config.json file:</li>
+</ul>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-none"><code v-pre class="language-none">@JsonProperty(&quot;maxNetconfSubscriptionsHardLimit&quot;)
+private int maxNetconfSubscriptionsHardLimit = 5000;
+@JsonProperty(&quot;optimalNetconfSubscriptionsReachedMargin&quot;)
+private double optimalNetconfSubscriptionsReachedMargin = 0.10;
+@JsonProperty(&quot;optimalNetconfSubscriptionsApproachingMargin&quot;)
+private double optimalNetconfSubscriptionsApproachingMargin = 0.05;
+@JsonProperty(&quot;rebalanceOnUCNodeGoingDownGracePeriod&quot;)
+private int rebalanceOnUCNodeGoingDownGracePeriod = 120;</code></pre>
+</doc-codeblock></div>
+<hr />
+<doc-anchor-target id="implementation-of-rfc-8072-patch-operation">
+    <h4>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#implementation-of-rfc-8072-patch-operation">#</doc-anchor-trigger>
+        <span>Implementation of RFC-8072 PATCH operation</span>
+    </h4>
+</doc-anchor-target>
+<ul>
+<li>Invocation of PATCH that may contain multiple edits.</li>
+<li>All edits are invoked sequentially and atomically as single operation.</li>
+<li>Supported sub-operations per edit: create, delete, insert, merge, move, replace, remove.</li>
+<li>More detailed description: <a href="https://datatracker.ietf.org/doc/html/rfc8072">RFC 8072 - YANG Patch Media Type</a></li>
+</ul>
+<doc-anchor-target id="added-missing-protocols-to-l2-for-ios-xe-cli-units">
+    <h4>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#added-missing-protocols-to-l2-for-ios-xe-cli-units">#</doc-anchor-trigger>
+        <span>Added missing protocols to L2 for IOS XE (cli-units)</span>
+    </h4>
+</doc-anchor-target>
+<ul>
+<li>Parsing of following protocols:
+<ul>
+<li>elmi</li>
+<li>pagp</li>
+<li>udld</li>
+<li>ptppd</li>
+</ul>
+</li>
+</ul>
+<hr />
+<doc-anchor-target id="uniconfig-whitelist">
+    <h4>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#uniconfig-whitelist">#</doc-anchor-trigger>
+        <span>UniConfig whitelist</span>
+    </h4>
+</doc-anchor-target>
+<ul>
+<li>specification of top-level containers/lists which configuration is synced from device (no other configuration is read from device)</li>
+<li>opposite of existing blacklist functionality</li>
+<li>either blacklist or whitelist can be specified, not both</li>
+</ul>
+<p><strong>API</strong></p>
+<ul>
+<li>updated YANG model that defines whitelist/blacklist:</li>
+</ul>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-none"><code v-pre class="language-none">...
+        choice nodes {
+            case wl {
+                container whitelist {
+                    description &quot;Reads which are invoked for sync-from-network and initial config read.&quot;  ;
+
+                    uses uniconfig-config-node-lists;
+                }
+            }
+            case bl {
+                container blacklist {
+                    description &quot;Reads which are not invoked for sync-from-network and initial config read.&quot;;
+
+                    uses uniconfig-config-node-lists;
+                }
+            }
+        }
+        
+    grouping uniconfig-config-node-lists {
+        leaf-list path {
+            description &quot;Only root schema nodes are supported. The path needs to be in URI format from RFC 8040.
+            e.g. ietf-interfaces:interfaces where ietf-interfaces is YANG module name and interfaces is root
+            container.&quot;;
+            type string;
+        }
+        leaf-list extension {
+            description &quot;List of extensions that mark top level containers/lists.
+            Example value: [\&quot;common:hidden true\&quot;]&quot;;
+            type string;
+        }
+    }
+...</code></pre>
+</doc-codeblock></div>
+<ul>
+<li>Install-node RPC example (input body):</li>
+</ul>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-none"><code v-pre class="language-none">{
+  &quot;input&quot;:{
+      &quot;node-id&quot;:&quot;xr1&quot;,
+      &quot;netconf&quot;:{
+          &quot;netconf-node-topology:host&quot;:&quot;10.0.0.1&quot;,
+          &quot;netconf-node-topology:port&quot;:830,
+          &quot;netconf-node-topology:keepalive-delay&quot;:5,
+          &quot;netconf-node-topology:tcp-only&quot;:false,
+          &quot;netconf-node-topology:username&quot;:&quot;USERNAME&quot;,
+          &quot;netconf-node-topology:password&quot;:&quot;PASSWORD&quot;,
+          &quot;netconf-node-topology:dry-run-journal-size&quot;:180,
+          &quot;uniconfig-config:uniconfig-native-enabled&quot;:true,
+          &quot;uniconfig-config:whitelist&quot;:{
+              &quot;uniconfig-config:path&quot;:[
+                  &quot;openconfig-interfaces:interfaces&quot;,
+                  &quot;openconfig-vlan:vlans&quot;
+              ]
+          }
+      }
+    }
+}</code></pre>
+</doc-codeblock></div>
+<hr />
+<doc-anchor-target id="uniconfig-client-thread-model">
+    <h4>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#uniconfig-client-thread-model">#</doc-anchor-trigger>
+        <span>UniConfig client thread model</span>
+    </h4>
+</doc-anchor-target>
+<ul>
+<li>make uniconfig-client thread safe (using client from multiple threads)</li>
+<li>making HTTP connection pools configurable (max connections, …)</li>
+</ul>
+<p><strong>API:</strong></p>
+<p>Introduced connection pool settings:</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-none"><code v-pre class="language-none">public final class HttpClientSettings {
+    private final long responseReadTimeout;
+    private final long requestWriteTimeout;
+    private final long connectTimeout;
+    private final boolean retryOnConnectFailure;
+    private final int maxParallelConnections;
+    private final int maxIdleConnections;
+    private final long idleConnectionTimeout;</code></pre>
+</doc-codeblock></div>
+<ul>
+<li>Introduced UniConfig server settings:</li>
+</ul>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-none"><code v-pre class="language-none">public final class UniconfigServerSettings {
+    private final String uniconfigHostname;
+    private final int restServerPort;
+    private final String username;
+    private final String password;</code></pre>
+</doc-codeblock></div>
+<ul>
+<li>Example:</li>
+</ul>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-none"><code v-pre class="language-none">// connection settings
+final var uniconfigServerSettings = new UniconfigServerSettingsBuilder()
+      .setUniconfigHostname(&quot;127.0.0.1&quot;)
+      .setRestServerPort(8181)
+      .setUsername(&quot;admin&quot;)
+      .setPassword(&quot;admin&quot;)
+      .build();
+final var httpClientSettings = new HttpClientSettingsBuilder()
+      // setting connection pool capacity to 100
+      .setMaxParallelConnections(100)
+      // timeout for initialization of connection between client and server
+      .setConnectTimeout(10000)
+      // set maximum number of idle connections in the connection pool
+      .setMaxIdleConnections(50)
+      // defining how much time idle connections will stay in the connection pool (milliseconds)
+      .setIdleConnectionTimeout(10000)
+      .build();
+LOG.info(&quot;Uniconfig server settings: {}&quot;, uniconfigServerSettings);
+LOG.info(&quot;HTTP client settings: {}&quot;, httpClientSettings);
+
+final var uniconfig = Uniconfig.create(uniconfigServerSettings, httpClientSettings);
+// using uniconfig brokers ...</code></pre>
+</doc-codeblock></div>
+<hr />
+<doc-anchor-target id="distribution-of-netconf-notifications-to-kafka">
+    <h4>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#distribution-of-netconf-notifications-to-kafka">#</doc-anchor-trigger>
+        <span>Distribution of NETCONF notifications to Kafka</span>
+    </h4>
+</doc-anchor-target>
+<ul>
+<li>NETCONF devices are capable of generating NETCONF notifications. UniConfig is able to collect these notifications and creates its own UniConfig notifications about specific events. Kafka is used for publishing of these notifications from NETCONF devices and UniConfig. Currently there are these types of notifications: - NETCONF notifications - notifications about transactions - audit logs (RESTCONF notifications).</li>
+</ul>
+<p><figure class="content-center">
+    <img src="../netconf-notifications-kafka.png" alt="NETCONF notifications - Kafka" />
+    <figcaption class="caption">NETCONF notifications - Kafka</figcaption>
+</figure>
+</p>
+<p><strong>API</strong></p>
+<ul>
+<li>Added subscription API to install-node request - &#x27;stream&#x27; container. Example (subscription to 2 NETCONF streams - ‘NETCONF&#x27; and &#x27;system’):</li>
+</ul>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-none"><code v-pre class="language-none">curl --location --request POST 'http://localhost:8181/rests/operations/connection-manager:install-node' \
+--header 'Accept: application/json' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    &quot;input&quot;:{
+        &quot;node-id&quot;:&quot;versa_2&quot;,
+        &quot;netconf&quot;:{
+            &quot;netconf-node-topology:host&quot;:&quot;10.103.5.202&quot;,
+            &quot;netconf-node-topology:port&quot;:2022,
+            &quot;netconf-node-topology:keepalive-delay&quot;:5,
+            &quot;netconf-node-topology:max-connection-attempts&quot;:1,
+            &quot;netconf-node-topology:connection-timeout-millis&quot;:60000,
+            &quot;netconf-node-topology:default-request-timeout-millis&quot;:60000,
+            &quot;netconf-node-topology:tcp-only&quot;:false,
+            &quot;netconf-node-topology:username&quot;:&quot;admin&quot;,
+            &quot;netconf-node-topology:password&quot;:&quot;versa123&quot;,
+            &quot;netconf-node-topology:sleep-factor&quot;:1.0,
+            &quot;uniconfig-config:UniConfig-native-enabled&quot;:true,
+            &quot;netconf-node-topology:edit-config-test-option&quot;:&quot;set&quot;,
+            &quot;stream&quot;:[
+                {
+                    &quot;stream-name&quot;:&quot;NETCONF&quot;,
+                    &quot;start-time&quot;:&quot;2021-11-08T02:00:00+00:00&quot;,
+                    &quot;stop-time&quot;:&quot;2021-11-08T22:00:00+00:00&quot;
+                },
+                {
+                    &quot;stream-name&quot;:&quot;system&quot;
+                }
+            ]
+        }
+    }
+}'</code></pre>
+</doc-codeblock></div>
+<ul>
+<li>Added root list &#x27;netconf-subscription&#x27; which contains all active subscriptions.</li>
+</ul>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-none"><code v-pre class="language-none">curl --location --request GET 'http://localhost:8181/rests/data/netconf-subscriptions:netconf-subscriptions' \
+--header 'Accept: application/json' \
+--header 'Content-Type: application/json'</code></pre>
+</doc-codeblock></div>
+<ul>
+<li>Corresponding YANG model:</li>
+</ul>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-none"><code v-pre class="language-none">module netconf-subscriptions {
+    yang-version 1;
+    namespace &quot;http://frinx.io/netconf-subscriptions&quot;;
+    prefix netconf-subscriptions;
+
+    import network-topology {
+        revision-date 2013-10-21;
+        prefix nt;
+    }
+
+    import yang-ext {
+        revision-date &quot;2013-07-09&quot;;
+        prefix ext;
+    }
+
+    import ietf-yang-types {
+        revision-date 2013-07-15;
+        prefix &quot;yang&quot;;
+    }
+
+    import connection-manager {
+        revision-date 2021-04-09;
+        prefix &quot;cm&quot;;
+    }
+
+    revision 2021-10-11 {
+        description
+          &quot;Initial revision&quot;;
+    }
+
+    grouping stream-subscription-fields {
+        leaf node-id {
+            type string;
+            description
+              &quot;Identifier of the node which publishes notifications via stream.&quot;;
+        }
+
+        leaf uniconfig-instance {
+            type string;
+            description
+              &quot;Identifier of the UniConfig instance which currently maintains subscription to stream.&quot;;
+        }
+
+        leaf creation-time {
+            type yang:date-and-time;
+            mandatory true;
+            description
+              &quot;Time when subscription has been created.&quot;;
+        }
+
+        uses stream-fields;
+    }
+
+    grouping stream-fields {
+        leaf stream-name {
+            type string;
+            description
+              &quot;Identifier of the notification stream.&quot;;
+        }
+
+        leaf start-time {
+            type yang:date-and-time;
+            description
+              &quot;RFC5277: A parameter, &lt;startTime&gt;, used to trigger the replay feature and indicate that the replay
+               should start at the time specified. If &lt;startTime&gt; is not present, this is not a replay subscription.
+               It is not valid to specify start times that are later than the current time. If the &lt;startTime&gt; specified
+               is earlier than the log can support, the replay will begin with the earliest available notification.&quot;;
+        }
+
+        leaf stop-time {
+            type yang:date-and-time;
+            description
+              &quot;RFC5277: An optional parameter, &lt;stopTime&gt;, used with the optional replay feature to indicate the newest
+               notifications of interest. If &lt;stopTime&gt; is not present, the notifications will continue until the
+               subscription is terminated. Must be used with and be later than &lt;startTime&gt;. Values of &lt;stopTime&gt;
+               in the future are valid.&quot;;
+        }
+    }
+
+    grouping streams-list {
+        list stream {
+            key stream-name;
+            description
+              &quot;List of available streams to which subscription can be created.&quot;;
+
+            uses stream-fields;
+        }
+    }
+
+    list netconf-subscription {
+        key &quot;node-id stream-name&quot;;
+        config false;
+        description
+          &quot;List of created subscriptions to notification streams.&quot;;
+
+        uses stream-subscription-fields;
+    }
+
+    augment &quot;/nt:network-topology/nt:topology/nt:node&quot; {
+        when &quot;../../nt:topology-types/topology-netconf&quot;;
+        ext:augment-identifier &quot;netconf-node&quot;;
+
+        uses streams-list;
+    }
+
+    augment &quot;/cm:install-node/cm:input/cm:netconf&quot; {
+        uses streams-list;
+    }
+
+    augment &quot;/cm:install-multiple-nodes/cm:input/cm:nodes/cm:netconf&quot; {
+        uses streams-list;
+    }
+}
+</code></pre>
+</doc-codeblock></div>
+<p><strong>Configuration</strong></p>
+<ul>
+<li>Provided initial configuration that can put into lighty-uniconfig-config.json:</li>
+</ul>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-none"><code v-pre class="language-none">{
+  &quot;notifications&quot;: {
+    &quot;enabled&quot;: true,
+    &quot;kafka&quot;: {
+      &quot;username&quot;: &quot;kafka&quot;,
+      &quot;password&quot;: &quot;kafka&quot;,
+      &quot;kafkaServers&quot;: [
+        {
+          &quot;brokerHost&quot;: &quot;127.0.0.1&quot;,
+          &quot;brokerListeningPort&quot;: 9092
+        }
+      ],
+      &quot;netconfNotificationsEnabled&quot;: true,
+      &quot;netconfNotificationsTopicName&quot;: &quot;netconf-notifications&quot;,
+      &quot;embeddedKafka&quot;: {
+        &quot;enabled&quot;: true,
+        &quot;installDir&quot;: &quot;/tmp/embedded-kafka&quot;,
+        &quot;archiveUrl&quot;: &quot;https://dlcdn.apache.org/kafka/3.0.0/kafka_2.12-3.0.0.tgz&quot;,
+        &quot;dataDir&quot;: &quot;./data/embedded-kafka&quot;,
+        &quot;cleanDataBeforeStart&quot;: true,
+        &quot;partitions&quot;: 1
+      }
+    },
+    &quot;notificationDbTreshold&quot;: {
+      &quot;maxCount&quot;: 10000,
+      &quot;maxAge&quot;: 100
+    },
+    &quot;netconfSubscriptionsMonitoringInterval&quot;: 5,
+    &quot;maxNetconfSubscriptionsPerInterval&quot;: 10
+  }
+}</code></pre>
+</doc-codeblock></div>
+<p><strong>Uniconfig-client</strong></p>
+<p>Example:</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-none"><code v-pre class="language-none">/*
+ * Copyright © 2021 Frinx and others.
+ *
+ * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package io.frinx.samples;
+
+import io.frinx.uniconfig.client.device.DeviceMountBuilder;
+import io.frinx.uniconfig.client.device.NetconfDeviceMount;
+import io.frinx.uniconfig.client.device.NetconfDeviceMount.Protocol;
+import io.frinx.uniconfig.client.model.NetconfStream;
+import io.frinx.uniconfig.client.model.Notification;
+import io.frinx.uniconfig.client.model.RegisteredSubscription;
+import io.frinx.uniconfig.client.model.Subscription.SubscriptionBuilder;
+import io.frinx.uniconfig.client.services.NetconfDeviceService;
+import io.frinx.uniconfig.client.services.NetconfSouthboundService;
+import io.frinx.uniconfig.client.services.NotificationService.Listener;
+import io.frinx.uniconfig.client.services.Uniconfig;
+import io.frinx.uniconfig.client.services.Uniconfig.UniconfigBuilder;
+import io.frinx.uniconfig.client.services.config.KafkaSettings.KafkaBrokerLocation;
+import io.frinx.uniconfig.client.services.config.KafkaSettings.KafkaSettingsBuilder;
+import io.frinx.uniconfig.client.services.config.UniconfigServerSettings.UniconfigServerSettingsBuilder;
+import java.net.UnknownHostException;
+import java.util.Collections;
+import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+public final class NotificationsUseCase {
+    private static final Logger LOG = LoggerFactory.getLogger(NotificationsUseCase.class);
+
+    private static final String DEVICE_ID = &quot;vnf&quot;;
+    private static final String NETCONF_STREAM = &quot;NETCONF&quot;;
+    private static final NetconfDeviceMount NETCONF_DEVICE_MOUNT = new DeviceMountBuilder()
+            .setProtocol(Protocol.SSH)
+            .setHost(&quot;10.103.5.202&quot;)
+            .setPort(2022)
+            .setUsername(&quot;admin&quot;)
+            .setPassword(&quot;versa123&quot;)
+            .setUseNativeModels(true)
+            .setSubscriptionList(Collections.singletonList(
+                    new SubscriptionBuilder()
+                            .setStreamName(NETCONF_STREAM)
+                            .setStartTime(&quot;2021-02-09T15:00:00Z&quot;)
+                            .setStopTime(&quot;2021-02-09T16:00:00Z&quot;)
+                            .build()
+            ))
+            .setExtensionsToIgnore(Collections.singletonList(&quot;tailf:display-when false&quot;))
+            .createDeviceMount();
+
+    private NotificationsUseCase() {
+        throw new UnsupportedOperationException(&quot;Sample class&quot;);
+    }
+
+    public static void main(String[] args) throws UnknownHostException, InterruptedException {
+        // install NETCONF device
+        final Uniconfig uniconfig = new UniconfigBuilder()
+                .setUniconfigServerSettings(new UniconfigServerSettingsBuilder()
+                        .setUniconfigHostname(&quot;127.0.0.1&quot;)
+                        .setRestServerPort(8181)
+                        .setUsername(&quot;admin&quot;)
+                        .setPassword(&quot;admin&quot;)
+                        .build())
+                .setKafkaSettings(new KafkaSettingsBuilder()
+                        .setNetconfNotificationsTopic(&quot;netconf-notifications&quot;)
+                        .setBrokers(Collections.singletonList(new KafkaBrokerLocation(&quot;127.0.0.1&quot;, 9092)))
+                        .build())
+                .build();
+        final NetconfSouthboundService netconfSouthboundService = uniconfig.netconf();
+        final NetconfDeviceService netconf = uniconfig.netconf(DEVICE_ID);
+        if (!netconf.isInstalled()) {
+            LOG.info(&quot;Installing {}&quot;, DEVICE_ID);
+            netconf.installDevice(NETCONF_DEVICE_MOUNT);
+        }
+
+        // get available NETCONF streams
+        final List&lt;NetconfStream&gt; netconfStreams = netconf.getAvailableNetconfStreams();
+        netconfStreams.forEach(netconfStream -&gt; LOG.info(&quot;NETCONF stream: {}&quot;, netconfStream.getName()));
+
+        // get stream subscriptions
+        final List&lt;RegisteredSubscription&gt; streamSubscriptions = netconfSouthboundService.getRegisteredSubscriptions();
+        streamSubscriptions.forEach(streamSubscription -&gt; LOG.info(&quot;NETCONF stream subscriptions: {}&quot;,
+                streamSubscription.toString()));
+
+        // create and start notification service
+        final var notificationService = uniconfig.notificationService();
+
+        // register listener to notification service
+        notificationService.registerListener(new NotificationListener());
+
+        // we need to send the thread to sleep while uniconfig stores notifications on the kafka server. Then
+        // the notification service, which runs in the background, has the chance to read notifications from
+        // the kafka server.
+        Thread.sleep(50000);
+
+        notificationService.close();
+        // uninstall device
+        netconf.uninstallDevice();
+    }
+
+    /**
+     * Implementation of {@link Listener}
+     */
+    private static class NotificationListener implements Listener {
+
+        private static final Logger LOG = LoggerFactory.getLogger(NotificationListener.class);
+
+        @Override
+        public void onNotification(List&lt;Notification&gt; notificationList) {
+            notificationList.forEach(this::printNotification);
+        }
+
+        private void printNotification(Notification notification) {
+            LOG.info(&quot;Received new notification\n\nStream name: {},\nNode id: {},\nEvent time: {},\nIdentifier: {},\n&quot;
+                            + &quot;Body: {}\n&quot;,
+                    notification.getStreamName(),
+                    notification.getNodeId(),
+                    notification.getEventTime(),
+                    notification.getIdentifier(),
+                    notification.getJsonEventBody());
+        }
+    }
+}</code></pre>
+</doc-codeblock></div>
+<hr />
+<doc-anchor-target id="dynamic-configuration-of-kafka-brokers">
+    <h4>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#dynamic-configuration-of-kafka-brokers">#</doc-anchor-trigger>
+        <span>Dynamic configuration of Kafka brokers</span>
+    </h4>
+</doc-anchor-target>
+<p>Location of Kafka brokers and other Kafka settings must be configurable using RESTCONF API.</p>
+<ul>
+<li>Persistence of this configuration in the database. All UniConfig instances must use same settings.</li>
+<li>Option to change/read these settings using CRUD RESTCONF operations.</li>
+<li>Configuration that is placed in the configuration file must be used only as initial configuration.</li>
+</ul>
+<p><strong>API</strong></p>
+<ul>
+<li>RESTCONF API used for reading and modification of all Kafka settings is described by following YANG model:</li>
+</ul>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-none"><code v-pre class="language-none">module kafka-brokers {
+    yang-version 1.1;
+    namespace &quot;http://frinx.io/kafka/brokers&quot;;
+    prefix kafka-brokers;
+
+    import ietf-inet-types {
+        prefix inet;
+        revision-date &quot;2013-07-15&quot;;
+    }
+
+    revision 2021-11-09 {
+        description
+          &quot;Initial revision&quot;;
+    }
+
+    grouping kafka-broker-identifier {
+        leaf host {
+            type inet:host;
+            description &quot;Hostname / address which Kafka broker resides on.&quot;;
+        }
+        leaf port {
+            type inet:port-number;
+            description &quot;Listening RPC port of Kafka broker.&quot;;
+        }
+    }
+
+    grouping kafka-global-settings {
+        leaf username {
+            type string;
+            description &quot;Username used for authentication into Kafka broker (SASL). If username is not specified,
+             plaintext authentication will be used.&quot;;
+        }
+        leaf password {
+            type string;
+            description &quot;Password used for authentication into Kafka broker (SASL).
+             Must be used together with username.&quot;;
+        }
+        leaf netconf-notification-topic {
+            type string;
+            mandatory true;
+            default &quot;netconf-notifications&quot;;
+            description &quot;Identifier of the Kafka topic used for distribution of NETCONF notifications.&quot;;
+        }
+        leaf audit-logs-topic {
+            type string;
+            mandatory true;
+            default &quot;audit-logs&quot;;
+            description &quot;Identifier of the Kafka topic used for distribution of audit logs.&quot;;
+        }
+        leaf transactions-topic {
+            type string;
+            mandatory true;
+            default &quot;transactions&quot;;
+            description &quot;Identifier of the Kafka topic used for distribution of notifications about transactions.&quot;;
+        }
+        leaf data-change-events-topic {
+            type string;
+            mandatory true;
+            default &quot;data-change-events&quot;;
+            description &quot;Identifier of the Kafka topic used for distribution of data-change-events.&quot;;
+        }
+        leaf netconf-notifications-enabled {
+            type boolean;
+            mandatory true;
+            default &quot;true&quot;;
+            description &quot;If netconf notifications are enabled.&quot;;
+        }
+        leaf transaction-notifications-enabled {
+            type boolean;
+            mandatory true;
+            default &quot;true&quot;;
+            description &quot;If transaction notifications are enabled.&quot;;
+        }
+        leaf audit-logs-enabled {
+            type boolean;
+            mandatory true;
+            default &quot;true&quot;;
+            description &quot;If audit logs are enabled.&quot;;
+        }
+        leaf data-change-events-enabled {
+            type boolean;
+            mandatory true;
+            default &quot;true&quot;;
+            description &quot;Enabled collection and propagation of data-change-events into Kafka.&quot;;
+        }
+        leaf blocking-timeout {
+            type uint32;
+            default 60000;
+            description &quot;The configuration controls how long the KafkaProducer's send(), partitionsFor(),
+            initTransactions(), sendOffsetsToTransaction(), commitTransaction() and abortTransaction() methods
+            will block. For send() this timeout bounds the total time waiting for both metadata fetch and buffer
+            allocation (blocking in the user-supplied serializers or partitioner is not counted against this
+            timeout). For partitionsFor() this timeout bounds the time spent waiting for metadata if it is
+            unavailable. The transaction-related methods always block, but may timeout if the transaction
+            coordinator could not be discovered or did not respond within the timeout.&quot;;
+        }
+        leaf request-timeout {
+            type uint32;
+            default 30000;
+            description &quot;The configuration controls the maximum amount of time the client will wait for the
+            response of a request. If the response is not received before the timeout elapses the client will
+            resend the request if necessary or fail the request if retries are exhausted. This should be larger
+            than replica.lag.time.max.ms (a broker configuration) to reduce the possibility of message duplication
+            due to unnecessary producer retries.&quot;;
+        }
+        leaf delivery-timeout {
+            type uint32;
+            default 120000;
+            description &quot;An upper bound on the time to report success or failure after a call to send() returns.
+            This limits the total time that a record will be delayed prior to sending, the time to await
+            acknowledgement from the broker (if expected), and the time allowed for retriable send failures.
+            The producer may report failure to send a record earlier than this config if either an unrecoverable
+            error is encountered, the retries have been exhausted, or the record is added to a batch which reached
+            an earlier delivery expiration deadline. The value of this config should be greater than or equal to
+            the sum of request.timeout.ms and linger.ms.&quot;;
+        }
+        leaf maxThreadPoolSize {
+            type uint16;
+            default 8;
+            description &quot;The maximum size of the thread pool&quot;;
+        }
+        leaf queueCapacity {
+            type uint16;
+            default 2048;
+            description &quot;The maximum size of the work queue&quot;;
+        }
+    }
+
+    container kafka-settings {
+        uses kafka-global-settings;
+        list kafka-broker {
+            key &quot;host port&quot;;
+            description &quot;List of Kafka brokers that are used by UniConfig for distribution of notifications.
+             If this list doesn't contain any item, UniConfig will try to use 127.0.0.1:9092 for creation
+             of connection to Kafka broker.&quot;;
+            uses kafka-broker-identifier;
+        }
+    }
+}</code></pre>
+</doc-codeblock></div>
+<hr />
+<doc-anchor-target id="installationuninstallation-of-multiple-devices-in-one-rpc">
+    <h4>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#installationuninstallation-of-multiple-devices-in-one-rpc">#</doc-anchor-trigger>
+        <span>Installation/Uninstallation of multiple devices in one RPC</span>
+    </h4>
+</doc-anchor-target>
+<ul>
+<li>Added RPCs for installation or uninstallation of multiple devices in the single RPC call. The advantage of this approach in comparison to install-node/uninstall-node RPC is that UniConfig can schedule installation tasks in parallel.</li>
+<li>Up to 20 devices can be installed at once.</li>
+</ul>
+<p><strong>API</strong></p>
+<ul>
+<li>Added RPCs into connection-manager YANG module:</li>
+</ul>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-none"><code v-pre class="language-none">    grouping install-node-input-fields {
+        uses node-id;
+
+        container cli {
+            description &quot;CLI node settings.&quot;;
+        }
+        container netconf {
+            description &quot;NETCONF node settings.&quot;;
+        }
+        container gnmi {
+            description &quot;gNMI node settings.&quot;;
+        }
+    }
+
+    grouping install-multiple-nodes-input-fields {
+        description &quot;List of all nodes that are going to be installed.&quot;;
+        list nodes {
+            uses node-id;
+            container cli {
+                description &quot;CLI node settings.&quot;;
+            }
+            container netconf {
+                description &quot;NETCONF node settings.&quot;;
+            }
+            container gnmi {
+                description &quot;gNMI node settings.&quot;;
+            }
+        }
+    }
+
+    grouping multiple-nodes-output-fields {
+        description &quot;List of all the nodes from the RPC input&quot;;
+        list node-results {
+            uses node-id;
+            leaf status {
+                description &quot;Output status of invoked operation on a specific node.&quot;;
+                type ft:operation-result-type;
+                mandatory true;
+            }
+            leaf error-message {
+                description &quot;Message that described occured error during invocation of operation on a specific node.&quot;;
+                type string;
+            }
+        }
+    }
+
+    grouping uninstall-multiple-nodes-input-fields {
+        description &quot;List of all nodes that are going to be uninstalled.&quot;;
+        list nodes {
+            uses node-connection;
+        }
+    }
+
+    rpc install-node {
+        description &quot;Installation of node into Uniconfig database using input settings. This RPC completes when:
+                     a. node is successfully installed into Uniconfig database,
+                     b. installation of node fails because node cannot be mounted or configuration cannot be synced
+                        from device into database,
+                     c. node has already been installed (failure).&quot;;
+        input {
+            uses install-node-input-fields;
+            must 'cli or netconf or gnmi' {
+                error-message &quot;CLI or NETCONF or gNMI settings must be specified.&quot;;
+            }
+        }
+        output {
+            uses output-fields;
+        }
+    }
+
+    rpc install-multiple-nodes {
+        description &quot;Installation of multiple nodes into Uniconfig database using input settings.
+                     This RPC completes when:
+                     a. node is successfully installed into Uniconfig database,
+                     b. installation of node fails because node cannot be mounted or configuration cannot be synced
+                        from device into database,
+                     c. node has already been installed (failure).&quot;;
+        input {
+            uses install-multiple-nodes-input-fields;
+            must 'cli or netconf or gnmi' {
+                error-message &quot;CLI or NETCONF or gNMI settings must be specified.&quot;;
+            }
+        }
+        output {
+            uses multiple-nodes-output-fields;
+        }
+    }</code></pre>
+</doc-codeblock></div>
+<hr />
+<doc-anchor-target id="added-list-of-node-ids-into-snapshot-metadata">
+    <h4>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#added-list-of-node-ids-into-snapshot-metadata">#</doc-anchor-trigger>
+        <span>Added list of node-ids into snapshot-metadata</span>
+    </h4>
+</doc-anchor-target>
+<ul>
+<li>Added list of node-ids, that are inside particular snapshot, into snapshot-metadata.</li>
+</ul>
+<p><strong>API</strong></p>
+<ul>
+<li>Added ‘nodes&#x27; leaf-list (’snapshot-manager.yang&#x27;):</li>
+</ul>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-none"><code v-pre class="language-none">container snapshots-metadata {
+list snapshot {
+  key name;
+  leaf name {
+    type string;
+    description &quot;Name of snapshot.&quot;;
+  }
+  leaf creation-time {
+    type types:date-and-time;
+    description &quot;Time when the snapshot was created&quot;;
+  }
+  leaf-list nodes {
+    type nt:node-id;
+    min-elements 1;
+    description &quot;List of nodes that are part of the snapshot.&quot;;
+  }
+}
+}</code></pre>
+</doc-codeblock></div>
+<hr />
+<doc-anchor-target id="api">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#api">#</doc-anchor-trigger>
+        <span><span class="docs-emoji">&#x1F4BB;</span> API</span>
+    </h2>
+</doc-anchor-target>
+<ul>
+<li>Added following element into <strong>calculate-diff RPC</strong> output:</li>
+</ul>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-none"><code v-pre class="language-none">list node-result {
+  ...
+  list reordered-lists {
+    description &quot;Reordered intended list against actual.&quot;;
+    key path;
+    leaf path {
+      type ft:rfc-8040-path;
+      description &quot;Instance-identifier of reordered list.&quot;;
+    }
+    leaf actual-list-keys {
+      type string;
+    }
+    leaf intended-list-keys {
+      type string;
+    }
+  }
+}</code></pre>
+</doc-codeblock></div>
+<ul>
+<li>Added checkForReferences query parameter.</li>
+<li>Default value is false - if it is set to &#x27;true&#x27;, then validation is done before application of modification into data-tree.</li>
+</ul>
+<hr />
+<doc-anchor-target id="introduction-of-transaction-idle-timeout">
+    <h4>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#introduction-of-transaction-idle-timeout">#</doc-anchor-trigger>
+        <span>Introduction of transaction idle-timeout</span>
+    </h4>
+</doc-anchor-target>
+<ul>
+<li>Idle timeout is more useful/practical than existing ‘absolute’ timeout, especially for long-running workflows - it will minimise the chance that transaction will be dropped after some operation started.</li>
+<li>Transaction idle timer is refreshed after transaction is retrieved from registry (-&gt; at invocation of some operation from RESTCONF).</li>
+<li>Timed-out transaction is cleaned using existing cleaner.</li>
+<li>Idle timeout is configurable only globally (config file).</li>
+<li>Absolute timeout is not removed - it coexist with added idle-timeout.</li>
+</ul>
+<doc-anchor-target id="configuration-1">
+    <h4>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#configuration-1">#</doc-anchor-trigger>
+        <span>Configuration</span>
+    </h4>
+</doc-anchor-target>
+<ul>
+<li>Updated configuration section in <strong>lighty-uniconfig-config.json</strong> - added &#x27;transactionIdleTimeout’ property:</li>
+</ul>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-none"><code v-pre class="language-none">// Grouped settings that are related to Uniconfig transactions.
+&quot;transactions&quot;: {
+    /*
+    Time after transaction can be closed [seconds] by transaction cleaner.
+    */
+    &quot;transactionIdleTimeOut&quot;: 300,
+    /*
+    Maximum transaction age before it can be evicted from transaction registry [seconds].
+    Configuring '0' disables cleaning of Uniconfig transactions.
+    */
+    &quot;maxTransactionAge&quot;: 1800,
+    /*
+    Interval at which expired transactions are closed and cleaned [seconds].
+    Expired transaction: transaction which age exceeds 'maxTransactionAge' setting.
+    Only dedicated Uniconfig transactions (initialized using 'create-transaction' RPC)
+    are cleaned - shared transaction is never removed or invalidated.
+     Configuring '0' disables cleaning of Uniconfig transactions.
+    */
+    &quot;cleaningInterval&quot;: 60
+}</code></pre>
+</doc-codeblock></div>
+<hr />
+<doc-anchor-target id="install-node-rpc">
+    <h4>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#install-node-rpc">#</doc-anchor-trigger>
+        <span>Install-node RPC</span>
+    </h4>
+</doc-anchor-target>
+<ul>
+<li>Added new parameters (uniconfig-config:crypto) into <strong>install-node RPC</strong>:</li>
+</ul>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-none"><code v-pre class="language-none">{
+    &quot;input&quot;: {
+        &quot;node-id&quot;: &quot;dev01&quot;,
+        &quot;netconf&quot;: {
+            &quot;netconf-node-topology:host&quot;: &quot;10.103.5.47&quot;,
+            &quot;netconf-node-topology:port&quot;: 2022,
+            &quot;netconf-node-topology:keepalive-delay&quot;: 5,
+            &quot;netconf-node-topology:max-connection-attempts&quot;: 1,
+            &quot;netconf-node-topology:connection-timeout-millis&quot;: 60000,
+            &quot;netconf-node-topology:default-request-timeout-millis&quot;: 60000,
+            &quot;netconf-node-topology:tcp-only&quot;: false,
+            &quot;netconf-node-topology:username&quot;: &quot;admin&quot;,
+            &quot;netconf-node-topology:password&quot;: &quot;admin&quot;,
+            &quot;netconf-node-topology:sleep-factor&quot;: 1.0,
+            &quot;uniconfig-config:uniconfig-native-enabled&quot;: true,
+            &quot;netconf-node-topology:edit-config-test-option&quot;: &quot;set&quot;,
+            &quot;uniconfig-config:crypto&quot;: {
+                &quot;public-key-path&quot;: &quot;/crypto/pki/config-keys=config_key/pub-key&quot;,
+                &quot;public-key-cipher-type&quot;: &quot;RSA&quot;
+            },
+            &quot;netconf-node-topology:yang-module-capabilities&quot;: {
+                &quot;capability&quot;: [
+                    &quot;urn:ietf:params:xml:ns:yang:encrypted-paths?module=encrypted-paths&amp;amp;revision=2021-12-15&quot;
+                ]
+            }
+        }
+    }
+}</code></pre>
+</doc-codeblock></div>
+<ul>
+<li><p>&#x27;uniconfig-config:crypto&#x27; - It allows to specify path to public key on device - ‘public-key-path’ (leaf with RFC-8040 path) and cipher type (by default, RSA is used) - ‘public-key-cipher-type’. If path to public key is specified and it exists on device, then Global-device encryption model is used. Otherwise, Global-only encryption model is selected.</p>
+</li>
+<li><p>&#x27;netconf-node-topology:yang-module-capabilities&#x27; - If auto-loading of YANG module with encrypted paths is not used and device itself doesn’t specify encrypted leaves, then it is necessary to side-load YANG module with encrypted paths. This parameter is relevant only on NETCONF nodes. Side-loaded modules must be expressed in the format of NETCONF capabilities.</p>
+</li>
+</ul>
+<doc-anchor-target id="configuration-2">
+    <h4>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#configuration-2">#</doc-anchor-trigger>
+        <span>Configuration</span>
+    </h4>
+</doc-anchor-target>
+<ul>
+<li><p>Global RSA key-pair is stored inside PEM-encoded files in the ‘rsa’ directory under UniConfig root. Name of the private key must be ‘encrypt_key’ and name of the public key must be ‘encrypt_key.pub’. If user doesn’t provide these files, UniConfig will automatically generate its own key-pair with length of 2048 bits. All UniConfig instances in the cluster must use the same key-pair.</p>
+</li>
+<li><p>Encryption settings are stored in the ‘config/lighty-uniconfig-config.json’ file under ‘crypto’ root object.</p>
+</li>
+</ul>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-none"><code v-pre class="language-none">&quot;crypto&quot;: {
+    &quot;encryptExtensionId&quot;: &quot;frinx-encrypt:encrypt&quot;,
+    &quot;netconfReferenceModuleName&quot;: &quot;system&quot;,
+    &quot;netconfEncryptedPathsModuleName&quot;: &quot;encrypted-paths&quot;
+}</code></pre>
+</doc-codeblock></div>
+<ul>
+<li><p>&#x27;encryptExtensionId&#x27; - If this setting is not defined, then encryption is disabled despite of other settings or install-node parameters. The value must have the format [module-name]:[extension-name] and specifies extension used for marking of encrypted leaves/leaf-lists in YANG modules. Corresponding YANG module, that contain this extension, can be part of device/unistore YANG schemas or it can be side-loaded during installation of NETCONF device as imported module from ‘default’ repository.</p>
+</li>
+<li><p>&#x27;netconfReferenceModuleName&#x27; - Name of the module for which NETCONF client looks for during mounting process. If UniConfig finds module with this name in the list of received capabilities, then it uses its revision in the lookup process for correct YANG module with encrypted paths (using deviations).</p>
+</li>
+<li><p>&#x27;netconfEncryptedPathsModuleName&#x27; - Name of the module which contains deviations with paths to encrypted leaves/leaf-lists. There could be multiple revisions of this file prepared in the ‘default’ NETCONF repository. NETCONF client in the UniConfig chooses the correct revision based on ‘netconfReferenceModuleName’ setting. Together, ‘netconfReferenceModuleName’ and ‘netconfEncryptedPathsModuleName’ can be used for auto-loading of encrypted paths for different versions of devices.</p>
+</li>
+</ul>
+<hr />
+<doc-anchor-target id="uniconfig-client-api">
+    <h4>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#uniconfig-client-api">#</doc-anchor-trigger>
+        <span>Uniconfig-client API</span>
+    </h4>
+</doc-anchor-target>
+<ul>
+<li>Added InstallDeviceWithEnabledEncryption example:</li>
+</ul>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-none"><code v-pre class="language-none">/**
+ * Requirements for configuration file:
+ * 1. crypto/encryptExtensionId must be set to [module-name]:[encrypt-extension-id] where module name is the
+ *    identifier of module which contains encrypt extension and encrypt-extension-id is identifier of extension itself;
+ *    this extension marks leaves that must be encrypted
+ * 2. using module with paths to encrypted leaves/leaf-lists - in that case, user must specify following settings:
+ *    - crypto/netconfReferenceModuleName - name of YANG module from which the correct revision of
+ *      'netconfEncryptedPathsModuleName' is chosen
+ *    - crypto/netconfEncryptedPathsModuleName - name of YANG module which contains deviations to leaves/leaf-lists
+ *      that must be encrypted
+ * See sample lighty-uniconfig-config.json with specified these fields - they conform sample YANG files that are
+ * placed in the resources/yang directory.
+ *
+ * Requirements for UniConfig cache directory:
+ * a. encrypted paths are specified directly in the YANG modules provided by device
+ *    - no action needed
+ * b. encrypted paths must be loaded on UniConfig side
+ *    - cache/default directory must contain additional modules:
+ *      1. module that contains encrypt extension (example: resources/encrypted-paths@2021-12-15.yang); identifier
+ *         of module must match setting in crypto/encryptExtensionId
+ *      2. one or multiple modules that contain paths to encrypted leaf/leaf-lists
+ *         (example: encrypted-paths@2021-12-15.yang). Revision of YANG module must match the revision of specific
+ *         module that is loaded during mounting process (crypto/netconfReferenceModuleName).
+ */
+public final class InstallDeviceWithEnabledEncryption {
+
+    private static final String DEVICE_ID = &quot;vnf&quot;;
+    private static final NetconfDeviceMount NETCONF_DEVICE_MOUNT = new DeviceMountBuilder()
+            .setProtocol(NetconfDeviceMount.Protocol.SSH)
+            .setHost(&quot;10.103.5.47&quot;)
+            .setPort(2022)
+            .setUsername(&quot;admin&quot;)
+            .setPassword(&quot;admin&quot;)
+            .setUseNativeModels(true)
+            .setExtensionsToIgnore(Collections.singletonList(&quot;tailf:display-when false&quot;))
+            // specification of the path to the public key store on device
+            .setCryptoSettings(CryptoSettings.create(&quot;/crypto/pki/config-keys=config_key/pub-key&quot;))
+            .createDeviceMount();
+
+    public static void main(String[] args) {
+        final var settings = new UniconfigServerSettingsBuilder()
+                .setUniconfigHostname(&quot;127.0.0.1&quot;)
+                .setRestServerPort(8181)
+                .setUsername(&quot;admin&quot;)
+                .setPassword(&quot;admin&quot;)
+                .build();
+        final Uniconfig uniconfig = Uniconfig.create(settings);
+        final NetconfDeviceService netconf = uniconfig.netconf(DEVICE_ID);
+        netconf.installDevice(NETCONF_DEVICE_MOUNT);
+    }
+}</code></pre>
+</doc-codeblock></div>
+<hr />
+<doc-anchor-target id="supported-ordered-listleaf-list-operations-restconf--netconf">
+    <h4>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#supported-ordered-listleaf-list-operations-restconf--netconf">#</doc-anchor-trigger>
+        <span>Supported ordered list/leaf-list operations (RESTCONF &amp; NETCONF)</span>
+    </h4>
+</doc-anchor-target>
+<ul>
+<li>RESTCONF RFC-8040 supports 2 additional query parameters for PUT and POST methods - ‘insert&#x27; and &#x27;point’, see:
+<ul>
+<li><a href="https://datatracker.ietf.org/doc/html/rfc8040#section-4.8.5">RFC 8040 - section 4.8.5</a></li>
+<li><a href="https://datatracker.ietf.org/doc/html/rfc8040#section-4.8.6">RFC 8040 - section 4.8.6</a></li>
+</ul>
+</li>
+<li>Using these parameters, it is possible to place list entry to specific position in the list. The &#x27;insert&#x27; query parameter can be used to specify how an item should be inserted within an list or leaf-list. The &#x27;point&#x27; query parameter is used to specify the insertion point for an item that is being created or moved within an &#x27;ordered-by user&#x27; list or leaf-list. Like the &#x27;insert&#x27; query parameter.</li>
+<li>In the NETCONF client, UniConfig uses edit-config &#x27;insert&#x27; attribute to put list entry to the specific position, see:
+<ul>
+<li><a href="https://datatracker.ietf.org/doc/html/rfc6020#section-7.7.7">RFC 6020 - YANG</a></li>
+</ul>
+</li>
+</ul>
+<hr />
+<doc-anchor-target id="api">
+    <h4>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#api">#</doc-anchor-trigger>
+        <span>API</span>
+    </h4>
+</doc-anchor-target>
+<ul>
+<li>Introduction of schema for keeping information about the latest YANG repository identifier.</li>
+<li>It is configurable using RESTCONF.</li>
+</ul>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-none"><code v-pre class="language-none">module schema-settings {
+    yang-version 1.1;
+    namespace &quot;http://frinx.io/schema/settings&quot;;
+    prefix ss;
+
+    revision 2021-12-16 {
+        description
+          &quot;Initial revision&quot;;
+    }
+
+    container schema-settings {
+        leaf latest-schema {
+            type string;
+            description &quot;Name of schema-repository used for creation of templates.
+            It contains identifier latest YANG schema repository&quot;;
+        }
+    }
+}</code></pre>
+</doc-codeblock></div>
+<hr />
+<doc-anchor-target id="introduction-of-rename-patch-operation">
+    <h4>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#introduction-of-rename-patch-operation">#</doc-anchor-trigger>
+        <span>Introduction of &#x27;rename&#x27; patch operation</span>
+    </h4>
+</doc-anchor-target>
+<ul>
+<li>This PATCH operation can be used for changing values of one/multiple keys that identify some list entry. In the RESTCONF API it was not possible to directly update values of keys.</li>
+<li>New PATCH operation with identifier &#x27;rename&#x27;.</li>
+<li>‘target’: identifier of original list entry</li>
+<li>&#x27;point&#x27;: new identifier of list entry</li>
+</ul>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-none"><code v-pre class="language-none">{
+  &quot;yang-patch&quot;: {
+      &quot;patch-id&quot;: &quot;rename-list-entry&quot;,
+      &quot;comment&quot;: &quot;Rename a list entry key&quot;,
+      &quot;edit&quot;: [
+          {
+              &quot;edit-id&quot;: &quot;11&quot;,
+              &quot;operation&quot;: &quot;rename&quot;,
+              &quot;target&quot;: &quot;/tvi=tvi-0%2F98&quot;,
+              &quot;point&quot;: &quot;/tvi=tvi-0%2F101&quot;
+          }
+      ]
+  }
+}</code></pre>
+</doc-codeblock></div>
+<hr />
+<doc-anchor-target id="separate-uniconfig-errors-to-more-type">
+    <h4>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#separate-uniconfig-errors-to-more-type">#</doc-anchor-trigger>
+        <span>Separate UniConfig errors to more type</span>
+    </h4>
+</doc-anchor-target>
+<ul>
+<li>Updated &#x27;frinx-type&#x27; YANG module (previously there were processing-error and no-connection error types).</li>
+</ul>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-none"><code v-pre class="language-none">typedef error-type {
+    type enumeration {
+        enum no-connection {
+            value 0;
+            description &quot;No connection to device.&quot;;
+        }
+        enum device-processing-error {
+            value -1;
+            description &quot;Error occurs during processing on DEVICE.&quot;;
+        }
+        enum uniconfig-error {
+            value -2;
+            description &quot;Error occurs during processing on UNICONFIG.&quot;;
+        }
+        enum cli-error {
+            value -3;
+            description &quot;Error occurs during processing on CLI.&quot;;
+        }
+        enum netconf-error {
+            value -4;
+            description &quot;Error occurs during processing on NETCONF.&quot;;
+        }
+    }
+}</code></pre>
+</doc-codeblock></div>
+<hr />
+<doc-anchor-target id="implementation-of-rfc-8072-patch-operation-1">
+    <h4>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#implementation-of-rfc-8072-patch-operation-1">#</doc-anchor-trigger>
+        <span>Implementation of RFC-8072 PATCH operation</span>
+    </h4>
+</doc-anchor-target>
+<p>Example:</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-none"><code v-pre class="language-none">curl --location --request PATCH 'http://127.0.0.1:8181/rests/data/network-topology/topology=uniconfig/node=vnf16/configuration/interfaces' \
+--header 'Authorization: Basic YWRtaW46YWRtaW4=' \
+--header 'Content-Type: application/yang-patch+json' \
+--data-raw '{
+    &quot;yang-patch&quot;: {
+        &quot;patch-id&quot;: &quot;MOD1&quot;,
+        &quot;comment&quot;: &quot;multiple changes&quot;,
+        &quot;edit&quot;: [
+            {
+                &quot;edit-id&quot;: &quot;edit1&quot;,
+                &quot;operation&quot;: &quot;replace&quot;,
+                &quot;target&quot;: &quot;/tvi=tvi-0%2F8/description&quot;,
+                &quot;value&quot;: {
+                    &quot;description&quot;: &quot;TEST&quot;
+                }
+            },
+            {
+                &quot;edit-id&quot;: &quot;edit2&quot;,
+                &quot;operation&quot;: &quot;remove&quot;,
+                &quot;target&quot;: &quot;/tvi=tvi-0%2F9/unit=0&quot;
+            },
+            {
+                &quot;edit-id&quot;: &quot;edit3&quot;,
+                &quot;operation&quot;: &quot;delete&quot;,
+                &quot;target&quot;: &quot;/vni=vni-0%2F2/unit=0/family/inet&quot;
+            },
+            {
+                &quot;edit-id&quot;: &quot;edit4&quot;,
+                &quot;operation&quot;: &quot;create&quot;,
+                &quot;target&quot;: &quot;/ptvi&quot;,
+                &quot;value&quot;: {
+                    &quot;ptvi&quot;: [
+                        {
+                            &quot;name&quot;: &quot;ptvi99&quot;,
+                            &quot;parent-interface&quot;: &quot;tvi-0/3.0&quot;,
+                            &quot;remote-address&quot;: &quot;10.1.64.1&quot;
+                        }
+                    ]
+                }
+            },
+            {
+                &quot;edit-id&quot;: &quot;edit5&quot;,
+                &quot;operation&quot;: &quot;move&quot;,
+                &quot;target&quot;: &quot;/tvi=tvi-0%2F2&quot;,
+                &quot;point&quot;: &quot;/tvi=tvi-0%2F3&quot;,
+                &quot;where&quot;: &quot;after&quot;
+            },
+            {
+                &quot;edit-id&quot;: &quot;edit6&quot;,
+                &quot;operation&quot;: &quot;insert&quot;,
+                &quot;target&quot;: &quot;/tvi=tvi-0%2F99&quot;,
+                &quot;where&quot;: &quot;first&quot;,
+                &quot;value&quot;: {
+                    &quot;tvi&quot;: [
+                        {
+                            &quot;name&quot;: &quot;tvi-0/99&quot;,
+                            &quot;enable&quot;: false,
+                            &quot;mode&quot;: &quot;ipsec&quot;,
+                            &quot;type&quot;: &quot;p2mp-vxlan&quot;,
+                            &quot;description&quot;: &quot;test interface&quot;
+                        }
+                    ]
+                }
+            },
+            {
+                &quot;edit-id&quot;: &quot;edit7&quot;,
+                &quot;operation&quot;: &quot;merge&quot;,
+                &quot;target&quot;: &quot;/tvi=tvi-0%2F2/unit=0/family/inet/address&quot;,
+                &quot;value&quot;: {
+                    &quot;address&quot;: [
+                        {
+                            &quot;addr&quot;: &quot;10.1.0.101/32&quot;
+                        },
+                        {
+                            &quot;addr&quot;: &quot;1.2.3.4/32&quot;
+                        }
+                    ]
+                }
+            }
+        ]
+    }
+}'</code></pre>
+</doc-codeblock></div>
+<hr />
+<doc-anchor-target id="added-missing-protocols-to-l2-for-ios-xe-cli-units-1">
+    <h4>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#added-missing-protocols-to-l2-for-ios-xe-cli-units-1">#</doc-anchor-trigger>
+        <span>Added missing protocols to L2 for IOS XE (cli-units)</span>
+    </h4>
+</doc-anchor-target>
+<ul>
+<li>Added enumerations into &#x27;frinx-cisco-if-extension&#x27; YANG module (openconfig):</li>
+</ul>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-none"><code v-pre class="language-none">enum elmi {
+  description
+    &quot;ELMI Protocol&quot;;
+}
+enum pagp {
+  description
+    &quot;Port Aggregation Protocol&quot;;
+}
+enum udld {
+  description
+    &quot;UDLD Protocol&quot;;
+}
+enum ptppd {
+  description
+    &quot;PTP Peer Delay Protocol&quot;;
+}</code></pre>
+</doc-codeblock></div>
+<hr />
+<doc-anchor-target id="yang-packager">
+    <h4>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#yang-packager">#</doc-anchor-trigger>
+        <span>YANG packager</span>
+    </h4>
+</doc-anchor-target>
+<ul>
+<li>implemented tool for validation and loading of YANG repository</li>
+</ul>
+<p><strong>API:</strong></p>
+<ul>
+<li><p>User can find corresponding script it in the utils/ directory (part of distribution).</p>
+</li>
+<li><p>Script <strong>&#x27;./convertYangsToUniconfigSchema&#x27;</strong> contains four arguments. Each one has its own identifier so user can use any order of arguments.</p>
+</li>
+<li><p>Two arguments are required, namely the path to resources that contain YANG files and the path to the output directory where user wants to copy all valid YANG files. Other three arguments are optional. First one is the path to the &quot;default&quot; directory which contains some default YANG files, second one is the path to the &quot;skip-list&quot; and last one is a &quot;-to-file&quot; flag, which user can use when he wants to write a debug output to file.</p>
+</li>
+<li><p>-i /path/to/sources - required argument. User has two options for where the path can be directed:</p>
+<ul>
+<li>
+<ol>
+<li>to the directory that contains YANG files and other sub-directories with YANG files</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>to the text-file that contains defined names of directories. These defined directories have to be stored on the same path as text-file.</li>
+</ol>
+</li>
+</ul>
+</li>
+<li><p>-o /path/to/output-directory - required argument. User can define path where he wants to save valid YANG files. Output directory must not exist.</p>
+</li>
+<li><p>-d /path/to/default - optional argument. Sometimes some YANG files need additional dependencies that are not provided in source directories. In this case it is possible to use path to the &#x27;default&#x27; directory which contains additional YANG files. If there is this missing YANG file, YANG packager will use it.</p>
+</li>
+<li><p>-s /path/to/skip-list - optional argument. User can define YANG file names in text file that he does not want to include in conversion process. This file must only contain module names without revision and .yang suffix.</p>
+</li>
+<li><p>-to-file - optional argument. When user uses this flag, then YANG packager also saves the debug output to a file. This file can be found on a same path as &#x27;output-directory&#x27;. It will contain suffix &#x27;-info&#x27; in its name. If the output directory is called &#x27;output-directory&#x27;, then the file will be called &#x27;output-directory-info&#x27;.</p>
+</li>
+</ul>
+<hr />
+<doc-anchor-target id="uniconfig-notifications-about-restconf-requests">
+    <h4>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#uniconfig-notifications-about-restconf-requests">#</doc-anchor-trigger>
+        <span>UniConfig notifications about RESTCONF requests</span>
+    </h4>
+</doc-anchor-target>
+<p>Publishing all RESTCONF traffic into PostgreSQL ‘notification&#x27; relation and Kafka &#x27;restconf-notifications’ topic.</p>
+<p><strong>API</strong></p>
+<ul>
+<li>Created YANG model for RESTCONF notifications:</li>
+</ul>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-none"><code v-pre class="language-none">module restconf-notifications {
+    yang-version 1.1;
+    namespace urn:ietf:params:xml:ns:yang:restconf:notifications;
+    prefix rn;
+
+    import ietf-inet-types {
+        prefix inet;
+        revision-date &quot;2013-07-15&quot;;
+    }
+    import ietf-yang-types { prefix types; }
+
+    revision 2021-11-22 {
+        description &quot;Initial revision&quot;;
+    }
+
+    grouping query-parameters {
+        list query-parameters {
+            key name;
+            leaf name {
+                type string;
+            }
+            leaf value {
+                type string;
+            }
+        }
+    }
+
+    grouping request-fields {
+        container uri-data {
+            leaf http-method {
+                type string;
+                mandatory true;
+            }
+            leaf uri {
+                type string;
+                mandatory true;
+            }
+        }
+        container host {
+            leaf source-address {
+                type inet:host;
+                mandatory true;
+            }
+            leaf source-port {
+                type inet:port-number;
+                mandatory true;
+            }
+        }
+        uses query-parameters;
+        leaf user-id {
+            type string;
+        }
+
+        leaf body {
+            type string;
+        }
+    }
+
+    grouping response-fields {
+        leaf status-code {
+            type uint16;
+            mandatory true;
+        }
+        uses query-parameters;
+        leaf body {
+            type string;
+        }
+    }
+
+    notification restconf-notification {
+        container request {
+            description &quot;Restconf notification request&quot;;
+            uses request-fields;
+        }
+
+        container response {
+            description &quot;Restconf notification response&quot;;
+            uses response-fields;
+        }
+
+        leaf transaction-id {
+          description &quot;Transaction identifier.&quot;;
+          type types:uuid;
+        }
+    }
+}</code></pre>
+</doc-codeblock></div>
+<p><strong>Configuration:</strong></p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-none"><code v-pre class="language-none">...
+    &quot;notifications&quot;: {
+        // Unique identifier of topic that is used for storing restconf notifications.
+        &quot;restconfNotificationsTopicName&quot;: &quot;restconf-notifications&quot;,
+        // Settings related to restconf notifications
+        &quot;restconfNotifications&quot;: {
+            // If response body should be included in notification
+            &quot;includeResponseBody&quot;: false
+        },
+        ...
+    },
+...</code></pre>
+</doc-codeblock></div>
+<hr />
+<doc-anchor-target id="bug-fixes">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#bug-fixes">#</doc-anchor-trigger>
+        <span><span class="docs-emoji">&#x274C;</span> Bug Fixes</span>
+    </h2>
+</doc-anchor-target>
+<doc-anchor-target id="fixed-uniconfig-rollback-for-cli-devices">
+    <h4>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#fixed-uniconfig-rollback-for-cli-devices">#</doc-anchor-trigger>
+        <span>Fixed UniConfig rollback for CLI devices</span>
+    </h4>
+</doc-anchor-target>
+<ul>
+<li><p>Rollback operation after failed commit, that included some CLI devices, was not working at all.</p>
+</li>
+<li><p>Fixed by re-implementation of the rollback process.</p>
+</li>
+</ul>
+<doc-anchor-target id="filtering-operational-data-from-read-netconf-device-configuration">
+    <h4>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#filtering-operational-data-from-read-netconf-device-configuration">#</doc-anchor-trigger>
+        <span>Filtering operational data from read NETCONF device configuration</span>
+    </h4>
+</doc-anchor-target>
+<ul>
+<li><p>There are some devices that report both configuration and operational data via gRPC even if UniConfig reads only configuration data.</p>
+</li>
+<li><p>Fixed by explicit removal of operational data elements from read configuration before writing this configuration into database.</p>
+</li>
+</ul>
+<doc-anchor-target id="fixed-capturing-of-command-response-from-telnet-session">
+    <h4>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#fixed-capturing-of-command-response-from-telnet-session">#</doc-anchor-trigger>
+        <span>Fixed capturing of command response from Telnet session</span>
+    </h4>
+</doc-anchor-target>
+<p>The size of internal buffer was hard-coded - now it is flexible based on number of received bytes from Telnet session. It caused trimming of command output in the execute-and-read RPC response.</p>
+<doc-anchor-target id="fixed-deadlocks-caused-by-superfluous-synchronisation-in-transaction-manager">
+    <h4>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#fixed-deadlocks-caused-by-superfluous-synchronisation-in-transaction-manager">#</doc-anchor-trigger>
+        <span>Fixed deadlocks caused by superfluous synchronisation in transaction manager</span>
+    </h4>
+</doc-anchor-target>
+<p>Synchronisation of component that is responsible for loading/creation/closing of transactions was unnecessary constrained - it resulted in dead-locks, especially when one UniConfig transaction was accessed asynchronously from different threads.</p>
+<doc-anchor-target id="fixed-lost-ordering-of-list-elements-after-reading-of-some-data">
+    <h4>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#fixed-lost-ordering-of-list-elements-after-reading-of-some-data">#</doc-anchor-trigger>
+        <span>Fixed lost ordering of list elements after reading of some data</span>
+    </h4>
+</doc-anchor-target>
+<ul>
+<li>If user read both ‘configuration&#x27; and ‘operational’ list elements using RESTCONF API (’content=all&#x27; query parameter), order of elements was lost during merging of these two sets.</li>
+<li>After fix, configuration elements are displayed first, then operational-only elements are displayed.</li>
+</ul>
+<doc-anchor-target id="fixed-interrupted-ping-command-executed-by-device-discovery-service">
+    <h4>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#fixed-interrupted-ping-command-executed-by-device-discovery-service">#</doc-anchor-trigger>
+        <span>Fixed interrupted ping command executed by Device Discovery service</span>
+    </h4>
+</doc-anchor-target>
+<ul>
+<li>If user executed device discovery RPC with more IP addresses than the capacity of internal thread pool, some scheduled ping tasks were cancelled by timeout process.</li>
+<li>Removed timeout from thread pool - tasks wait in the queue without time limit.</li>
+</ul>
+<doc-anchor-target id="fixed-deadlock-between-transaction-closing-and-uniconfig-operation">
+    <h4>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#fixed-deadlock-between-transaction-closing-and-uniconfig-operation">#</doc-anchor-trigger>
+        <span>Fixed deadlock between transaction closing and UniConfig operation</span>
+    </h4>
+</doc-anchor-target>
+<ul>
+<li>Procedure for closing transaction is called either explicitly using close-transaction RPC or automatically from transaction cleaner.</li>
+<li>If at the same time some transaction is used in the invoked UniConfig operation, then it may lead to the deadlock - using transaction that was expired and is being closed.</li>
+<li>Fixed by synchronisation of there events in the transaction manager.</li>
+</ul>
+<hr />
+<doc-anchor-target id="get-template-info-operation-must-be-part-of-read-only-transaction-uniconfig-client">
+    <h4>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#get-template-info-operation-must-be-part-of-read-only-transaction-uniconfig-client">#</doc-anchor-trigger>
+        <span>Get-template-info operation must be part of read-only transaction (uniconfig-client)</span>
+    </h4>
+</doc-anchor-target>
+<p>This operation was only part of read-write transaction.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<div class="codeblock-title">io.frinx.uniconfig.client.tx.api.ReadOnlyUniconfigTx</div>
+<pre class="language-none"><code v-pre class="language-none">/**
+ * Template-specific read-only operations.
+ *
+ * @param &lt;T&gt; type of data broker
+ */
+interface Template&lt;T extends DataBroker&gt; extends Node&lt;T&gt; {
+    /**
+     * Get identifier of the template.
+     *
+     * @return template identifier
+     */
+    @Override
+    String getId();
+
+    /**
+     * Read only operation to get template info (including variable details).
+     *
+     * @return template info object.
+     */
+    TemplateInfo getInfo();
+}</code></pre>
+</doc-codeblock></div>
+<hr />
+<doc-anchor-target id="when-notifications-are-enabled-uniconfig-log-is-getting-filled-with-psqlexception-continuously">
+    <h4>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#when-notifications-are-enabled-uniconfig-log-is-getting-filled-with-psqlexception-continuously">#</doc-anchor-trigger>
+        <span>When notifications are enabled, uniconfig log is getting filled with PSQLException continuously</span>
+    </h4>
+</doc-anchor-target>
+<ul>
+<li>Subscription table was not locked in the loop used for acquiring free subscription to NETCONF streams. Instead, pg_locks system view was locked. It led to various issues with permissions.</li>
+<li>Fixed by not locking instances in the pg_locks view, but only instances in the subscription table.</li>
+</ul>
+<doc-anchor-target id="installation-of-device-with-bad-password-getting-wrong-behavior">
+    <h4>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#installation-of-device-with-bad-password-getting-wrong-behavior">#</doc-anchor-trigger>
+        <span>Installation of device with bad password getting wrong behavior</span>
+    </h4>
+</doc-anchor-target>
+<ul>
+<li>Error message was not correctly propagated into RPC install-node output.</li>
+</ul>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-none"><code v-pre class="language-none">{
+  &quot;errors&quot;: {
+    &quot;error&quot;: [
+      {
+        &quot;error-type&quot;: &quot;application&quot;,
+        &quot;error-message&quot;: &quot;Transaction failed: c3c3f007-ec56-4c08-b1c0-3f3ce606d75f: NETCONF mountpoint absent - failed to check support for NETCONF notifications: /(urn:TBD:params:xml:ns:yang:network-topology?revision=2013-10-21)network-topology/topology/topology[{(urn:TBD:params:xml:ns:yang:network-topology?revision=2013-10-21)topology-id=cli}]/node/node[{(urn:TBD:params:xml:ns:yang:network-topology?revision=2013-10-21)node-id=R1_b}]&quot;,
+        &quot;error-tag&quot;: &quot;operation-failed&quot;,
+        &quot;error-info&quot;: &quot;c3c3f007-ec56-4c08-b1c0-3f3ce606d75f: NETCONF mountpoint absent - failed to check support for NETCONF notifications: /(urn:TBD:params:xml:ns:yang:network-topology?revision=2013-10-21)network-topology/topology/topology[{(urn:TBD:params:xml:ns:yang:network-topology?revision=2013-10-21)topology-id=cli}]/node/node[{(urn:TBD:params:xml:ns:yang:network-topology?revision=2013-10-21)node-id=R1_b}]&quot;
+      }
+    ]
+  }
+}</code></pre>
+</doc-codeblock></div>
+<ul>
+<li>Fixed - it will contain error message “mountpoint was not succesfully created“.</li>
+</ul>
+<hr />
+<doc-anchor-target id="fixed-ignoring-of-unknown-elements-received-from-netconf-device">
+    <h4>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#fixed-ignoring-of-unknown-elements-received-from-netconf-device">#</doc-anchor-trigger>
+        <span>Fixed ignoring of unknown elements received from NETCONF device</span>
+    </h4>
+</doc-anchor-target>
+<ul>
+<li>Even if ‘strict-parsing&#x27; was set ‘false’, sometimes NETCONF client didn’t ignore unknown elements that were placed under parent node of type &#x27;list&#x27;.</li>
+</ul>
+<doc-anchor-target id="fixed-downloading-of-schemas-from-netconf-server-running-on-netconf-testtool">
+    <h4>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#fixed-downloading-of-schemas-from-netconf-server-running-on-netconf-testtool">#</doc-anchor-trigger>
+        <span>Fixed downloading of schemas from NETCONF server running on netconf-testtool</span>
+    </h4>
+</doc-anchor-target>
+<ul>
+<li>Downloading of schemas from simulated device (netconf-testtool) didn&#x27;t work at all. User had to provide YANG schemas of simulated device manually to UniConfig ‘cache’ directory.</li>
+</ul>
+<hr />
+<doc-anchor-target id="fixed-jsonb-filtering-for-unistore-topology">
+    <h4>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#fixed-jsonb-filtering-for-unistore-topology">#</doc-anchor-trigger>
+        <span>Fixed JSONB filtering for UniStore topology</span>
+    </h4>
+</doc-anchor-target>
+<ul>
+<li>JSONB filtering feature didn’t work on configuration under unistore nodes</li>
+</ul>
+<doc-anchor-target id="fixed-calculate-diff-rpc-with-updated-root-leaves">
+    <h4>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#fixed-calculate-diff-rpc-with-updated-root-leaves">#</doc-anchor-trigger>
+        <span>Fixed calculate-diff RPC with updated root leaves</span>
+    </h4>
+</doc-anchor-target>
+<ul>
+<li>Calculate-diff RPC failed if there were some updated/created/removed root leaves.</li>
+</ul>
+<hr />
+<doc-anchor-target id="fixed-disconnecting-cli-because-of-invalid-characters-in-the-prompt">
+    <h4>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#fixed-disconnecting-cli-because-of-invalid-characters-in-the-prompt">#</doc-anchor-trigger>
+        <span>Fixed disconnecting CLI because of invalid characters in the prompt</span>
+    </h4>
+</doc-anchor-target>
+<ul>
+<li>If the commands that are executed are too long, an incorrect character will appear which prevents the CLI from processing the prompt and causes the application to hang.</li>
+<li>Fixed by ignoring of such characters during parsing of returned command prompts from device.</li>
+</ul>
+<doc-anchor-target id="fixed-closing-of-uniconfig-transaction-after-failed-commit-operation">
+    <h4>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#fixed-closing-of-uniconfig-transaction-after-failed-commit-operation">#</doc-anchor-trigger>
+        <span>Fixed closing of UniConfig transaction after failed commit operation</span>
+    </h4>
+</doc-anchor-target>
+<ul>
+<li>If commit RPC failed unexpectedly (500 status code), then UniConfig transaction was not closed and stayed hanging and blocking other transactions that would do modifications on the same nodes.</li>
+<li>Fixed by closing UniConfig transaction always at the end of commit RPC if it was not closed by operation itself.</li>
+</ul>
+<hr />
+<doc-anchor-target id="fixed-handling-of-incorrect-input-pagination-parameters">
+    <h4>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#fixed-handling-of-incorrect-input-pagination-parameters">#</doc-anchor-trigger>
+        <span>Fixed handling of incorrect input pagination parameters</span>
+    </h4>
+</doc-anchor-target>
+<ul>
+<li>Returning 400 error message if input is not correctly formatted.</li>
+</ul>
+<p>Example:</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-none"><code v-pre class="language-none">/frinx-openconfig-interfaces:interfaces/interface?fetch=count=5</code></pre>
+</doc-codeblock></div>
+<hr />
+<doc-anchor-target id="fixed-providing-of-multiple-slf4j-bindings-on-classpath">
+    <h4>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#fixed-providing-of-multiple-slf4j-bindings-on-classpath">#</doc-anchor-trigger>
+        <span>Fixed providing of multiple slf4j bindings on classpath</span>
+    </h4>
+</doc-anchor-target>
+<ul>
+<li>Keeping only one slf4j implementation on classpath, so there aren’t any conflicts.</li>
+</ul>
+<hr />
+<doc-anchor-target id="stop-closing-of-configuration-mode-in-the-uniconfig-shell-after-each-commit-operation">
+    <h4>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#stop-closing-of-configuration-mode-in-the-uniconfig-shell-after-each-commit-operation">#</doc-anchor-trigger>
+        <span>Stop closing of configuration mode in the UniConfig shell after each commit operation</span>
+    </h4>
+</doc-anchor-target>
+<ul>
+<li>State before:</li>
+</ul>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-none"><code v-pre class="language-none">config&gt;set unistore new system settings ssh client-alive-interval 3600
+config&gt;request commit
+{
+    &quot;output&quot;: {
+        &quot;node-results&quot;: {
+            &quot;node-result&quot;: [
+                {
+                    &quot;node-id&quot;: &quot;new&quot;,
+                    &quot;configuration-status&quot;: &quot;complete&quot;
+                }
+            ]
+        },
+        &quot;overall-status&quot;: &quot;complete&quot;
+    }
+}
+uniconfig&gt;configuration-mode</code></pre>
+</doc-codeblock></div>
+<ul>
+<li>State after:</li>
+</ul>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-none"><code v-pre class="language-none">config&gt;set unistore new system settings ssh client-alive-interval 3600
+config&gt;request commit
+{
+    &quot;output&quot;: {
+        &quot;node-results&quot;: {
+            &quot;node-result&quot;: [
+                {
+                    &quot;node-id&quot;: &quot;new&quot;,
+                    &quot;configuration-status&quot;: &quot;complete&quot;
+                }
+            ]
+        },
+        &quot;overall-status&quot;: &quot;complete&quot;
+    }
+}
+config&gt;</code></pre>
+</doc-codeblock></div>
+<hr />
+<doc-anchor-target id="fixed-writing-of-augmentation-data-at-commit-operation-to-southbound-layer">
+    <h4>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#fixed-writing-of-augmentation-data-at-commit-operation-to-southbound-layer">#</doc-anchor-trigger>
+        <span>Fixed writing of augmentation data at commit operation to southbound layer</span>
+    </h4>
+</doc-anchor-target>
+<ul>
+<li>This is a regression introduced during implementation of “validation” and “confirmed commit” features. Fixed by wrapping of augmentation nodes to non-mixin parent containers.</li>
+</ul>
+<hr />
+<doc-anchor-target id="fixed-validate-rpc-output-with-empty-input">
+    <h4>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#fixed-validate-rpc-output-with-empty-input">#</doc-anchor-trigger>
+        <span>Fixed validate RPC output with empty input</span>
+    </h4>
+</doc-anchor-target>
+<ul>
+<li>After modification of multiple nodes in the transaction, validate RPC with empty input:</li>
+</ul>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-none"><code v-pre class="language-none">&quot;/operations/uniconfig-manager:validate&quot;
+
+ {&quot;input&quot;: {&quot;target-nodes&quot;: {}}}</code></pre>
+</doc-codeblock></div>
+<ul>
+<li>Returns back only:</li>
+</ul>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-none"><code v-pre class="language-none">{&quot;output&quot;:{&quot;overall-status&quot;:&quot;complete&quot;}}</code></pre>
+</doc-codeblock></div>
+<p><strong>But it must contain all modified nodes.</strong></p>
+<hr />
+<doc-anchor-target id="fixed-ordering-of-entries-in-the-transaction-log">
+    <h4>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#fixed-ordering-of-entries-in-the-transaction-log">#</doc-anchor-trigger>
+        <span>Fixed ordering of entries in the transaction-log</span>
+    </h4>
+</doc-anchor-target>
+<ul>
+<li>Committed transactions must be sorted by time when transaction was committed. Previously, the order was random.</li>
+</ul>
+<hr />
+<doc-anchor-target id="improvements">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#improvements">#</doc-anchor-trigger>
+        <span><span class="docs-emoji">&#x1F4A1;</span> Improvements</span>
+    </h2>
+</doc-anchor-target>
+<doc-anchor-target id="removed-old-draft-02-restconf-implementation">
+    <h4>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#removed-old-draft-02-restconf-implementation">#</doc-anchor-trigger>
+        <span>Removed old draft-02 RESTCONF implementation</span>
+    </h4>
+</doc-anchor-target>
+<ul>
+<li>We stopped using old RESTCONF implementation.</li>
+<li>Only new RESTCONF RFC-8040 is supported.</li>
+</ul>
+<doc-anchor-target id="configuration-3">
+    <h5>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#configuration-3">#</doc-anchor-trigger>
+        <span>Configuration</span>
+    </h5>
+</doc-anchor-target>
+<ul>
+<li>Removed “jsonRestconfServiceType“ setting from “lighty-uniconfig-config.json”:</li>
+</ul>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-none"><code v-pre class="language-none">/*
+ RESTCONF implementation:
+ a. 'DRAFT_02' - old draft-based implementation,
+ b. 'DRAFT_18' - RFC8040 implementation
+*/
+&quot;jsonRestconfServiceType&quot;: &quot;DRAFT_18&quot;,</code></pre>
+</doc-codeblock></div>
+<hr />
+<doc-anchor-target id="removed-option-to-turn-off-transactions">
+    <h4>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#removed-option-to-turn-off-transactions">#</doc-anchor-trigger>
+        <span>Removed option to turn off transactions</span>
+    </h4>
+</doc-anchor-target>
+<p>This setting was confusing, because turned on transactions still support both immediate-commit-model and build-and-commit models.</p>
+<doc-anchor-target id="configuration-4">
+    <h5>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#configuration-4">#</doc-anchor-trigger>
+        <span>Configuration</span>
+    </h5>
+</doc-anchor-target>
+<p>Removed “uniconfigTransactionEnabled“ from configuration file:</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-none"><code v-pre class="language-none">/*
+Flag that determines whether build-and-commit or only immediate commit model is supported:
+[TRUE]: both build-and-commit using dedicated UniConfig transactions and immediate
+        commit models are supported
+[FALSE]: only immediate commit model without explicit transactions is supported
+*/
+&quot;uniconfigTransactionEnabled&quot;: true,</code></pre>
+</doc-codeblock></div>
+<hr />
+<doc-anchor-target id="improved-invalid-nesting-of-data-error-message">
+    <h4>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#improved-invalid-nesting-of-data-error-message">#</doc-anchor-trigger>
+        <span>Improved &#x27;Invalid nesting of data&#x27; error message</span>
+    </h4>
+</doc-anchor-target>
+<ul>
+<li>This error occurred without and descriptive message, if user put some list without specification of correct brackets in the input JSON body.</li>
+<li>Improved error message - it points to the place/element at which error occurred (parent element).</li>
+</ul>
+<doc-anchor-target id="removed-autosyncservice">
+    <h4>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#removed-autosyncservice">#</doc-anchor-trigger>
+        <span>Removed AutoSyncService</span>
+    </h4>
+</doc-anchor-target>
+<ul>
+<li>This component was responsible for automatic reading of some configuration after pushing configuration to device.</li>
+<li>However such process was not very visible to user, it could cause issues - we decided to remove it, so similar functionality must be implemented on application layer.</li>
+</ul>
+<doc-anchor-target id="specification-of-default-directory-in-the-yang-packager-utility">
+    <h4>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#specification-of-default-directory-in-the-yang-packager-utility">#</doc-anchor-trigger>
+        <span>Specification of default directory in the YANG packager utility</span>
+    </h4>
+</doc-anchor-target>
+<ul>
+<li>The packager script expected to have ‘default’ as the name of the default directory. It must be able to accept any file name after -d parameter.</li>
+</ul>
+<doc-anchor-target id="separate-uniconfig-errors-to-more-type-1">
+    <h4>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#separate-uniconfig-errors-to-more-type-1">#</doc-anchor-trigger>
+        <span>Separate UniConfig errors to more type</span>
+    </h4>
+</doc-anchor-target>
+<ul>
+<li>Introduction of more granular error types that are returned in the response messages of UniConfig RPC operations.</li>
+<li>User should be able to identify in what component/layer of UniConfig, the error occurred.</li>
+</ul>
+<doc-anchor-target id="enabledisable-notifications-per-topic">
+    <h4>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#enabledisable-notifications-per-topic">#</doc-anchor-trigger>
+        <span>Enable/disable notifications per topic</span>
+    </h4>
+</doc-anchor-target>
+<ul>
+<li><p>Previously it was only possible to enable/disable notifications globally (all topics).</p>
+</li>
+<li><p>Added option per topic to enable/disable notifications.</p>
+</li>
+<li><p>Added 3 new leaves that are placed under “kafka-settings“ container</p>
+</li>
+</ul>
+<p><strong>API</strong></p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-none"><code v-pre class="language-none">grouping kafka-global-settings {
+    ...
+    leaf netconf-notifications-enabled {
+        type boolean;
+        mandatory true;
+        default &quot;true&quot;;
+        description &quot;If netconf notifications are enabled.&quot;;
+    }
+    leaf transaction-notifications-enabled {
+        type boolean;
+        mandatory true;
+        default &quot;true&quot;;
+        description &quot;If transaction notifications are enabled.&quot;;
+    }
+    leaf audit-logs-enabled {
+        type boolean;
+        mandatory true;
+        default &quot;true&quot;;
+        description &quot;If audit logs are enabled.&quot;;
+    }
+}</code></pre>
+</doc-codeblock></div>
+<p><strong>Confiruration</strong></p>
+<ul>
+<li>Initial configuration can be specified from lighty-uniconfig-config.json file:</li>
+</ul>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-none"><code v-pre class="language-none">    // Grouped settings that are related to notifications.
+    &quot;notifications&quot;: {
+        // Flag that determines whether notifications are collected
+        &quot;enabled&quot;: false,
+            // Flag that determines whether netconf notifications are enabled
+            &quot;netconfNotificationsEnabled&quot;: true,
+            // Flag that determines whether audit logs are enabled
+            &quot;auditLogsEnabled&quot;: true,
+            // Flag that determines whether transaction notifications are enabled
+            &quot;transactionNotificationsEnabled&quot;: true,
+            // Unique identifier of topic that is used for storing netconf notifications.
+            ...</code></pre>
+</doc-codeblock></div>
+<hr />
+<doc-anchor-target id="renamed-elements-in-notification-system">
+    <h4>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#renamed-elements-in-notification-system">#</doc-anchor-trigger>
+        <span>Renamed elements in notification system</span>
+    </h4>
+</doc-anchor-target>
+<ul>
+<li>Goal - improved readability.</li>
+<li>subscription list → netconf-subscription</li>
+<li>topic name restconf-notifications → audit-logs</li>
+</ul>
+<p><strong>API</strong></p>
+<ul>
+<li>Updated subscription list and YANG module name:</li>
+</ul>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-none"><code v-pre class="language-none">module netconf-subscriptions {
+    ...
+    list netconf-subscription {
+        key &quot;node-id stream-name&quot;;
+        config false;
+        description
+          &quot;List of created subscriptions to notification streams.&quot;;
+
+        uses stream-subscription-fields;
+    }
+    ...
+}</code></pre>
+</doc-codeblock></div>
+<ul>
+<li>Renamed restconf-notifications module:</li>
+</ul>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-none"><code v-pre class="language-none">module audit-logs {
+    yang-version 1.1;
+    namespace urn:ietf:params:xml:ns:yang:audit:logs;
+    prefix al;
+    ...   
+}</code></pre>
+</doc-codeblock></div>
+<ul>
+<li>Updated topic name for RESTCONF notifications:</li>
+</ul>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-none"><code v-pre class="language-none">module kafka-brokers {
+    yang-version 1.1;
+    namespace &quot;http://frinx.io/kafka/brokers&quot;;
+    prefix kafka-brokers;
+    ...
+    grouping kafka-global-settings {
+        leaf audit-logs-topic {
+            type string;
+            mandatory true;
+            default &quot;audit-logs&quot;;
+            description &quot;Identifier of the Kafka topic used for distribution of audit logs.&quot;;
+        }
+    ...
+}</code></pre>
+</doc-codeblock></div>
+<p><strong>Configuration</strong></p>
+<ul>
+<li>Updated topic name and corresponding field name:</li>
+</ul>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-none"><code v-pre class="language-none">// Grouped settings that are related to notifications.
+&quot;notifications&quot;: {
+    &quot;kafka&quot;: {
+        &quot;auditLogsTopicName&quot;: &quot;audit-logs&quot;,
+        // Unique identifier of topic that is used for storing transaction notifications.
+        ...</code></pre>
+</doc-codeblock></div>
+<hr />
+<doc-anchor-target id="removed-aaa">
+    <h4>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#removed-aaa">#</doc-anchor-trigger>
+        <span>Removed AAA</span>
+    </h4>
+</doc-anchor-target>
+<ul>
+<li><p>Removed AAA code from UniConfig.</p>
+</li>
+<li><p>AAA was used for:</p>
+<ul>
+<li>RESTCONF authentication (basic) - not needed, it can be provided by application gateway</li>
+<li>encryption in NETCONF - moved corresponding functionality to NETCONF module</li>
+<li>user identification - not needed, this functionality will be covered by tracing logs</li>
+</ul>
+</li>
+</ul>
+<p><strong>API</strong></p>
+<ul>
+<li>Removed “user-id“ from “audit-logs“ module:</li>
+</ul>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-none"><code v-pre class="language-none">grouping request-fields {
+    container uri-data {
+        leaf http-method {
+            type string;
+            mandatory true;
+        }
+        leaf uri {
+            type string;
+            mandatory true;
+        }
+    }
+    container host {
+        leaf source-address {
+            type inet:host;
+            mandatory true;
+        }
+        leaf source-port {
+            type inet:port-number;
+            mandatory true;
+        }
+    }
+    uses query-parameters;
+    - leaf user-id {
+    -    type string;
+    - }
+    leaf body {
+        type string;
+    }
+}</code></pre>
+</doc-codeblock></div>
+<ul>
+<li>Removed “username” from “transaction-log” module:</li>
+</ul>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-none"><code v-pre class="language-none">  container transactions-metadata {
+    config false;
+    description &quot;Container for list of transactions metadata.&quot;;
+    list transaction-metadata {
+      key &quot;transaction-id&quot;;
+      ordered-by user;
+      description &quot;List of transactions metadata.&quot;;
+      leaf transaction-id {
+        description &quot;Transaction identifier.&quot;;
+        type types:uuid;
+      }
+      leaf commit-time {
+        description &quot;Date and time of the last commit.&quot;;
+        type types:date-and-time;
+        mandatory true;
+      }
+      - leaf username {
+      -   description &quot;Name of the user who performed the transaction.&quot;;
+      -   type string;
+      -   mandatory true;
+      - }
+      list metadata {
+        key &quot;node-id&quot;;
+        description &quot;List of changes.&quot;;
+        min-elements 1;
+        uses transaction-entry;
+      }
+    }
+  }</code></pre>
+</doc-codeblock></div>
+<hr />
+<doc-anchor-target id="uniconfig-shell-ability-to-configure-multiple-leafs-with-single-set-operation">
+    <h4>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#uniconfig-shell-ability-to-configure-multiple-leafs-with-single-set-operation">#</doc-anchor-trigger>
+        <span>UniConfig shell: Ability to configure multiple leafs with single SET operation</span>
+    </h4>
+</doc-anchor-target>
+<ul>
+<li>If there are multiple leaves under same container/list, user should be able to configure them in the single command line.</li>
+</ul>
+<p><strong>API:</strong></p>
+<p>Sample YANG model:</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-none"><code v-pre class="language-none">container ssh {
+  description &quot;Configure SSH parameters&quot;;
+  leaf client-alive-interval {
+    type uint32;
+    description &quot;Client alive interval in seconds&quot;;
+    units seconds;
+    default 300;
+  }
+  leaf client-alive-count-max {
+    type  uint32;
+    description &quot;Max number of client alive messages&quot;;
+    units seconds;
+    default 0;
+  }
+}</code></pre>
+</doc-codeblock></div>
+<ul>
+<li>Commands for setting client-alive-interval and client-alive-count-max:</li>
+</ul>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-none"><code v-pre class="language-none">set unistore new system settings ssh client-alive-count-max 3600
+set unistore new system settings ssh client-alive-interval 100</code></pre>
+</doc-codeblock></div>
+<ul>
+<li>New approach:</li>
+</ul>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-none"><code v-pre class="language-none">set unistore new system settings ssh client-alive-count-max 3600 client-alive-interval 100</code></pre>
+</doc-codeblock></div>
+<hr />
+<doc-anchor-target id="removing-unused-uniconfig-monitoring-system">
+    <h4>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#removing-unused-uniconfig-monitoring-system">#</doc-anchor-trigger>
+        <span>Removing unused UniConfig monitoring system</span>
+    </h4>
+</doc-anchor-target>
+<ul>
+<li>Removing of following field from UniConfig instance DB relation - backup-instance.</li>
+<li>Removing periodical monitoring of UniConfig instances (component in the UniConfig layer) and taking leadership over nodes in the cluster.</li>
+<li>Removing unused DB business API services that were used in the [1] and [2].</li>
+</ul>
+<p><strong>Configuration</strong></p>
+<p>Before changes:</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-none"><code v-pre class="language-none">// UniConfig instance naming settings.
+&quot;uniconfigInstance&quot;: {
+    // Identifier of the local UniConfig instance (name must be unique in the cluster). If it is set to 'null'
+    // then this identifier is tried to be loaded from 'data/instance_name'. If this file doesn't exist, then
+    // name of the UniConfig instance is randomly generated and this file is created with new name of instance.
+    &quot;instanceName&quot;: null,
+    // identifier of the UniConfig instance that backs up local UniConfig instance (it should be set to 'null'
+    // in the stateless deployment)
+    &quot;backupInstanceName&quot;: null
+},
+// Uniconfig instance monitoring settings. These settings have effect only in the stateful deployment.
+&quot;monitoring&quot;: {
+    // interval between updating of local UniConfig instance heartbeat timestamp [milliseconds]
+    &quot;heartbeatInterval&quot;: 1000,
+    // initial delay before backup monitoring system launches the first verification of the UniConfig instance
+    // that is backed by local Uniconfig instance [milliseconds]
+    &quot;initialMonitoringDelay&quot;: 5000,
+    // interval between executions of verifications - whether UniConfig instance that is backed by local
+    // UniConfig instance is alive [milliseconds]
+    &quot;backupMonitoringInterval&quot;: 10000,
+    // maximum allowable delay between the current timestamp and the timestamp of monitored UniConfig instance
+    // [milliseconds]
+    &quot;maxInstanceAge&quot;: 5000
+}</code></pre>
+</doc-codeblock></div>
+<ul>
+<li>After changes (removed multiple settings):</li>
+</ul>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-none"><code v-pre class="language-none">// UniConfig instance naming settings.
+&quot;uniconfigInstance&quot;: {
+    // Identifier of the local UniConfig instance (name must be unique in the cluster). If it is set to 'null'
+    // then this identifier is tried to be loaded from 'data/instance_name'. If this file doesn't exist, then
+    // name of the UniConfig instance is randomly generated and this file is created with new name of instance.
+    &quot;instanceName&quot;: null
+},
+// Heart beat service settings.
+&quot;heartBeat&quot;: {
+    // interval between updating of local UniConfig instance heartbeat timestamp [milliseconds]
+    &quot;heartbeatInterval&quot;: 1000
+}</code></pre>
+</doc-codeblock></div>
+<hr />
+<doc-anchor-target id="removed-old-unistore-implementation">
+    <h4>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#removed-old-unistore-implementation">#</doc-anchor-trigger>
+        <span>Removed old UniStore implementation</span>
+    </h4>
+</doc-anchor-target>
+<ul>
+<li>UniStore was previously implemented separately from UniConfig. Now it is integrated into UniConfig with distinct topology identifier &#x27;unistore&#x27;.</li>
+</ul>
+<hr />
+<doc-anchor-target id="using-cached-thread-pool-in-the-device-discovery-service">
+    <h4>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#using-cached-thread-pool-in-the-device-discovery-service">#</doc-anchor-trigger>
+        <span>Using cached thread-pool in the device-discovery service</span>
+    </h4>
+</doc-anchor-target>
+<ul>
+<li>There was a fixed thread-pool that kept all the threads open all the time.</li>
+<li>Using cached thread-pool with a small initial thread amount and higher max thread amount e.g. CPU_COUNT * 8.</li>
+</ul>
+<doc-anchor-target id="configuration-5">
+    <h4>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#configuration-5">#</doc-anchor-trigger>
+        <span>Configuration</span>
+    </h4>
+</doc-anchor-target>
+<ul>
+<li>Added “maxPoolSize“ setting to configuration file:</li>
+</ul>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-none"><code v-pre class="language-none">/*
+Settings for the Device Discovery service
+*/
+&quot;deviceDiscovery&quot;:{
+    // A parameter that specifies the local address from which the scanning will be ran.
+    &quot;localAddress&quot;: &quot;&quot;,
+    // A parameter that specifies the maximum pool size by the executor.
+    // If left empty, the default will be CPU_COUNT * 8.
+    //&quot;maxPoolSize&quot;: 20,
+    // A parameter that specifies the maximum limit of IP addresses that the service can process in one request.
+    &quot;addressCheckLimit&quot;: 254
+},</code></pre>
+</doc-codeblock></div>
+<hr />
+<doc-anchor-target id="display-only-sub-structure-with-show-command-in-uniconfig-shell">
+    <h4>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#display-only-sub-structure-with-show-command-in-uniconfig-shell">#</doc-anchor-trigger>
+        <span>Display only sub-structure with &quot;show&quot; command in UniConfig shell</span>
+    </h4>
+</doc-anchor-target>
+<ul>
+<li>Before patch:</li>
+</ul>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-none"><code v-pre class="language-none">config&gt;show unistore new system settings
+{
+    &quot;settings&quot;: {
+        &quot;ssh&quot;: {
+            &quot;client-alive-interval&quot;: 3600,
+            &quot;client-alive-count-max&quot;: 3600
+        }
+    }
+}
+config&gt;show unistore new system
+{
+    &quot;systemdirector:system&quot;: {
+        &quot;settings&quot;: {
+            &quot;ssh&quot;: {
+                &quot;client-alive-interval&quot;: 3600,
+                &quot;client-alive-count-max&quot;: 3600
+            }
+        }
+    }
+}</code></pre>
+</doc-codeblock></div>
+<ul>
+<li>After patch (just displaying what&#x27;s there inside settings/system accordingly):</li>
+</ul>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-none"><code v-pre class="language-none">config&gt;show unistore new system settings
+{
+    &quot;ssh&quot;: {
+        &quot;client-alive-interval&quot;: 3600,
+        &quot;client-alive-count-max&quot;: 3600
+    }
+}
+}
+config&gt;show unistore new system
+    {
+    &quot;settings&quot;: {
+        &quot;ssh&quot;: {
+            &quot;client-alive-interval&quot;: 3600,
+            &quot;client-alive-count-max&quot;: 3600
+        }
+    }
+}</code></pre>
+</doc-codeblock></div>
+<hr />
+<doc-anchor-target id="providing-default-unistore-node-id-in-the-uniconfig-shell">
+    <h4>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#providing-default-unistore-node-id-in-the-uniconfig-shell">#</doc-anchor-trigger>
+        <span>Providing default UniStore node id in the UniConfig shell</span>
+    </h4>
+</doc-anchor-target>
+<ul>
+<li><p>When we create a new UniStore node we manually had to give it a node-id. Say, we are configuring ssh now, it needs to be a generic command which doesn&#x27;t expect the node-id to be given by the user.</p>
+</li>
+<li><p>Before patch (&#x27;new&#x27; is the node identifier):</p>
+</li>
+</ul>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-none"><code v-pre class="language-none">config&gt;show unistore new system settings
+{
+    &quot;settings&quot;: {
+        &quot;ssh&quot;: {
+            &quot;client-alive-interval&quot;: 3600,
+            &quot;client-alive-count-max&quot;: 3600
+        }
+    }
+}</code></pre>
+</doc-codeblock></div>
+<ul>
+<li>After patch:</li>
+</ul>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-none"><code v-pre class="language-none">config&gt;show unistore system settings
+{
+    &quot;client-alive-interval&quot;: 3600,
+    &quot;client-alive-count-max&quot;: 3600
+}</code></pre>
+</doc-codeblock></div>
+<p><em><strong>Configuration:</strong></em></p>
+<ul>
+<li>Default UniStore node identifier can be configured in the lighty-uniconfig-config.json (default value is &#x27;system&#x27;):</li>
+</ul>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-none"><code v-pre class="language-none">    &quot;cliShell&quot;: {
+        &quot;sshServer&quot;: {
+            &quot;defaultUnistoreNodeId&quot;: &quot;system&quot;
+        }
+    }</code></pre>
+</doc-codeblock></div>
+<hr />
+<doc-anchor-target id="removed-unused-maven-plugins">
+    <h4>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#removed-unused-maven-plugins">#</doc-anchor-trigger>
+        <span>Removed unused Maven plugins</span>
+    </h4>
+</doc-anchor-target>
+<ul>
+<li>Removed unused Maven plugins that are executed during build process and thus making building longer.</li>
+</ul>
+<doc-anchor-target id="removed-aspectj-from-uniconfig">
+    <h4>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#removed-aspectj-from-uniconfig">#</doc-anchor-trigger>
+        <span>Removed AspectJ from UniConfig</span>
+    </h4>
+</doc-anchor-target>
+<ul>
+<li>AspectJ makes code more error-prone and complex for debugging - removed usage of this library in the RESTCONF and dependencies.</li>
+</ul>
+<hr />
+<doc-anchor-target id="documentation-additions">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#documentation-additions">#</doc-anchor-trigger>
+        <span><span class="docs-emoji">&#x1F4DC;</span> Documentation additions</span>
+    </h2>
+</doc-anchor-target>
+<doc-anchor-target id="validation-of-leaf-refs-1">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#validation-of-leaf-refs-1">#</doc-anchor-trigger>
+        <span>Validation of leaf-refs</span>
+    </h3>
+</doc-anchor-target>
+<ul>
+<li>Validation of leaf-ref YANG constraints that are affected by some create/delete/update operation:</li>
+</ul>
+<p>
+<div class="mb-6 px-5 py-4 flex justify-between relative border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded transition-colors duration-150">
+    <div class="flex items-center text-blue-500 dark:text-blue-400">
+        <span class="inline-block mb-px">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" role="presentation" fill="currentColor"><path fill="none" d="M0 0h24v24H0z"/><path d="M19.92 12.38a1 1 0 00-.22-1.09l-7-7a.996.996 0 10-1.41 1.41l5.3 5.3H5c-.55 0-1 .45-1 1s.45 1 1 1h11.59l-5.29 5.29a.996.996 0 000 1.41c.19.2.44.3.7.3s.51-.1.71-.29l7-7c.09-.09.16-.21.21-.33z"/></svg>
+        </span>
+        <span class="inline-block font-medium ml-2">leafref-validation</span>
+    </div>
+    <div class="flex items-center text-xs text-gray-400 dark:text-dark-400">
+        <span>/frinx-uniconfig/user-guide/uniconfig-operations/restconf/#leafref-validation</span>
+    </div>
+    <a href="/frinx-uniconfig/user-guide/uniconfig-operations/restconf/#leafref-validation" class="absolute block inset-0"></a>
+</div>
+</p>
+<hr />
+<doc-anchor-target id="idle-timeout">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#idle-timeout">#</doc-anchor-trigger>
+        <span>idle-timeout</span>
+    </h3>
+</doc-anchor-target>
+<ul>
+<li>Introduced transaction idle-timeout</li>
+<li>Updated configuration section in ‘“lighty-uniconfig-config.json” - added &#x27;transactionIdleTimeout’ property:</li>
+</ul>
+<p>
+<div class="mb-6 px-5 py-4 flex justify-between relative border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded transition-colors duration-150">
+    <div class="flex items-center text-blue-500 dark:text-blue-400">
+        <span class="inline-block mb-px">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" role="presentation" fill="currentColor"><path fill="none" d="M0 0h24v24H0z"/><path d="M19.92 12.38a1 1 0 00-.22-1.09l-7-7a.996.996 0 10-1.41 1.41l5.3 5.3H5c-.55 0-1 .45-1 1s.45 1 1 1h11.59l-5.29 5.29a.996.996 0 000 1.41c.19.2.44.3.7.3s.51-.1.71-.29l7-7c.09-.09.16-.21.21-.33z"/></svg>
+        </span>
+        <span class="inline-block font-medium ml-2">idle-timeout</span>
+    </div>
+    <div class="flex items-center text-xs text-gray-400 dark:text-dark-400">
+        <span>/frinx-uniconfig/user-guide/uniconfig-operations/build-and-commit-model/#transaction-cleaner</span>
+    </div>
+    <a href="/frinx-uniconfig/user-guide/uniconfig-operations/build-and-commit-model/#transaction-cleaner" class="absolute block inset-0"></a>
+</div>
+</p>
+<hr />
+<doc-anchor-target id="encryption">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#encryption">#</doc-anchor-trigger>
+        <span>Encryption</span>
+    </h3>
+</doc-anchor-target>
+<ul>
+<li>UniConfig uses asymmetric encryption for ensuring confidentiality of selected leaf and leaf-list values.</li>
+</ul>
+<p>
+<div class="mb-6 px-5 py-4 flex justify-between relative border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded transition-colors duration-150">
+    <div class="flex items-center text-blue-500 dark:text-blue-400">
+        <span class="inline-block mb-px">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" role="presentation" fill="currentColor"><path fill="none" d="M0 0h24v24H0z"/><path d="M19.92 12.38a1 1 0 00-.22-1.09l-7-7a.996.996 0 10-1.41 1.41l5.3 5.3H5c-.55 0-1 .45-1 1s.45 1 1 1h11.59l-5.29 5.29a.996.996 0 000 1.41c.19.2.44.3.7.3s.51-.1.71-.29l7-7c.09-.09.16-.21.21-.33z"/></svg>
+        </span>
+        <span class="inline-block font-medium ml-2">Encryption</span>
+    </div>
+    <div class="flex items-center text-xs text-gray-400 dark:text-dark-400">
+        <span>/frinx-uniconfig/user-guide/operational-procedures/data-security-models/#data-encryption</span>
+    </div>
+    <a href="/frinx-uniconfig/user-guide/operational-procedures/data-security-models/#data-encryption" class="absolute block inset-0"></a>
+</div>
+</p>
+<hr />
+<doc-anchor-target id="insert--point">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#insert--point">#</doc-anchor-trigger>
+        <span>Insert &amp; Point</span>
+    </h3>
+</doc-anchor-target>
+<ul>
+<li>RESTCONF RFC-8040 supports 2 additional query parameters for PUT and POST methods - ‘insert&#x27; and &#x27;point’</li>
+</ul>
+<p>
+<div class="mb-6 px-5 py-4 flex justify-between relative border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded transition-colors duration-150">
+    <div class="flex items-center text-blue-500 dark:text-blue-400">
+        <span class="inline-block mb-px">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" role="presentation" fill="currentColor"><path fill="none" d="M0 0h24v24H0z"/><path d="M19.92 12.38a1 1 0 00-.22-1.09l-7-7a.996.996 0 10-1.41 1.41l5.3 5.3H5c-.55 0-1 .45-1 1s.45 1 1 1h11.59l-5.29 5.29a.996.996 0 000 1.41c.19.2.44.3.7.3s.51-.1.71-.29l7-7c.09-.09.16-.21.21-.33z"/></svg>
+        </span>
+        <span class="inline-block font-medium ml-2">Insert &amp; Point</span>
+    </div>
+    <div class="flex items-center text-xs text-gray-400 dark:text-dark-400">
+        <span>/frinx-uniconfig/user-guide/uniconfig-operations/restconf/#inserting</span>
+    </div>
+    <a href="/frinx-uniconfig/user-guide/uniconfig-operations/restconf/#inserting" class="absolute block inset-0"></a>
+</div>
+</p>
+<hr />
+<doc-anchor-target id="hashing">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#hashing">#</doc-anchor-trigger>
+        <span>Hashing</span>
+    </h3>
+</doc-anchor-target>
+<ul>
+<li>UniConfig supports &#x27;iana-crypt-hash&#x27; YANG model for specification of hashed values in data-tree using type definition &#x27;crypt-hash&#x27;.</li>
+</ul>
+<p>
+<div class="mb-6 px-5 py-4 flex justify-between relative border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded transition-colors duration-150">
+    <div class="flex items-center text-blue-500 dark:text-blue-400">
+        <span class="inline-block mb-px">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" role="presentation" fill="currentColor"><path fill="none" d="M0 0h24v24H0z"/><path d="M19.92 12.38a1 1 0 00-.22-1.09l-7-7a.996.996 0 10-1.41 1.41l5.3 5.3H5c-.55 0-1 .45-1 1s.45 1 1 1h11.59l-5.29 5.29a.996.996 0 000 1.41c.19.2.44.3.7.3s.51-.1.71-.29l7-7c.09-.09.16-.21.21-.33z"/></svg>
+        </span>
+        <span class="inline-block font-medium ml-2">Hashing</span>
+    </div>
+    <div class="flex items-center text-xs text-gray-400 dark:text-dark-400">
+        <span>/frinx-uniconfig/user-guide/operational-procedures/data-security-models/#data-hashing</span>
+    </div>
+    <a href="/frinx-uniconfig/user-guide/operational-procedures/data-security-models/#data-hashing" class="absolute block inset-0"></a>
+</div>
+</p>
+<hr />
+<doc-anchor-target id="templates">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#templates">#</doc-anchor-trigger>
+        <span>Templates</span>
+    </h3>
+</doc-anchor-target>
+<ul>
+<li>Added information about usage of the templates</li>
+</ul>
+<p>
+<div class="mb-6 px-5 py-4 flex justify-between relative border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded transition-colors duration-150">
+    <div class="flex items-center text-blue-500 dark:text-blue-400">
+        <span class="inline-block mb-px">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" role="presentation" fill="currentColor"><path fill="none" d="M0 0h24v24H0z"/><path d="M19.92 12.38a1 1 0 00-.22-1.09l-7-7a.996.996 0 10-1.41 1.41l5.3 5.3H5c-.55 0-1 .45-1 1s.45 1 1 1h11.59l-5.29 5.29a.996.996 0 000 1.41c.19.2.44.3.7.3s.51-.1.71-.29l7-7c.09-.09.16-.21.21-.33z"/></svg>
+        </span>
+        <span class="inline-block font-medium ml-2">Templates</span>
+    </div>
+    <div class="flex items-center text-xs text-gray-400 dark:text-dark-400">
+        <span>/frinx-uniconfig/user-guide/uniconfig-operations/templates-manager/#latest-schema</span>
+    </div>
+    <a href="/frinx-uniconfig/user-guide/uniconfig-operations/templates-manager/#latest-schema" class="absolute block inset-0"></a>
+</div>
+</p>
+<hr />
+<doc-anchor-target id="rename-patch-oper">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#rename-patch-oper">#</doc-anchor-trigger>
+        <span>Rename patch oper.</span>
+    </h3>
+</doc-anchor-target>
+<ul>
+<li>This PATCH operation can be used for changing values of one/multiple keys that identify some list entry.</li>
+</ul>
+<p>
+<div class="mb-6 px-5 py-4 flex justify-between relative border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded transition-colors duration-150">
+    <div class="flex items-center text-blue-500 dark:text-blue-400">
+        <span class="inline-block mb-px">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" role="presentation" fill="currentColor"><path fill="none" d="M0 0h24v24H0z"/><path d="M19.92 12.38a1 1 0 00-.22-1.09l-7-7a.996.996 0 10-1.41 1.41l5.3 5.3H5c-.55 0-1 .45-1 1s.45 1 1 1h11.59l-5.29 5.29a.996.996 0 000 1.41c.19.2.44.3.7.3s.51-.1.71-.29l7-7c.09-.09.16-.21.21-.33z"/></svg>
+        </span>
+        <span class="inline-block font-medium ml-2">Rename</span>
+    </div>
+    <div class="flex items-center text-xs text-gray-400 dark:text-dark-400">
+        <span>/frinx-uniconfig/user-guide/uniconfig-operations/restconf/#inserting</span>
+    </div>
+    <a href="/frinx-uniconfig/user-guide/uniconfig-operations/restconf/#inserting" class="absolute block inset-0"></a>
+</div>
+</p>
+<hr />
+<doc-anchor-target id="kafka-clustering">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#kafka-clustering">#</doc-anchor-trigger>
+        <span>Kafka clustering</span>
+    </h3>
+</doc-anchor-target>
+<ul>
+<li>Random distribution of subscriptions to NETCONF notifications streams and turning on/off UniConfig instances may lead to scenario when one of the UniConfig instances in the cluster contain most of the subscriptions while others unequally smaller number.</li>
+</ul>
+<p>
+<div class="mb-6 px-5 py-4 flex justify-between relative border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded transition-colors duration-150">
+    <div class="flex items-center text-blue-500 dark:text-blue-400">
+        <span class="inline-block mb-px">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" role="presentation" fill="currentColor"><path fill="none" d="M0 0h24v24H0z"/><path d="M19.92 12.38a1 1 0 00-.22-1.09l-7-7a.996.996 0 10-1.41 1.41l5.3 5.3H5c-.55 0-1 .45-1 1s.45 1 1 1h11.59l-5.29 5.29a.996.996 0 000 1.41c.19.2.44.3.7.3s.51-.1.71-.29l7-7c.09-.09.16-.21.21-.33z"/></svg>
+        </span>
+        <span class="inline-block font-medium ml-2">Kafka clustering</span>
+    </div>
+    <div class="flex items-center text-xs text-gray-400 dark:text-dark-400">
+        <span>/frinx-uniconfig/user-guide/uniconfig-operations/kafka-notifications/#clustering-of-netconf-subscriptions-and-notifications</span>
+    </div>
+    <a href="/frinx-uniconfig/user-guide/uniconfig-operations/kafka-notifications/#clustering-of-netconf-subscriptions-and-notifications" class="absolute block inset-0"></a>
+</div>
+</p>
+<hr />
+<doc-anchor-target id="yang-patch">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#yang-patch">#</doc-anchor-trigger>
+        <span>YANG Patch</span>
+    </h3>
+</doc-anchor-target>
+<ul>
+<li>Invocation of PATCH that may contain multiple edits.</li>
+</ul>
+<p>
+<div class="mb-6 px-5 py-4 flex justify-between relative border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded transition-colors duration-150">
+    <div class="flex items-center text-blue-500 dark:text-blue-400">
+        <span class="inline-block mb-px">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" role="presentation" fill="currentColor"><path fill="none" d="M0 0h24v24H0z"/><path d="M19.92 12.38a1 1 0 00-.22-1.09l-7-7a.996.996 0 10-1.41 1.41l5.3 5.3H5c-.55 0-1 .45-1 1s.45 1 1 1h11.59l-5.29 5.29a.996.996 0 000 1.41c.19.2.44.3.7.3s.51-.1.71-.29l7-7c.09-.09.16-.21.21-.33z"/></svg>
+        </span>
+        <span class="inline-block font-medium ml-2">YANG Patch</span>
+    </div>
+    <div class="flex items-center text-xs text-gray-400 dark:text-dark-400">
+        <span>/frinx-uniconfig/user-guide/uniconfig-operations/yang-patch/</span>
+    </div>
+    <a href="/frinx-uniconfig/user-guide/uniconfig-operations/yang-patch/" class="absolute block inset-0"></a>
+</div>
+</p>
+<hr />
+<doc-anchor-target id="uniconfig-whitelist-1">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#uniconfig-whitelist-1">#</doc-anchor-trigger>
+        <span>UniConfig whitelist</span>
+    </h3>
+</doc-anchor-target>
+<ul>
+<li>List of root YANG entities that should be read. This parameter has effect only on NETCONF nodes.</li>
+</ul>
+<p>
+<div class="mb-6 px-5 py-4 flex justify-between relative border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded transition-colors duration-150">
+    <div class="flex items-center text-blue-500 dark:text-blue-400">
+        <span class="inline-block mb-px">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" role="presentation" fill="currentColor"><path fill="none" d="M0 0h24v24H0z"/><path d="M19.92 12.38a1 1 0 00-.22-1.09l-7-7a.996.996 0 10-1.41 1.41l5.3 5.3H5c-.55 0-1 .45-1 1s.45 1 1 1h11.59l-5.29 5.29a.996.996 0 000 1.41c.19.2.44.3.7.3s.51-.1.71-.29l7-7c.09-.09.16-.21.21-.33z"/></svg>
+        </span>
+        <span class="inline-block font-medium ml-2">Whitelist</span>
+    </div>
+    <div class="flex items-center text-xs text-gray-400 dark:text-dark-400">
+        <span>/frinx-uniconfig/user-guide/network-management-protocols/uniconfig-installing/#uniconfig-native</span>
+    </div>
+    <a href="/frinx-uniconfig/user-guide/network-management-protocols/uniconfig-installing/#uniconfig-native" class="absolute block inset-0"></a>
+</div>
+</p>
+<hr />
+<doc-anchor-target id="yang-packager-1">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#yang-packager-1">#</doc-anchor-trigger>
+        <span>YANG Packager</span>
+    </h3>
+</doc-anchor-target>
+<ul>
+<li>Implemented tool for validation and loading of YANG repository</li>
+</ul>
+<p>
+<div class="mb-6 px-5 py-4 flex justify-between relative border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded transition-colors duration-150">
+    <div class="flex items-center text-blue-500 dark:text-blue-400">
+        <span class="inline-block mb-px">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" role="presentation" fill="currentColor"><path fill="none" d="M0 0h24v24H0z"/><path d="M19.92 12.38a1 1 0 00-.22-1.09l-7-7a.996.996 0 10-1.41 1.41l5.3 5.3H5c-.55 0-1 .45-1 1s.45 1 1 1h11.59l-5.29 5.29a.996.996 0 000 1.41c.19.2.44.3.7.3s.51-.1.71-.29l7-7c.09-.09.16-.21.21-.33z"/></svg>
+        </span>
+        <span class="inline-block font-medium ml-2">YANG Packager</span>
+    </div>
+    <div class="flex items-center text-xs text-gray-400 dark:text-dark-400">
+        <span>/frinx-uniconfig/user-guide/uniconfig-operations/utilities/yang-packager/</span>
+    </div>
+    <a href="/frinx-uniconfig/user-guide/uniconfig-operations/utilities/yang-packager/" class="absolute block inset-0"></a>
+</div>
+</p>
+<hr />
+<doc-anchor-target id="install-multiple-nodes">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#install-multiple-nodes">#</doc-anchor-trigger>
+        <span>Install multiple nodes</span>
+    </h3>
+</doc-anchor-target>
+<ul>
+<li>Added RPCs for installation or uninstallation of multiple devices in the single RPC call. The advantage of this approach in comparison to install-node/uninstall-node RPC is that UniConfig can schedule installation tasks in parallel.</li>
+</ul>
+<p>
+<div class="mb-6 px-5 py-4 flex justify-between relative border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded transition-colors duration-150">
+    <div class="flex items-center text-blue-500 dark:text-blue-400">
+        <span class="inline-block mb-px">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" role="presentation" fill="currentColor"><path fill="none" d="M0 0h24v24H0z"/><path d="M19.92 12.38a1 1 0 00-.22-1.09l-7-7a.996.996 0 10-1.41 1.41l5.3 5.3H5c-.55 0-1 .45-1 1s.45 1 1 1h11.59l-5.29 5.29a.996.996 0 000 1.41c.19.2.44.3.7.3s.51-.1.71-.29l7-7c.09-.09.16-.21.21-.33z"/></svg>
+        </span>
+        <span class="inline-block font-medium ml-2">Install multiple nodes</span>
+    </div>
+    <div class="flex items-center text-xs text-gray-400 dark:text-dark-400">
+        <span>/frinx-uniconfig/user-guide/uniconfig-operations/uniconfig-node-manager/uniconfig_install_multiple_nodes/</span>
+    </div>
+    <a href="/frinx-uniconfig/user-guide/uniconfig-operations/uniconfig-node-manager/uniconfig_install_multiple_nodes/" class="absolute block inset-0"></a>
+</div>
+</p>
+<p>
+<div class="mb-6 px-5 py-4 flex justify-between relative border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded transition-colors duration-150">
+    <div class="flex items-center text-blue-500 dark:text-blue-400">
+        <span class="inline-block mb-px">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" role="presentation" fill="currentColor"><path fill="none" d="M0 0h24v24H0z"/><path d="M19.92 12.38a1 1 0 00-.22-1.09l-7-7a.996.996 0 10-1.41 1.41l5.3 5.3H5c-.55 0-1 .45-1 1s.45 1 1 1h11.59l-5.29 5.29a.996.996 0 000 1.41c.19.2.44.3.7.3s.51-.1.71-.29l7-7c.09-.09.16-.21.21-.33z"/></svg>
+        </span>
+        <span class="inline-block font-medium ml-2">Uninstall multiple nodes</span>
+    </div>
+    <div class="flex items-center text-xs text-gray-400 dark:text-dark-400">
+        <span>/frinx-uniconfig/user-guide/uniconfig-operations/uniconfig-node-manager/uniconfig_uninstall_multiple_nodes/</span>
+    </div>
+    <a href="/frinx-uniconfig/user-guide/uniconfig-operations/uniconfig-node-manager/uniconfig_uninstall_multiple_nodes/" class="absolute block inset-0"></a>
+</div>
+</p>
+<hr />
+<doc-anchor-target id="snapshot-metadata">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#snapshot-metadata">#</doc-anchor-trigger>
+        <span>Snapshot-metadata</span>
+    </h3>
+</doc-anchor-target>
+<ul>
+<li>Added list of node-ids, that are inside particular snapshot, into snapshot-metadata.</li>
+</ul>
+<p>
+<div class="mb-6 px-5 py-4 flex justify-between relative border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded transition-colors duration-150">
+    <div class="flex items-center text-blue-500 dark:text-blue-400">
+        <span class="inline-block mb-px">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" role="presentation" fill="currentColor"><path fill="none" d="M0 0h24v24H0z"/><path d="M19.92 12.38a1 1 0 00-.22-1.09l-7-7a.996.996 0 10-1.41 1.41l5.3 5.3H5c-.55 0-1 .45-1 1s.45 1 1 1h11.59l-5.29 5.29a.996.996 0 000 1.41c.19.2.44.3.7.3s.51-.1.71-.29l7-7c.09-.09.16-.21.21-.33z"/></svg>
+        </span>
+        <span class="inline-block font-medium ml-2">snapshot-metadata</span>
+    </div>
+    <div class="flex items-center text-xs text-gray-400 dark:text-dark-400">
+        <span>/frinx-uniconfig/user-guide/uniconfig-operations/snapshot-manager/obtain_snapshot_metadata/</span>
+    </div>
+    <a href="/frinx-uniconfig/user-guide/uniconfig-operations/snapshot-manager/obtain_snapshot_metadata/" class="absolute block inset-0"></a>
+</div>
+</p>
+
+
+
+
+                <!-- Required only on API pages -->
+                <doc-toolbar-member-filter-no-results />
+            </div>
+
+            
+<nav class="flex mt-14">
+    <div class="w-1/2">
+        <a class="px-5 py-4 h-full flex items-center break-all md:break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-l-lg transition-colors duration-150 relative hover:z-5" href="/frinx-uniconfig/release-notes/">
+            <svg xmlns="http://www.w3.org/2000/svg" class="mr-3" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" overflow="visible"><path d="M19 11H7.41l5.29-5.29a.996.996 0 10-1.41-1.41l-7 7a1 1 0 000 1.42l7 7a1.024 1.024 0 001.42-.01.996.996 0 000-1.41L7.41 13H19c.55 0 1-.45 1-1s-.45-1-1-1z" /><path fill="none" d="M0 0h24v24H0z" /></svg>
+            <span>
+                <span class="block text-xs font-normal text-gray-400 dark:text-dark-400">Previous</span>
+                <span class="block mt-1">Release notes</span>
+            </span>
+        </a>
+    </div>
+
+    <div class="w-1/2">
+        <a class="px-5 py-4 -mx-px h-full flex items-center justify-end break-all md:break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-r-lg transition-colors duration-150 relative hover:z-5" href="/frinx-uniconfig/release-notes/uniconfig-4.2.9/">
+            <span>
+                <span class="block text-xs font-normal text-right text-gray-400 dark:text-dark-400">Next</span>
+                <span class="block mt-1">UniConfig 4.2.9</span>
+            </span>
+            <svg xmlns="http://www.w3.org/2000/svg" class="ml-3" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" overflow="visible"><path d="M19.92 12.38a1 1 0 00-.22-1.09l-7-7a.996.996 0 10-1.41 1.41l5.3 5.3H5c-.55 0-1 .45-1 1s.45 1 1 1h11.59l-5.29 5.29a.996.996 0 000 1.41c.19.2.44.3.7.3s.51-.1.71-.29l7-7c.09-.09.16-.21.21-.33z" /><path fill="none" d="M0 0h24v24H0z" /></svg>
+        </a>
+    </div>
+</nav>
+
+
+        </main>
+
+        <div class="border-t dark:border-dark-650 pt-6 mb-8">
+            <footer class="flex flex-wrap items-center justify-between">
+    <div>
+        <ul class="flex flex-wrap items-center text-sm">
+</ul>
+
+    </div>
+    <div class="docs-copyright py-2 text-gray-500 dark:text-dark-350 text-sm leading-relaxed"><p>© Copyright 2022.</p>
+</div>
+</footer>
+
+        </div>
+    </div>
+    
+    <!-- Rendered if sidebar right is enabled -->
+    <!-- Sidebar right skeleton-->
+    <div v-cloak class="fixed top-0 bottom-0 right-0 transform translate-x-full bg-white border-gray-200 lg:sticky lg:border-l lg:flex-shrink-0 lg:pt-6 lg:transform-none lg:w-56 lg:z-0 md:w-72 sidebar-right skeleton dark:bg-dark-850 dark:border-dark-650">
+        <div class="pl-5">
+            <div class="w-32 h-3 mb-4 bg-gray-200 dark:bg-dark-600 rounded-full loading"></div>
+            <div class="w-48 h-3 mb-4 bg-gray-200 dark:bg-dark-600 rounded-full loading"></div>
+            <div class="w-40 h-3 mb-4 bg-gray-200 dark:bg-dark-600 rounded-full loading"></div>
+        </div>
+    </div>
+    
+    <!-- User should be able to hide sidebar right -->
+    <doc-sidebar-right v-cloak></doc-sidebar-right>
+</div>
+
+        </div>
+    </div>
+
+    <doc-search-mobile></doc-search-mobile>
+    <doc-back-to-top></doc-back-to-top>
+</div>
+
+
+        <div id="docs-overlay-target"></div>
+
+        <script>window.__DOCS__ = { "title": "UniConfig 4.2.10", icon: "file", hasPrism: false, hasMermaid: false, hasMath: false }</script>
+    </body>
+</html>

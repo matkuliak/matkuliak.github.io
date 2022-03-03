@@ -26,12 +26,12 @@
     
     <script>(function () { var el = document.documentElement, m = localStorage.getItem("doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
 
-    <link href="/resources/css/retype.css?v=1.11.2.697130768959" rel="stylesheet" data-turbo-track="reload" />
+    <link href="/resources/css/retype.css?v=1.11.2.699652750170" rel="stylesheet" data-turbo-track="reload" />
 
-    <script type="text/javascript" src="/resources/js/config.js?v=1.11.2.697130768959" defer data-turbo-track="reload"></script>
+    <script type="text/javascript" src="/resources/js/config.js?v=1.11.2.699652750170" defer data-turbo-track="reload"></script>
     <script type="text/javascript" src="/resources/js/retype.js?v=1.11.2" defer data-turbo-track="reload"></script>
-    <script id="lunr-js" type="text/javascript" src="/resources/js/lunr.js?v=1.11.2.697130768959" defer></script>
-    <script id="prism-js" type="text/javascript" src="/resources/js/prism.js?v=1.11.2.697130768959" defer></script>
+    <script id="lunr-js" type="text/javascript" src="/resources/js/lunr.js?v=1.11.2.699652750170" defer></script>
+    <script id="prism-js" type="text/javascript" src="/resources/js/prism.js?v=1.11.2.699652750170" defer></script>
 </head>
     <body>
         <div id="docs-app" class="relative text-base antialiased text-gray-700 bg-white font-body dark:bg-dark-850 dark:text-dark-300">
@@ -384,7 +384,7 @@ checked-commit.</p>
             &quot;node-result&quot;: [
                 {
                     &quot;node-id&quot;: &quot;IOSXRN&quot;,
-                    &quot;error-type&quot;: &quot;processing-error&quot;,
+                    &quot;error-type&quot;: &quot;uniconfig-error&quot;,
                     &quot;rollback-status&quot;: &quot;complete&quot;,
                     &quot;error-message&quot;: &quot;Supplied value \&quot;GigabitEthernet0/0/0/1ghjfhjfhjfghj\&quot; does not match required pattern \&quot;^(([a-zA-Z0-9_]*\\d+/){3,4}\\d+)|(([a-zA-Z0-9_]*\\d+/){3,4}\\d+\\.\\d+)|(([a-zA-Z0-9_]*\\d+/){2}([a-zA-Z0-9_]*\\d+))|(([a-zA-Z0-9_]*\\d+/){2}([a-zA-Z0-9_]+))|([a-zA-Z0-9_-]*\\d+)|([a-zA-Z0-9_-]*\\d+\\.\\d+)|(mpls)|(dwdm)$\&quot;\n&quot;,
                     &quot;configuration-status&quot;: &quot;fail&quot;
@@ -431,14 +431,14 @@ checked-commit.</p>
             &quot;node-result&quot;: [
                 {
                     &quot;node-id&quot;: &quot;IOSXRN&quot;,
-                    &quot;error-type&quot;: &quot;processing-error&quot;,
+                    &quot;error-type&quot;: &quot;uniconfig-error&quot;,
                     &quot;error-message&quot;: &quot;Fingerprint from datastore: 2019-09-04T09:32:41 is different than fingerprint from device: 2019-09-04T09:49:01&quot;,
                     &quot;configuration-status&quot;: &quot;fail&quot;
                 },
                 {
                     &quot;node-id&quot;: &quot;IOSXR&quot;,
                     &quot;configuration-status&quot;: &quot;fail&quot;,
-                    &quot;error-type&quot;: &quot;processing-error&quot;
+                    &quot;error-type&quot;: &quot;uniconfig-error&quot;
                 }
             ]
         }
@@ -484,11 +484,11 @@ checked-commit.</p>
                 {
                     &quot;node-id&quot;: &quot;IOSXRN&quot;,
                     &quot;configuration-status&quot;: &quot;fail&quot;,
-                    &quot;error-type&quot;: &quot;processing-error&quot;
+                    &quot;error-type&quot;: &quot;uniconfig-error&quot;
                 },
                 {
                     &quot;node-id&quot;: &quot;IOSXR&quot;,
-                    &quot;error-type&quot;: &quot;processing-error&quot;,
+                    &quot;error-type&quot;: &quot;uniconfig-error&quot;,
                     &quot;error-message&quot;: &quot;Node is missing in uniconfig topology CONFIG datastore.&quot;,
                     &quot;configuration-status&quot;: &quot;fail&quot;
                 }
