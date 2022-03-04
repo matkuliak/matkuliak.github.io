@@ -6,6 +6,8 @@ icon: home
 
 These pages are supposed to serve as a showcase of my work. It should be the second thing you read after my CV or LinkedIn. It is an edited fork of [FRINX's github](https://github.com/FRINXio/frinxio.github.io) that I developed and maintain. Feel free to look around.
 
+:sparkles: [My CV](https://github.com/matkuliak/matkuliak.github.io/blob/main/Matej_Ma%C5%A5kuliak_Technical_Writer.pdf) :sparkles:
+
 So far I had an interesting experience as a technical writer. As time went it ranged from networking engineer to typical technical writer to content manager and reviewer. I was comfortable in this hybrid position. It however makes for a difficult explanation of what I do at times. Because of that, I try to summarize my responsibilities by frequency below:
 
 ## My Responsibilities
