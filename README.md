@@ -15,6 +15,7 @@ So far I had an interesting experience as a technical writer. As time went it ra
 ### Routine tasks (daily to weekly occurrence) 
 
 **Development of new documentation** - In the process, I test the product myself and communicate with both product and development teams. Thanks to that I have experience in working on open-source projects with multiple collaborators. Tracking everything in collaboration tools like Jira.
+
 For the documentation I like to use Retype. It allows to only focus more on the content and less on the html and css. It's a tool that automatically generates beautiful pages from markdown code. It can also be configured to build and deploy every new commit automatically.
 
 **Review** -  In my experience, developers also write documentation regularly. When this happens, everything goes through me. We've put together a very solid review process to make the workflow as straightforward as it can be.
