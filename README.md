@@ -14,25 +14,26 @@ So far I had an interesting experience as a technical writer. As time went it ra
 
 ### Routine tasks (daily to weekly occurrence) 
 
-**Development of new documentation** - In the process, I test the product myself and communicate with both product and development teams. Experience in working on open-source projects with multiple collaborators. Tracking everything in collaboration tools like Jira.
+**Development of new documentation** - In the process, I test the product myself and communicate with both product and development teams. Thanks to that I have experience in working on open-source projects with multiple collaborators. Tracking everything in collaboration tools like Jira.
+For the documentation I like to use Retype. It allows to only focus more on the content and less on the html and css. It's a tool that automatically generates beautiful pages from markdown code. It can also be configured to build and deploy every new commit automatically.
 
-**Review** -  In my current job, developers also write documentation regularly. When this happens, everything goes through me. We've put together a very solid review process to make the workflow as straightforward as it can be. When I took the position of Lead Writer we transitioned to Github pages together with a code-based documentation generation tool. I've also set up GitHub actions (automated jobs) that make for convenient automated deployment of new documentation.
+**Review** -  In my experience, developers also write documentation regularly. When this happens, everything goes through me. We've put together a very solid review process to make the workflow as straightforward as it can be.
 
-**API development** - A number of our products are operated using API. I regularly prepare API collections for internal training, documentation or even specifically for customers.
+**API development** - I regularly prepare and document API collections for internal training, new products or even for specific customer use-cases.
 
 **UX input** - Due to my hybrid role I sometimes have a different perspective than a traditional developer which can lead to a UI adjustment or to the introduction of a new feature.
 
-**Analytics** - Keeping an eye on our numbers in Google Analytics, reception of new guides and updates etc. Also included in our Ads focus and spending. Not a point guy on this but I was frequently included for input. 
+**Analytics** - Keeping an eye on our numbers in Google Analytics, reception of new guides and updates etc. Also included in our Ads focus and spending - Not a main guy on this but I was frequently included for input. 
 
 ### Less frequent tasks (every couple of weeks to a couple of months) 
 
 **Development of long-term content strategies.** We have multiple software products and content-related priorities need to shift in accordance with the priorities of product and development teams. Customer feedback is also a high priority for me, so that too influences what I focus on.
 
-**Releases** - I work on release notes with the cooperation of product and developer teams. E.g., https://docs.frinx.io/frinx-uniconfig/release-notes/uniconfig-4.2.10/
+**Releases** - We used to write release notes manually together with product and developer teams. I automated that process. Standardization of commit messages together with a script allowed us to pull release notes directly from Github commit history. E.g., https://docs.frinx.io/frinx-uniconfig/release-notes/uniconfig-5.0.7/
 
-**Website management** - We have a ReactJS website that I manage. We don't update it unnecessarily often as it's not our main space for communication, but new content is added by me. https://frinx.io/
+**Website management** - I managed a ReactJS website. Changes weren't needed often as it wasn't main space for communication, but new content was added by me. https://frinx.io/
 
-**Networking devices environment setup**- Our products deal with networking devices. I've worked with multiple vendors (Cisco, Juniper, Ciena, Huawei etc.). Thanks to my networking background I was often assigned to the beginning stages of projects. Get a sense of the scope of the project and the work that will be needed to be done.
+**Networking devices environment setup**- Products dealt with networking devices. I've worked with multiple vendors (Cisco, Juniper, Ciena, Huawei etc.). Thanks to my networking background I was often assigned to the beginning stages of projects. Get a sense of the scope of the project and the work that will be needed to be done.
 
 **Design** -Experience in Photoshop, Illustrator, InDesign for promotional documents.
 
