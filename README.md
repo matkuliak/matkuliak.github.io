@@ -4,7 +4,7 @@ icon: home
 
 # Welcome to my docs!
 
-These pages are supposed to serve as a showcase of my work. It should be the second thing you read after my CV or LinkedIn. It is an edited fork of [FRINX's github](https://github.com/FRINXio/frinxio.github.io) that I developed and maintain. Feel free to look around.
+These pages are supposed to serve as a showcase of my work. It should be the second thing you read after my CV or LinkedIn. It is an edited fork of [FRINX's github](https://github.com/FRINXio/frinxio.github.io) that I developed and maintained. Feel free to look around.
 
 :sparkles: [!badge text="My CV" target="blank"](https://github.com/matkuliak/matkuliak.github.io/blob/main/Matej_Ma%C5%A5kuliak_Technical_Writer.pdf) :sparkles:
 
@@ -40,4 +40,4 @@ For the documentation I like to use Retype. It allows to focus more on the conte
 
 **DevOps** - Work with VMs, preparation of the environment, allocation of resources. Also some Docker experience with debugging.
 
-**CI/CD infrastructure** - I have experience with infrastructure work. We use mainly Jenkins jobs for automated builds/tests and Artifactory for binaries storage.
+**CI/CD infrastructure** - I have experience with infrastructure work. Mainly Jenkins jobs for automated builds/tests and Artifactory for binaries storage.
