@@ -27,3 +27,5 @@ footer:
   copyright: © Copyright {{ year }}.
 
 integrations:
+  googleAnalytics:
+    id: G-6THB9KNTFM
