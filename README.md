@@ -5,18 +5,18 @@ icon: home
 # Welcome to my docs!
 
 These pages serve as a catalog of my work. 
-It should be the second thing you look at after my CV or [LinkedIn](https://www.linkedin.com/in/matej-matkuliak/). 
+It should be the second thing you look at after my CV or [LinkedIn](https://www.linkedin.com/in/matej-matkuliak/){target="_blank"}. 
 
 :sparkles: [!badge text="My CV" target="blank"](https://github.com/matkuliak/matkuliak.github.io/blob/main/Matej_Ma%C5%A5kuliak_Technical_Writer.pdf) :sparkles:
 
 ### A few examples of content I have worked on:
 
-- **Example tutorial** - Importing data from InfluxDB: https://cratedb.com/docs/guide/integrate/etl/influxdb.html
-- **Example guide** - Data pipeline with Kafka and CrateDB: https://cratedb.com/docs/guide/integrate/etl/kafka-connect.html
-- **Example community post** - Data analysis with Cluvio: https://community.cratedb.com/t/data-analysis-with-cluvio-and-cratedb/1571
-- **Example blog post** - Analysis of ingestion improvements with vertical/horizontal scaling: https://cratedb.com/blog/ingesting-with-cratedb
-- **DocsOps** - Implemented the documentation solution and workflows for [Frinx](https://docs.frinx.io/)
-  - Automated [release notes](https://docs.frinx.io/frinx-uniconfig/release-notes/), pulling info directly from dev [commits](https://docs.frinx.io/frinx-uniconfig/release-notes/uniconfig-6.1.2/). 
+- **Example tutorial** - [Importing data from InfluxDB](https://cratedb.com/docs/guide/integrate/etl/influxdb.html){target="_blank"}
+- **Example guide** - [Data pipeline with Kafka and CrateDB](https://cratedb.com/docs/guide/integrate/etl/kafka-connect.html){target="_blank"}
+- **Example community post** - [Data analysis with Cluvio](https://community.cratedb.com/t/data-analysis-with-cluvio-and-cratedb/1571){target="_blank"}
+- **Example blog post** - [Analysis of ingestion improvements with vertical/horizontal scaling](https://cratedb.com/blog/ingesting-with-cratedb){target="_blank"}
+- **DocsOps** - Implemented the documentation solution and workflows for [Frinx](https://docs.frinx.io/){target="_blank"}
+  - Automated [release notes](https://docs.frinx.io/frinx-uniconfig/release-notes/){target="_blank"}, pulling info directly from dev [commits](https://docs.frinx.io/frinx-uniconfig/release-notes/uniconfig-6.1.2/){target="_blank"}. 
 
 So far I've had a really diverse experience as a technical writer. As time went it
 ranged from networking engineer to typical technical writer to content
@@ -30,7 +30,7 @@ try to summarize my responsibilities by frequency below:
 
 **Development of new documentation**—In the process, I test the product myself and communicate with both the product and development teams. Thanks to that, I have experience working on open-source projects with multiple collaborators, tracking everything in collaboration tools like Jira, GitHub Projects, etc.
 
-I'm a big proponent of the docs-as-code approach. Most of my experience is in [Sphinx](https://www.sphinx-doc.org/en/master/). However, it is slightly dated, depending on the use case, so when starting a fresh docs project, I like to use [Retype](https://retype.com/).
+I'm a big proponent of the docs-as-code approach. Most of my experience is in [Sphinx](https://www.sphinx-doc.org/en/master/){target="_blank"}. However, it is slightly dated, depending on the use case, so when starting a fresh docs project, I like to use [Retype](https://retype.com/){target="_blank"}.
 
 **Review** -  In my experience, developers also write documentation regularly. When this happens, I'm happy to help out.
 
