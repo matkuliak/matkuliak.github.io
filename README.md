@@ -16,8 +16,9 @@ It should be the second thing you look at after my CV or [LinkedIn](https://www.
 - **Example community post** - [Data analysis with Cluvio](https://community.cratedb.com/t/data-analysis-with-cluvio-and-cratedb/1571){target="_blank"}
 - **Example blog post** - [Analysis of ingestion improvements with vertical/horizontal scaling](https://cratedb.com/blog/ingesting-with-cratedb){target="_blank"}
 - **DocOps** - Implemented the documentation solution and workflows for [Frinx](https://docs.frinx.io/){target="_blank"}.
-    
   - Notable task was automating [release notes](https://docs.frinx.io/frinx-uniconfig/release-notes/){target="_blank"} production, pulling info directly from dev [commits](https://docs.frinx.io/frinx-uniconfig/release-notes/uniconfig-6.1.2/){target="_blank"}. 
+- **API docs** - [Network automation tool introduction](https://docs.frinx.io/frinx-uniconfig/user-guide/network-management-protocols/uniconfig_cli/#introduction){target="_blank"}.
+
 
 So far I've had a really diverse experience as a technical writer. As time went it
 ranged from networking engineer to typical technical writer to content
